@@ -1,0 +1,257 @@
+!-------------------------------------------------------------------------
+!     NASA GSFC Land Information Systems LIS 2.3                         !
+!-------------------------------------------------------------------------
+!BOP
+!
+! !ROUTINE: noahrst.F90
+!
+! !DESCRIPTION:
+!  This program reads restart files for Noah.  This
+!   includes all relevant water/energy storages, tile information,
+!   and time information.  It also rectifies changes in the tile space.  
+!
+! !REVISION HISTORY:
+!  1  Oct 1999: Jared Entin; Initial code
+!  15 Oct 1999: Paul Houser; Significant F90 Revision
+!  05 Sep 2001: Brian Cosgrove; Modified code to use Dag Lohmann's NOAA
+!               initial conditions if necessary.  This is controlled with
+!               local variable NOAAIC.  Normally set to 0 in this subroutine
+!               but set to 1 if want to use Dag's NOAA IC's.  Changed output
+!               directory structure, and commented out if-then check so that
+!               directory is always made.
+!  28 Apr 2002: Kristi Arsenault; Added NOAH LSM into LDAS
+!  28 May 2002: Kristi Arsenault; For STARTCODE=4, corrected SNEQV values  
+!                and put SMC, SH2O, STC limit for GDAS and GEOS forcing.
+!
+! RESTART FILE FORMAT(fortran sequential binary):
+!  YR,MO,DA,HR,MN,SS,VCLASS,NCH !Restart time,Veg class,no.tiles, no.soil lay 
+!  TILE(NCH)%COL        !Grid Col of Tile   
+!  TILE(NCH)%ROW        !Grid Row of Tile
+!  TILE(NCH)%FGRD       !Fraction of Grid covered by tile
+!  TILE(NCH)%VEGT       !Vegetation Type of Tile
+!  NOAH(NCH)%STATES     !Model States in Tile Space
+! 
+! !INTERFACE:
+#include <misc.h>
+subroutine noahrst
+! !USES:
+  use lisdrv_module, only : lis, grid, tile
+!  use time_module
+  USE noah_varder      ! NOAH tile variables
+  use time_manager
+  use tile_spmdMod
+!EOP
+  IMPLICIT NONE      
+  
+  INTEGER :: RW              ! 1=read restart, 2=write restart
+  INTEGER :: C,R,T,I,J,L,N,F ! Loop counters
+  INTEGER :: FOUND           ! Counting variable
+  
+  INTEGER :: YR,MO,DA,HR,MN,SS  !Time variables
+  INTEGER :: VCLASS,NC,NR,NCH
+  
+  REAL :: RHOICE=917.0              ! Density of ice
+  REAL :: WT1,WT2                   ! Weights for soil wetness initialization
+  REAL :: zsoil(4)
+
+  CHARACTER*80 FILEN,MKFYRMO
+  CHARACTER*1  FNAME(80),FBASE(80),FSUBS(80),FMKDIR(80)
+  CHARACTER*1  FTIME(10),FYRMODIR(80)
+  INTEGER K
+  INTEGER NOAAIC   ! 0=Use IC's from card file, 1=Use NOAA IC's from 
+
+  integer :: curSec
+  integer :: isnowxy
+  real, allocatable :: tmptile(:)
+
+! Youlong Xia added 
+  real, allocatable:: zsnso(:)
+  real, allocatable:: tsno(:)
+  real, allocatable:: snice(:)
+  real, allocatable:: snliq(:)
+! end add
+
+  PARAMETER (NOAAIC=0)
+
+!=== End Variable Definition =============================================
+!BOC
+!-------------------------------------------------------------------------
+! Read Active Archive File
+!-------------------------------------------------------------------------
+  if(masterproc) then 
+     IF(LIS%O%STARTCODE.EQ.1)THEN
+        allocate(tmptile(lis%d%nch))
+        OPEN(40,FILE=noahdrv%NOAH_RFILE,FORM='unformatted')
+        
+        call timemgr_read_restart(40)
+!3.1
+!        call timemgr_restart()
+!        call get_curr_date(lis%t%yr,lis%t%mo,lis%t%da,curSec)
+!        call sec2time(curSec,lis%t%hr,lis%t%mn,lis%t%ss)
+!        call updatetime(lis%t) !Updates LIS variables.
+        WRITE(*,*)'NOAH Restart File Used: ',noahdrv%NOAH_RFILE
+        READ(40) VCLASS,NC,NR,NCH  !Time, veg class, no. tiles
+ write(*,*) VCLASS,NC,NR,NCH
+!------------------------------------------------------------------------
+!   Check for Vegetation Class Conflict 
+!------------------------------------------------------------------------
+        IF(VCLASS.NE.LIS%P%VCLASS)THEN
+           WRITE(*,*)noahdrv%NOAH_RFILE,LIS%P%VCLASS,VCLASS,' Vegetation class conflict'
+           call endrun
+        ENDIF
+!------------------------------------------------------------------------
+!   Check for Grid Space Conflict 
+!------------------------------------------------------------------------
+        IF(NC.NE.LIS%D%LNC.OR.NR.NE.LIS%D%LNR)THEN
+           WRITE(*,*)noahdrv%NOAH_RFILE,'Grid space mismatch - NOAH HALTED'
+           call endrun
+        ENDIF
+!------------------------------------------------------------------------
+! Transfer Restart tile space to LIS tile space
+!------------------------------------------------------------------------
+        IF(NCH.NE.LIS%D%NCH)THEN           
+           WRITE(*,*)'Restart Tile Space Mismatch, Halting..'
+           call endrun
+        endif
+        write(*,*) 'start read skin temperature'
+        READ(40) noah%tskin         !NOAH Skin Temperature (K)
+        write(*,*) 'start read Canopy Water' 
+        READ(40) noah%canopy        !NOAH Canopy Water Content (m)
+        write(*,*) 'start read snow' 
+        READ(40) noah%snwdph      !NOAH Actual Snow Depth (m)
+        write(*,*) 'start read SWE'   
+        READ(40) noah%weasd      !NOAH Water Equivalent Snow Depth (m) 
+
+        DO L=1,4
+           READ(40) TMPTILE !NOAH Soil Layer Temp (4 layers)
+           noah%stc(L)=TMPTILE
+        ENDDO
+        DO L=1,4
+           READ(40) TMPTILE !NOAH Total soil moist. (4 layers)
+           noah%smc(L)=TMPTILE
+        ENDDO
+
+        DO L=1,4
+           READ(40) TMPTILE !NOAH Liquid-only soil moist. (4 layers)
+           noah%slc(L)=TMPTILE
+        ENDDO
+ 
+        READ(40) noah%chxy         !NOAH Sfc Exchange Coef. for Heat/Moisture
+        READ(40) noah%cmxy         !NOAH Sfc Exchange Coef. for Momentum
+
+        close(40)
+        deallocate(tmptile)    
+
+        noah%zorl = 0.02
+        noah%tsurf = noah%tskin
+        noah%trans = 200.0
+
+!      keep a consistency, set snow depth and SWE as 0        
+!        noah%snwdph = 0.0
+!        noah%weasd  = 0.0
+
+! NOAHMP intials
+        noah%tprcp      = 0.0
+        noah%srflag     = 0.0
+        noah%alboldxy   = 0.65
+        noah%sneqvoxy   = 0.0
+        noah%tahxy      = noah%tskin
+        noah%eahxy      = 2000.
+        noah%fwetxy     = 0.0
+        noah%canicexy   = 0.0
+        noah%canliqxy   = 0.0
+        noah%tvxy       = noah%tskin
+        noah%tgxy       = noah%tskin
+        noah%qsnowxy    = 0.0
+        noah%snowxy     = 0.0
+        noah%zwtxy      = 2.5
+        noah%waxy       = 4900.0
+        noah%wtxy       = 4900.0
+        noah%wslakexy   = 0.0
+        noah%lfmassxy   = 50.0
+        noah%rtmassxy   = 500.0
+        noah%stmassxy   = 50.0
+        noah%woodxy     = 500.0
+        noah%stblcpxy   = 1000.0
+        noah%fastcpxy   = 1000.0
+        noah%xlaixy     = 0.1
+        noah%xsaixy     = 0.0
+        noah%taussxy    = 0.0
+        noah%smcwtdxy   = 0.0
+        noah%deeprechxy = 0.0
+        noah%rechxy     = 0.0    
+!  ----------- snow/soil temperature [k] -----------------------------
+        DO L=1,3
+           noah%tsnoxy(L)= 273.16
+        ENDDO
+! ------------layer-bottom depth from snow surf to 2m soil [m] ---------
+         DO L=1,3
+           noah%zsnsoxy(L)= 0.0
+        ENDDO
+
+        noah%zsnsoxy(4)= -0.1
+        noah%zsnsoxy(5)= -0.4
+        noah%zsnsoxy(6)= -1.0
+        noah%zsnsoxy(7)= -2.0
+
+! ---------------snow layer ice [mm] ----------------------------------
+        DO L=1,3
+           noah%snicexy(L)=0.0
+        ENDDO
+! --------------snow layer liquid water [mm] ----------------------------
+         DO L=1,3
+           noah%snliqxy(L)=0.0
+        ENDDO
+! --------------equilibrium soil water  content [m3/m3]------------------
+        DO L=1,4
+           noah%smoiseq(L)=0.233
+        ENDDO
+!  --------------- call snowpack inilialization -------------------------
+        allocate(zsnso(-2:4))
+        allocate(tsno(-2:0))
+        allocate(snice(-2:0))
+        allocate(snliq(-2:0))
+       
+       do t=1,lis%d%nch
+
+       zsoil(1) = -0.1
+       zsoil(2) = -0.4
+       zsoil(3) = -1.0
+       zsoil(4) = -2.0
+
+       call snow_init ( 1, 1, 1, 1 , 1 , 1 , 1 , 1 , 3 , &
+            4, zsoil, noah(t)%weasd, noah(t)%tgxy, noah(t)%snwdph, zsnso, &
+            tsno, snice, snliq, isnowxy )
+
+       noah(t)%snowxy = isnowxy
+       noah(t)%zsnsoxy(1:7) = zsnso(-2:4)       
+       noah(t)%tsnoxy(1:3)  = tsno(-2:0)
+       noah(t)%snicexy(1:3) = snice(-2:0) 
+       noah(t)%snliqxy(1:3) = snliq(-2:0)
+      enddo ! t loop
+
+      deallocate(zsnso)
+      deallocate(tsno)
+      deallocate(snice)
+      deallocate(snliq)
+
+     endif
+  endif
+
+#if ( defined SPMD )
+  if ( ( lis%o%startcode == 1 ) .and. ( npes >  1 ) ) then
+     call noah_scatter()
+  endif
+#endif
+
+! print*, noah(180666)%T1
+! print*, noah(180666)%CMC
+! print*, noah(180666)%SNOWH
+! print*, noah(180666)%SNEQV
+! print*, noah(180666)%STC
+! print*, noah(180666)%SMC
+! print*, noah(180666)%SH2O
+
+ if(masterproc)   print*,'DBG: done noahrst',' (',iam,')'
+!EOC
+end subroutine noahrst

@@ -1,0 +1,43 @@
+
+cronjob gldas 20190524 t00z cycle
+
+-rw-rw-r-- 1 nwprod prod 213753001 May 24 00:49 /u/Jesse.Meng/com/gfs/prod/gdas.20190523/gdas.t18z.sfluxgrbf06.grib2
+
+-rw-rw-r-- 1 nwprod prod 868228348 May 24 03:20 /u/Jesse.Meng/com/gfs/prod/gfs.20190524/gfs.t00z.sfcanl.nemsio
+
+-rw-rw-r-- 1 nwprod prod 868228348 May 24 06:21 /u/Jesse.Meng/com/gfs/prod/gdas.20190524/gdas.t00z.sfcanl.nemsio
+
+-rw-rw-r-- 1 dbnet prod 8294400 May 23 17:26 /dcom/us007003/20190522/wgrbbul/cpc_rcdas/PRCP_CU_GAUGE_V1.0GLB_0.25deg.lnx.20190522.R
+
+ls -l /dcom/us007003/20190523/wgrbbul/cpc_rcdas/PRCP_CU_GAUGE_V1.0GLB_0.25deg.lnx.20190523.RT
+
+May 23 17:26 cpc.precip.20190522
+May 24 00:49 gdas.20190523/gdas.t18z.sfluxgrbf06.grib2
+May 24 06:21 gdas.20190524/gdas.t00z.sfcanl.nemsio
+May 24 17:26 cpc.precip.20190523
+
+operationaly run gldas.20190524.t00z after gdas.20190523/gdas.t18z.sfluxgrbf06.grib2 generated 
+
+get forcing 20190521 20190522 20190523
+get cpc precip       20190522 
+run gldas            20190522 20190523 20190524
+     run  2019052200 to 2019052300 with cpc precip 
+     then               2019052300 to 2019052400 with gdas
+
+gfs.20190524/gfs.t00z.sfcanl.nemsio   available at 20190524 03:30 for merging 
+gdas.20190524/gdas.t00z.sfcanl.nemsio available at 20190524 06:21 for merging
+need to confirm the sfcanl restart file for the gfs.t00z cycle
+
+for now cronjob starts 20190524 06:33
+run gldas          2019052200          2019052400
+forcing   20190521 20190522   20190523
+noahrst            2019052200
+lis.run.sh         20190522   20190524
+
+output
+
+/land/noscrub/$USER/gldas.T1534.igbp.2019/output
+./gldas.20190522/   gldas 2 days diagnostics files
+./gldas.20190523/noah.rst.20190515
+./gldas.20190524/gdas.t00z.sfcanl.nemsio.gldas.2019052400
+

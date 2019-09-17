@@ -1,0 +1,2446 @@
++ COPYGB=/gpfs/dell1/nco/ops/nwprod/grib_util.v1.0.6/exec/copygb
++ export COPYGB
++ FINDDATE=finddate.sh
++ export FINDDATE
++ [ 2 -lt 1 ]
++ BDATE=20190601
++ sh finddate.sh 20190601 d-1
++ yyyymmdd0=20190531
++ yyyymmdd1=20190601
++ sh finddate.sh 20190601 d+1
++ yyyymmdd2=20190602
++ [ 2 -gt 1 ]
++ yyyymmdd2=20190603
++ echo 20190601
++ cut -c1-4
++ yyyy=2019
++ echo 'GLDAS runs from 20190601 00Z to 20190603 00Z'
+GLDAS runs from 20190601 00Z to 20190603 00Z
++ LISDIR=/gpfs/dell2/emc/retros/noscrub/Youlong.Xia/gldas.v2.3.0
++ export LISDIR
++ COMDIR=/gpfs/dell2/emc/retros/noscrub/Youlong.Xia/gldas.T1534.igbp.2019/output
++ export COMDIR
++ RUNDIR=/gpfs/dell2/ptmp/Youlong.Xia/gldas.20190601
++ export RUNDIR
++ GDAS=/gpfs/dell2/ptmp/Youlong.Xia/force
++ export GDAS
++ rm -fr /gpfs/dell2/ptmp/Youlong.Xia/gldas.20190601
++ mkdir -p /gpfs/dell2/ptmp/Youlong.Xia/gldas.20190601
++ cd /gpfs/dell2/ptmp/Youlong.Xia/gldas.20190601
++ mkdir -p input
++ ln -s /gpfs/dell2/ptmp/Youlong.Xia/force /gpfs/dell2/ptmp/Youlong.Xia/gldas.20190601/input/GDAS
++ ln -s /gpfs/dell2/emc/retros/noscrub/Youlong.Xia/gldas.v2.3.0/fix/FIX_T1534 /gpfs/dell2/ptmp/Youlong.Xia/gldas.20190601/FIX
++ ln -s /gpfs/dell2/emc/retros/noscrub/Youlong.Xia/gldas.v2.3.0/exec/gfs_gdas_gldas_LIS /gpfs/dell2/ptmp/Youlong.Xia/gldas.20190601/LIS
++ yyyymmdd=20190531
++ [ 20190531 -lt 20190603 ]
++ /gpfs/dell2/emc/retros/noscrub/Youlong.Xia/gldas.v2.3.0/scripts/lis.forcing.gdas.prod.sh 20190531
+/gpfs/dell2/emc/retros/noscrub/Youlong.Xia/gldas.v2.3.0/scripts/lis.forcing.gdas.prod.sh 20190531 20190531
+/gpfs/dell2/ptmp/Youlong.Xia/gdas.20190531
+/gpfs/dell2/ptmp/Youlong.Xia/force/gdas.20190531
+/gpfs/hps/nco/ops/com/gfs/prod/gdas.20190531/gdas.t00z.sfluxgrbf00.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/gdas.20190531/gdas.t00z.sfluxgrbf00.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/force/gdas.20190531/gdas1.t00z.sfluxgrbf00
+86:156939370:d=2019053100:DSWRF:surface:0-0 day ave fcst:
+89:159389139:d=2019053100:DLWRF:surface:0-0 day ave fcst:
+43:76037635:d=2019053100:PRATE:surface:0-0 day ave fcst:
+112:193730706:d=2019053100:ALBDO:surface:0-0 day ave fcst:
+46:79594244:d=2019053100:LHTFL:surface:0-0 day ave fcst:
+47:82201896:d=2019053100:SHTFL:surface:0-0 day ave fcst:
+/gpfs/hps/nco/ops/com/gfs/prod/gdas.20190531/gdas.t00z.sfluxgrbf01.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/gdas.20190531/gdas.t00z.sfluxgrbf01.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/force/gdas.20190531/gdas1.t00z.sfluxgrbf01
+2:1644515:d=2019053100:TMP:1 hybrid level:1 hour fcst:
+3:4386896:d=2019053100:SPFH:1 hybrid level:1 hour fcst:
+88:167948571:d=2019053100:DSWRF:surface:0-1 hour ave fcst:
+96:179075988:d=2019053100:DSWRF:surface:1 hour fcst:
+91:170398340:d=2019053100:DLWRF:surface:0-1 hour ave fcst:
+97:179886708:d=2019053100:DLWRF:surface:1 hour fcst:
+4:8316562:d=2019053100:UGRD:1 hybrid level:1 hour fcst:
+39:70389334:d=2019053100:UGRD:10 m above ground:1 hour fcst:
+5:11356780:d=2019053100:VGRD:1 hybrid level:1 hour fcst:
+40:73268534:d=2019053100:VGRD:10 m above ground:1 hour fcst:
+6:14073351:d=2019053100:PRES:surface:1 hour fcst:
+43:78926633:d=2019053100:PRATE:surface:0-1 hour ave fcst:
+59:112451902:d=2019053100:VEG:surface:1 hour fcst:
+114:204831787:d=2019053100:ALBDO:surface:0-1 hour ave fcst:
+1:0:d=2019053100:HGT:1 hybrid level:1 hour fcst:
+52:97092713:d=2019053100:SFCR:surface:1 hour fcst:
+58:109801221:d=2019053100:SFEXC:surface:1 hour fcst:
+8:19639503:d=2019053100:TMP:surface:1 hour fcst:
+23:42960969:d=2019053100:WEASD:surface:1 hour fcst:
+25:44253791:d=2019053100:SNOD:surface:1 hour fcst:
+10:23437337:d=2019053100:SOILW:0-0.1 m below ground:1 hour fcst:
+13:28025300:d=2019053100:SOILW:0.1-0.4 m below ground:1 hour fcst:
+16:33063007:d=2019053100:SOILW:0.4-1 m below ground:1 hour fcst:
+19:38035796:d=2019053100:SOILW:1-2 m below ground:1 hour fcst:
+46:83312332:d=2019053100:LHTFL:surface:0-1 hour ave fcst:
+47:85917116:d=2019053100:SHTFL:surface:0-1 hour ave fcst:
+/gpfs/hps/nco/ops/com/gfs/prod/gdas.20190531/gdas.t00z.sfluxgrbf02.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/gdas.20190531/gdas.t00z.sfluxgrbf02.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/force/gdas.20190531/gdas1.t00z.sfluxgrbf02
+2:1643755:d=2019053100:TMP:1 hybrid level:2 hour fcst:
+3:4390662:d=2019053100:SPFH:1 hybrid level:2 hour fcst:
+88:170496360:d=2019053100:DSWRF:surface:0-2 hour ave fcst:
+96:181513080:d=2019053100:DSWRF:surface:2 hour fcst:
+91:172938322:d=2019053100:DLWRF:surface:0-2 hour ave fcst:
+97:182336458:d=2019053100:DLWRF:surface:2 hour fcst:
+4:8373353:d=2019053100:UGRD:1 hybrid level:2 hour fcst:
+39:70333579:d=2019053100:UGRD:10 m above ground:2 hour fcst:
+5:11223957:d=2019053100:VGRD:1 hybrid level:2 hour fcst:
+40:73217223:d=2019053100:VGRD:10 m above ground:2 hour fcst:
+6:13943853:d=2019053100:PRES:surface:2 hour fcst:
+43:78853247:d=2019053100:PRATE:surface:0-2 hour ave fcst:
+59:112422649:d=2019053100:VEG:surface:2 hour fcst:
+114:207243606:d=2019053100:ALBDO:surface:0-2 hour ave fcst:
+1:0:d=2019053100:HGT:1 hybrid level:2 hour fcst:
+52:97031902:d=2019053100:SFCR:surface:2 hour fcst:
+58:109770407:d=2019053100:SFEXC:surface:2 hour fcst:
+8:19512073:d=2019053100:TMP:surface:2 hour fcst:
+23:42829718:d=2019053100:WEASD:surface:2 hour fcst:
+25:44121255:d=2019053100:SNOD:surface:2 hour fcst:
+10:23305051:d=2019053100:SOILW:0-0.1 m below ground:2 hour fcst:
+13:27893145:d=2019053100:SOILW:0.1-0.4 m below ground:2 hour fcst:
+16:32931091:d=2019053100:SOILW:0.4-1 m below ground:2 hour fcst:
+19:37904224:d=2019053100:SOILW:1-2 m below ground:2 hour fcst:
+46:83295117:d=2019053100:LHTFL:surface:0-2 hour ave fcst:
+47:85897589:d=2019053100:SHTFL:surface:0-2 hour ave fcst:
+/gpfs/hps/nco/ops/com/gfs/prod/gdas.20190531/gdas.t00z.sfluxgrbf03.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/gdas.20190531/gdas.t00z.sfluxgrbf03.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/force/gdas.20190531/gdas1.t00z.sfluxgrbf03
+2:1642533:d=2019053100:TMP:1 hybrid level:3 hour fcst:
+3:4315421:d=2019053100:SPFH:1 hybrid level:3 hour fcst:
+88:168877339:d=2019053100:DSWRF:surface:0-3 hour ave fcst:
+96:179945924:d=2019053100:DSWRF:surface:3 hour fcst:
+91:171377866:d=2019053100:DLWRF:surface:0-3 hour ave fcst:
+97:180786203:d=2019053100:DLWRF:surface:3 hour fcst:
+4:8125282:d=2019053100:UGRD:1 hybrid level:3 hour fcst:
+39:68562562:d=2019053100:UGRD:10 m above ground:3 hour fcst:
+5:10867171:d=2019053100:VGRD:1 hybrid level:3 hour fcst:
+40:71453370:d=2019053100:VGRD:10 m above ground:3 hour fcst:
+6:13486129:d=2019053100:PRES:surface:3 hour fcst:
+43:77088435:d=2019053100:PRATE:surface:0-3 hour ave fcst:
+59:109944474:d=2019053100:VEG:surface:3 hour fcst:
+114:205974392:d=2019053100:ALBDO:surface:0-3 hour ave fcst:
+1:0:d=2019053100:HGT:1 hybrid level:3 hour fcst:
+52:94458455:d=2019053100:SFCR:surface:3 hour fcst:
+58:107287337:d=2019053100:SFEXC:surface:3 hour fcst:
+8:19021667:d=2019053100:TMP:surface:3 hour fcst:
+23:42347384:d=2019053100:WEASD:surface:3 hour fcst:
+25:43638282:d=2019053100:SNOD:surface:3 hour fcst:
+10:22822619:d=2019053100:SOILW:0-0.1 m below ground:3 hour fcst:
+13:27410428:d=2019053100:SOILW:0.1-0.4 m below ground:3 hour fcst:
+16:32448473:d=2019053100:SOILW:0.4-1 m below ground:3 hour fcst:
+19:37421808:d=2019053100:SOILW:1-2 m below ground:3 hour fcst:
+46:80746811:d=2019053100:LHTFL:surface:0-3 hour ave fcst:
+47:83349218:d=2019053100:SHTFL:surface:0-3 hour ave fcst:
+/gpfs/hps/nco/ops/com/gfs/prod/gdas.20190531/gdas.t00z.sfluxgrbf04.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/gdas.20190531/gdas.t00z.sfluxgrbf04.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/force/gdas.20190531/gdas1.t00z.sfluxgrbf04
+2:1642919:d=2019053100:TMP:1 hybrid level:4 hour fcst:
+3:3311809:d=2019053100:SPFH:1 hybrid level:4 hour fcst:
+88:169324547:d=2019053100:DSWRF:surface:0-4 hour ave fcst:
+96:181195767:d=2019053100:DSWRF:surface:4 hour fcst:
+91:172609942:d=2019053100:DLWRF:surface:0-4 hour ave fcst:
+97:182027012:d=2019053100:DLWRF:surface:4 hour fcst:
+4:7251114:d=2019053100:UGRD:1 hybrid level:4 hour fcst:
+39:67809836:d=2019053100:UGRD:10 m above ground:4 hour fcst:
+5:10046753:d=2019053100:VGRD:1 hybrid level:4 hour fcst:
+40:70644248:d=2019053100:VGRD:10 m above ground:4 hour fcst:
+6:12711269:d=2019053100:PRES:surface:4 hour fcst:
+43:76177299:d=2019053100:PRATE:surface:0-4 hour ave fcst:
+59:109084925:d=2019053100:VEG:surface:4 hour fcst:
+114:208112296:d=2019053100:ALBDO:surface:0-4 hour ave fcst:
+1:0:d=2019053100:HGT:1 hybrid level:4 hour fcst:
+52:93614366:d=2019053100:SFCR:surface:4 hour fcst:
+58:106438927:d=2019053100:SFEXC:surface:4 hour fcst:
+8:18263362:d=2019053100:TMP:surface:4 hour fcst:
+23:41611724:d=2019053100:WEASD:surface:4 hour fcst:
+25:42893973:d=2019053100:SNOD:surface:4 hour fcst:
+10:22086331:d=2019053100:SOILW:0-0.1 m below ground:4 hour fcst:
+13:26673683:d=2019053100:SOILW:0.1-0.4 m below ground:4 hour fcst:
+16:31712614:d=2019053100:SOILW:0.4-1 m below ground:4 hour fcst:
+19:36686417:d=2019053100:SOILW:1-2 m below ground:4 hour fcst:
+46:79922253:d=2019053100:LHTFL:surface:0-4 hour ave fcst:
+47:82526488:d=2019053100:SHTFL:surface:0-4 hour ave fcst:
+/gpfs/hps/nco/ops/com/gfs/prod/gdas.20190531/gdas.t00z.sfluxgrbf05.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/gdas.20190531/gdas.t00z.sfluxgrbf05.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/force/gdas.20190531/gdas1.t00z.sfluxgrbf05
+2:1643765:d=2019053100:TMP:1 hybrid level:5 hour fcst:
+3:3316436:d=2019053100:SPFH:1 hybrid level:5 hour fcst:
+88:170614462:d=2019053100:DSWRF:surface:0-5 hour ave fcst:
+96:182616886:d=2019053100:DSWRF:surface:5 hour fcst:
+91:173980902:d=2019053100:DLWRF:surface:0-5 hour ave fcst:
+97:183445017:d=2019053100:DLWRF:surface:5 hour fcst:
+4:7466575:d=2019053100:UGRD:1 hybrid level:5 hour fcst:
+39:68154885:d=2019053100:UGRD:10 m above ground:5 hour fcst:
+5:10278772:d=2019053100:VGRD:1 hybrid level:5 hour fcst:
+40:71006749:d=2019053100:VGRD:10 m above ground:5 hour fcst:
+6:12959498:d=2019053100:PRES:surface:5 hour fcst:
+43:76598759:d=2019053100:PRATE:surface:0-5 hour ave fcst:
+59:109630110:d=2019053100:VEG:surface:5 hour fcst:
+114:209592745:d=2019053100:ALBDO:surface:0-5 hour ave fcst:
+1:0:d=2019053100:HGT:1 hybrid level:5 hour fcst:
+52:94099361:d=2019053100:SFCR:surface:5 hour fcst:
+58:106973514:d=2019053100:SFEXC:surface:5 hour fcst:
+8:18514092:d=2019053100:TMP:surface:5 hour fcst:
+23:41856541:d=2019053100:WEASD:surface:5 hour fcst:
+25:43145985:d=2019053100:SNOD:surface:5 hour fcst:
+10:22331606:d=2019053100:SOILW:0-0.1 m below ground:5 hour fcst:
+13:26918774:d=2019053100:SOILW:0.1-0.4 m below ground:5 hour fcst:
+16:31957482:d=2019053100:SOILW:0.4-1 m below ground:5 hour fcst:
+19:36931677:d=2019053100:SOILW:1-2 m below ground:5 hour fcst:
+46:80417054:d=2019053100:LHTFL:surface:0-5 hour ave fcst:
+47:83024171:d=2019053100:SHTFL:surface:0-5 hour ave fcst:
+/gpfs/hps/nco/ops/com/gfs/prod/gdas.20190531/gdas.t00z.sfluxgrbf06.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/gdas.20190531/gdas.t00z.sfluxgrbf06.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/force/gdas.20190531/gdas1.t00z.sfluxgrbf06
+2:1644294:d=2019053100:TMP:1 hybrid level:6 hour fcst:
+3:3324523:d=2019053100:SPFH:1 hybrid level:6 hour fcst:
+88:171123556:d=2019053100:DSWRF:surface:0-6 hour ave fcst:
+96:183332337:d=2019053100:DSWRF:surface:6 hour fcst:
+91:174584644:d=2019053100:DLWRF:surface:0-6 hour ave fcst:
+97:184164360:d=2019053100:DLWRF:surface:6 hour fcst:
+4:7307527:d=2019053100:UGRD:1 hybrid level:6 hour fcst:
+39:67996120:d=2019053100:UGRD:10 m above ground:6 hour fcst:
+5:10134066:d=2019053100:VGRD:1 hybrid level:6 hour fcst:
+40:70863528:d=2019053100:VGRD:10 m above ground:6 hour fcst:
+6:12825343:d=2019053100:PRES:surface:6 hour fcst:
+43:76479018:d=2019053100:PRATE:surface:0-6 hour ave fcst:
+59:109341890:d=2019053100:VEG:surface:6 hour fcst:
+114:211116318:d=2019053100:ALBDO:surface:0-6 hour ave fcst:
+1:0:d=2019053100:HGT:1 hybrid level:6 hour fcst:
+52:93734821:d=2019053100:SFCR:surface:6 hour fcst:
+58:106675996:d=2019053100:SFEXC:surface:6 hour fcst:
+8:18382293:d=2019053100:TMP:surface:6 hour fcst:
+23:41775859:d=2019053100:WEASD:surface:6 hour fcst:
+25:43056969:d=2019053100:SNOD:surface:6 hour fcst:
+10:22252294:d=2019053100:SOILW:0-0.1 m below ground:6 hour fcst:
+13:26839291:d=2019053100:SOILW:0.1-0.4 m below ground:6 hour fcst:
+16:31878367:d=2019053100:SOILW:0.4-1 m below ground:6 hour fcst:
+19:36852365:d=2019053100:SOILW:1-2 m below ground:6 hour fcst:
+46:80013069:d=2019053100:LHTFL:surface:0-6 hour ave fcst:
+47:82627034:d=2019053100:SHTFL:surface:0-6 hour ave fcst:
+/gpfs/hps/nco/ops/com/gfs/prod/gdas.20190531/gdas.t06z.sfluxgrbf00.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/gdas.20190531/gdas.t06z.sfluxgrbf00.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/force/gdas.20190531/gdas1.t06z.sfluxgrbf00
+86:156608577:d=2019053106:DSWRF:surface:0-0 day ave fcst:
+89:159124839:d=2019053106:DLWRF:surface:0-0 day ave fcst:
+43:75360825:d=2019053106:PRATE:surface:0-0 day ave fcst:
+112:194118769:d=2019053106:ALBDO:surface:0-0 day ave fcst:
+46:78779981:d=2019053106:LHTFL:surface:0-0 day ave fcst:
+47:81462740:d=2019053106:SHTFL:surface:0-0 day ave fcst:
+/gpfs/hps/nco/ops/com/gfs/prod/gdas.20190531/gdas.t06z.sfluxgrbf01.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/gdas.20190531/gdas.t06z.sfluxgrbf01.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/force/gdas.20190531/gdas1.t06z.sfluxgrbf01
+2:1645236:d=2019053106:TMP:1 hybrid level:1 hour fcst:
+3:3329149:d=2019053106:SPFH:1 hybrid level:1 hour fcst:
+88:164033741:d=2019053106:DSWRF:surface:0-1 hour ave fcst:
+96:175507908:d=2019053106:DSWRF:surface:1 hour fcst:
+91:166550003:d=2019053106:DLWRF:surface:0-1 hour ave fcst:
+97:176335556:d=2019053106:DLWRF:surface:1 hour fcst:
+4:7328504:d=2019053106:UGRD:1 hybrid level:1 hour fcst:
+39:66731336:d=2019053106:UGRD:10 m above ground:1 hour fcst:
+5:10171634:d=2019053106:VGRD:1 hybrid level:1 hour fcst:
+40:69615438:d=2019053106:VGRD:10 m above ground:1 hour fcst:
+6:12875926:d=2019053106:PRES:surface:1 hour fcst:
+43:75305715:d=2019053106:PRATE:surface:0-1 hour ave fcst:
+59:108277591:d=2019053106:VEG:surface:1 hour fcst:
+114:201253439:d=2019053106:ALBDO:surface:0-1 hour ave fcst:
+1:0:d=2019053106:HGT:1 hybrid level:1 hour fcst:
+52:92794599:d=2019053106:SFCR:surface:1 hour fcst:
+58:105605217:d=2019053106:SFEXC:surface:1 hour fcst:
+8:18437240:d=2019053106:TMP:surface:1 hour fcst:
+23:41799162:d=2019053106:WEASD:surface:1 hour fcst:
+25:43087790:d=2019053106:SNOD:surface:1 hour fcst:
+10:22278718:d=2019053106:SOILW:0-0.1 m below ground:1 hour fcst:
+13:26866299:d=2019053106:SOILW:0.1-0.4 m below ground:1 hour fcst:
+16:31904538:d=2019053106:SOILW:0.4-1 m below ground:1 hour fcst:
+19:36877785:d=2019053106:SOILW:1-2 m below ground:1 hour fcst:
+46:78717303:d=2019053106:LHTFL:surface:0-1 hour ave fcst:
+47:83072616:d=2019053106:SHTFL:surface:0-1 hour ave fcst:
+/gpfs/hps/nco/ops/com/gfs/prod/gdas.20190531/gdas.t06z.sfluxgrbf02.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/gdas.20190531/gdas.t06z.sfluxgrbf02.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/force/gdas.20190531/gdas1.t06z.sfluxgrbf02
+2:1645415:d=2019053106:TMP:1 hybrid level:2 hour fcst:
+3:3331125:d=2019053106:SPFH:1 hybrid level:2 hour fcst:
+88:167074785:d=2019053106:DSWRF:surface:0-2 hour ave fcst:
+96:178497736:d=2019053106:DSWRF:surface:2 hour fcst:
+91:169619772:d=2019053106:DLWRF:surface:0-2 hour ave fcst:
+97:179337621:d=2019053106:DLWRF:surface:2 hour fcst:
+4:7338584:d=2019053106:UGRD:1 hybrid level:2 hour fcst:
+39:66883813:d=2019053106:UGRD:10 m above ground:2 hour fcst:
+5:10234613:d=2019053106:VGRD:1 hybrid level:2 hour fcst:
+40:69778873:d=2019053106:VGRD:10 m above ground:2 hour fcst:
+6:12947773:d=2019053106:PRES:surface:2 hour fcst:
+43:75511832:d=2019053106:PRATE:surface:0-2 hour ave fcst:
+59:108579359:d=2019053106:VEG:surface:2 hour fcst:
+114:204214606:d=2019053106:ALBDO:surface:0-2 hour ave fcst:
+1:0:d=2019053106:HGT:1 hybrid level:2 hour fcst:
+52:93046247:d=2019053106:SFCR:surface:2 hour fcst:
+58:105903914:d=2019053106:SFEXC:surface:2 hour fcst:
+8:18511558:d=2019053106:TMP:surface:2 hour fcst:
+23:41882841:d=2019053106:WEASD:surface:2 hour fcst:
+25:43170696:d=2019053106:SNOD:surface:2 hour fcst:
+10:22365227:d=2019053106:SOILW:0-0.1 m below ground:2 hour fcst:
+13:26952627:d=2019053106:SOILW:0.1-0.4 m below ground:2 hour fcst:
+16:31991158:d=2019053106:SOILW:0.4-1 m below ground:2 hour fcst:
+19:36964766:d=2019053106:SOILW:1-2 m below ground:2 hour fcst:
+46:79010391:d=2019053106:LHTFL:surface:0-2 hour ave fcst:
+47:83358912:d=2019053106:SHTFL:surface:0-2 hour ave fcst:
+/gpfs/hps/nco/ops/com/gfs/prod/gdas.20190531/gdas.t06z.sfluxgrbf03.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/gdas.20190531/gdas.t06z.sfluxgrbf03.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/force/gdas.20190531/gdas1.t06z.sfluxgrbf03
+2:1643784:d=2019053106:TMP:1 hybrid level:3 hour fcst:
+3:3289588:d=2019053106:SPFH:1 hybrid level:3 hour fcst:
+88:167703400:d=2019053106:DSWRF:surface:0-3 hour ave fcst:
+96:179129278:d=2019053106:DSWRF:surface:3 hour fcst:
+91:170274798:d=2019053106:DLWRF:surface:0-3 hour ave fcst:
+97:179986190:d=2019053106:DLWRF:surface:3 hour fcst:
+4:7110686:d=2019053106:UGRD:1 hybrid level:3 hour fcst:
+39:66487595:d=2019053106:UGRD:10 m above ground:3 hour fcst:
+5:9897595:d=2019053106:VGRD:1 hybrid level:3 hour fcst:
+40:69391175:d=2019053106:VGRD:10 m above ground:3 hour fcst:
+6:12513718:d=2019053106:PRES:surface:3 hour fcst:
+43:75119530:d=2019053106:PRATE:surface:0-3 hour ave fcst:
+59:108308931:d=2019053106:VEG:surface:3 hour fcst:
+114:205200640:d=2019053106:ALBDO:surface:0-3 hour ave fcst:
+1:0:d=2019053106:HGT:1 hybrid level:3 hour fcst:
+52:92747560:d=2019053106:SFCR:surface:3 hour fcst:
+58:105632344:d=2019053106:SFEXC:surface:3 hour fcst:
+8:18047064:d=2019053106:TMP:surface:3 hour fcst:
+23:41459369:d=2019053106:WEASD:surface:3 hour fcst:
+25:42746855:d=2019053106:SNOD:surface:3 hour fcst:
+10:21942680:d=2019053106:SOILW:0-0.1 m below ground:3 hour fcst:
+13:26529922:d=2019053106:SOILW:0.1-0.4 m below ground:3 hour fcst:
+16:31568783:d=2019053106:SOILW:0.4-1 m below ground:3 hour fcst:
+19:36542484:d=2019053106:SOILW:1-2 m below ground:3 hour fcst:
+46:78743925:d=2019053106:LHTFL:surface:0-3 hour ave fcst:
+47:83087087:d=2019053106:SHTFL:surface:0-3 hour ave fcst:
+/gpfs/hps/nco/ops/com/gfs/prod/gdas.20190531/gdas.t06z.sfluxgrbf04.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/gdas.20190531/gdas.t06z.sfluxgrbf04.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/force/gdas.20190531/gdas1.t06z.sfluxgrbf04
+2:1644980:d=2019053106:TMP:1 hybrid level:4 hour fcst:
+3:3302543:d=2019053106:SPFH:1 hybrid level:4 hour fcst:
+88:169612847:d=2019053106:DSWRF:surface:0-4 hour ave fcst:
+96:181146631:d=2019053106:DSWRF:surface:4 hour fcst:
+91:172253862:d=2019053106:DLWRF:surface:0-4 hour ave fcst:
+97:182004306:d=2019053106:DLWRF:surface:4 hour fcst:
+4:7432136:d=2019053106:UGRD:1 hybrid level:4 hour fcst:
+39:67061143:d=2019053106:UGRD:10 m above ground:4 hour fcst:
+5:10274913:d=2019053106:VGRD:1 hybrid level:4 hour fcst:
+40:69909357:d=2019053106:VGRD:10 m above ground:4 hour fcst:
+6:12940356:d=2019053106:PRES:surface:4 hour fcst:
+43:75527084:d=2019053106:PRATE:surface:0-4 hour ave fcst:
+59:108734361:d=2019053106:VEG:surface:4 hour fcst:
+114:207540738:d=2019053106:ALBDO:surface:0-4 hour ave fcst:
+1:0:d=2019053106:HGT:1 hybrid level:4 hour fcst:
+52:93252323:d=2019053106:SFCR:surface:4 hour fcst:
+58:106072165:d=2019053106:SFEXC:surface:4 hour fcst:
+8:18492169:d=2019053106:TMP:surface:4 hour fcst:
+23:41907171:d=2019053106:WEASD:surface:4 hour fcst:
+25:43194543:d=2019053106:SNOD:surface:4 hour fcst:
+10:22392342:d=2019053106:SOILW:0-0.1 m below ground:4 hour fcst:
+13:26979226:d=2019053106:SOILW:0.1-0.4 m below ground:4 hour fcst:
+16:32018091:d=2019053106:SOILW:0.4-1 m below ground:4 hour fcst:
+19:36991742:d=2019053106:SOILW:1-2 m below ground:4 hour fcst:
+46:79246205:d=2019053106:LHTFL:surface:0-4 hour ave fcst:
+47:83584494:d=2019053106:SHTFL:surface:0-4 hour ave fcst:
+/gpfs/hps/nco/ops/com/gfs/prod/gdas.20190531/gdas.t06z.sfluxgrbf05.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/gdas.20190531/gdas.t06z.sfluxgrbf05.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/force/gdas.20190531/gdas1.t06z.sfluxgrbf05
+2:1645920:d=2019053106:TMP:1 hybrid level:5 hour fcst:
+3:3331833:d=2019053106:SPFH:1 hybrid level:5 hour fcst:
+88:170489375:d=2019053106:DSWRF:surface:0-5 hour ave fcst:
+96:182109346:d=2019053106:DSWRF:surface:5 hour fcst:
+91:173196999:d=2019053106:DLWRF:surface:0-5 hour ave fcst:
+97:182956374:d=2019053106:DLWRF:surface:5 hour fcst:
+4:7288514:d=2019053106:UGRD:1 hybrid level:5 hour fcst:
+39:66958902:d=2019053106:UGRD:10 m above ground:5 hour fcst:
+5:10149712:d=2019053106:VGRD:1 hybrid level:5 hour fcst:
+40:69823946:d=2019053106:VGRD:10 m above ground:5 hour fcst:
+6:12828909:d=2019053106:PRES:surface:5 hour fcst:
+43:75448725:d=2019053106:PRATE:surface:0-5 hour ave fcst:
+59:109179033:d=2019053106:VEG:surface:5 hour fcst:
+114:208768048:d=2019053106:ALBDO:surface:0-5 hour ave fcst:
+1:0:d=2019053106:HGT:1 hybrid level:5 hour fcst:
+52:93669024:d=2019053106:SFCR:surface:5 hour fcst:
+58:106511902:d=2019053106:SFEXC:surface:5 hour fcst:
+8:18383905:d=2019053106:TMP:surface:5 hour fcst:
+23:41762468:d=2019053106:WEASD:surface:5 hour fcst:
+25:43049517:d=2019053106:SNOD:surface:5 hour fcst:
+10:22245154:d=2019053106:SOILW:0-0.1 m below ground:5 hour fcst:
+13:26832518:d=2019053106:SOILW:0.1-0.4 m below ground:5 hour fcst:
+16:31871819:d=2019053106:SOILW:0.4-1 m below ground:5 hour fcst:
+19:36845946:d=2019053106:SOILW:1-2 m below ground:5 hour fcst:
+46:79734076:d=2019053106:LHTFL:surface:0-5 hour ave fcst:
+47:84066118:d=2019053106:SHTFL:surface:0-5 hour ave fcst:
+/gpfs/hps/nco/ops/com/gfs/prod/gdas.20190531/gdas.t06z.sfluxgrbf06.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/gdas.20190531/gdas.t06z.sfluxgrbf06.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/force/gdas.20190531/gdas1.t06z.sfluxgrbf06
+2:1645797:d=2019053106:TMP:1 hybrid level:6 hour fcst:
+3:3336113:d=2019053106:SPFH:1 hybrid level:6 hour fcst:
+88:171688840:d=2019053106:DSWRF:surface:0-6 hour ave fcst:
+96:184154657:d=2019053106:DSWRF:surface:6 hour fcst:
+91:175195679:d=2019053106:DLWRF:surface:0-6 hour ave fcst:
+97:185005743:d=2019053106:DLWRF:surface:6 hour fcst:
+4:7311028:d=2019053106:UGRD:1 hybrid level:6 hour fcst:
+39:67069157:d=2019053106:UGRD:10 m above ground:6 hour fcst:
+5:10183317:d=2019053106:VGRD:1 hybrid level:6 hour fcst:
+40:69944519:d=2019053106:VGRD:10 m above ground:6 hour fcst:
+6:12873557:d=2019053106:PRES:surface:6 hour fcst:
+43:75589903:d=2019053106:PRATE:surface:0-6 hour ave fcst:
+59:109316568:d=2019053106:VEG:surface:6 hour fcst:
+114:211450690:d=2019053106:ALBDO:surface:0-6 hour ave fcst:
+1:0:d=2019053106:HGT:1 hybrid level:6 hour fcst:
+52:93763754:d=2019053106:SFCR:surface:6 hour fcst:
+58:106642534:d=2019053106:SFEXC:surface:6 hour fcst:
+8:18431227:d=2019053106:TMP:surface:6 hour fcst:
+23:41806825:d=2019053106:WEASD:surface:6 hour fcst:
+25:43093788:d=2019053106:SNOD:surface:6 hour fcst:
+10:22288135:d=2019053106:SOILW:0-0.1 m below ground:6 hour fcst:
+13:26875763:d=2019053106:SOILW:0.1-0.4 m below ground:6 hour fcst:
+16:31915255:d=2019053106:SOILW:0.4-1 m below ground:6 hour fcst:
+19:36889348:d=2019053106:SOILW:1-2 m below ground:6 hour fcst:
+46:79838597:d=2019053106:LHTFL:surface:0-6 hour ave fcst:
+47:84168743:d=2019053106:SHTFL:surface:0-6 hour ave fcst:
+/gpfs/hps/nco/ops/com/gfs/prod/gdas.20190531/gdas.t12z.sfluxgrbf00.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/gdas.20190531/gdas.t12z.sfluxgrbf00.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/force/gdas.20190531/gdas1.t12z.sfluxgrbf00
+86:157667403:d=2019053112:DSWRF:surface:0-0 day ave fcst:
+89:160194752:d=2019053112:DLWRF:surface:0-0 day ave fcst:
+43:75764928:d=2019053112:PRATE:surface:0-0 day ave fcst:
+112:195247223:d=2019053112:ALBDO:surface:0-0 day ave fcst:
+46:79364030:d=2019053112:LHTFL:surface:0-0 day ave fcst:
+47:82048579:d=2019053112:SHTFL:surface:0-0 day ave fcst:
+/gpfs/hps/nco/ops/com/gfs/prod/gdas.20190531/gdas.t12z.sfluxgrbf01.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/gdas.20190531/gdas.t12z.sfluxgrbf01.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/force/gdas.20190531/gdas1.t12z.sfluxgrbf01
+2:1645954:d=2019053112:TMP:1 hybrid level:1 hour fcst:
+3:3342671:d=2019053112:SPFH:1 hybrid level:1 hour fcst:
+88:163804970:d=2019053112:DSWRF:surface:0-1 hour ave fcst:
+96:175371496:d=2019053112:DSWRF:surface:1 hour fcst:
+91:166332319:d=2019053112:DLWRF:surface:0-1 hour ave fcst:
+97:176205711:d=2019053112:DLWRF:surface:1 hour fcst:
+4:7527719:d=2019053112:UGRD:1 hybrid level:1 hour fcst:
+39:67248737:d=2019053112:UGRD:10 m above ground:1 hour fcst:
+5:10414764:d=2019053112:VGRD:1 hybrid level:1 hour fcst:
+40:70135569:d=2019053112:VGRD:10 m above ground:1 hour fcst:
+6:13121379:d=2019053112:PRES:surface:1 hour fcst:
+43:75943418:d=2019053112:PRATE:surface:0-1 hour ave fcst:
+59:107385606:d=2019053112:VEG:surface:1 hour fcst:
+114:201374002:d=2019053112:ALBDO:surface:0-1 hour ave fcst:
+1:0:d=2019053112:HGT:1 hybrid level:1 hour fcst:
+52:91888800:d=2019053112:SFCR:surface:1 hour fcst:
+58:104702332:d=2019053112:SFEXC:surface:1 hour fcst:
+8:18685758:d=2019053112:TMP:surface:1 hour fcst:
+23:42057643:d=2019053112:WEASD:surface:1 hour fcst:
+25:43345142:d=2019053112:SNOD:surface:1 hour fcst:
+10:22538039:d=2019053112:SOILW:0-0.1 m below ground:1 hour fcst:
+13:27126048:d=2019053112:SOILW:0.1-0.4 m below ground:1 hour fcst:
+16:32164958:d=2019053112:SOILW:0.4-1 m below ground:1 hour fcst:
+19:37138831:d=2019053112:SOILW:1-2 m below ground:1 hour fcst:
+46:79545266:d=2019053112:LHTFL:surface:0-1 hour ave fcst:
+47:82226965:d=2019053112:SHTFL:surface:0-1 hour ave fcst:
+/gpfs/hps/nco/ops/com/gfs/prod/gdas.20190531/gdas.t12z.sfluxgrbf02.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/gdas.20190531/gdas.t12z.sfluxgrbf02.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/force/gdas.20190531/gdas1.t12z.sfluxgrbf02
+2:1645460:d=2019053112:TMP:1 hybrid level:2 hour fcst:
+3:3322158:d=2019053112:SPFH:1 hybrid level:2 hour fcst:
+88:166370561:d=2019053112:DSWRF:surface:0-2 hour ave fcst:
+96:177793829:d=2019053112:DSWRF:surface:2 hour fcst:
+91:168875518:d=2019053112:DLWRF:surface:0-2 hour ave fcst:
+97:178615557:d=2019053112:DLWRF:surface:2 hour fcst:
+4:7335388:d=2019053112:UGRD:1 hybrid level:2 hour fcst:
+39:66982585:d=2019053112:UGRD:10 m above ground:2 hour fcst:
+5:10233711:d=2019053112:VGRD:1 hybrid level:2 hour fcst:
+40:69878736:d=2019053112:VGRD:10 m above ground:2 hour fcst:
+6:12953803:d=2019053112:PRES:surface:2 hour fcst:
+43:75671613:d=2019053112:PRATE:surface:0-2 hour ave fcst:
+59:107248685:d=2019053112:VEG:surface:2 hour fcst:
+114:203660023:d=2019053112:ALBDO:surface:0-2 hour ave fcst:
+1:0:d=2019053112:HGT:1 hybrid level:2 hour fcst:
+52:91687979:d=2019053112:SFCR:surface:2 hour fcst:
+58:104556695:d=2019053112:SFEXC:surface:2 hour fcst:
+8:18521242:d=2019053112:TMP:surface:2 hour fcst:
+23:41889528:d=2019053112:WEASD:surface:2 hour fcst:
+25:43177531:d=2019053112:SNOD:surface:2 hour fcst:
+10:22371030:d=2019053112:SOILW:0-0.1 m below ground:2 hour fcst:
+13:26959462:d=2019053112:SOILW:0.1-0.4 m below ground:2 hour fcst:
+16:31998541:d=2019053112:SOILW:0.4-1 m below ground:2 hour fcst:
+19:36972314:d=2019053112:SOILW:1-2 m below ground:2 hour fcst:
+46:79360684:d=2019053112:LHTFL:surface:0-2 hour ave fcst:
+47:82038601:d=2019053112:SHTFL:surface:0-2 hour ave fcst:
+/gpfs/hps/nco/ops/com/gfs/prod/gdas.20190531/gdas.t12z.sfluxgrbf03.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/gdas.20190531/gdas.t12z.sfluxgrbf03.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/force/gdas.20190531/gdas1.t12z.sfluxgrbf03
+2:1644170:d=2019053112:TMP:1 hybrid level:3 hour fcst:
+3:3303160:d=2019053112:SPFH:1 hybrid level:3 hour fcst:
+88:167529382:d=2019053112:DSWRF:surface:0-3 hour ave fcst:
+96:178925998:d=2019053112:DSWRF:surface:3 hour fcst:
+91:170067217:d=2019053112:DLWRF:surface:0-3 hour ave fcst:
+97:179791934:d=2019053112:DLWRF:surface:3 hour fcst:
+4:7366060:d=2019053112:UGRD:1 hybrid level:3 hour fcst:
+39:66993105:d=2019053112:UGRD:10 m above ground:3 hour fcst:
+5:10155842:d=2019053112:VGRD:1 hybrid level:3 hour fcst:
+40:69899809:d=2019053112:VGRD:10 m above ground:3 hour fcst:
+6:12772748:d=2019053112:PRES:surface:3 hour fcst:
+43:75734759:d=2019053112:PRATE:surface:0-3 hour ave fcst:
+59:107587861:d=2019053112:VEG:surface:3 hour fcst:
+114:205325743:d=2019053112:ALBDO:surface:0-3 hour ave fcst:
+1:0:d=2019053112:HGT:1 hybrid level:3 hour fcst:
+52:92000014:d=2019053112:SFCR:surface:3 hour fcst:
+58:104893963:d=2019053112:SFEXC:surface:3 hour fcst:
+8:18307170:d=2019053112:TMP:surface:3 hour fcst:
+23:41673645:d=2019053112:WEASD:surface:3 hour fcst:
+25:42961478:d=2019053112:SNOD:surface:3 hour fcst:
+10:22154838:d=2019053112:SOILW:0-0.1 m below ground:3 hour fcst:
+13:26744791:d=2019053112:SOILW:0.1-0.4 m below ground:3 hour fcst:
+16:31783494:d=2019053112:SOILW:0.4-1 m below ground:3 hour fcst:
+19:36757278:d=2019053112:SOILW:1-2 m below ground:3 hour fcst:
+46:79432230:d=2019053112:LHTFL:surface:0-3 hour ave fcst:
+47:82384504:d=2019053112:SHTFL:surface:0-3 hour ave fcst:
+/gpfs/hps/nco/ops/com/gfs/prod/gdas.20190531/gdas.t12z.sfluxgrbf04.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/gdas.20190531/gdas.t12z.sfluxgrbf04.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/force/gdas.20190531/gdas1.t12z.sfluxgrbf04
+2:1644694:d=2019053112:TMP:1 hybrid level:4 hour fcst:
+3:3338916:d=2019053112:SPFH:1 hybrid level:4 hour fcst:
+88:169385662:d=2019053112:DSWRF:surface:0-4 hour ave fcst:
+96:180866845:d=2019053112:DSWRF:surface:4 hour fcst:
+91:172028193:d=2019053112:DLWRF:surface:0-4 hour ave fcst:
+97:181730647:d=2019053112:DLWRF:surface:4 hour fcst:
+4:7534872:d=2019053112:UGRD:1 hybrid level:4 hour fcst:
+39:67045348:d=2019053112:UGRD:10 m above ground:4 hour fcst:
+5:10387223:d=2019053112:VGRD:1 hybrid level:4 hour fcst:
+40:69897129:d=2019053112:VGRD:10 m above ground:4 hour fcst:
+6:13059023:d=2019053112:PRES:surface:4 hour fcst:
+43:76241060:d=2019053112:PRATE:surface:0-4 hour ave fcst:
+59:108061048:d=2019053112:VEG:surface:4 hour fcst:
+114:207212127:d=2019053112:ALBDO:surface:0-4 hour ave fcst:
+1:0:d=2019053112:HGT:1 hybrid level:4 hour fcst:
+52:92552855:d=2019053112:SFCR:surface:4 hour fcst:
+58:105390471:d=2019053112:SFEXC:surface:4 hour fcst:
+8:18613774:d=2019053112:TMP:surface:4 hour fcst:
+23:41981084:d=2019053112:WEASD:surface:4 hour fcst:
+25:43268395:d=2019053112:SNOD:surface:4 hour fcst:
+10:22460839:d=2019053112:SOILW:0-0.1 m below ground:4 hour fcst:
+13:27051464:d=2019053112:SOILW:0.1-0.4 m below ground:4 hour fcst:
+16:32091098:d=2019053112:SOILW:0.4-1 m below ground:4 hour fcst:
+19:37065334:d=2019053112:SOILW:1-2 m below ground:4 hour fcst:
+46:80029088:d=2019053112:LHTFL:surface:0-4 hour ave fcst:
+47:82976995:d=2019053112:SHTFL:surface:0-4 hour ave fcst:
+/gpfs/hps/nco/ops/com/gfs/prod/gdas.20190531/gdas.t12z.sfluxgrbf05.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/gdas.20190531/gdas.t12z.sfluxgrbf05.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/force/gdas.20190531/gdas1.t12z.sfluxgrbf05
+2:1645227:d=2019053112:TMP:1 hybrid level:5 hour fcst:
+3:3337172:d=2019053112:SPFH:1 hybrid level:5 hour fcst:
+88:169883562:d=2019053112:DSWRF:surface:0-5 hour ave fcst:
+96:182189181:d=2019053112:DSWRF:surface:5 hour fcst:
+91:173353272:d=2019053112:DLWRF:surface:0-5 hour ave fcst:
+97:183049258:d=2019053112:DLWRF:surface:5 hour fcst:
+4:7293672:d=2019053112:UGRD:1 hybrid level:5 hour fcst:
+39:66845808:d=2019053112:UGRD:10 m above ground:5 hour fcst:
+5:10167083:d=2019053112:VGRD:1 hybrid level:5 hour fcst:
+40:69715773:d=2019053112:VGRD:10 m above ground:5 hour fcst:
+6:12856705:d=2019053112:PRES:surface:5 hour fcst:
+43:75465671:d=2019053112:PRATE:surface:0-5 hour ave fcst:
+59:107981359:d=2019053112:VEG:surface:5 hour fcst:
+114:209676518:d=2019053112:ALBDO:surface:0-5 hour ave fcst:
+1:0:d=2019053112:HGT:1 hybrid level:5 hour fcst:
+52:92456698:d=2019053112:SFCR:surface:5 hour fcst:
+58:105309880:d=2019053112:SFEXC:surface:5 hour fcst:
+8:18413837:d=2019053112:TMP:surface:5 hour fcst:
+23:41779626:d=2019053112:WEASD:surface:5 hour fcst:
+25:43067126:d=2019053112:SNOD:surface:5 hour fcst:
+10:22257065:d=2019053112:SOILW:0-0.1 m below ground:5 hour fcst:
+13:26848099:d=2019053112:SOILW:0.1-0.4 m below ground:5 hour fcst:
+16:31888475:d=2019053112:SOILW:0.4-1 m below ground:5 hour fcst:
+19:36862450:d=2019053112:SOILW:1-2 m below ground:5 hour fcst:
+46:80212749:d=2019053112:LHTFL:surface:0-5 hour ave fcst:
+47:82874942:d=2019053112:SHTFL:surface:0-5 hour ave fcst:
+/gpfs/hps/nco/ops/com/gfs/prod/gdas.20190531/gdas.t12z.sfluxgrbf06.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/gdas.20190531/gdas.t12z.sfluxgrbf06.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/force/gdas.20190531/gdas1.t12z.sfluxgrbf06
+2:1645410:d=2019053112:TMP:1 hybrid level:6 hour fcst:
+3:3334741:d=2019053112:SPFH:1 hybrid level:6 hour fcst:
+88:171031281:d=2019053112:DSWRF:surface:0-6 hour ave fcst:
+96:183455882:d=2019053112:DSWRF:surface:6 hour fcst:
+91:174583513:d=2019053112:DLWRF:surface:0-6 hour ave fcst:
+97:184317384:d=2019053112:DLWRF:surface:6 hour fcst:
+4:7489617:d=2019053112:UGRD:1 hybrid level:6 hour fcst:
+39:67120980:d=2019053112:UGRD:10 m above ground:6 hour fcst:
+5:10379755:d=2019053112:VGRD:1 hybrid level:6 hour fcst:
+40:70005623:d=2019053112:VGRD:10 m above ground:6 hour fcst:
+6:13084661:d=2019053112:PRES:surface:6 hour fcst:
+43:75737138:d=2019053112:PRATE:surface:0-6 hour ave fcst:
+59:108321666:d=2019053112:VEG:surface:6 hour fcst:
+114:210596044:d=2019053112:ALBDO:surface:0-6 hour ave fcst:
+1:0:d=2019053112:HGT:1 hybrid level:6 hour fcst:
+52:92778794:d=2019053112:SFCR:surface:6 hour fcst:
+58:105645686:d=2019053112:SFEXC:surface:6 hour fcst:
+8:18643050:d=2019053112:TMP:surface:6 hour fcst:
+23:42041666:d=2019053112:WEASD:surface:6 hour fcst:
+25:43328713:d=2019053112:SNOD:surface:6 hour fcst:
+10:22516506:d=2019053112:SOILW:0-0.1 m below ground:6 hour fcst:
+13:27108226:d=2019053112:SOILW:0.1-0.4 m below ground:6 hour fcst:
+16:32148270:d=2019053112:SOILW:0.4-1 m below ground:6 hour fcst:
+19:37122528:d=2019053112:SOILW:1-2 m below ground:6 hour fcst:
+46:80567938:d=2019053112:LHTFL:surface:0-6 hour ave fcst:
+47:83224566:d=2019053112:SHTFL:surface:0-6 hour ave fcst:
+/gpfs/hps/nco/ops/com/gfs/prod/gdas.20190531/gdas.t18z.sfluxgrbf00.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/gdas.20190531/gdas.t18z.sfluxgrbf00.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/force/gdas.20190531/gdas1.t18z.sfluxgrbf00
+86:156845968:d=2019053118:DSWRF:surface:0-0 day ave fcst:
+89:159406549:d=2019053118:DLWRF:surface:0-0 day ave fcst:
+43:75426122:d=2019053118:PRATE:surface:0-0 day ave fcst:
+112:193734810:d=2019053118:ALBDO:surface:0-0 day ave fcst:
+46:79065557:d=2019053118:LHTFL:surface:0-0 day ave fcst:
+47:81703402:d=2019053118:SHTFL:surface:0-0 day ave fcst:
+/gpfs/hps/nco/ops/com/gfs/prod/gdas.20190531/gdas.t18z.sfluxgrbf01.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/gdas.20190531/gdas.t18z.sfluxgrbf01.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/force/gdas.20190531/gdas1.t18z.sfluxgrbf01
+2:1644898:d=2019053118:TMP:1 hybrid level:1 hour fcst:
+3:3307953:d=2019053118:SPFH:1 hybrid level:1 hour fcst:
+88:162618976:d=2019053118:DSWRF:surface:0-1 hour ave fcst:
+96:174066532:d=2019053118:DSWRF:surface:1 hour fcst:
+91:165179557:d=2019053118:DLWRF:surface:0-1 hour ave fcst:
+97:174918728:d=2019053118:DLWRF:surface:1 hour fcst:
+4:7288103:d=2019053118:UGRD:1 hybrid level:1 hour fcst:
+39:66654812:d=2019053118:UGRD:10 m above ground:1 hour fcst:
+5:10190107:d=2019053118:VGRD:1 hybrid level:1 hour fcst:
+40:69551087:d=2019053118:VGRD:10 m above ground:1 hour fcst:
+6:12905958:d=2019053118:PRES:surface:1 hour fcst:
+43:75377626:d=2019053118:PRATE:surface:0-1 hour ave fcst:
+59:106788022:d=2019053118:VEG:surface:1 hour fcst:
+114:200046427:d=2019053118:ALBDO:surface:0-1 hour ave fcst:
+1:0:d=2019053118:HGT:1 hybrid level:1 hour fcst:
+52:91296553:d=2019053118:SFCR:surface:1 hour fcst:
+58:104108936:d=2019053118:SFEXC:surface:1 hour fcst:
+8:18469068:d=2019053118:TMP:surface:1 hour fcst:
+23:41875093:d=2019053118:WEASD:surface:1 hour fcst:
+25:43145177:d=2019053118:SNOD:surface:1 hour fcst:
+10:22334203:d=2019053118:SOILW:0-0.1 m below ground:1 hour fcst:
+13:26937412:d=2019053118:SOILW:0.1-0.4 m below ground:1 hour fcst:
+16:31976762:d=2019053118:SOILW:0.4-1 m below ground:1 hour fcst:
+19:36950531:d=2019053118:SOILW:1-2 m below ground:1 hour fcst:
+46:79012891:d=2019053118:LHTFL:surface:0-1 hour ave fcst:
+47:81639932:d=2019053118:SHTFL:surface:0-1 hour ave fcst:
+/gpfs/hps/nco/ops/com/gfs/prod/gdas.20190531/gdas.t18z.sfluxgrbf02.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/gdas.20190531/gdas.t18z.sfluxgrbf02.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/force/gdas.20190531/gdas1.t18z.sfluxgrbf02
+2:1645450:d=2019053118:TMP:1 hybrid level:2 hour fcst:
+3:3331179:d=2019053118:SPFH:1 hybrid level:2 hour fcst:
+88:165322979:d=2019053118:DSWRF:surface:0-2 hour ave fcst:
+96:176616454:d=2019053118:DSWRF:surface:2 hour fcst:
+91:167885594:d=2019053118:DLWRF:surface:0-2 hour ave fcst:
+97:177479826:d=2019053118:DLWRF:surface:2 hour fcst:
+4:7313992:d=2019053118:UGRD:1 hybrid level:2 hour fcst:
+39:66802916:d=2019053118:UGRD:10 m above ground:2 hour fcst:
+5:10223756:d=2019053118:VGRD:1 hybrid level:2 hour fcst:
+40:69703669:d=2019053118:VGRD:10 m above ground:2 hour fcst:
+6:12946682:d=2019053118:PRES:surface:2 hour fcst:
+43:75508779:d=2019053118:PRATE:surface:0-2 hour ave fcst:
+59:106847033:d=2019053118:VEG:surface:2 hour fcst:
+114:202976210:d=2019053118:ALBDO:surface:0-2 hour ave fcst:
+1:0:d=2019053118:HGT:1 hybrid level:2 hour fcst:
+52:91352545:d=2019053118:SFCR:surface:2 hour fcst:
+58:104171014:d=2019053118:SFEXC:surface:2 hour fcst:
+8:18509013:d=2019053118:TMP:surface:2 hour fcst:
+23:41872507:d=2019053118:WEASD:surface:2 hour fcst:
+25:43145476:d=2019053118:SNOD:surface:2 hour fcst:
+10:22328251:d=2019053118:SOILW:0-0.1 m below ground:2 hour fcst:
+13:26932376:d=2019053118:SOILW:0.1-0.4 m below ground:2 hour fcst:
+16:31972469:d=2019053118:SOILW:0.4-1 m below ground:2 hour fcst:
+19:36946566:d=2019053118:SOILW:1-2 m below ground:2 hour fcst:
+46:79219890:d=2019053118:LHTFL:surface:0-2 hour ave fcst:
+47:81830598:d=2019053118:SHTFL:surface:0-2 hour ave fcst:
+/gpfs/hps/nco/ops/com/gfs/prod/gdas.20190531/gdas.t18z.sfluxgrbf03.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/gdas.20190531/gdas.t18z.sfluxgrbf03.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/force/gdas.20190531/gdas1.t18z.sfluxgrbf03
+2:1644327:d=2019053118:TMP:1 hybrid level:3 hour fcst:
+3:3305941:d=2019053118:SPFH:1 hybrid level:3 hour fcst:
+88:166978951:d=2019053118:DSWRF:surface:0-3 hour ave fcst:
+96:178265712:d=2019053118:DSWRF:surface:3 hour fcst:
+91:169578457:d=2019053118:DLWRF:surface:0-3 hour ave fcst:
+97:179129028:d=2019053118:DLWRF:surface:3 hour fcst:
+4:7105330:d=2019053118:UGRD:1 hybrid level:3 hour fcst:
+39:66937546:d=2019053118:UGRD:10 m above ground:3 hour fcst:
+5:9899830:d=2019053118:VGRD:1 hybrid level:3 hour fcst:
+40:69836952:d=2019053118:VGRD:10 m above ground:3 hour fcst:
+6:12518558:d=2019053118:PRES:surface:3 hour fcst:
+43:75598374:d=2019053118:PRATE:surface:0-3 hour ave fcst:
+59:107811423:d=2019053118:VEG:surface:3 hour fcst:
+114:204795714:d=2019053118:ALBDO:surface:0-3 hour ave fcst:
+1:0:d=2019053118:HGT:1 hybrid level:3 hour fcst:
+52:92355611:d=2019053118:SFCR:surface:3 hour fcst:
+58:105144919:d=2019053118:SFEXC:surface:3 hour fcst:
+8:18049909:d=2019053118:TMP:surface:3 hour fcst:
+23:41404647:d=2019053118:WEASD:surface:3 hour fcst:
+25:42679150:d=2019053118:SNOD:surface:3 hour fcst:
+10:21858888:d=2019053118:SOILW:0-0.1 m below ground:3 hour fcst:
+13:26462670:d=2019053118:SOILW:0.1-0.4 m below ground:3 hour fcst:
+16:31502280:d=2019053118:SOILW:0.4-1 m below ground:3 hour fcst:
+19:36476926:d=2019053118:SOILW:1-2 m below ground:3 hour fcst:
+46:80284864:d=2019053118:LHTFL:surface:0-3 hour ave fcst:
+47:82885754:d=2019053118:SHTFL:surface:0-3 hour ave fcst:
+/gpfs/hps/nco/ops/com/gfs/prod/gdas.20190531/gdas.t18z.sfluxgrbf04.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/gdas.20190531/gdas.t18z.sfluxgrbf04.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/force/gdas.20190531/gdas1.t18z.sfluxgrbf04
+2:1644608:d=2019053118:TMP:1 hybrid level:4 hour fcst:
+3:3312241:d=2019053118:SPFH:1 hybrid level:4 hour fcst:
+88:167283381:d=2019053118:DSWRF:surface:0-4 hour ave fcst:
+96:178598300:d=2019053118:DSWRF:surface:4 hour fcst:
+91:169919443:d=2019053118:DLWRF:surface:0-4 hour ave fcst:
+97:179434858:d=2019053118:DLWRF:surface:4 hour fcst:
+4:7182350:d=2019053118:UGRD:1 hybrid level:4 hour fcst:
+39:66333284:d=2019053118:UGRD:10 m above ground:4 hour fcst:
+5:9988118:d=2019053118:VGRD:1 hybrid level:4 hour fcst:
+40:69171845:d=2019053118:VGRD:10 m above ground:4 hour fcst:
+6:12649143:d=2019053118:PRES:surface:4 hour fcst:
+43:74772461:d=2019053118:PRATE:surface:0-4 hour ave fcst:
+59:106834145:d=2019053118:VEG:surface:4 hour fcst:
+114:205303323:d=2019053118:ALBDO:surface:0-4 hour ave fcst:
+1:0:d=2019053118:HGT:1 hybrid level:4 hour fcst:
+52:91449484:d=2019053118:SFCR:surface:4 hour fcst:
+58:104188737:d=2019053118:SFEXC:surface:4 hour fcst:
+8:18199046:d=2019053118:TMP:surface:4 hour fcst:
+23:41543471:d=2019053118:WEASD:surface:4 hour fcst:
+25:42818435:d=2019053118:SNOD:surface:4 hour fcst:
+10:21997197:d=2019053118:SOILW:0-0.1 m below ground:4 hour fcst:
+13:26600523:d=2019053118:SOILW:0.1-0.4 m below ground:4 hour fcst:
+16:31640321:d=2019053118:SOILW:0.4-1 m below ground:4 hour fcst:
+19:36615098:d=2019053118:SOILW:1-2 m below ground:4 hour fcst:
+46:79423319:d=2019053118:LHTFL:surface:0-4 hour ave fcst:
+47:82016235:d=2019053118:SHTFL:surface:0-4 hour ave fcst:
+/gpfs/hps/nco/ops/com/gfs/prod/gdas.20190531/gdas.t18z.sfluxgrbf05.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/gdas.20190531/gdas.t18z.sfluxgrbf05.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/force/gdas.20190531/gdas1.t18z.sfluxgrbf05
+2:1645777:d=2019053118:TMP:1 hybrid level:5 hour fcst:
+3:3285105:d=2019053118:SPFH:1 hybrid level:5 hour fcst:
+88:167986147:d=2019053118:DSWRF:surface:0-5 hour ave fcst:
+96:180064782:d=2019053118:DSWRF:surface:5 hour fcst:
+91:171389811:d=2019053118:DLWRF:surface:0-5 hour ave fcst:
+97:180892029:d=2019053118:DLWRF:surface:5 hour fcst:
+4:7175653:d=2019053118:UGRD:1 hybrid level:5 hour fcst:
+39:66421058:d=2019053118:UGRD:10 m above ground:5 hour fcst:
+5:10036041:d=2019053118:VGRD:1 hybrid level:5 hour fcst:
+40:69273427:d=2019053118:VGRD:10 m above ground:5 hour fcst:
+6:12708077:d=2019053118:PRES:surface:5 hour fcst:
+43:74882001:d=2019053118:PRATE:surface:0-5 hour ave fcst:
+59:106976627:d=2019053118:VEG:surface:5 hour fcst:
+114:206988304:d=2019053118:ALBDO:surface:0-5 hour ave fcst:
+1:0:d=2019053118:HGT:1 hybrid level:5 hour fcst:
+52:91571733:d=2019053118:SFCR:surface:5 hour fcst:
+58:104330017:d=2019053118:SFEXC:surface:5 hour fcst:
+8:18260689:d=2019053118:TMP:surface:5 hour fcst:
+23:41599801:d=2019053118:WEASD:surface:5 hour fcst:
+25:42874630:d=2019053118:SNOD:surface:5 hour fcst:
+10:22050821:d=2019053118:SOILW:0-0.1 m below ground:5 hour fcst:
+13:26654192:d=2019053118:SOILW:0.1-0.4 m below ground:5 hour fcst:
+16:31694434:d=2019053118:SOILW:0.4-1 m below ground:5 hour fcst:
+19:36669376:d=2019053118:SOILW:1-2 m below ground:5 hour fcst:
+46:79596823:d=2019053118:LHTFL:surface:0-5 hour ave fcst:
+47:82184755:d=2019053118:SHTFL:surface:0-5 hour ave fcst:
+/gpfs/hps/nco/ops/com/gfs/prod/gdas.20190531/gdas.t18z.sfluxgrbf06.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/gdas.20190531/gdas.t18z.sfluxgrbf06.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/force/gdas.20190531/gdas1.t18z.sfluxgrbf06
+2:1645245:d=2019053118:TMP:1 hybrid level:6 hour fcst:
+3:3082834:d=2019053118:SPFH:1 hybrid level:6 hour fcst:
+88:170424573:d=2019053118:DSWRF:surface:0-6 hour ave fcst:
+96:182617073:d=2019053118:DSWRF:surface:6 hour fcst:
+91:173910264:d=2019053118:DLWRF:surface:0-6 hour ave fcst:
+97:183431345:d=2019053118:DLWRF:surface:6 hour fcst:
+4:6985739:d=2019053118:UGRD:1 hybrid level:6 hour fcst:
+39:66246542:d=2019053118:UGRD:10 m above ground:6 hour fcst:
+5:9813379:d=2019053118:VGRD:1 hybrid level:6 hour fcst:
+40:69107782:d=2019053118:VGRD:10 m above ground:6 hour fcst:
+6:12491609:d=2019053118:PRES:surface:6 hour fcst:
+43:74764917:d=2019053118:PRATE:surface:0-6 hour ave fcst:
+59:108583962:d=2019053118:VEG:surface:6 hour fcst:
+114:209500224:d=2019053118:ALBDO:surface:0-6 hour ave fcst:
+1:0:d=2019053118:HGT:1 hybrid level:6 hour fcst:
+52:93136844:d=2019053118:SFCR:surface:6 hour fcst:
+58:105936066:d=2019053118:SFEXC:surface:6 hour fcst:
+8:18046556:d=2019053118:TMP:surface:6 hour fcst:
+23:41386117:d=2019053118:WEASD:surface:6 hour fcst:
+25:42660882:d=2019053118:SNOD:surface:6 hour fcst:
+10:21836791:d=2019053118:SOILW:0-0.1 m below ground:6 hour fcst:
+13:26440323:d=2019053118:SOILW:0.1-0.4 m below ground:6 hour fcst:
+16:31480758:d=2019053118:SOILW:0.4-1 m below ground:6 hour fcst:
+19:36455770:d=2019053118:SOILW:1-2 m below ground:6 hour fcst:
+46:79554163:d=2019053118:LHTFL:surface:0-6 hour ave fcst:
+47:82141023:d=2019053118:SHTFL:surface:0-6 hour ave fcst:
+/gpfs/hps/nco/ops/com/gfs/prod
+/gpfs/dell2/ptmp/Youlong.Xia
+/gpfs/dell2/ptmp/Youlong.Xia/force
++ /gpfs/dell2/emc/retros/noscrub/Youlong.Xia/gldas.v2.3.0/scripts/gfs_gdas_gldas_precip.sh 20190531
+/gpfs/dell2/emc/retros/noscrub/Youlong.Xia/gldas.v2.3.0/scripts/gfs_gdas_gldas_precip.sh 20190531 20190531
+/gpfs/gp1/nco/ops/dcom/us007003/20190531/wgrbbul/cpc_rcdas/PRCP_CU_GAUGE_V1.0GLB_0.25deg.lnx.20190531.RT
+/gpfs/dell2/ptmp/Youlong.Xia/force/gdas.20190531/gdas1.t00z.sfluxgrbf06
+12:76678044:d=19053100:PRATE:kpds5=59:kpds6=1:kpds7=0:TR=3:P1=0:P2=6:TimeU=1:sfc:0-6hr ave:NAve=0
+/gpfs/dell2/ptmp/Youlong.Xia/force/gdas.20190531/gdas1.t06z.sfluxgrbf06
+12:76678044:d=19053106:PRATE:kpds5=59:kpds6=1:kpds7=0:TR=3:P1=0:P2=6:TimeU=1:sfc:0-6hr ave:NAve=0
+/gpfs/dell2/ptmp/Youlong.Xia/force/gdas.20190531/gdas1.t12z.sfluxgrbf06
+12:76678044:d=19053112:PRATE:kpds5=59:kpds6=1:kpds7=0:TR=3:P1=0:P2=6:TimeU=1:sfc:0-6hr ave:NAve=0
+/gpfs/dell2/ptmp/Youlong.Xia/force/gdas.20190531/gdas1.t18z.sfluxgrbf06
+12:76088220:d=19053118:PRATE:kpds5=59:kpds6=1:kpds7=0:TR=3:P1=0:P2=6:TimeU=1:sfc:0-6hr ave:NAve=0
+1:0:d=19053100:PRATE:kpds5=59:kpds6=1:kpds7=0:TR=3:P1=0:P2=6:TimeU=1:sfc:0-6hr ave:NAve=0
+1:0:d=19053106:PRATE:kpds5=59:kpds6=1:kpds7=0:TR=3:P1=0:P2=6:TimeU=1:sfc:0-6hr ave:NAve=0
+1:0:d=19053112:PRATE:kpds5=59:kpds6=1:kpds7=0:TR=3:P1=0:P2=6:TimeU=1:sfc:0-6hr ave:NAve=0
+1:0:d=19053118:PRATE:kpds5=59:kpds6=1:kpds7=0:TR=3:P1=0:P2=6:TimeU=1:sfc:0-6hr ave:NAve=0
+        2019           5          31           0
+           7         141         255         192          59           1
+           0          19           5          31           0           0
+           1           0           6           3           0           0
+         130           0          21           6           4           0
+           0
+           0        1440         720       89875         125         128
+      -89875      359875         250         250           0           0
+           0           0           0           0           0           0
+           0         255           0           0           0           0
+           0
+ fort.21           0
+ iret =           0
+ iret =           0
+ iret =           0
+ 
+ fort.22           6
+ iret =           0
+ iret =           0
+ iret =           0
+ 
+ fort.23          12
+ iret =           0
+ iret =           0
+ iret =           0
+ 
+ fort.24          18
+ iret =           0
+ iret =           0
+ iret =           0
+ 
+/gpfs/dell2/ptmp/Youlong.Xia/force
+/gpfs/dell2/ptmp/Youlong.Xia/force
+Mon Jun  3 23:11:29 UTC 2019
++ gds='255 4 3072 1536 89909 0 128 -89909 -117 117 768 0 0 0 0 0 0 0 0 0 255 0 0 0 0 0'
++ /gpfs/dell1/nco/ops/nwprod/grib_util.v1.0.6/exec/copygb '-g255 4 3072 1536 89909 0 128 -89909 -117 117 768 0 0 0 0 0 0 0 0 0 255 0 0 0 0 0' -x /gpfs/dell2/ptmp/Youlong.Xia/force/gob.20190531/precip.gldas.2019053100 /gpfs/dell2/ptmp/Youlong.Xia/gldas.20190601/cmap.gdas.2019053100
++ /gpfs/dell1/nco/ops/nwprod/grib_util.v1.0.6/exec/copygb '-g255 4 3072 1536 89909 0 128 -89909 -117 117 768 0 0 0 0 0 0 0 0 0 255 0 0 0 0 0' -x /gpfs/dell2/ptmp/Youlong.Xia/force/gob.20190531/precip.gldas.2019053106 /gpfs/dell2/ptmp/Youlong.Xia/gldas.20190601/cmap.gdas.2019053106
++ /gpfs/dell1/nco/ops/nwprod/grib_util.v1.0.6/exec/copygb '-g255 4 3072 1536 89909 0 128 -89909 -117 117 768 0 0 0 0 0 0 0 0 0 255 0 0 0 0 0' -x /gpfs/dell2/ptmp/Youlong.Xia/force/gob.20190531/precip.gldas.2019053112 /gpfs/dell2/ptmp/Youlong.Xia/gldas.20190601/cmap.gdas.2019053112
++ /gpfs/dell1/nco/ops/nwprod/grib_util.v1.0.6/exec/copygb '-g255 4 3072 1536 89909 0 128 -89909 -117 117 768 0 0 0 0 0 0 0 0 0 255 0 0 0 0 0' -x /gpfs/dell2/ptmp/Youlong.Xia/force/gob.20190531/precip.gldas.2019053118 /gpfs/dell2/ptmp/Youlong.Xia/gldas.20190601/cmap.gdas.2019053118
++ sh finddate.sh 20190531 d+1
++ yyyymmdd=20190601
++ [ 20190601 -lt 20190603 ]
++ /gpfs/dell2/emc/retros/noscrub/Youlong.Xia/gldas.v2.3.0/scripts/lis.forcing.gdas.prod.sh 20190601
+/gpfs/dell2/emc/retros/noscrub/Youlong.Xia/gldas.v2.3.0/scripts/lis.forcing.gdas.prod.sh 20190601 20190601
+/gpfs/dell2/ptmp/Youlong.Xia/gdas.20190601
+/gpfs/dell2/ptmp/Youlong.Xia/force/gdas.20190601
+/gpfs/hps/nco/ops/com/gfs/prod/gdas.20190601/gdas.t00z.sfluxgrbf00.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/gdas.20190601/gdas.t00z.sfluxgrbf00.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/force/gdas.20190601/gdas1.t00z.sfluxgrbf00
+86:157383225:d=2019060100:DSWRF:surface:0-0 day ave fcst:
+89:159847615:d=2019060100:DLWRF:surface:0-0 day ave fcst:
+43:74917832:d=2019060100:PRATE:surface:0-0 day ave fcst:
+112:194291033:d=2019060100:ALBDO:surface:0-0 day ave fcst:
+46:78599511:d=2019060100:LHTFL:surface:0-0 day ave fcst:
+47:81200606:d=2019060100:SHTFL:surface:0-0 day ave fcst:
+/gpfs/hps/nco/ops/com/gfs/prod/gdas.20190601/gdas.t00z.sfluxgrbf01.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/gdas.20190601/gdas.t00z.sfluxgrbf01.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/force/gdas.20190601/gdas1.t00z.sfluxgrbf01
+2:1644824:d=2019060100:TMP:1 hybrid level:1 hour fcst:
+3:3286729:d=2019060100:SPFH:1 hybrid level:1 hour fcst:
+88:162966751:d=2019060100:DSWRF:surface:0-1 hour ave fcst:
+96:174156013:d=2019060100:DSWRF:surface:1 hour fcst:
+91:165431141:d=2019060100:DLWRF:surface:0-1 hour ave fcst:
+97:174987731:d=2019060100:DLWRF:surface:1 hour fcst:
+4:7206109:d=2019060100:UGRD:1 hybrid level:1 hour fcst:
+39:66306296:d=2019060100:UGRD:10 m above ground:1 hour fcst:
+5:10041317:d=2019060100:VGRD:1 hybrid level:1 hour fcst:
+40:69176805:d=2019060100:VGRD:10 m above ground:1 hour fcst:
+6:12730403:d=2019060100:PRES:surface:1 hour fcst:
+43:74865853:d=2019060100:PRATE:surface:0-1 hour ave fcst:
+59:107508215:d=2019060100:VEG:surface:1 hour fcst:
+114:199964578:d=2019060100:ALBDO:surface:0-1 hour ave fcst:
+1:0:d=2019060100:HGT:1 hybrid level:1 hour fcst:
+52:92173114:d=2019060100:SFCR:surface:1 hour fcst:
+58:104858490:d=2019060100:SFEXC:surface:1 hour fcst:
+8:18291212:d=2019060100:TMP:surface:1 hour fcst:
+23:41623709:d=2019060100:WEASD:surface:1 hour fcst:
+25:42898936:d=2019060100:SNOD:surface:1 hour fcst:
+10:22085256:d=2019060100:SOILW:0-0.1 m below ground:1 hour fcst:
+13:26677079:d=2019060100:SOILW:0.1-0.4 m below ground:1 hour fcst:
+16:31717350:d=2019060100:SOILW:0.4-1 m below ground:1 hour fcst:
+19:36691795:d=2019060100:SOILW:1-2 m below ground:1 hour fcst:
+46:78438277:d=2019060100:LHTFL:surface:0-1 hour ave fcst:
+47:81035375:d=2019060100:SHTFL:surface:0-1 hour ave fcst:
+/gpfs/hps/nco/ops/com/gfs/prod/gdas.20190601/gdas.t00z.sfluxgrbf02.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/gdas.20190601/gdas.t00z.sfluxgrbf02.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/force/gdas.20190601/gdas1.t00z.sfluxgrbf02
+2:1645411:d=2019060100:TMP:1 hybrid level:2 hour fcst:
+3:3289565:d=2019060100:SPFH:1 hybrid level:2 hour fcst:
+88:167110004:d=2019060100:DSWRF:surface:0-2 hour ave fcst:
+96:178127851:d=2019060100:DSWRF:surface:2 hour fcst:
+91:169556375:d=2019060100:DLWRF:surface:0-2 hour ave fcst:
+97:178956018:d=2019060100:DLWRF:surface:2 hour fcst:
+4:7218560:d=2019060100:UGRD:1 hybrid level:2 hour fcst:
+39:66681418:d=2019060100:UGRD:10 m above ground:2 hour fcst:
+5:10059110:d=2019060100:VGRD:1 hybrid level:2 hour fcst:
+40:69557420:d=2019060100:VGRD:10 m above ground:2 hour fcst:
+6:12752271:d=2019060100:PRES:surface:2 hour fcst:
+43:75194874:d=2019060100:PRATE:surface:0-2 hour ave fcst:
+59:108817699:d=2019060100:VEG:surface:2 hour fcst:
+114:203919701:d=2019060100:ALBDO:surface:0-2 hour ave fcst:
+1:0:d=2019060100:HGT:1 hybrid level:2 hour fcst:
+52:93445503:d=2019060100:SFCR:surface:2 hour fcst:
+58:106166617:d=2019060100:SFEXC:surface:2 hour fcst:
+8:18315065:d=2019060100:TMP:surface:2 hour fcst:
+23:41666565:d=2019060100:WEASD:surface:2 hour fcst:
+25:42940333:d=2019060100:SNOD:surface:2 hour fcst:
+10:22115643:d=2019060100:SOILW:0-0.1 m below ground:2 hour fcst:
+13:26719589:d=2019060100:SOILW:0.1-0.4 m below ground:2 hour fcst:
+16:31759863:d=2019060100:SOILW:0.4-1 m below ground:2 hour fcst:
+19:36734923:d=2019060100:SOILW:1-2 m below ground:2 hour fcst:
+46:79665748:d=2019060100:LHTFL:surface:0-2 hour ave fcst:
+47:82259200:d=2019060100:SHTFL:surface:0-2 hour ave fcst:
+/gpfs/hps/nco/ops/com/gfs/prod/gdas.20190601/gdas.t00z.sfluxgrbf03.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/gdas.20190601/gdas.t00z.sfluxgrbf03.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/force/gdas.20190601/gdas1.t00z.sfluxgrbf03
+2:1643667:d=2019060100:TMP:1 hybrid level:3 hour fcst:
+3:3271624:d=2019060100:SPFH:1 hybrid level:3 hour fcst:
+88:167367409:d=2019060100:DSWRF:surface:0-3 hour ave fcst:
+96:178460296:d=2019060100:DSWRF:surface:3 hour fcst:
+91:169875777:d=2019060100:DLWRF:surface:0-3 hour ave fcst:
+97:179302918:d=2019060100:DLWRF:surface:3 hour fcst:
+4:7115109:d=2019060100:UGRD:1 hybrid level:3 hour fcst:
+39:65917870:d=2019060100:UGRD:10 m above ground:3 hour fcst:
+5:9847415:d=2019060100:VGRD:1 hybrid level:3 hour fcst:
+40:68799721:d=2019060100:VGRD:10 m above ground:3 hour fcst:
+6:12440971:d=2019060100:PRES:surface:3 hour fcst:
+43:74474242:d=2019060100:PRATE:surface:0-3 hour ave fcst:
+59:108287377:d=2019060100:VEG:surface:3 hour fcst:
+114:204504999:d=2019060100:ALBDO:surface:0-3 hour ave fcst:
+1:0:d=2019060100:HGT:1 hybrid level:3 hour fcst:
+52:92806673:d=2019060100:SFCR:surface:3 hour fcst:
+58:105631604:d=2019060100:SFEXC:surface:3 hour fcst:
+8:17971426:d=2019060100:TMP:surface:3 hour fcst:
+23:41332862:d=2019060100:WEASD:surface:3 hour fcst:
+25:42606292:d=2019060100:SNOD:surface:3 hour fcst:
+10:21782418:d=2019060100:SOILW:0-0.1 m below ground:3 hour fcst:
+13:26386296:d=2019060100:SOILW:0.1-0.4 m below ground:3 hour fcst:
+16:31426750:d=2019060100:SOILW:0.4-1 m below ground:3 hour fcst:
+19:36401548:d=2019060100:SOILW:1-2 m below ground:3 hour fcst:
+46:79114643:d=2019060100:LHTFL:surface:0-3 hour ave fcst:
+47:81711576:d=2019060100:SHTFL:surface:0-3 hour ave fcst:
+/gpfs/hps/nco/ops/com/gfs/prod/gdas.20190601/gdas.t00z.sfluxgrbf04.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/gdas.20190601/gdas.t00z.sfluxgrbf04.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/force/gdas.20190601/gdas1.t00z.sfluxgrbf04
+2:1644142:d=2019060100:TMP:1 hybrid level:4 hour fcst:
+3:3283635:d=2019060100:SPFH:1 hybrid level:4 hour fcst:
+88:169220362:d=2019060100:DSWRF:surface:0-4 hour ave fcst:
+96:180477795:d=2019060100:DSWRF:surface:4 hour fcst:
+91:171826876:d=2019060100:DLWRF:surface:0-4 hour ave fcst:
+97:181317781:d=2019060100:DLWRF:surface:4 hour fcst:
+4:7211332:d=2019060100:UGRD:1 hybrid level:4 hour fcst:
+39:66363854:d=2019060100:UGRD:10 m above ground:4 hour fcst:
+5:9998171:d=2019060100:VGRD:1 hybrid level:4 hour fcst:
+40:69190909:d=2019060100:VGRD:10 m above ground:4 hour fcst:
+6:12636604:d=2019060100:PRES:surface:4 hour fcst:
+43:74804019:d=2019060100:PRATE:surface:0-4 hour ave fcst:
+59:108774501:d=2019060100:VEG:surface:4 hour fcst:
+114:206842357:d=2019060100:ALBDO:surface:0-4 hour ave fcst:
+1:0:d=2019060100:HGT:1 hybrid level:4 hour fcst:
+52:93280139:d=2019060100:SFCR:surface:4 hour fcst:
+58:106124451:d=2019060100:SFEXC:surface:4 hour fcst:
+8:18185782:d=2019060100:TMP:surface:4 hour fcst:
+23:41536343:d=2019060100:WEASD:surface:4 hour fcst:
+25:42808918:d=2019060100:SNOD:surface:4 hour fcst:
+10:21998103:d=2019060100:SOILW:0-0.1 m below ground:4 hour fcst:
+13:26590053:d=2019060100:SOILW:0.1-0.4 m below ground:4 hour fcst:
+16:31630694:d=2019060100:SOILW:0.4-1 m below ground:4 hour fcst:
+19:36605264:d=2019060100:SOILW:1-2 m below ground:4 hour fcst:
+46:79537494:d=2019060100:LHTFL:surface:0-4 hour ave fcst:
+47:82136657:d=2019060100:SHTFL:surface:0-4 hour ave fcst:
+/gpfs/hps/nco/ops/com/gfs/prod/gdas.20190601/gdas.t00z.sfluxgrbf05.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/gdas.20190601/gdas.t00z.sfluxgrbf05.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/force/gdas.20190601/gdas1.t00z.sfluxgrbf05
+2:1643842:d=2019060100:TMP:1 hybrid level:5 hour fcst:
+3:3290388:d=2019060100:SPFH:1 hybrid level:5 hour fcst:
+88:169837977:d=2019060100:DSWRF:surface:0-5 hour ave fcst:
+96:181852116:d=2019060100:DSWRF:surface:5 hour fcst:
+91:173198553:d=2019060100:DLWRF:surface:0-5 hour ave fcst:
+97:182690868:d=2019060100:DLWRF:surface:5 hour fcst:
+4:7239868:d=2019060100:UGRD:1 hybrid level:5 hour fcst:
+39:66364857:d=2019060100:UGRD:10 m above ground:5 hour fcst:
+5:10043220:d=2019060100:VGRD:1 hybrid level:5 hour fcst:
+40:69209923:d=2019060100:VGRD:10 m above ground:5 hour fcst:
+6:12697427:d=2019060100:PRES:surface:5 hour fcst:
+43:74844608:d=2019060100:PRATE:surface:0-5 hour ave fcst:
+59:108744492:d=2019060100:VEG:surface:5 hour fcst:
+114:208553305:d=2019060100:ALBDO:surface:0-5 hour ave fcst:
+1:0:d=2019060100:HGT:1 hybrid level:5 hour fcst:
+52:93218969:d=2019060100:SFCR:surface:5 hour fcst:
+58:106086111:d=2019060100:SFEXC:surface:5 hour fcst:
+8:18249218:d=2019060100:TMP:surface:5 hour fcst:
+23:41619112:d=2019060100:WEASD:surface:5 hour fcst:
+25:42890904:d=2019060100:SNOD:surface:5 hour fcst:
+10:22080712:d=2019060100:SOILW:0-0.1 m below ground:5 hour fcst:
+13:26673646:d=2019060100:SOILW:0.1-0.4 m below ground:5 hour fcst:
+16:31713952:d=2019060100:SOILW:0.4-1 m below ground:5 hour fcst:
+19:36688452:d=2019060100:SOILW:1-2 m below ground:5 hour fcst:
+46:79553924:d=2019060100:LHTFL:surface:0-5 hour ave fcst:
+47:82158319:d=2019060100:SHTFL:surface:0-5 hour ave fcst:
+/gpfs/hps/nco/ops/com/gfs/prod/gdas.20190601/gdas.t00z.sfluxgrbf06.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/gdas.20190601/gdas.t00z.sfluxgrbf06.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/force/gdas.20190601/gdas1.t00z.sfluxgrbf06
+2:1644004:d=2019060100:TMP:1 hybrid level:6 hour fcst:
+3:3297969:d=2019060100:SPFH:1 hybrid level:6 hour fcst:
+88:173214163:d=2019060100:DSWRF:surface:0-6 hour ave fcst:
+96:185456930:d=2019060100:DSWRF:surface:6 hour fcst:
+91:176687248:d=2019060100:DLWRF:surface:0-6 hour ave fcst:
+97:186295346:d=2019060100:DLWRF:surface:6 hour fcst:
+4:7458894:d=2019060100:UGRD:1 hybrid level:6 hour fcst:
+39:66914575:d=2019060100:UGRD:10 m above ground:6 hour fcst:
+5:10276790:d=2019060100:VGRD:1 hybrid level:6 hour fcst:
+40:69773996:d=2019060100:VGRD:10 m above ground:6 hour fcst:
+6:12942416:d=2019060100:PRES:surface:6 hour fcst:
+43:75427712:d=2019060100:PRATE:surface:0-6 hour ave fcst:
+59:111204543:d=2019060100:VEG:surface:6 hour fcst:
+114:211746086:d=2019060100:ALBDO:surface:0-6 hour ave fcst:
+1:0:d=2019060100:HGT:1 hybrid level:6 hour fcst:
+52:95566212:d=2019060100:SFCR:surface:6 hour fcst:
+58:108535954:d=2019060100:SFEXC:surface:6 hour fcst:
+8:18497378:d=2019060100:TMP:surface:6 hour fcst:
+23:41883386:d=2019060100:WEASD:surface:6 hour fcst:
+25:43162276:d=2019060100:SNOD:surface:6 hour fcst:
+10:22336851:d=2019060100:SOILW:0-0.1 m below ground:6 hour fcst:
+13:26940668:d=2019060100:SOILW:0.1-0.4 m below ground:6 hour fcst:
+16:31981344:d=2019060100:SOILW:0.4-1 m below ground:6 hour fcst:
+19:36956133:d=2019060100:SOILW:1-2 m below ground:6 hour fcst:
+46:80209295:d=2019060100:LHTFL:surface:0-6 hour ave fcst:
+47:84475395:d=2019060100:SHTFL:surface:0-6 hour ave fcst:
+/gpfs/hps/nco/ops/com/gfs/prod/gdas.20190601/gdas.t06z.sfluxgrbf00.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/gdas.20190601/gdas.t06z.sfluxgrbf00.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/force/gdas.20190601/gdas1.t06z.sfluxgrbf00
+86:156923570:d=2019060106:DSWRF:surface:0-0 day ave fcst:
+89:159468989:d=2019060106:DLWRF:surface:0-0 day ave fcst:
+43:75543216:d=2019060106:PRATE:surface:0-0 day ave fcst:
+112:193831212:d=2019060106:ALBDO:surface:0-0 day ave fcst:
+46:79181257:d=2019060106:LHTFL:surface:0-0 day ave fcst:
+47:81868022:d=2019060106:SHTFL:surface:0-0 day ave fcst:
+/gpfs/hps/nco/ops/com/gfs/prod/gdas.20190601/gdas.t06z.sfluxgrbf01.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/gdas.20190601/gdas.t06z.sfluxgrbf01.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/force/gdas.20190601/gdas1.t06z.sfluxgrbf01
+2:1643867:d=2019060106:TMP:1 hybrid level:1 hour fcst:
+3:3304257:d=2019060106:SPFH:1 hybrid level:1 hour fcst:
+88:165236809:d=2019060106:DSWRF:surface:0-1 hour ave fcst:
+96:176797855:d=2019060106:DSWRF:surface:1 hour fcst:
+91:167782228:d=2019060106:DLWRF:surface:0-1 hour ave fcst:
+97:177632777:d=2019060106:DLWRF:surface:1 hour fcst:
+4:7298739:d=2019060106:UGRD:1 hybrid level:1 hour fcst:
+39:66914545:d=2019060106:UGRD:10 m above ground:1 hour fcst:
+5:10137330:d=2019060106:VGRD:1 hybrid level:1 hour fcst:
+40:69794862:d=2019060106:VGRD:10 m above ground:1 hour fcst:
+6:12818867:d=2019060106:PRES:surface:1 hour fcst:
+43:75530813:d=2019060106:PRATE:surface:0-1 hour ave fcst:
+59:109470754:d=2019060106:VEG:surface:1 hour fcst:
+114:202807472:d=2019060106:ALBDO:surface:0-1 hour ave fcst:
+1:0:d=2019060106:HGT:1 hybrid level:1 hour fcst:
+52:92279168:d=2019060106:SFCR:surface:1 hour fcst:
+58:106791452:d=2019060106:SFEXC:surface:1 hour fcst:
+8:18379542:d=2019060106:TMP:surface:1 hour fcst:
+23:41767421:d=2019060106:WEASD:surface:1 hour fcst:
+25:43046604:d=2019060106:SNOD:surface:1 hour fcst:
+10:22227631:d=2019060106:SOILW:0-0.1 m below ground:1 hour fcst:
+13:26830592:d=2019060106:SOILW:0.1-0.4 m below ground:1 hour fcst:
+16:31870695:d=2019060106:SOILW:0.4-1 m below ground:1 hour fcst:
+19:36844736:d=2019060106:SOILW:1-2 m below ground:1 hour fcst:
+46:79885452:d=2019060106:LHTFL:surface:0-1 hour ave fcst:
+47:82570226:d=2019060106:SHTFL:surface:0-1 hour ave fcst:
+/gpfs/hps/nco/ops/com/gfs/prod/gdas.20190601/gdas.t06z.sfluxgrbf02.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/gdas.20190601/gdas.t06z.sfluxgrbf02.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/force/gdas.20190601/gdas1.t06z.sfluxgrbf02
+2:1645473:d=2019060106:TMP:1 hybrid level:2 hour fcst:
+3:3309800:d=2019060106:SPFH:1 hybrid level:2 hour fcst:
+88:168296716:d=2019060106:DSWRF:surface:0-2 hour ave fcst:
+96:179783607:d=2019060106:DSWRF:surface:2 hour fcst:
+91:170861845:d=2019060106:DLWRF:surface:0-2 hour ave fcst:
+97:180628209:d=2019060106:DLWRF:surface:2 hour fcst:
+4:7312426:d=2019060106:UGRD:1 hybrid level:2 hour fcst:
+39:66977791:d=2019060106:UGRD:10 m above ground:2 hour fcst:
+5:10162507:d=2019060106:VGRD:1 hybrid level:2 hour fcst:
+40:69870342:d=2019060106:VGRD:10 m above ground:2 hour fcst:
+6:12855193:d=2019060106:PRES:surface:2 hour fcst:
+43:75601798:d=2019060106:PRATE:surface:0-2 hour ave fcst:
+59:109628663:d=2019060106:VEG:surface:2 hour fcst:
+114:205573632:d=2019060106:ALBDO:surface:0-2 hour ave fcst:
+1:0:d=2019060106:HGT:1 hybrid level:2 hour fcst:
+52:94055937:d=2019060106:SFCR:surface:2 hour fcst:
+58:106944708:d=2019060106:SFEXC:surface:2 hour fcst:
+8:18418607:d=2019060106:TMP:surface:2 hour fcst:
+23:41799304:d=2019060106:WEASD:surface:2 hour fcst:
+25:43077570:d=2019060106:SNOD:surface:2 hour fcst:
+10:22276499:d=2019060106:SOILW:0-0.1 m below ground:2 hour fcst:
+13:26867828:d=2019060106:SOILW:0.1-0.4 m below ground:2 hour fcst:
+16:31907889:d=2019060106:SOILW:0.4-1 m below ground:2 hour fcst:
+19:36882408:d=2019060106:SOILW:1-2 m below ground:2 hour fcst:
+46:80038675:d=2019060106:LHTFL:surface:0-2 hour ave fcst:
+47:84385138:d=2019060106:SHTFL:surface:0-2 hour ave fcst:
+/gpfs/hps/nco/ops/com/gfs/prod/gdas.20190601/gdas.t06z.sfluxgrbf03.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/gdas.20190601/gdas.t06z.sfluxgrbf03.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/force/gdas.20190601/gdas1.t06z.sfluxgrbf03
+2:1644239:d=2019060106:TMP:1 hybrid level:3 hour fcst:
+3:3293887:d=2019060106:SPFH:1 hybrid level:3 hour fcst:
+88:169018513:d=2019060106:DSWRF:surface:0-3 hour ave fcst:
+96:180551660:d=2019060106:DSWRF:surface:3 hour fcst:
+91:171652031:d=2019060106:DLWRF:surface:0-3 hour ave fcst:
+97:181410704:d=2019060106:DLWRF:surface:3 hour fcst:
+4:7162570:d=2019060106:UGRD:1 hybrid level:3 hour fcst:
+39:66671958:d=2019060106:UGRD:10 m above ground:3 hour fcst:
+5:9908459:d=2019060106:VGRD:1 hybrid level:3 hour fcst:
+40:69573130:d=2019060106:VGRD:10 m above ground:3 hour fcst:
+6:12506222:d=2019060106:PRES:surface:3 hour fcst:
+43:75300635:d=2019060106:PRATE:surface:0-3 hour ave fcst:
+59:109464982:d=2019060106:VEG:surface:3 hour fcst:
+114:206725602:d=2019060106:ALBDO:surface:0-3 hour ave fcst:
+1:0:d=2019060106:HGT:1 hybrid level:3 hour fcst:
+52:93857173:d=2019060106:SFCR:surface:3 hour fcst:
+58:106777811:d=2019060106:SFEXC:surface:3 hour fcst:
+8:18039203:d=2019060106:TMP:surface:3 hour fcst:
+23:41473079:d=2019060106:WEASD:surface:3 hour fcst:
+25:42751174:d=2019060106:SNOD:surface:3 hour fcst:
+10:21939473:d=2019060106:SOILW:0-0.1 m below ground:3 hour fcst:
+13:26542722:d=2019060106:SOILW:0.1-0.4 m below ground:3 hour fcst:
+16:31583070:d=2019060106:SOILW:0.4-1 m below ground:3 hour fcst:
+19:36557569:d=2019060106:SOILW:1-2 m below ground:3 hour fcst:
+46:79869869:d=2019060106:LHTFL:surface:0-3 hour ave fcst:
+47:84210733:d=2019060106:SHTFL:surface:0-3 hour ave fcst:
+/gpfs/hps/nco/ops/com/gfs/prod/gdas.20190601/gdas.t06z.sfluxgrbf04.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/gdas.20190601/gdas.t06z.sfluxgrbf04.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/force/gdas.20190601/gdas1.t06z.sfluxgrbf04
+2:1645195:d=2019060106:TMP:1 hybrid level:4 hour fcst:
+3:3305857:d=2019060106:SPFH:1 hybrid level:4 hour fcst:
+88:172470236:d=2019060106:DSWRF:surface:0-4 hour ave fcst:
+96:184090812:d=2019060106:DSWRF:surface:4 hour fcst:
+91:175155090:d=2019060106:DLWRF:surface:0-4 hour ave fcst:
+97:184954653:d=2019060106:DLWRF:surface:4 hour fcst:
+4:7443793:d=2019060106:UGRD:1 hybrid level:4 hour fcst:
+39:67077360:d=2019060106:UGRD:10 m above ground:4 hour fcst:
+5:10285214:d=2019060106:VGRD:1 hybrid level:4 hour fcst:
+40:69926594:d=2019060106:VGRD:10 m above ground:4 hour fcst:
+6:12972606:d=2019060106:PRES:surface:4 hour fcst:
+43:75539047:d=2019060106:PRATE:surface:0-4 hour ave fcst:
+59:111398277:d=2019060106:VEG:surface:4 hour fcst:
+114:210592778:d=2019060106:ALBDO:surface:0-4 hour ave fcst:
+1:0:d=2019060106:HGT:1 hybrid level:4 hour fcst:
+52:95843128:d=2019060106:SFCR:surface:4 hour fcst:
+58:108725502:d=2019060106:SFEXC:surface:4 hour fcst:
+8:18522946:d=2019060106:TMP:surface:4 hour fcst:
+23:41924782:d=2019060106:WEASD:surface:4 hour fcst:
+25:43202375:d=2019060106:SNOD:surface:4 hour fcst:
+10:22391962:d=2019060106:SOILW:0-0.1 m below ground:4 hour fcst:
+13:26994816:d=2019060106:SOILW:0.1-0.4 m below ground:4 hour fcst:
+16:32036005:d=2019060106:SOILW:0.4-1 m below ground:4 hour fcst:
+19:37010878:d=2019060106:SOILW:1-2 m below ground:4 hour fcst:
+46:80200905:d=2019060106:LHTFL:surface:0-4 hour ave fcst:
+47:84534770:d=2019060106:SHTFL:surface:0-4 hour ave fcst:
+/gpfs/hps/nco/ops/com/gfs/prod/gdas.20190601/gdas.t06z.sfluxgrbf05.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/gdas.20190601/gdas.t06z.sfluxgrbf05.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/force/gdas.20190601/gdas1.t06z.sfluxgrbf05
+2:1646316:d=2019060106:TMP:1 hybrid level:5 hour fcst:
+3:3310048:d=2019060106:SPFH:1 hybrid level:5 hour fcst:
+88:173222983:d=2019060106:DSWRF:surface:0-5 hour ave fcst:
+96:184916638:d=2019060106:DSWRF:surface:5 hour fcst:
+91:175959081:d=2019060106:DLWRF:surface:0-5 hour ave fcst:
+97:185771139:d=2019060106:DLWRF:surface:5 hour fcst:
+4:7466122:d=2019060106:UGRD:1 hybrid level:5 hour fcst:
+39:67171626:d=2019060106:UGRD:10 m above ground:5 hour fcst:
+5:10325325:d=2019060106:VGRD:1 hybrid level:5 hour fcst:
+40:70035035:d=2019060106:VGRD:10 m above ground:5 hour fcst:
+6:13029809:d=2019060106:PRES:surface:5 hour fcst:
+43:75658956:d=2019060106:PRATE:surface:0-5 hour ave fcst:
+59:111475858:d=2019060106:VEG:surface:5 hour fcst:
+114:211630443:d=2019060106:ALBDO:surface:0-5 hour ave fcst:
+1:0:d=2019060106:HGT:1 hybrid level:5 hour fcst:
+52:95897660:d=2019060106:SFCR:surface:5 hour fcst:
+58:108797987:d=2019060106:SFEXC:surface:5 hour fcst:
+8:18583391:d=2019060106:TMP:surface:5 hour fcst:
+23:41982337:d=2019060106:WEASD:surface:5 hour fcst:
+25:43252191:d=2019060106:SNOD:surface:5 hour fcst:
+10:22449043:d=2019060106:SOILW:0-0.1 m below ground:5 hour fcst:
+13:27051742:d=2019060106:SOILW:0.1-0.4 m below ground:5 hour fcst:
+16:32093162:d=2019060106:SOILW:0.4-1 m below ground:5 hour fcst:
+19:37067918:d=2019060106:SOILW:1-2 m below ground:5 hour fcst:
+46:80306437:d=2019060106:LHTFL:surface:0-5 hour ave fcst:
+47:84634640:d=2019060106:SHTFL:surface:0-5 hour ave fcst:
+/gpfs/hps/nco/ops/com/gfs/prod/gdas.20190601/gdas.t06z.sfluxgrbf06.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/gdas.20190601/gdas.t06z.sfluxgrbf06.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/force/gdas.20190601/gdas1.t06z.sfluxgrbf06
+2:1647041:d=2019060106:TMP:1 hybrid level:6 hour fcst:
+3:3314765:d=2019060106:SPFH:1 hybrid level:6 hour fcst:
+88:174099774:d=2019060106:DSWRF:surface:0-6 hour ave fcst:
+96:186651884:d=2019060106:DSWRF:surface:6 hour fcst:
+91:177652053:d=2019060106:DLWRF:surface:0-6 hour ave fcst:
+97:187492891:d=2019060106:DLWRF:surface:6 hour fcst:
+4:7486986:d=2019060106:UGRD:1 hybrid level:6 hour fcst:
+39:67074423:d=2019060106:UGRD:10 m above ground:6 hour fcst:
+5:10319739:d=2019060106:VGRD:1 hybrid level:6 hour fcst:
+40:69948484:d=2019060106:VGRD:10 m above ground:6 hour fcst:
+6:13038373:d=2019060106:PRES:surface:6 hour fcst:
+43:75593241:d=2019060106:PRATE:surface:0-6 hour ave fcst:
+59:111505444:d=2019060106:VEG:surface:6 hour fcst:
+114:213920068:d=2019060106:ALBDO:surface:0-6 hour ave fcst:
+1:0:d=2019060106:HGT:1 hybrid level:6 hour fcst:
+52:95885329:d=2019060106:SFCR:surface:6 hour fcst:
+58:108821044:d=2019060106:SFEXC:surface:6 hour fcst:
+8:18595813:d=2019060106:TMP:surface:6 hour fcst:
+23:41991331:d=2019060106:WEASD:surface:6 hour fcst:
+25:43260580:d=2019060106:SNOD:surface:6 hour fcst:
+10:22456762:d=2019060106:SOILW:0-0.1 m below ground:6 hour fcst:
+13:27059795:d=2019060106:SOILW:0.1-0.4 m below ground:6 hour fcst:
+16:32101105:d=2019060106:SOILW:0.4-1 m below ground:6 hour fcst:
+19:37075969:d=2019060106:SOILW:1-2 m below ground:6 hour fcst:
+46:80326304:d=2019060106:LHTFL:surface:0-6 hour ave fcst:
+47:84653244:d=2019060106:SHTFL:surface:0-6 hour ave fcst:
+/gpfs/hps/nco/ops/com/gfs/prod/gdas.20190601/gdas.t12z.sfluxgrbf00.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/gdas.20190601/gdas.t12z.sfluxgrbf00.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/force/gdas.20190601/gdas1.t12z.sfluxgrbf00
+86:155081313:d=2019060112:DSWRF:surface:0-0 day ave fcst:
+89:157621557:d=2019060112:DLWRF:surface:0-0 day ave fcst:
+43:75012856:d=2019060112:PRATE:surface:0-0 day ave fcst:
+112:192435661:d=2019060112:ALBDO:surface:0-0 day ave fcst:
+46:78743747:d=2019060112:LHTFL:surface:0-0 day ave fcst:
+47:81428743:d=2019060112:SHTFL:surface:0-0 day ave fcst:
+/gpfs/hps/nco/ops/com/gfs/prod/gdas.20190601/gdas.t12z.sfluxgrbf01.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/gdas.20190601/gdas.t12z.sfluxgrbf01.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/force/gdas.20190601/gdas1.t12z.sfluxgrbf01
+2:1647342:d=2019060112:TMP:1 hybrid level:1 hour fcst:
+3:3347358:d=2019060112:SPFH:1 hybrid level:1 hour fcst:
+88:165206180:d=2019060112:DSWRF:surface:0-1 hour ave fcst:
+96:176827358:d=2019060112:DSWRF:surface:1 hour fcst:
+91:167746424:d=2019060112:DLWRF:surface:0-1 hour ave fcst:
+97:177650875:d=2019060112:DLWRF:surface:1 hour fcst:
+4:7539432:d=2019060112:UGRD:1 hybrid level:1 hour fcst:
+39:67106616:d=2019060112:UGRD:10 m above ground:1 hour fcst:
+5:10422355:d=2019060112:VGRD:1 hybrid level:1 hour fcst:
+40:69992056:d=2019060112:VGRD:10 m above ground:1 hour fcst:
+6:13118557:d=2019060112:PRES:surface:1 hour fcst:
+43:75868452:d=2019060112:PRATE:surface:0-1 hour ave fcst:
+59:108372068:d=2019060112:VEG:surface:1 hour fcst:
+114:202556036:d=2019060112:ALBDO:surface:0-1 hour ave fcst:
+1:0:d=2019060112:HGT:1 hybrid level:1 hour fcst:
+52:92830593:d=2019060112:SFCR:surface:1 hour fcst:
+58:105678792:d=2019060112:SFEXC:surface:1 hour fcst:
+8:18680054:d=2019060112:TMP:surface:1 hour fcst:
+23:42079706:d=2019060112:WEASD:surface:1 hour fcst:
+25:43348732:d=2019060112:SNOD:surface:1 hour fcst:
+10:22542442:d=2019060112:SOILW:0-0.1 m below ground:1 hour fcst:
+13:27146776:d=2019060112:SOILW:0.1-0.4 m below ground:1 hour fcst:
+16:32187553:d=2019060112:SOILW:0.4-1 m below ground:1 hour fcst:
+19:37162169:d=2019060112:SOILW:1-2 m below ground:1 hour fcst:
+46:80456053:d=2019060112:LHTFL:surface:0-1 hour ave fcst:
+47:83137371:d=2019060112:SHTFL:surface:0-1 hour ave fcst:
+/gpfs/hps/nco/ops/com/gfs/prod/gdas.20190601/gdas.t12z.sfluxgrbf02.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/gdas.20190601/gdas.t12z.sfluxgrbf02.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/force/gdas.20190601/gdas1.t12z.sfluxgrbf02
+2:1647511:d=2019060112:TMP:1 hybrid level:2 hour fcst:
+3:3350424:d=2019060112:SPFH:1 hybrid level:2 hour fcst:
+88:167684997:d=2019060112:DSWRF:surface:0-2 hour ave fcst:
+96:179129103:d=2019060112:DSWRF:surface:2 hour fcst:
+91:170183882:d=2019060112:DLWRF:surface:0-2 hour ave fcst:
+97:179970467:d=2019060112:DLWRF:surface:2 hour fcst:
+4:7367121:d=2019060112:UGRD:1 hybrid level:2 hour fcst:
+39:67020675:d=2019060112:UGRD:10 m above ground:2 hour fcst:
+5:10259413:d=2019060112:VGRD:1 hybrid level:2 hour fcst:
+40:69913571:d=2019060112:VGRD:10 m above ground:2 hour fcst:
+6:12968065:d=2019060112:PRES:surface:2 hour fcst:
+43:75752261:d=2019060112:PRATE:surface:0-2 hour ave fcst:
+59:108188627:d=2019060112:VEG:surface:2 hour fcst:
+114:205246948:d=2019060112:ALBDO:surface:0-2 hour ave fcst:
+1:0:d=2019060112:HGT:1 hybrid level:2 hour fcst:
+52:92603054:d=2019060112:SFCR:surface:2 hour fcst:
+58:105489344:d=2019060112:SFEXC:surface:2 hour fcst:
+8:18533387:d=2019060112:TMP:surface:2 hour fcst:
+23:41926356:d=2019060112:WEASD:surface:2 hour fcst:
+25:43195154:d=2019060112:SNOD:surface:2 hour fcst:
+10:22389316:d=2019060112:SOILW:0-0.1 m below ground:2 hour fcst:
+13:26994570:d=2019060112:SOILW:0.1-0.4 m below ground:2 hour fcst:
+16:32035589:d=2019060112:SOILW:0.4-1 m below ground:2 hour fcst:
+19:37010689:d=2019060112:SOILW:1-2 m below ground:2 hour fcst:
+46:80282288:d=2019060112:LHTFL:surface:0-2 hour ave fcst:
+47:82960500:d=2019060112:SHTFL:surface:0-2 hour ave fcst:
+/gpfs/hps/nco/ops/com/gfs/prod/gdas.20190601/gdas.t12z.sfluxgrbf03.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/gdas.20190601/gdas.t12z.sfluxgrbf03.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/force/gdas.20190601/gdas1.t12z.sfluxgrbf03
+2:1646974:d=2019060112:TMP:1 hybrid level:3 hour fcst:
+3:3306477:d=2019060112:SPFH:1 hybrid level:3 hour fcst:
+88:168241496:d=2019060112:DSWRF:surface:0-3 hour ave fcst:
+96:179695154:d=2019060112:DSWRF:surface:3 hour fcst:
+91:170793627:d=2019060112:DLWRF:surface:0-3 hour ave fcst:
+97:180564523:d=2019060112:DLWRF:surface:3 hour fcst:
+4:7187163:d=2019060112:UGRD:1 hybrid level:3 hour fcst:
+39:66597816:d=2019060112:UGRD:10 m above ground:3 hour fcst:
+5:9935640:d=2019060112:VGRD:1 hybrid level:3 hour fcst:
+40:69502066:d=2019060112:VGRD:10 m above ground:3 hour fcst:
+6:12545413:d=2019060112:PRES:surface:3 hour fcst:
+43:75357922:d=2019060112:PRATE:surface:0-3 hour ave fcst:
+59:107952706:d=2019060112:VEG:surface:3 hour fcst:
+114:206113681:d=2019060112:ALBDO:surface:0-3 hour ave fcst:
+1:0:d=2019060112:HGT:1 hybrid level:3 hour fcst:
+52:92337638:d=2019060112:SFCR:surface:3 hour fcst:
+58:105252239:d=2019060112:SFEXC:surface:3 hour fcst:
+8:18078386:d=2019060112:TMP:surface:3 hour fcst:
+23:41467752:d=2019060112:WEASD:surface:3 hour fcst:
+25:42736663:d=2019060112:SNOD:surface:3 hour fcst:
+10:21930212:d=2019060112:SOILW:0-0.1 m below ground:3 hour fcst:
+13:26536444:d=2019060112:SOILW:0.1-0.4 m below ground:3 hour fcst:
+16:31577645:d=2019060112:SOILW:0.4-1 m below ground:3 hour fcst:
+19:36552738:d=2019060112:SOILW:1-2 m below ground:3 hour fcst:
+46:80055272:d=2019060112:LHTFL:surface:0-3 hour ave fcst:
+47:82730359:d=2019060112:SHTFL:surface:0-3 hour ave fcst:
+/gpfs/hps/nco/ops/com/gfs/prod/gdas.20190601/gdas.t12z.sfluxgrbf04.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/gdas.20190601/gdas.t12z.sfluxgrbf04.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/force/gdas.20190601/gdas1.t12z.sfluxgrbf04
+2:1647909:d=2019060112:TMP:1 hybrid level:4 hour fcst:
+3:3318034:d=2019060112:SPFH:1 hybrid level:4 hour fcst:
+88:170028580:d=2019060112:DSWRF:surface:0-4 hour ave fcst:
+96:181595418:d=2019060112:DSWRF:surface:4 hour fcst:
+91:172683217:d=2019060112:DLWRF:surface:0-4 hour ave fcst:
+97:182466784:d=2019060112:DLWRF:surface:4 hour fcst:
+4:7275716:d=2019060112:UGRD:1 hybrid level:4 hour fcst:
+39:67279625:d=2019060112:UGRD:10 m above ground:4 hour fcst:
+5:10125603:d=2019060112:VGRD:1 hybrid level:4 hour fcst:
+40:70130762:d=2019060112:VGRD:10 m above ground:4 hour fcst:
+6:12790295:d=2019060112:PRES:surface:4 hour fcst:
+43:75885743:d=2019060112:PRATE:surface:0-4 hour ave fcst:
+59:108351217:d=2019060112:VEG:surface:4 hour fcst:
+114:207985029:d=2019060112:ALBDO:surface:0-4 hour ave fcst:
+1:0:d=2019060112:HGT:1 hybrid level:4 hour fcst:
+52:92796744:d=2019060112:SFCR:surface:4 hour fcst:
+58:105670603:d=2019060112:SFEXC:surface:4 hour fcst:
+8:18343302:d=2019060112:TMP:surface:4 hour fcst:
+23:41729646:d=2019060112:WEASD:surface:4 hour fcst:
+25:42997633:d=2019060112:SNOD:surface:4 hour fcst:
+10:22191327:d=2019060112:SOILW:0-0.1 m below ground:4 hour fcst:
+13:26798984:d=2019060112:SOILW:0.1-0.4 m below ground:4 hour fcst:
+16:31840623:d=2019060112:SOILW:0.4-1 m below ground:4 hour fcst:
+19:36815791:d=2019060112:SOILW:1-2 m below ground:4 hour fcst:
+46:80559042:d=2019060112:LHTFL:surface:0-4 hour ave fcst:
+47:83228184:d=2019060112:SHTFL:surface:0-4 hour ave fcst:
+/gpfs/hps/nco/ops/com/gfs/prod/gdas.20190601/gdas.t12z.sfluxgrbf05.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/gdas.20190601/gdas.t12z.sfluxgrbf05.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/force/gdas.20190601/gdas1.t12z.sfluxgrbf05
+2:1649184:d=2019060112:TMP:1 hybrid level:5 hour fcst:
+3:3340879:d=2019060112:SPFH:1 hybrid level:5 hour fcst:
+88:171675378:d=2019060112:DSWRF:surface:0-5 hour ave fcst:
+96:184063028:d=2019060112:DSWRF:surface:5 hour fcst:
+91:175164164:d=2019060112:DLWRF:surface:0-5 hour ave fcst:
+97:184929259:d=2019060112:DLWRF:surface:5 hour fcst:
+4:7306969:d=2019060112:UGRD:1 hybrid level:5 hour fcst:
+39:66809797:d=2019060112:UGRD:10 m above ground:5 hour fcst:
+5:10137355:d=2019060112:VGRD:1 hybrid level:5 hour fcst:
+40:69676795:d=2019060112:VGRD:10 m above ground:5 hour fcst:
+6:12821852:d=2019060112:PRES:surface:5 hour fcst:
+43:75448138:d=2019060112:PRATE:surface:0-5 hour ave fcst:
+59:109657892:d=2019060112:VEG:surface:5 hour fcst:
+114:210919995:d=2019060112:ALBDO:surface:0-5 hour ave fcst:
+1:0:d=2019060112:HGT:1 hybrid level:5 hour fcst:
+52:94097663:d=2019060112:SFCR:surface:5 hour fcst:
+58:106980403:d=2019060112:SFEXC:surface:5 hour fcst:
+8:18377206:d=2019060112:TMP:surface:5 hour fcst:
+23:41761526:d=2019060112:WEASD:surface:5 hour fcst:
+25:43029584:d=2019060112:SNOD:surface:5 hour fcst:
+10:22219634:d=2019060112:SOILW:0-0.1 m below ground:5 hour fcst:
+13:26828025:d=2019060112:SOILW:0.1-0.4 m below ground:5 hour fcst:
+16:31870178:d=2019060112:SOILW:0.4-1 m below ground:5 hour fcst:
+19:36846212:d=2019060112:SOILW:1-2 m below ground:5 hour fcst:
+46:80209699:d=2019060112:LHTFL:surface:0-5 hour ave fcst:
+47:82873950:d=2019060112:SHTFL:surface:0-5 hour ave fcst:
+/gpfs/hps/nco/ops/com/gfs/prod/gdas.20190601/gdas.t12z.sfluxgrbf06.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/gdas.20190601/gdas.t12z.sfluxgrbf06.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/force/gdas.20190601/gdas1.t12z.sfluxgrbf06
+2:1650373:d=2019060112:TMP:1 hybrid level:6 hour fcst:
+3:3339231:d=2019060112:SPFH:1 hybrid level:6 hour fcst:
+88:172778633:d=2019060112:DSWRF:surface:0-6 hour ave fcst:
+96:185288799:d=2019060112:DSWRF:surface:6 hour fcst:
+91:176376061:d=2019060112:DLWRF:surface:0-6 hour ave fcst:
+97:186543369:d=2019060112:DLWRF:surface:6 hour fcst:
+4:7309655:d=2019060112:UGRD:1 hybrid level:6 hour fcst:
+39:66837713:d=2019060112:UGRD:10 m above ground:6 hour fcst:
+5:10153340:d=2019060112:VGRD:1 hybrid level:6 hour fcst:
+40:69717011:d=2019060112:VGRD:10 m above ground:6 hour fcst:
+6:12855403:d=2019060112:PRES:surface:6 hour fcst:
+43:75503986:d=2019060112:PRATE:surface:0-6 hour ave fcst:
+59:109796821:d=2019060112:VEG:surface:6 hour fcst:
+114:213089702:d=2019060112:ALBDO:surface:0-6 hour ave fcst:
+1:0:d=2019060112:HGT:1 hybrid level:6 hour fcst:
+52:94208462:d=2019060112:SFCR:surface:6 hour fcst:
+58:107116270:d=2019060112:SFEXC:surface:6 hour fcst:
+8:18413555:d=2019060112:TMP:surface:6 hour fcst:
+23:41795039:d=2019060112:WEASD:surface:6 hour fcst:
+25:43062952:d=2019060112:SNOD:surface:6 hour fcst:
+10:22250038:d=2019060112:SOILW:0-0.1 m below ground:6 hour fcst:
+13:26859532:d=2019060112:SOILW:0.1-0.4 m below ground:6 hour fcst:
+16:31902006:d=2019060112:SOILW:0.4-1 m below ground:6 hour fcst:
+19:36878050:d=2019060112:SOILW:1-2 m below ground:6 hour fcst:
+46:80352922:d=2019060112:LHTFL:surface:0-6 hour ave fcst:
+47:83010080:d=2019060112:SHTFL:surface:0-6 hour ave fcst:
+/gpfs/hps/nco/ops/com/gfs/prod/gdas.20190601/gdas.t18z.sfluxgrbf00.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/gdas.20190601/gdas.t18z.sfluxgrbf00.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/force/gdas.20190601/gdas1.t18z.sfluxgrbf00
+86:157195233:d=2019060118:DSWRF:surface:0-0 day ave fcst:
+89:159786126:d=2019060118:DLWRF:surface:0-0 day ave fcst:
+43:75327305:d=2019060118:PRATE:surface:0-0 day ave fcst:
+112:194214172:d=2019060118:ALBDO:surface:0-0 day ave fcst:
+46:79078306:d=2019060118:LHTFL:surface:0-0 day ave fcst:
+47:81722623:d=2019060118:SHTFL:surface:0-0 day ave fcst:
+/gpfs/hps/nco/ops/com/gfs/prod/gdas.20190601/gdas.t18z.sfluxgrbf01.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/gdas.20190601/gdas.t18z.sfluxgrbf01.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/force/gdas.20190601/gdas1.t18z.sfluxgrbf01
+2:1650643:d=2019060118:TMP:1 hybrid level:1 hour fcst:
+3:3334573:d=2019060118:SPFH:1 hybrid level:1 hour fcst:
+88:163010116:d=2019060118:DSWRF:surface:0-1 hour ave fcst:
+96:174529800:d=2019060118:DSWRF:surface:1 hour fcst:
+91:165601009:d=2019060118:DLWRF:surface:0-1 hour ave fcst:
+97:175398738:d=2019060118:DLWRF:surface:1 hour fcst:
+4:7312774:d=2019060118:UGRD:1 hybrid level:1 hour fcst:
+39:66610383:d=2019060118:UGRD:10 m above ground:1 hour fcst:
+5:10168789:d=2019060118:VGRD:1 hybrid level:1 hour fcst:
+40:69499944:d=2019060118:VGRD:10 m above ground:1 hour fcst:
+6:12884700:d=2019060118:PRES:surface:1 hour fcst:
+43:75351554:d=2019060118:PRATE:surface:0-1 hour ave fcst:
+59:106808405:d=2019060118:VEG:surface:1 hour fcst:
+114:200005732:d=2019060118:ALBDO:surface:0-1 hour ave fcst:
+1:0:d=2019060118:HGT:1 hybrid level:1 hour fcst:
+52:91268018:d=2019060118:SFCR:surface:1 hour fcst:
+58:104125677:d=2019060118:SFEXC:surface:1 hour fcst:
+8:18448465:d=2019060118:TMP:surface:1 hour fcst:
+23:41869258:d=2019060118:WEASD:surface:1 hour fcst:
+25:43140301:d=2019060118:SNOD:surface:1 hour fcst:
+10:22318758:d=2019060118:SOILW:0-0.1 m below ground:1 hour fcst:
+13:26929070:d=2019060118:SOILW:0.1-0.4 m below ground:1 hour fcst:
+16:31970800:d=2019060118:SOILW:0.4-1 m below ground:1 hour fcst:
+19:36946522:d=2019060118:SOILW:1-2 m below ground:1 hour fcst:
+46:78988154:d=2019060118:LHTFL:surface:0-1 hour ave fcst:
+47:81621758:d=2019060118:SHTFL:surface:0-1 hour ave fcst:
+/gpfs/hps/nco/ops/com/gfs/prod/gdas.20190601/gdas.t18z.sfluxgrbf02.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/gdas.20190601/gdas.t18z.sfluxgrbf02.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/force/gdas.20190601/gdas1.t18z.sfluxgrbf02
+2:1651687:d=2019060118:TMP:1 hybrid level:2 hour fcst:
+3:3332893:d=2019060118:SPFH:1 hybrid level:2 hour fcst:
+88:165579306:d=2019060118:DSWRF:surface:0-2 hour ave fcst:
+96:176943678:d=2019060118:DSWRF:surface:2 hour fcst:
+91:168175499:d=2019060118:DLWRF:surface:0-2 hour ave fcst:
+97:177815599:d=2019060118:DLWRF:surface:2 hour fcst:
+4:7311617:d=2019060118:UGRD:1 hybrid level:2 hour fcst:
+39:66567208:d=2019060118:UGRD:10 m above ground:2 hour fcst:
+5:10175963:d=2019060118:VGRD:1 hybrid level:2 hour fcst:
+40:69465362:d=2019060118:VGRD:10 m above ground:2 hour fcst:
+6:12900956:d=2019060118:PRES:surface:2 hour fcst:
+43:75265354:d=2019060118:PRATE:surface:0-2 hour ave fcst:
+59:106760601:d=2019060118:VEG:surface:2 hour fcst:
+114:203088167:d=2019060118:ALBDO:surface:0-2 hour ave fcst:
+1:0:d=2019060118:HGT:1 hybrid level:2 hour fcst:
+52:91222678:d=2019060118:SFCR:surface:2 hour fcst:
+58:104080619:d=2019060118:SFEXC:surface:2 hour fcst:
+8:18467361:d=2019060118:TMP:surface:2 hour fcst:
+23:41844699:d=2019060118:WEASD:surface:2 hour fcst:
+25:43116808:d=2019060118:SNOD:surface:2 hour fcst:
+10:22290786:d=2019060118:SOILW:0-0.1 m below ground:2 hour fcst:
+13:26901525:d=2019060118:SOILW:0.1-0.4 m below ground:2 hour fcst:
+16:31943592:d=2019060118:SOILW:0.4-1 m below ground:2 hour fcst:
+19:36919973:d=2019060118:SOILW:1-2 m below ground:2 hour fcst:
+46:78989414:d=2019060118:LHTFL:surface:0-2 hour ave fcst:
+47:81608167:d=2019060118:SHTFL:surface:0-2 hour ave fcst:
+/gpfs/hps/nco/ops/com/gfs/prod/gdas.20190601/gdas.t18z.sfluxgrbf03.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/gdas.20190601/gdas.t18z.sfluxgrbf03.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/force/gdas.20190601/gdas1.t18z.sfluxgrbf03
+2:1650127:d=2019060118:TMP:1 hybrid level:3 hour fcst:
+3:3309314:d=2019060118:SPFH:1 hybrid level:3 hour fcst:
+88:165988242:d=2019060118:DSWRF:surface:0-3 hour ave fcst:
+96:177339898:d=2019060118:DSWRF:surface:3 hour fcst:
+91:168617355:d=2019060118:DLWRF:surface:0-3 hour ave fcst:
+97:178194974:d=2019060118:DLWRF:surface:3 hour fcst:
+4:7107683:d=2019060118:UGRD:1 hybrid level:3 hour fcst:
+39:66253679:d=2019060118:UGRD:10 m above ground:3 hour fcst:
+5:9860410:d=2019060118:VGRD:1 hybrid level:3 hour fcst:
+40:69151434:d=2019060118:VGRD:10 m above ground:3 hour fcst:
+6:12485287:d=2019060118:PRES:surface:3 hour fcst:
+43:74931716:d=2019060118:PRATE:surface:0-3 hour ave fcst:
+59:106416550:d=2019060118:VEG:surface:3 hour fcst:
+114:203591445:d=2019060118:ALBDO:surface:0-3 hour ave fcst:
+1:0:d=2019060118:HGT:1 hybrid level:3 hour fcst:
+52:90916249:d=2019060118:SFCR:surface:3 hour fcst:
+58:103742999:d=2019060118:SFEXC:surface:3 hour fcst:
+8:18020627:d=2019060118:TMP:surface:3 hour fcst:
+23:41392067:d=2019060118:WEASD:surface:3 hour fcst:
+25:42665105:d=2019060118:SNOD:surface:3 hour fcst:
+10:21835085:d=2019060118:SOILW:0-0.1 m below ground:3 hour fcst:
+13:26446093:d=2019060118:SOILW:0.1-0.4 m below ground:3 hour fcst:
+16:31488432:d=2019060118:SOILW:0.4-1 m below ground:3 hour fcst:
+19:36464955:d=2019060118:SOILW:1-2 m below ground:3 hour fcst:
+46:78780635:d=2019060118:LHTFL:surface:0-3 hour ave fcst:
+47:81388796:d=2019060118:SHTFL:surface:0-3 hour ave fcst:
+/gpfs/hps/nco/ops/com/gfs/prod/gdas.20190601/gdas.t18z.sfluxgrbf04.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/gdas.20190601/gdas.t18z.sfluxgrbf04.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/force/gdas.20190601/gdas1.t18z.sfluxgrbf04
+2:1650768:d=2019060118:TMP:1 hybrid level:4 hour fcst:
+3:3314962:d=2019060118:SPFH:1 hybrid level:4 hour fcst:
+88:166775091:d=2019060118:DSWRF:surface:0-4 hour ave fcst:
+96:178165014:d=2019060118:DSWRF:surface:4 hour fcst:
+91:169454822:d=2019060118:DLWRF:surface:0-4 hour ave fcst:
+97:179014320:d=2019060118:DLWRF:surface:4 hour fcst:
+4:7183195:d=2019060118:UGRD:1 hybrid level:4 hour fcst:
+39:66321698:d=2019060118:UGRD:10 m above ground:4 hour fcst:
+5:9983130:d=2019060118:VGRD:1 hybrid level:4 hour fcst:
+40:69156317:d=2019060118:VGRD:10 m above ground:4 hour fcst:
+6:12651264:d=2019060118:PRES:surface:4 hour fcst:
+43:74777712:d=2019060118:PRATE:surface:0-4 hour ave fcst:
+59:106112648:d=2019060118:VEG:surface:4 hour fcst:
+114:205207005:d=2019060118:ALBDO:surface:0-4 hour ave fcst:
+1:0:d=2019060118:HGT:1 hybrid level:4 hour fcst:
+52:90702044:d=2019060118:SFCR:surface:4 hour fcst:
+58:103461838:d=2019060118:SFEXC:surface:4 hour fcst:
+8:18202840:d=2019060118:TMP:surface:4 hour fcst:
+23:41565618:d=2019060118:WEASD:surface:4 hour fcst:
+25:42838530:d=2019060118:SNOD:surface:4 hour fcst:
+10:22007408:d=2019060118:SOILW:0-0.1 m below ground:4 hour fcst:
+13:26618495:d=2019060118:SOILW:0.1-0.4 m below ground:4 hour fcst:
+16:31661167:d=2019060118:SOILW:0.4-1 m below ground:4 hour fcst:
+19:36637928:d=2019060118:SOILW:1-2 m below ground:4 hour fcst:
+46:78697961:d=2019060118:LHTFL:surface:0-4 hour ave fcst:
+47:81297295:d=2019060118:SHTFL:surface:0-4 hour ave fcst:
+/gpfs/hps/nco/ops/com/gfs/prod/gdas.20190601/gdas.t18z.sfluxgrbf05.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/gdas.20190601/gdas.t18z.sfluxgrbf05.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/force/gdas.20190601/gdas1.t18z.sfluxgrbf05
+2:1651137:d=2019060118:TMP:1 hybrid level:5 hour fcst:
+3:3286339:d=2019060118:SPFH:1 hybrid level:5 hour fcst:
+88:168533362:d=2019060118:DSWRF:surface:0-5 hour ave fcst:
+96:179943929:d=2019060118:DSWRF:surface:5 hour fcst:
+91:171232328:d=2019060118:DLWRF:surface:0-5 hour ave fcst:
+97:180782144:d=2019060118:DLWRF:surface:5 hour fcst:
+4:7342011:d=2019060118:UGRD:1 hybrid level:5 hour fcst:
+39:66523599:d=2019060118:UGRD:10 m above ground:5 hour fcst:
+5:10155070:d=2019060118:VGRD:1 hybrid level:5 hour fcst:
+40:69371401:d=2019060118:VGRD:10 m above ground:5 hour fcst:
+6:12835140:d=2019060118:PRES:surface:5 hour fcst:
+43:74990949:d=2019060118:PRATE:surface:0-5 hour ave fcst:
+59:107119691:d=2019060118:VEG:surface:5 hour fcst:
+114:206361398:d=2019060118:ALBDO:surface:0-5 hour ave fcst:
+1:0:d=2019060118:HGT:1 hybrid level:5 hour fcst:
+52:91687558:d=2019060118:SFCR:surface:5 hour fcst:
+58:104465396:d=2019060118:SFEXC:surface:5 hour fcst:
+8:18389659:d=2019060118:TMP:surface:5 hour fcst:
+23:41744985:d=2019060118:WEASD:surface:5 hour fcst:
+25:43017228:d=2019060118:SNOD:surface:5 hour fcst:
+10:22185057:d=2019060118:SOILW:0-0.1 m below ground:5 hour fcst:
+13:26795634:d=2019060118:SOILW:0.1-0.4 m below ground:5 hour fcst:
+16:31838817:d=2019060118:SOILW:0.4-1 m below ground:5 hour fcst:
+19:36815298:d=2019060118:SOILW:1-2 m below ground:5 hour fcst:
+46:79706617:d=2019060118:LHTFL:surface:0-5 hour ave fcst:
+47:82301380:d=2019060118:SHTFL:surface:0-5 hour ave fcst:
+/gpfs/hps/nco/ops/com/gfs/prod/gdas.20190601/gdas.t18z.sfluxgrbf06.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/gdas.20190601/gdas.t18z.sfluxgrbf06.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/force/gdas.20190601/gdas1.t18z.sfluxgrbf06
+2:1651285:d=2019060118:TMP:1 hybrid level:6 hour fcst:
+3:3287838:d=2019060118:SPFH:1 hybrid level:6 hour fcst:
+88:171004107:d=2019060118:DSWRF:surface:0-6 hour ave fcst:
+96:183256882:d=2019060118:DSWRF:surface:6 hour fcst:
+91:174515296:d=2019060118:DLWRF:surface:0-6 hour ave fcst:
+97:184092378:d=2019060118:DLWRF:surface:6 hour fcst:
+4:7188910:d=2019060118:UGRD:1 hybrid level:6 hour fcst:
+39:66452967:d=2019060118:UGRD:10 m above ground:6 hour fcst:
+5:10010333:d=2019060118:VGRD:1 hybrid level:6 hour fcst:
+40:69311121:d=2019060118:VGRD:10 m above ground:6 hour fcst:
+6:12697738:d=2019060118:PRES:surface:6 hour fcst:
+43:74980148:d=2019060118:PRATE:surface:0-6 hour ave fcst:
+59:108852830:d=2019060118:VEG:surface:6 hour fcst:
+114:210241096:d=2019060118:ALBDO:surface:0-6 hour ave fcst:
+1:0:d=2019060118:HGT:1 hybrid level:6 hour fcst:
+52:93371916:d=2019060118:SFCR:surface:6 hour fcst:
+58:106195584:d=2019060118:SFEXC:surface:6 hour fcst:
+8:18254424:d=2019060118:TMP:surface:6 hour fcst:
+23:41611535:d=2019060118:WEASD:surface:6 hour fcst:
+25:42883438:d=2019060118:SNOD:surface:6 hour fcst:
+10:22049740:d=2019060118:SOILW:0-0.1 m below ground:6 hour fcst:
+13:26660426:d=2019060118:SOILW:0.1-0.4 m below ground:6 hour fcst:
+16:31703842:d=2019060118:SOILW:0.4-1 m below ground:6 hour fcst:
+19:36680401:d=2019060118:SOILW:1-2 m below ground:6 hour fcst:
+46:79782372:d=2019060118:LHTFL:surface:0-6 hour ave fcst:
+47:82375452:d=2019060118:SHTFL:surface:0-6 hour ave fcst:
+/gpfs/hps/nco/ops/com/gfs/prod
+/gpfs/dell2/ptmp/Youlong.Xia
+/gpfs/dell2/ptmp/Youlong.Xia/force
++ /gpfs/dell2/emc/retros/noscrub/Youlong.Xia/gldas.v2.3.0/scripts/gfs_gdas_gldas_precip.sh 20190601
+/gpfs/dell2/emc/retros/noscrub/Youlong.Xia/gldas.v2.3.0/scripts/gfs_gdas_gldas_precip.sh 20190601 20190601
+/gpfs/gp1/nco/ops/dcom/us007003/20190601/wgrbbul/cpc_rcdas/PRCP_CU_GAUGE_V1.0GLB_0.25deg.lnx.20190601.RT
+/gpfs/dell2/ptmp/Youlong.Xia/force/gdas.20190601/gdas1.t00z.sfluxgrbf06
+12:76678044:d=19060100:PRATE:kpds5=59:kpds6=1:kpds7=0:TR=3:P1=0:P2=6:TimeU=1:sfc:0-6hr ave:NAve=0
+/gpfs/dell2/ptmp/Youlong.Xia/force/gdas.20190601/gdas1.t06z.sfluxgrbf06
+12:76678044:d=19060106:PRATE:kpds5=59:kpds6=1:kpds7=0:TR=3:P1=0:P2=6:TimeU=1:sfc:0-6hr ave:NAve=0
+/gpfs/dell2/ptmp/Youlong.Xia/force/gdas.20190601/gdas1.t12z.sfluxgrbf06
+12:76678044:d=19060112:PRATE:kpds5=59:kpds6=1:kpds7=0:TR=3:P1=0:P2=6:TimeU=1:sfc:0-6hr ave:NAve=0
+/gpfs/dell2/ptmp/Youlong.Xia/force/gdas.20190601/gdas1.t18z.sfluxgrbf06
+12:76678044:d=19060118:PRATE:kpds5=59:kpds6=1:kpds7=0:TR=3:P1=0:P2=6:TimeU=1:sfc:0-6hr ave:NAve=0
+1:0:d=19060100:PRATE:kpds5=59:kpds6=1:kpds7=0:TR=3:P1=0:P2=6:TimeU=1:sfc:0-6hr ave:NAve=0
+1:0:d=19060106:PRATE:kpds5=59:kpds6=1:kpds7=0:TR=3:P1=0:P2=6:TimeU=1:sfc:0-6hr ave:NAve=0
+1:0:d=19060112:PRATE:kpds5=59:kpds6=1:kpds7=0:TR=3:P1=0:P2=6:TimeU=1:sfc:0-6hr ave:NAve=0
+1:0:d=19060118:PRATE:kpds5=59:kpds6=1:kpds7=0:TR=3:P1=0:P2=6:TimeU=1:sfc:0-6hr ave:NAve=0
+        2019           6           1           0
+           7         141         255         192          59           1
+           0          19           6           1           0           0
+           1           0           6           3           0           0
+         130           0          21           6           4           0
+           0
+           0        1440         720       89875         125         128
+      -89875      359875         250         250           0           0
+           0           0           0           0           0           0
+           0         255           0           0           0           0
+           0
+ fort.21           0
+ iret =           0
+ iret =           0
+ iret =           0
+ 
+ fort.22           6
+ iret =           0
+ iret =           0
+ iret =           0
+ 
+ fort.23          12
+ iret =           0
+ iret =           0
+ iret =           0
+ 
+ fort.24          18
+ iret =           0
+ iret =           0
+ iret =           0
+ 
+/gpfs/dell2/ptmp/Youlong.Xia/force
+/gpfs/dell2/ptmp/Youlong.Xia/force
+Mon Jun  3 23:14:17 UTC 2019
++ gds='255 4 3072 1536 89909 0 128 -89909 -117 117 768 0 0 0 0 0 0 0 0 0 255 0 0 0 0 0'
++ /gpfs/dell1/nco/ops/nwprod/grib_util.v1.0.6/exec/copygb '-g255 4 3072 1536 89909 0 128 -89909 -117 117 768 0 0 0 0 0 0 0 0 0 255 0 0 0 0 0' -x /gpfs/dell2/ptmp/Youlong.Xia/force/gob.20190601/precip.gldas.2019060100 /gpfs/dell2/ptmp/Youlong.Xia/gldas.20190601/cmap.gdas.2019060100
++ /gpfs/dell1/nco/ops/nwprod/grib_util.v1.0.6/exec/copygb '-g255 4 3072 1536 89909 0 128 -89909 -117 117 768 0 0 0 0 0 0 0 0 0 255 0 0 0 0 0' -x /gpfs/dell2/ptmp/Youlong.Xia/force/gob.20190601/precip.gldas.2019060106 /gpfs/dell2/ptmp/Youlong.Xia/gldas.20190601/cmap.gdas.2019060106
++ /gpfs/dell1/nco/ops/nwprod/grib_util.v1.0.6/exec/copygb '-g255 4 3072 1536 89909 0 128 -89909 -117 117 768 0 0 0 0 0 0 0 0 0 255 0 0 0 0 0' -x /gpfs/dell2/ptmp/Youlong.Xia/force/gob.20190601/precip.gldas.2019060112 /gpfs/dell2/ptmp/Youlong.Xia/gldas.20190601/cmap.gdas.2019060112
++ /gpfs/dell1/nco/ops/nwprod/grib_util.v1.0.6/exec/copygb '-g255 4 3072 1536 89909 0 128 -89909 -117 117 768 0 0 0 0 0 0 0 0 0 255 0 0 0 0 0' -x /gpfs/dell2/ptmp/Youlong.Xia/force/gob.20190601/precip.gldas.2019060118 /gpfs/dell2/ptmp/Youlong.Xia/gldas.20190601/cmap.gdas.2019060118
++ sh finddate.sh 20190601 d+1
++ yyyymmdd=20190602
++ [ 20190602 -lt 20190603 ]
++ /gpfs/dell2/emc/retros/noscrub/Youlong.Xia/gldas.v2.3.0/scripts/lis.forcing.gdas.prod.sh 20190602
+/gpfs/dell2/emc/retros/noscrub/Youlong.Xia/gldas.v2.3.0/scripts/lis.forcing.gdas.prod.sh 20190602 20190602
+/gpfs/dell2/ptmp/Youlong.Xia/gdas.20190602
+/gpfs/dell2/ptmp/Youlong.Xia/force/gdas.20190602
+/gpfs/hps/nco/ops/com/gfs/prod/gdas.20190602/gdas.t00z.sfluxgrbf00.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/gdas.20190602/gdas.t00z.sfluxgrbf00.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/force/gdas.20190602/gdas1.t00z.sfluxgrbf00
+86:155374646:d=2019060200:DSWRF:surface:0-0 day ave fcst:
+89:157826386:d=2019060200:DLWRF:surface:0-0 day ave fcst:
+43:75104746:d=2019060200:PRATE:surface:0-0 day ave fcst:
+112:192007913:d=2019060200:ALBDO:surface:0-0 day ave fcst:
+46:78669507:d=2019060200:LHTFL:surface:0-0 day ave fcst:
+47:81279098:d=2019060200:SHTFL:surface:0-0 day ave fcst:
+/gpfs/hps/nco/ops/com/gfs/prod/gdas.20190602/gdas.t00z.sfluxgrbf01.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/gdas.20190602/gdas.t00z.sfluxgrbf01.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/force/gdas.20190602/gdas1.t00z.sfluxgrbf01
+2:1649837:d=2019060200:TMP:1 hybrid level:1 hour fcst:
+3:3288765:d=2019060200:SPFH:1 hybrid level:1 hour fcst:
+88:163604078:d=2019060200:DSWRF:surface:0-1 hour ave fcst:
+96:174795319:d=2019060200:DSWRF:surface:1 hour fcst:
+91:166055818:d=2019060200:DLWRF:surface:0-1 hour ave fcst:
+97:175597494:d=2019060200:DLWRF:surface:1 hour fcst:
+4:7202908:d=2019060200:UGRD:1 hybrid level:1 hour fcst:
+39:66400402:d=2019060200:UGRD:10 m above ground:1 hour fcst:
+5:10074957:d=2019060200:VGRD:1 hybrid level:1 hour fcst:
+40:69270868:d=2019060200:VGRD:10 m above ground:1 hour fcst:
+6:12809767:d=2019060200:PRES:surface:1 hour fcst:
+43:74914477:d=2019060200:PRATE:surface:0-1 hour ave fcst:
+59:107655771:d=2019060200:VEG:surface:1 hour fcst:
+114:200240449:d=2019060200:ALBDO:surface:0-1 hour ave fcst:
+1:0:d=2019060200:HGT:1 hybrid level:1 hour fcst:
+52:92290435:d=2019060200:SFCR:surface:1 hour fcst:
+58:104996745:d=2019060200:SFEXC:surface:1 hour fcst:
+8:18372886:d=2019060200:TMP:surface:1 hour fcst:
+23:41735497:d=2019060200:WEASD:surface:1 hour fcst:
+25:43007062:d=2019060200:SNOD:surface:1 hour fcst:
+10:22174694:d=2019060200:SOILW:0-0.1 m below ground:1 hour fcst:
+13:26785049:d=2019060200:SOILW:0.1-0.4 m below ground:1 hour fcst:
+16:31827627:d=2019060200:SOILW:0.4-1 m below ground:1 hour fcst:
+19:36803876:d=2019060200:SOILW:1-2 m below ground:1 hour fcst:
+46:78492306:d=2019060200:LHTFL:surface:0-1 hour ave fcst:
+47:81097578:d=2019060200:SHTFL:surface:0-1 hour ave fcst:
+/gpfs/hps/nco/ops/com/gfs/prod/gdas.20190602/gdas.t00z.sfluxgrbf02.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/gdas.20190602/gdas.t00z.sfluxgrbf02.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/force/gdas.20190602/gdas1.t00z.sfluxgrbf02
+2:1649421:d=2019060200:TMP:1 hybrid level:2 hour fcst:
+3:3290317:d=2019060200:SPFH:1 hybrid level:2 hour fcst:
+88:166629718:d=2019060200:DSWRF:surface:0-2 hour ave fcst:
+96:177691195:d=2019060200:DSWRF:surface:2 hour fcst:
+91:169081556:d=2019060200:DLWRF:surface:0-2 hour ave fcst:
+97:178516687:d=2019060200:DLWRF:surface:2 hour fcst:
+4:7213634:d=2019060200:UGRD:1 hybrid level:2 hour fcst:
+39:66424802:d=2019060200:UGRD:10 m above ground:2 hour fcst:
+5:10052566:d=2019060200:VGRD:1 hybrid level:2 hour fcst:
+40:69301697:d=2019060200:VGRD:10 m above ground:2 hour fcst:
+6:12754268:d=2019060200:PRES:surface:2 hour fcst:
+43:74942234:d=2019060200:PRATE:surface:0-2 hour ave fcst:
+59:107880332:d=2019060200:VEG:surface:2 hour fcst:
+114:203356232:d=2019060200:ALBDO:surface:0-2 hour ave fcst:
+1:0:d=2019060200:HGT:1 hybrid level:2 hour fcst:
+52:92408172:d=2019060200:SFCR:surface:2 hour fcst:
+58:105220089:d=2019060200:SFEXC:surface:2 hour fcst:
+8:18319895:d=2019060200:TMP:surface:2 hour fcst:
+23:41689127:d=2019060200:WEASD:surface:2 hour fcst:
+25:42959186:d=2019060200:SNOD:surface:2 hour fcst:
+10:22128371:d=2019060200:SOILW:0-0.1 m below ground:2 hour fcst:
+13:26738867:d=2019060200:SOILW:0.1-0.4 m below ground:2 hour fcst:
+16:31781422:d=2019060200:SOILW:0.4-1 m below ground:2 hour fcst:
+19:36757912:d=2019060200:SOILW:1-2 m below ground:2 hour fcst:
+46:78616761:d=2019060200:LHTFL:surface:0-2 hour ave fcst:
+47:81221322:d=2019060200:SHTFL:surface:0-2 hour ave fcst:
+/gpfs/hps/nco/ops/com/gfs/prod/gdas.20190602/gdas.t00z.sfluxgrbf03.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/gdas.20190602/gdas.t00z.sfluxgrbf03.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/force/gdas.20190602/gdas1.t00z.sfluxgrbf03
+2:1647373:d=2019060200:TMP:1 hybrid level:3 hour fcst:
+3:3273763:d=2019060200:SPFH:1 hybrid level:3 hour fcst:
+88:167272177:d=2019060200:DSWRF:surface:0-3 hour ave fcst:
+96:178370282:d=2019060200:DSWRF:surface:3 hour fcst:
+91:169777892:d=2019060200:DLWRF:surface:0-3 hour ave fcst:
+97:179207454:d=2019060200:DLWRF:surface:3 hour fcst:
+4:7066634:d=2019060200:UGRD:1 hybrid level:3 hour fcst:
+39:66118161:d=2019060200:UGRD:10 m above ground:3 hour fcst:
+5:9797729:d=2019060200:VGRD:1 hybrid level:3 hour fcst:
+40:69000474:d=2019060200:VGRD:10 m above ground:3 hour fcst:
+6:12402447:d=2019060200:PRES:surface:3 hour fcst:
+43:74619856:d=2019060200:PRATE:surface:0-3 hour ave fcst:
+59:107716037:d=2019060200:VEG:surface:3 hour fcst:
+114:204335197:d=2019060200:ALBDO:surface:0-3 hour ave fcst:
+1:0:d=2019060200:HGT:1 hybrid level:3 hour fcst:
+52:92185340:d=2019060200:SFCR:surface:3 hour fcst:
+58:105052765:d=2019060200:SFEXC:surface:3 hour fcst:
+8:17937275:d=2019060200:TMP:surface:3 hour fcst:
+23:41313699:d=2019060200:WEASD:surface:3 hour fcst:
+25:42582776:d=2019060200:SNOD:surface:3 hour fcst:
+10:21754394:d=2019060200:SOILW:0-0.1 m below ground:3 hour fcst:
+13:26365384:d=2019060200:SOILW:0.1-0.4 m below ground:3 hour fcst:
+16:31408290:d=2019060200:SOILW:0.4-1 m below ground:3 hour fcst:
+19:36384829:d=2019060200:SOILW:1-2 m below ground:3 hour fcst:
+46:78417340:d=2019060200:LHTFL:surface:0-3 hour ave fcst:
+47:81023611:d=2019060200:SHTFL:surface:0-3 hour ave fcst:
+/gpfs/hps/nco/ops/com/gfs/prod/gdas.20190602/gdas.t00z.sfluxgrbf04.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/gdas.20190602/gdas.t00z.sfluxgrbf04.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/force/gdas.20190602/gdas1.t00z.sfluxgrbf04
+2:1647611:d=2019060200:TMP:1 hybrid level:4 hour fcst:
+3:3286123:d=2019060200:SPFH:1 hybrid level:4 hour fcst:
+88:168565259:d=2019060200:DSWRF:surface:0-4 hour ave fcst:
+96:180504827:d=2019060200:DSWRF:surface:4 hour fcst:
+91:171864569:d=2019060200:DLWRF:surface:0-4 hour ave fcst:
+97:181341582:d=2019060200:DLWRF:surface:4 hour fcst:
+4:7205142:d=2019060200:UGRD:1 hybrid level:4 hour fcst:
+39:66383367:d=2019060200:UGRD:10 m above ground:4 hour fcst:
+5:9989330:d=2019060200:VGRD:1 hybrid level:4 hour fcst:
+40:69211708:d=2019060200:VGRD:10 m above ground:4 hour fcst:
+6:12639057:d=2019060200:PRES:surface:4 hour fcst:
+43:74746313:d=2019060200:PRATE:surface:0-4 hour ave fcst:
+59:107790998:d=2019060200:VEG:surface:4 hour fcst:
+114:207150919:d=2019060200:ALBDO:surface:0-4 hour ave fcst:
+1:0:d=2019060200:HGT:1 hybrid level:4 hour fcst:
+52:92265596:d=2019060200:SFCR:surface:4 hour fcst:
+58:105135905:d=2019060200:SFEXC:surface:4 hour fcst:
+8:18190571:d=2019060200:TMP:surface:4 hour fcst:
+23:41577795:d=2019060200:WEASD:surface:4 hour fcst:
+25:42845114:d=2019060200:SNOD:surface:4 hour fcst:
+10:22019053:d=2019060200:SOILW:0-0.1 m below ground:4 hour fcst:
+13:26629844:d=2019060200:SOILW:0.1-0.4 m below ground:4 hour fcst:
+16:31673060:d=2019060200:SOILW:0.4-1 m below ground:4 hour fcst:
+19:36649533:d=2019060200:SOILW:1-2 m below ground:4 hour fcst:
+46:78517195:d=2019060200:LHTFL:surface:0-4 hour ave fcst:
+47:81125269:d=2019060200:SHTFL:surface:0-4 hour ave fcst:
+/gpfs/hps/nco/ops/com/gfs/prod/gdas.20190602/gdas.t00z.sfluxgrbf05.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/gdas.20190602/gdas.t00z.sfluxgrbf05.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/force/gdas.20190602/gdas1.t00z.sfluxgrbf05
+2:1646709:d=2019060200:TMP:1 hybrid level:5 hour fcst:
+3:3317670:d=2019060200:SPFH:1 hybrid level:5 hour fcst:
+88:171114325:d=2019060200:DSWRF:surface:0-5 hour ave fcst:
+96:183147489:d=2019060200:DSWRF:surface:5 hour fcst:
+91:174474160:d=2019060200:DLWRF:surface:0-5 hour ave fcst:
+97:183987923:d=2019060200:DLWRF:surface:5 hour fcst:
+4:7259797:d=2019060200:UGRD:1 hybrid level:5 hour fcst:
+39:66407973:d=2019060200:UGRD:10 m above ground:5 hour fcst:
+5:10061267:d=2019060200:VGRD:1 hybrid level:5 hour fcst:
+40:69251850:d=2019060200:VGRD:10 m above ground:5 hour fcst:
+6:12725735:d=2019060200:PRES:surface:5 hour fcst:
+43:74810889:d=2019060200:PRATE:surface:0-5 hour ave fcst:
+59:109651131:d=2019060200:VEG:surface:5 hour fcst:
+114:209618218:d=2019060200:ALBDO:surface:0-5 hour ave fcst:
+1:0:d=2019060200:HGT:1 hybrid level:5 hour fcst:
+52:94052812:d=2019060200:SFCR:surface:5 hour fcst:
+58:106983536:d=2019060200:SFEXC:surface:5 hour fcst:
+8:18281361:d=2019060200:TMP:surface:5 hour fcst:
+23:41674224:d=2019060200:WEASD:surface:5 hour fcst:
+25:42939843:d=2019060200:SNOD:surface:5 hour fcst:
+10:22116936:d=2019060200:SOILW:0-0.1 m below ground:5 hour fcst:
+13:26726773:d=2019060200:SOILW:0.1-0.4 m below ground:5 hour fcst:
+16:31770402:d=2019060200:SOILW:0.4-1 m below ground:5 hour fcst:
+19:36747475:d=2019060200:SOILW:1-2 m below ground:5 hour fcst:
+46:78666433:d=2019060200:LHTFL:surface:0-5 hour ave fcst:
+47:82927715:d=2019060200:SHTFL:surface:0-5 hour ave fcst:
+/gpfs/hps/nco/ops/com/gfs/prod/gdas.20190602/gdas.t00z.sfluxgrbf06.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/gdas.20190602/gdas.t00z.sfluxgrbf06.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/force/gdas.20190602/gdas1.t00z.sfluxgrbf06
+2:1645862:d=2019060200:TMP:1 hybrid level:6 hour fcst:
+3:3298224:d=2019060200:SPFH:1 hybrid level:6 hour fcst:
+88:172391116:d=2019060200:DSWRF:surface:0-6 hour ave fcst:
+96:184627234:d=2019060200:DSWRF:surface:6 hour fcst:
+91:175871471:d=2019060200:DLWRF:surface:0-6 hour ave fcst:
+97:185473880:d=2019060200:DLWRF:surface:6 hour fcst:
+4:7266004:d=2019060200:UGRD:1 hybrid level:6 hour fcst:
+39:66590885:d=2019060200:UGRD:10 m above ground:6 hour fcst:
+5:10080480:d=2019060200:VGRD:1 hybrid level:6 hour fcst:
+40:69448371:d=2019060200:VGRD:10 m above ground:6 hour fcst:
+6:12756544:d=2019060200:PRES:surface:6 hour fcst:
+43:75068403:d=2019060200:PRATE:surface:0-6 hour ave fcst:
+59:110060279:d=2019060200:VEG:surface:6 hour fcst:
+114:211605420:d=2019060200:ALBDO:surface:0-6 hour ave fcst:
+1:0:d=2019060200:HGT:1 hybrid level:6 hour fcst:
+52:94379305:d=2019060200:SFCR:surface:6 hour fcst:
+58:107383909:d=2019060200:SFEXC:surface:6 hour fcst:
+8:18314023:d=2019060200:TMP:surface:6 hour fcst:
+23:41746385:d=2019060200:WEASD:surface:6 hour fcst:
+25:43011369:d=2019060200:SNOD:surface:6 hour fcst:
+10:22192769:d=2019060200:SOILW:0-0.1 m below ground:6 hour fcst:
+13:26802046:d=2019060200:SOILW:0.1-0.4 m below ground:6 hour fcst:
+16:31845605:d=2019060200:SOILW:0.4-1 m below ground:6 hour fcst:
+19:36823094:d=2019060200:SOILW:1-2 m below ground:6 hour fcst:
+46:78988761:d=2019060200:LHTFL:surface:0-6 hour ave fcst:
+47:83259832:d=2019060200:SHTFL:surface:0-6 hour ave fcst:
+/gpfs/hps/nco/ops/com/gfs/prod/gdas.20190602/gdas.t06z.sfluxgrbf00.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/gdas.20190602/gdas.t06z.sfluxgrbf00.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/force/gdas.20190602/gdas1.t06z.sfluxgrbf00
+86:156958852:d=2019060206:DSWRF:surface:0-0 day ave fcst:
+89:159517755:d=2019060206:DLWRF:surface:0-0 day ave fcst:
+43:75393908:d=2019060206:PRATE:surface:0-0 day ave fcst:
+112:194515348:d=2019060206:ALBDO:surface:0-0 day ave fcst:
+46:79052458:d=2019060206:LHTFL:surface:0-0 day ave fcst:
+47:81747004:d=2019060206:SHTFL:surface:0-0 day ave fcst:
+/gpfs/hps/nco/ops/com/gfs/prod/gdas.20190602/gdas.t06z.sfluxgrbf01.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/gdas.20190602/gdas.t06z.sfluxgrbf01.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/force/gdas.20190602/gdas1.t06z.sfluxgrbf01
+2:1646206:d=2019060206:TMP:1 hybrid level:1 hour fcst:
+3:3305424:d=2019060206:SPFH:1 hybrid level:1 hour fcst:
+88:163224148:d=2019060206:DSWRF:surface:0-1 hour ave fcst:
+96:174789636:d=2019060206:DSWRF:surface:1 hour fcst:
+91:165783051:d=2019060206:DLWRF:surface:0-1 hour ave fcst:
+97:175631590:d=2019060206:DLWRF:surface:1 hour fcst:
+4:7296337:d=2019060206:UGRD:1 hybrid level:1 hour fcst:
+39:66965882:d=2019060206:UGRD:10 m above ground:1 hour fcst:
+5:10321873:d=2019060206:VGRD:1 hybrid level:1 hour fcst:
+40:69841891:d=2019060206:VGRD:10 m above ground:1 hour fcst:
+6:13051314:d=2019060206:PRES:surface:1 hour fcst:
+43:75586442:d=2019060206:PRATE:surface:0-1 hour ave fcst:
+59:107186814:d=2019060206:VEG:surface:1 hour fcst:
+114:200840333:d=2019060206:ALBDO:surface:0-1 hour ave fcst:
+1:0:d=2019060206:HGT:1 hybrid level:1 hour fcst:
+52:91638555:d=2019060206:SFCR:surface:1 hour fcst:
+58:104497488:d=2019060206:SFEXC:surface:1 hour fcst:
+8:18615000:d=2019060206:TMP:surface:1 hour fcst:
+23:42056415:d=2019060206:WEASD:surface:1 hour fcst:
+25:43312683:d=2019060206:SNOD:surface:1 hour fcst:
+10:22505765:d=2019060206:SOILW:0-0.1 m below ground:1 hour fcst:
+13:27114724:d=2019060206:SOILW:0.1-0.4 m below ground:1 hour fcst:
+16:32157822:d=2019060206:SOILW:0.4-1 m below ground:1 hour fcst:
+19:37134293:d=2019060206:SOILW:1-2 m below ground:1 hour fcst:
+46:79254443:d=2019060206:LHTFL:surface:0-1 hour ave fcst:
+47:81912835:d=2019060206:SHTFL:surface:0-1 hour ave fcst:
+/gpfs/hps/nco/ops/com/gfs/prod/gdas.20190602/gdas.t06z.sfluxgrbf02.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/gdas.20190602/gdas.t06z.sfluxgrbf02.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/force/gdas.20190602/gdas1.t06z.sfluxgrbf02
+2:1645964:d=2019060206:TMP:1 hybrid level:2 hour fcst:
+3:3310518:d=2019060206:SPFH:1 hybrid level:2 hour fcst:
+88:169555142:d=2019060206:DSWRF:surface:0-2 hour ave fcst:
+96:181039726:d=2019060206:DSWRF:surface:2 hour fcst:
+91:172132898:d=2019060206:DLWRF:surface:0-2 hour ave fcst:
+97:181872253:d=2019060206:DLWRF:surface:2 hour fcst:
+4:7311796:d=2019060206:UGRD:1 hybrid level:2 hour fcst:
+39:66873211:d=2019060206:UGRD:10 m above ground:2 hour fcst:
+5:10153544:d=2019060206:VGRD:1 hybrid level:2 hour fcst:
+40:69757482:d=2019060206:VGRD:10 m above ground:2 hour fcst:
+6:12890327:d=2019060206:PRES:surface:2 hour fcst:
+43:75493049:d=2019060206:PRATE:surface:0-2 hour ave fcst:
+59:110551821:d=2019060206:VEG:surface:2 hour fcst:
+114:206847793:d=2019060206:ALBDO:surface:0-2 hour ave fcst:
+1:0:d=2019060206:HGT:1 hybrid level:2 hour fcst:
+52:94953735:d=2019060206:SFCR:surface:2 hour fcst:
+58:107860972:d=2019060206:SFEXC:surface:2 hour fcst:
+8:18456424:d=2019060206:TMP:surface:2 hour fcst:
+23:41906910:d=2019060206:WEASD:surface:2 hour fcst:
+25:43162407:d=2019060206:SNOD:surface:2 hour fcst:
+10:22357619:d=2019060206:SOILW:0-0.1 m below ground:2 hour fcst:
+13:26966712:d=2019060206:SOILW:0.1-0.4 m below ground:2 hour fcst:
+16:32010095:d=2019060206:SOILW:0.4-1 m below ground:2 hour fcst:
+19:36987013:d=2019060206:SOILW:1-2 m below ground:2 hour fcst:
+46:79247391:d=2019060206:LHTFL:surface:0-2 hour ave fcst:
+47:83600985:d=2019060206:SHTFL:surface:0-2 hour ave fcst:
+/gpfs/hps/nco/ops/com/gfs/prod/gdas.20190602/gdas.t06z.sfluxgrbf03.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/gdas.20190602/gdas.t06z.sfluxgrbf03.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/force/gdas.20190602/gdas1.t06z.sfluxgrbf03
+2:1644488:d=2019060206:TMP:1 hybrid level:3 hour fcst:
+3:3293805:d=2019060206:SPFH:1 hybrid level:3 hour fcst:
+88:170222676:d=2019060206:DSWRF:surface:0-3 hour ave fcst:
+96:181746742:d=2019060206:DSWRF:surface:3 hour fcst:
+91:172842712:d=2019060206:DLWRF:surface:0-3 hour ave fcst:
+97:182611250:d=2019060206:DLWRF:surface:3 hour fcst:
+4:7155987:d=2019060206:UGRD:1 hybrid level:3 hour fcst:
+39:66705280:d=2019060206:UGRD:10 m above ground:3 hour fcst:
+5:9931959:d=2019060206:VGRD:1 hybrid level:3 hour fcst:
+40:69596561:d=2019060206:VGRD:10 m above ground:3 hour fcst:
+6:12573973:d=2019060206:PRES:surface:3 hour fcst:
+43:75322663:d=2019060206:PRATE:surface:0-3 hour ave fcst:
+59:110389997:d=2019060206:VEG:surface:3 hour fcst:
+114:207912879:d=2019060206:ALBDO:surface:0-3 hour ave fcst:
+1:0:d=2019060206:HGT:1 hybrid level:3 hour fcst:
+52:94762462:d=2019060206:SFCR:surface:3 hour fcst:
+58:107696388:d=2019060206:SFEXC:surface:3 hour fcst:
+8:18109467:d=2019060206:TMP:surface:3 hour fcst:
+23:41532096:d=2019060206:WEASD:surface:3 hour fcst:
+25:42787225:d=2019060206:SNOD:surface:3 hour fcst:
+10:21981559:d=2019060206:SOILW:0-0.1 m below ground:3 hour fcst:
+13:26590954:d=2019060206:SOILW:0.1-0.4 m below ground:3 hour fcst:
+16:31634741:d=2019060206:SOILW:0.4-1 m below ground:3 hour fcst:
+19:36611993:d=2019060206:SOILW:1-2 m below ground:3 hour fcst:
+46:79093259:d=2019060206:LHTFL:surface:0-3 hour ave fcst:
+47:83440064:d=2019060206:SHTFL:surface:0-3 hour ave fcst:
+/gpfs/hps/nco/ops/com/gfs/prod/gdas.20190602/gdas.t06z.sfluxgrbf04.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/gdas.20190602/gdas.t06z.sfluxgrbf04.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/force/gdas.20190602/gdas1.t06z.sfluxgrbf04
+2:1644758:d=2019060206:TMP:1 hybrid level:4 hour fcst:
+3:3305236:d=2019060206:SPFH:1 hybrid level:4 hour fcst:
+88:171316406:d=2019060206:DSWRF:surface:0-4 hour ave fcst:
+96:182907457:d=2019060206:DSWRF:surface:4 hour fcst:
+91:173967091:d=2019060206:DLWRF:surface:0-4 hour ave fcst:
+97:183768710:d=2019060206:DLWRF:surface:4 hour fcst:
+4:7246586:d=2019060206:UGRD:1 hybrid level:4 hour fcst:
+39:66859717:d=2019060206:UGRD:10 m above ground:4 hour fcst:
+5:10040223:d=2019060206:VGRD:1 hybrid level:4 hour fcst:
+40:69697564:d=2019060206:VGRD:10 m above ground:4 hour fcst:
+6:12730495:d=2019060206:PRES:surface:4 hour fcst:
+43:75322095:d=2019060206:PRATE:surface:0-4 hour ave fcst:
+59:110247417:d=2019060206:VEG:surface:4 hour fcst:
+114:209423527:d=2019060206:ALBDO:surface:0-4 hour ave fcst:
+1:0:d=2019060206:HGT:1 hybrid level:4 hour fcst:
+52:94700459:d=2019060206:SFCR:surface:4 hour fcst:
+58:107571892:d=2019060206:SFEXC:surface:4 hour fcst:
+8:18283472:d=2019060206:TMP:surface:4 hour fcst:
+23:41706235:d=2019060206:WEASD:surface:4 hour fcst:
+25:42960788:d=2019060206:SNOD:surface:4 hour fcst:
+10:22156711:d=2019060206:SOILW:0-0.1 m below ground:4 hour fcst:
+13:26765988:d=2019060206:SOILW:0.1-0.4 m below ground:4 hour fcst:
+16:31809717:d=2019060206:SOILW:0.4-1 m below ground:4 hour fcst:
+19:36786829:d=2019060206:SOILW:1-2 m below ground:4 hour fcst:
+46:79068734:d=2019060206:LHTFL:surface:0-4 hour ave fcst:
+47:83408444:d=2019060206:SHTFL:surface:0-4 hour ave fcst:
+/gpfs/hps/nco/ops/com/gfs/prod/gdas.20190602/gdas.t06z.sfluxgrbf05.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/gdas.20190602/gdas.t06z.sfluxgrbf05.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/force/gdas.20190602/gdas1.t06z.sfluxgrbf05
+2:1644971:d=2019060206:TMP:1 hybrid level:5 hour fcst:
+3:3308757:d=2019060206:SPFH:1 hybrid level:5 hour fcst:
+88:172101136:d=2019060206:DSWRF:surface:0-5 hour ave fcst:
+96:183781914:d=2019060206:DSWRF:surface:5 hour fcst:
+91:174817331:d=2019060206:DLWRF:surface:0-5 hour ave fcst:
+97:184634510:d=2019060206:DLWRF:surface:5 hour fcst:
+4:7264490:d=2019060206:UGRD:1 hybrid level:5 hour fcst:
+39:66779507:d=2019060206:UGRD:10 m above ground:5 hour fcst:
+5:10113466:d=2019060206:VGRD:1 hybrid level:5 hour fcst:
+40:69632515:d=2019060206:VGRD:10 m above ground:5 hour fcst:
+6:12817021:d=2019060206:PRES:surface:5 hour fcst:
+43:75265942:d=2019060206:PRATE:surface:0-5 hour ave fcst:
+59:110252719:d=2019060206:VEG:surface:5 hour fcst:
+114:210773043:d=2019060206:ALBDO:surface:0-5 hour ave fcst:
+1:0:d=2019060206:HGT:1 hybrid level:5 hour fcst:
+52:94680669:d=2019060206:SFCR:surface:5 hour fcst:
+58:107574736:d=2019060206:SFEXC:surface:5 hour fcst:
+8:18372449:d=2019060206:TMP:surface:5 hour fcst:
+23:41795003:d=2019060206:WEASD:surface:5 hour fcst:
+25:43049697:d=2019060206:SNOD:surface:5 hour fcst:
+10:22243869:d=2019060206:SOILW:0-0.1 m below ground:5 hour fcst:
+13:26854117:d=2019060206:SOILW:0.1-0.4 m below ground:5 hour fcst:
+16:31898217:d=2019060206:SOILW:0.4-1 m below ground:5 hour fcst:
+19:36875661:d=2019060206:SOILW:1-2 m below ground:5 hour fcst:
+46:79103614:d=2019060206:LHTFL:surface:0-5 hour ave fcst:
+47:83436926:d=2019060206:SHTFL:surface:0-5 hour ave fcst:
+/gpfs/hps/nco/ops/com/gfs/prod/gdas.20190602/gdas.t06z.sfluxgrbf06.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/gdas.20190602/gdas.t06z.sfluxgrbf06.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/force/gdas.20190602/gdas1.t06z.sfluxgrbf06
+2:1645369:d=2019060206:TMP:1 hybrid level:6 hour fcst:
+3:3339868:d=2019060206:SPFH:1 hybrid level:6 hour fcst:
+88:173310490:d=2019060206:DSWRF:surface:0-6 hour ave fcst:
+96:185109675:d=2019060206:DSWRF:surface:6 hour fcst:
+91:176098798:d=2019060206:DLWRF:surface:0-6 hour ave fcst:
+97:185970461:d=2019060206:DLWRF:surface:6 hour fcst:
+4:7314064:d=2019060206:UGRD:1 hybrid level:6 hour fcst:
+39:66938934:d=2019060206:UGRD:10 m above ground:6 hour fcst:
+5:10173760:d=2019060206:VGRD:1 hybrid level:6 hour fcst:
+40:69801844:d=2019060206:VGRD:10 m above ground:6 hour fcst:
+6:12890614:d=2019060206:PRES:surface:6 hour fcst:
+43:75454473:d=2019060206:PRATE:surface:0-6 hour ave fcst:
+59:110537475:d=2019060206:VEG:surface:6 hour fcst:
+114:212414133:d=2019060206:ALBDO:surface:0-6 hour ave fcst:
+1:0:d=2019060206:HGT:1 hybrid level:6 hour fcst:
+52:94920114:d=2019060206:SFCR:surface:6 hour fcst:
+58:107851627:d=2019060206:SFEXC:surface:6 hour fcst:
+8:18449819:d=2019060206:TMP:surface:6 hour fcst:
+23:41871974:d=2019060206:WEASD:surface:6 hour fcst:
+25:43126700:d=2019060206:SNOD:surface:6 hour fcst:
+10:22319375:d=2019060206:SOILW:0-0.1 m below ground:6 hour fcst:
+13:26929743:d=2019060206:SOILW:0.1-0.4 m below ground:6 hour fcst:
+16:31974152:d=2019060206:SOILW:0.4-1 m below ground:6 hour fcst:
+19:36951600:d=2019060206:SOILW:1-2 m below ground:6 hour fcst:
+46:79370912:d=2019060206:LHTFL:surface:0-6 hour ave fcst:
+47:83702140:d=2019060206:SHTFL:surface:0-6 hour ave fcst:
+/gpfs/hps/nco/ops/com/gfs/prod/gdas.20190602/gdas.t12z.sfluxgrbf00.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/gdas.20190602/gdas.t12z.sfluxgrbf00.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/force/gdas.20190602/gdas1.t12z.sfluxgrbf00
+86:156672484:d=2019060212:DSWRF:surface:0-0 day ave fcst:
+89:159220348:d=2019060212:DLWRF:surface:0-0 day ave fcst:
+43:75038291:d=2019060212:PRATE:surface:0-0 day ave fcst:
+112:194434464:d=2019060212:ALBDO:surface:0-0 day ave fcst:
+46:78176115:d=2019060212:LHTFL:surface:0-0 day ave fcst:
+47:80865094:d=2019060212:SHTFL:surface:0-0 day ave fcst:
+/gpfs/hps/nco/ops/com/gfs/prod/gdas.20190602/gdas.t12z.sfluxgrbf01.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/gdas.20190602/gdas.t12z.sfluxgrbf01.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/force/gdas.20190602/gdas1.t12z.sfluxgrbf01
+2:1645362:d=2019060212:TMP:1 hybrid level:1 hour fcst:
+3:3345065:d=2019060212:SPFH:1 hybrid level:1 hour fcst:
+88:163733157:d=2019060212:DSWRF:surface:0-1 hour ave fcst:
+96:175405303:d=2019060212:DSWRF:surface:1 hour fcst:
+91:166281021:d=2019060212:DLWRF:surface:0-1 hour ave fcst:
+97:176253548:d=2019060212:DLWRF:surface:1 hour fcst:
+4:7344474:d=2019060212:UGRD:1 hybrid level:1 hour fcst:
+39:66926869:d=2019060212:UGRD:10 m above ground:1 hour fcst:
+5:10182762:d=2019060212:VGRD:1 hybrid level:1 hour fcst:
+40:69803582:d=2019060212:VGRD:10 m above ground:1 hour fcst:
+6:12915067:d=2019060212:PRES:surface:1 hour fcst:
+43:75624825:d=2019060212:PRATE:surface:0-1 hour ave fcst:
+59:107037796:d=2019060212:VEG:surface:1 hour fcst:
+114:201499689:d=2019060212:ALBDO:surface:0-1 hour ave fcst:
+1:0:d=2019060212:HGT:1 hybrid level:1 hour fcst:
+52:91512442:d=2019060212:SFCR:surface:1 hour fcst:
+58:104342280:d=2019060212:SFEXC:surface:1 hour fcst:
+8:18482055:d=2019060212:TMP:surface:1 hour fcst:
+23:41901267:d=2019060212:WEASD:surface:1 hour fcst:
+25:43156403:d=2019060212:SNOD:surface:1 hour fcst:
+10:22348413:d=2019060212:SOILW:0-0.1 m below ground:1 hour fcst:
+13:26958639:d=2019060212:SOILW:0.1-0.4 m below ground:1 hour fcst:
+16:32002461:d=2019060212:SOILW:0.4-1 m below ground:1 hour fcst:
+19:36979957:d=2019060212:SOILW:1-2 m below ground:1 hour fcst:
+46:79154118:d=2019060212:LHTFL:surface:0-1 hour ave fcst:
+47:81840590:d=2019060212:SHTFL:surface:0-1 hour ave fcst:
+/gpfs/hps/nco/ops/com/gfs/prod/gdas.20190602/gdas.t12z.sfluxgrbf02.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/gdas.20190602/gdas.t12z.sfluxgrbf02.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/force/gdas.20190602/gdas1.t12z.sfluxgrbf02
+2:1644947:d=2019060212:TMP:1 hybrid level:2 hour fcst:
+3:3324920:d=2019060212:SPFH:1 hybrid level:2 hour fcst:
+88:166629983:d=2019060212:DSWRF:surface:0-2 hour ave fcst:
+96:178142591:d=2019060212:DSWRF:surface:2 hour fcst:
+91:169145998:d=2019060212:DLWRF:surface:0-2 hour ave fcst:
+97:178989802:d=2019060212:DLWRF:surface:2 hour fcst:
+4:7342268:d=2019060212:UGRD:1 hybrid level:2 hour fcst:
+39:67005930:d=2019060212:UGRD:10 m above ground:2 hour fcst:
+5:10187483:d=2019060212:VGRD:1 hybrid level:2 hour fcst:
+40:69890470:d=2019060212:VGRD:10 m above ground:2 hour fcst:
+6:12931884:d=2019060212:PRES:surface:2 hour fcst:
+43:75673179:d=2019060212:PRATE:surface:0-2 hour ave fcst:
+59:107241545:d=2019060212:VEG:surface:2 hour fcst:
+114:204361933:d=2019060212:ALBDO:surface:0-2 hour ave fcst:
+1:0:d=2019060212:HGT:1 hybrid level:2 hour fcst:
+52:91679542:d=2019060212:SFCR:surface:2 hour fcst:
+58:104542938:d=2019060212:SFEXC:surface:2 hour fcst:
+8:18499873:d=2019060212:TMP:surface:2 hour fcst:
+23:41914161:d=2019060212:WEASD:surface:2 hour fcst:
+25:43169444:d=2019060212:SNOD:surface:2 hour fcst:
+10:22359688:d=2019060212:SOILW:0-0.1 m below ground:2 hour fcst:
+13:26971736:d=2019060212:SOILW:0.1-0.4 m below ground:2 hour fcst:
+16:32016075:d=2019060212:SOILW:0.4-1 m below ground:2 hour fcst:
+19:36993625:d=2019060212:SOILW:1-2 m below ground:2 hour fcst:
+46:79387447:d=2019060212:LHTFL:surface:0-2 hour ave fcst:
+47:82067280:d=2019060212:SHTFL:surface:0-2 hour ave fcst:
+/gpfs/hps/nco/ops/com/gfs/prod/gdas.20190602/gdas.t12z.sfluxgrbf03.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/gdas.20190602/gdas.t12z.sfluxgrbf03.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/force/gdas.20190602/gdas1.t12z.sfluxgrbf03
+2:1643659:d=2019060212:TMP:1 hybrid level:3 hour fcst:
+3:3305304:d=2019060212:SPFH:1 hybrid level:3 hour fcst:
+88:167264681:d=2019060212:DSWRF:surface:0-3 hour ave fcst:
+96:178757864:d=2019060212:DSWRF:surface:3 hour fcst:
+91:169831126:d=2019060212:DLWRF:surface:0-3 hour ave fcst:
+97:179629915:d=2019060212:DLWRF:surface:3 hour fcst:
+4:7178567:d=2019060212:UGRD:1 hybrid level:3 hour fcst:
+39:66777993:d=2019060212:UGRD:10 m above ground:3 hour fcst:
+5:9911664:d=2019060212:VGRD:1 hybrid level:3 hour fcst:
+40:69672720:d=2019060212:VGRD:10 m above ground:3 hour fcst:
+6:12515223:d=2019060212:PRES:surface:3 hour fcst:
+43:75472872:d=2019060212:PRATE:surface:0-3 hour ave fcst:
+59:107029951:d=2019060212:VEG:surface:3 hour fcst:
+114:205273790:d=2019060212:ALBDO:surface:0-3 hour ave fcst:
+1:0:d=2019060212:HGT:1 hybrid level:3 hour fcst:
+52:91423123:d=2019060212:SFCR:surface:3 hour fcst:
+58:104330639:d=2019060212:SFEXC:surface:3 hour fcst:
+8:18051191:d=2019060212:TMP:surface:3 hour fcst:
+23:41463321:d=2019060212:WEASD:surface:3 hour fcst:
+25:42718832:d=2019060212:SNOD:surface:3 hour fcst:
+10:21907808:d=2019060212:SOILW:0-0.1 m below ground:3 hour fcst:
+13:26520712:d=2019060212:SOILW:0.1-0.4 m below ground:3 hour fcst:
+16:31564918:d=2019060212:SOILW:0.4-1 m below ground:3 hour fcst:
+19:36542734:d=2019060212:SOILW:1-2 m below ground:3 hour fcst:
+46:79206118:d=2019060212:LHTFL:surface:0-3 hour ave fcst:
+47:81881908:d=2019060212:SHTFL:surface:0-3 hour ave fcst:
+/gpfs/hps/nco/ops/com/gfs/prod/gdas.20190602/gdas.t12z.sfluxgrbf04.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/gdas.20190602/gdas.t12z.sfluxgrbf04.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/force/gdas.20190602/gdas1.t12z.sfluxgrbf04
+2:1644056:d=2019060212:TMP:1 hybrid level:4 hour fcst:
+3:3315598:d=2019060212:SPFH:1 hybrid level:4 hour fcst:
+88:169100596:d=2019060212:DSWRF:surface:0-4 hour ave fcst:
+96:180695908:d=2019060212:DSWRF:surface:4 hour fcst:
+91:171769437:d=2019060212:DLWRF:surface:0-4 hour ave fcst:
+97:181561265:d=2019060212:DLWRF:surface:4 hour fcst:
+4:7266911:d=2019060212:UGRD:1 hybrid level:4 hour fcst:
+39:66740788:d=2019060212:UGRD:10 m above ground:4 hour fcst:
+5:10061053:d=2019060212:VGRD:1 hybrid level:4 hour fcst:
+40:69575582:d=2019060212:VGRD:10 m above ground:4 hour fcst:
+6:12719877:d=2019060212:PRES:surface:4 hour fcst:
+43:75272539:d=2019060212:PRATE:surface:0-4 hour ave fcst:
+59:107713296:d=2019060212:VEG:surface:4 hour fcst:
+114:207596634:d=2019060212:ALBDO:surface:0-4 hour ave fcst:
+1:0:d=2019060212:HGT:1 hybrid level:4 hour fcst:
+52:92174229:d=2019060212:SFCR:surface:4 hour fcst:
+58:105038588:d=2019060212:SFEXC:surface:4 hour fcst:
+8:18277583:d=2019060212:TMP:surface:4 hour fcst:
+23:41685085:d=2019060212:WEASD:surface:4 hour fcst:
+25:42939814:d=2019060212:SNOD:surface:4 hour fcst:
+10:22129321:d=2019060212:SOILW:0-0.1 m below ground:4 hour fcst:
+13:26742846:d=2019060212:SOILW:0.1-0.4 m below ground:4 hour fcst:
+16:31787898:d=2019060212:SOILW:0.4-1 m below ground:4 hour fcst:
+19:36765737:d=2019060212:SOILW:1-2 m below ground:4 hour fcst:
+46:79969054:d=2019060212:LHTFL:surface:0-4 hour ave fcst:
+47:82639624:d=2019060212:SHTFL:surface:0-4 hour ave fcst:
+/gpfs/hps/nco/ops/com/gfs/prod/gdas.20190602/gdas.t12z.sfluxgrbf05.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/gdas.20190602/gdas.t12z.sfluxgrbf05.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/force/gdas.20190602/gdas1.t12z.sfluxgrbf05
+2:1644358:d=2019060212:TMP:1 hybrid level:5 hour fcst:
+3:3311608:d=2019060212:SPFH:1 hybrid level:5 hour fcst:
+88:171269718:d=2019060212:DSWRF:surface:0-5 hour ave fcst:
+96:183663099:d=2019060212:DSWRF:surface:5 hour fcst:
+91:174740231:d=2019060212:DLWRF:surface:0-5 hour ave fcst:
+97:184527490:d=2019060212:DLWRF:surface:5 hour fcst:
+4:7309203:d=2019060212:UGRD:1 hybrid level:5 hour fcst:
+39:66716259:d=2019060212:UGRD:10 m above ground:5 hour fcst:
+5:10122547:d=2019060212:VGRD:1 hybrid level:5 hour fcst:
+40:69566373:d=2019060212:VGRD:10 m above ground:5 hour fcst:
+6:12799834:d=2019060212:PRES:surface:5 hour fcst:
+43:75278261:d=2019060212:PRATE:surface:0-5 hour ave fcst:
+59:109123902:d=2019060212:VEG:surface:5 hour fcst:
+114:210991446:d=2019060212:ALBDO:surface:0-5 hour ave fcst:
+1:0:d=2019060212:HGT:1 hybrid level:5 hour fcst:
+52:93572714:d=2019060212:SFCR:surface:5 hour fcst:
+58:106450893:d=2019060212:SFEXC:surface:5 hour fcst:
+8:18357568:d=2019060212:TMP:surface:5 hour fcst:
+23:41758034:d=2019060212:WEASD:surface:5 hour fcst:
+25:43012990:d=2019060212:SNOD:surface:5 hour fcst:
+10:22199753:d=2019060212:SOILW:0-0.1 m below ground:5 hour fcst:
+13:26814234:d=2019060212:SOILW:0.1-0.4 m below ground:5 hour fcst:
+16:31859736:d=2019060212:SOILW:0.4-1 m below ground:5 hour fcst:
+19:36837807:d=2019060212:SOILW:1-2 m below ground:5 hour fcst:
+46:79715574:d=2019060212:LHTFL:surface:0-5 hour ave fcst:
+47:82381074:d=2019060212:SHTFL:surface:0-5 hour ave fcst:
+/gpfs/hps/nco/ops/com/gfs/prod/gdas.20190602/gdas.t12z.sfluxgrbf06.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/gdas.20190602/gdas.t12z.sfluxgrbf06.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/force/gdas.20190602/gdas1.t12z.sfluxgrbf06
+2:1644736:d=2019060212:TMP:1 hybrid level:6 hour fcst:
+3:3307006:d=2019060212:SPFH:1 hybrid level:6 hour fcst:
+88:172250923:d=2019060212:DSWRF:surface:0-6 hour ave fcst:
+96:184776716:d=2019060212:DSWRF:surface:6 hour fcst:
+91:175849837:d=2019060212:DLWRF:surface:0-6 hour ave fcst:
+97:185645666:d=2019060212:DLWRF:surface:6 hour fcst:
+4:7267943:d=2019060212:UGRD:1 hybrid level:6 hour fcst:
+39:66825386:d=2019060212:UGRD:10 m above ground:6 hour fcst:
+5:10095684:d=2019060212:VGRD:1 hybrid level:6 hour fcst:
+40:69689406:d=2019060212:VGRD:10 m above ground:6 hour fcst:
+6:12787939:d=2019060212:PRES:surface:6 hour fcst:
+43:75418211:d=2019060212:PRATE:surface:0-6 hour ave fcst:
+59:109283709:d=2019060212:VEG:surface:6 hour fcst:
+114:212116879:d=2019060212:ALBDO:surface:0-6 hour ave fcst:
+1:0:d=2019060212:HGT:1 hybrid level:6 hour fcst:
+52:93711735:d=2019060212:SFCR:surface:6 hour fcst:
+58:106606047:d=2019060212:SFEXC:surface:6 hour fcst:
+8:18347606:d=2019060212:TMP:surface:6 hour fcst:
+23:41780379:d=2019060212:WEASD:surface:6 hour fcst:
+25:43034990:d=2019060212:SNOD:surface:6 hour fcst:
+10:22218613:d=2019060212:SOILW:0-0.1 m below ground:6 hour fcst:
+13:26833704:d=2019060212:SOILW:0.1-0.4 m below ground:6 hour fcst:
+16:31879554:d=2019060212:SOILW:0.4-1 m below ground:6 hour fcst:
+19:36858143:d=2019060212:SOILW:1-2 m below ground:6 hour fcst:
+46:79925121:d=2019060212:LHTFL:surface:0-6 hour ave fcst:
+47:82584724:d=2019060212:SHTFL:surface:0-6 hour ave fcst:
+/gpfs/hps/nco/ops/com/gfs/prod/gdas.20190602/gdas.t18z.sfluxgrbf00.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/gdas.20190602/gdas.t18z.sfluxgrbf00.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/force/gdas.20190602/gdas1.t18z.sfluxgrbf00
+86:156686750:d=2019060218:DSWRF:surface:0-0 day ave fcst:
+89:159293381:d=2019060218:DLWRF:surface:0-0 day ave fcst:
+43:75042775:d=2019060218:PRATE:surface:0-0 day ave fcst:
+112:193734385:d=2019060218:ALBDO:surface:0-0 day ave fcst:
+46:78694943:d=2019060218:LHTFL:surface:0-0 day ave fcst:
+47:81336821:d=2019060218:SHTFL:surface:0-0 day ave fcst:
+/gpfs/hps/nco/ops/com/gfs/prod/gdas.20190602/gdas.t18z.sfluxgrbf01.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/gdas.20190602/gdas.t18z.sfluxgrbf01.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/force/gdas.20190602/gdas1.t18z.sfluxgrbf01
+2:1643924:d=2019060218:TMP:1 hybrid level:1 hour fcst:
+3:3304179:d=2019060218:SPFH:1 hybrid level:1 hour fcst:
+88:162773704:d=2019060218:DSWRF:surface:0-1 hour ave fcst:
+96:174326394:d=2019060218:DSWRF:surface:1 hour fcst:
+91:165380335:d=2019060218:DLWRF:surface:0-1 hour ave fcst:
+97:175198359:d=2019060218:DLWRF:surface:1 hour fcst:
+4:7274142:d=2019060218:UGRD:1 hybrid level:1 hour fcst:
+39:66505401:d=2019060218:UGRD:10 m above ground:1 hour fcst:
+5:10113800:d=2019060218:VGRD:1 hybrid level:1 hour fcst:
+40:69378851:d=2019060218:VGRD:10 m above ground:1 hour fcst:
+6:12818230:d=2019060218:PRES:surface:1 hour fcst:
+43:75157116:d=2019060218:PRATE:surface:0-1 hour ave fcst:
+59:106550035:d=2019060218:VEG:surface:1 hour fcst:
+114:199797413:d=2019060218:ALBDO:surface:0-1 hour ave fcst:
+1:0:d=2019060218:HGT:1 hybrid level:1 hour fcst:
+52:91076984:d=2019060218:SFCR:surface:1 hour fcst:
+58:103871742:d=2019060218:SFEXC:surface:1 hour fcst:
+8:18383616:d=2019060218:TMP:surface:1 hour fcst:
+23:41780686:d=2019060218:WEASD:surface:1 hour fcst:
+25:43032137:d=2019060218:SNOD:surface:1 hour fcst:
+10:22215165:d=2019060218:SOILW:0-0.1 m below ground:1 hour fcst:
+13:26830331:d=2019060218:SOILW:0.1-0.4 m below ground:1 hour fcst:
+16:31875452:d=2019060218:SOILW:0.4-1 m below ground:1 hour fcst:
+19:36853334:d=2019060218:SOILW:1-2 m below ground:1 hour fcst:
+46:78809781:d=2019060218:LHTFL:surface:0-1 hour ave fcst:
+47:81440802:d=2019060218:SHTFL:surface:0-1 hour ave fcst:
+/gpfs/hps/nco/ops/com/gfs/prod/gdas.20190602/gdas.t18z.sfluxgrbf02.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/gdas.20190602/gdas.t18z.sfluxgrbf02.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/force/gdas.20190602/gdas1.t18z.sfluxgrbf02
+2:1645040:d=2019060218:TMP:1 hybrid level:2 hour fcst:
+3:3327627:d=2019060218:SPFH:1 hybrid level:2 hour fcst:
+88:165490842:d=2019060218:DSWRF:surface:0-2 hour ave fcst:
+96:176894727:d=2019060218:DSWRF:surface:2 hour fcst:
+91:168094213:d=2019060218:DLWRF:surface:0-2 hour ave fcst:
+97:177771212:d=2019060218:DLWRF:surface:2 hour fcst:
+4:7301153:d=2019060218:UGRD:1 hybrid level:2 hour fcst:
+39:66530691:d=2019060218:UGRD:10 m above ground:2 hour fcst:
+5:10149229:d=2019060218:VGRD:1 hybrid level:2 hour fcst:
+40:69410322:d=2019060218:VGRD:10 m above ground:2 hour fcst:
+6:12863993:d=2019060218:PRES:surface:2 hour fcst:
+43:75129040:d=2019060218:PRATE:surface:0-2 hour ave fcst:
+59:106515652:d=2019060218:VEG:surface:2 hour fcst:
+114:202966297:d=2019060218:ALBDO:surface:0-2 hour ave fcst:
+1:0:d=2019060218:HGT:1 hybrid level:2 hour fcst:
+52:91043225:d=2019060218:SFCR:surface:2 hour fcst:
+58:103840087:d=2019060218:SFEXC:surface:2 hour fcst:
+8:18432415:d=2019060218:TMP:surface:2 hour fcst:
+23:41822390:d=2019060218:WEASD:surface:2 hour fcst:
+25:43076175:d=2019060218:SNOD:surface:2 hour fcst:
+10:22252886:d=2019060218:SOILW:0-0.1 m below ground:2 hour fcst:
+13:26868576:d=2019060218:SOILW:0.1-0.4 m below ground:2 hour fcst:
+16:31914348:d=2019060218:SOILW:0.4-1 m below ground:2 hour fcst:
+19:36892335:d=2019060218:SOILW:1-2 m below ground:2 hour fcst:
+46:78858420:d=2019060218:LHTFL:surface:0-2 hour ave fcst:
+47:81476035:d=2019060218:SHTFL:surface:0-2 hour ave fcst:
+/gpfs/hps/nco/ops/com/gfs/prod/gdas.20190602/gdas.t18z.sfluxgrbf03.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/gdas.20190602/gdas.t18z.sfluxgrbf03.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/force/gdas.20190602/gdas1.t18z.sfluxgrbf03
+2:1644059:d=2019060218:TMP:1 hybrid level:3 hour fcst:
+3:3302997:d=2019060218:SPFH:1 hybrid level:3 hour fcst:
+88:166364754:d=2019060218:DSWRF:surface:0-3 hour ave fcst:
+96:177730770:d=2019060218:DSWRF:surface:3 hour fcst:
+91:169003187:d=2019060218:DLWRF:surface:0-3 hour ave fcst:
+97:178607545:d=2019060218:DLWRF:surface:3 hour fcst:
+4:7094667:d=2019060218:UGRD:1 hybrid level:3 hour fcst:
+39:66202977:d=2019060218:UGRD:10 m above ground:3 hour fcst:
+5:9830066:d=2019060218:VGRD:1 hybrid level:3 hour fcst:
+40:69086056:d=2019060218:VGRD:10 m above ground:3 hour fcst:
+6:12444868:d=2019060218:PRES:surface:3 hour fcst:
+43:74804279:d=2019060218:PRATE:surface:0-3 hour ave fcst:
+59:106919752:d=2019060218:VEG:surface:3 hour fcst:
+114:203376439:d=2019060218:ALBDO:surface:0-3 hour ave fcst:
+1:0:d=2019060218:HGT:1 hybrid level:3 hour fcst:
+52:91476611:d=2019060218:SFCR:surface:3 hour fcst:
+58:104250508:d=2019060218:SFEXC:surface:3 hour fcst:
+8:17979621:d=2019060218:TMP:surface:3 hour fcst:
+23:41362771:d=2019060218:WEASD:surface:3 hour fcst:
+25:42617816:d=2019060218:SNOD:surface:3 hour fcst:
+10:21790253:d=2019060218:SOILW:0-0.1 m below ground:3 hour fcst:
+13:26406213:d=2019060218:SOILW:0.1-0.4 m below ground:3 hour fcst:
+16:31451497:d=2019060218:SOILW:0.4-1 m below ground:3 hour fcst:
+19:36429948:d=2019060218:SOILW:1-2 m below ground:3 hour fcst:
+46:79354517:d=2019060218:LHTFL:surface:0-3 hour ave fcst:
+47:81962042:d=2019060218:SHTFL:surface:0-3 hour ave fcst:
+/gpfs/hps/nco/ops/com/gfs/prod/gdas.20190602/gdas.t18z.sfluxgrbf04.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/gdas.20190602/gdas.t18z.sfluxgrbf04.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/force/gdas.20190602/gdas1.t18z.sfluxgrbf04
+2:1644918:d=2019060218:TMP:1 hybrid level:4 hour fcst:
+3:3284700:d=2019060218:SPFH:1 hybrid level:4 hour fcst:
+88:167364296:d=2019060218:DSWRF:surface:0-4 hour ave fcst:
+96:178765901:d=2019060218:DSWRF:surface:4 hour fcst:
+91:170049275:d=2019060218:DLWRF:surface:0-4 hour ave fcst:
+97:179617758:d=2019060218:DLWRF:surface:4 hour fcst:
+4:7148522:d=2019060218:UGRD:1 hybrid level:4 hour fcst:
+39:66274672:d=2019060218:UGRD:10 m above ground:4 hour fcst:
+5:9935058:d=2019060218:VGRD:1 hybrid level:4 hour fcst:
+40:69097054:d=2019060218:VGRD:10 m above ground:4 hour fcst:
+6:12594818:d=2019060218:PRES:surface:4 hour fcst:
+43:74693452:d=2019060218:PRATE:surface:0-4 hour ave fcst:
+59:106723118:d=2019060218:VEG:surface:4 hour fcst:
+114:204770142:d=2019060218:ALBDO:surface:0-4 hour ave fcst:
+1:0:d=2019060218:HGT:1 hybrid level:4 hour fcst:
+52:91348948:d=2019060218:SFCR:surface:4 hour fcst:
+58:104075741:d=2019060218:SFEXC:surface:4 hour fcst:
+8:18147333:d=2019060218:TMP:surface:4 hour fcst:
+23:41522730:d=2019060218:WEASD:surface:4 hour fcst:
+25:42778476:d=2019060218:SNOD:surface:4 hour fcst:
+10:21949104:d=2019060218:SOILW:0-0.1 m below ground:4 hour fcst:
+13:26564711:d=2019060218:SOILW:0.1-0.4 m below ground:4 hour fcst:
+16:31610755:d=2019060218:SOILW:0.4-1 m below ground:4 hour fcst:
+19:36589276:d=2019060218:SOILW:1-2 m below ground:4 hour fcst:
+46:79328039:d=2019060218:LHTFL:surface:0-4 hour ave fcst:
+47:81927193:d=2019060218:SHTFL:surface:0-4 hour ave fcst:
+/gpfs/hps/nco/ops/com/gfs/prod/gdas.20190602/gdas.t18z.sfluxgrbf05.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/gdas.20190602/gdas.t18z.sfluxgrbf05.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/force/gdas.20190602/gdas1.t18z.sfluxgrbf05
+2:1645755:d=2019060218:TMP:1 hybrid level:5 hour fcst:
+3:3285470:d=2019060218:SPFH:1 hybrid level:5 hour fcst:
+88:168051197:d=2019060218:DSWRF:surface:0-5 hour ave fcst:
+96:179488442:d=2019060218:DSWRF:surface:5 hour fcst:
+91:170772000:d=2019060218:DLWRF:surface:0-5 hour ave fcst:
+97:180331838:d=2019060218:DLWRF:surface:5 hour fcst:
+4:7170351:d=2019060218:UGRD:1 hybrid level:5 hour fcst:
+39:66307933:d=2019060218:UGRD:10 m above ground:5 hour fcst:
+5:9973301:d=2019060218:VGRD:1 hybrid level:5 hour fcst:
+40:69143126:d=2019060218:VGRD:10 m above ground:5 hour fcst:
+6:12645938:d=2019060218:PRES:surface:5 hour fcst:
+43:74739774:d=2019060218:PRATE:surface:0-5 hour ave fcst:
+59:106827912:d=2019060218:VEG:surface:5 hour fcst:
+114:206324149:d=2019060218:ALBDO:surface:0-5 hour ave fcst:
+1:0:d=2019060218:HGT:1 hybrid level:5 hour fcst:
+52:91431566:d=2019060218:SFCR:surface:5 hour fcst:
+58:104177687:d=2019060218:SFEXC:surface:5 hour fcst:
+8:18200870:d=2019060218:TMP:surface:5 hour fcst:
+23:41567993:d=2019060218:WEASD:surface:5 hour fcst:
+25:42823577:d=2019060218:SNOD:surface:5 hour fcst:
+10:21993232:d=2019060218:SOILW:0-0.1 m below ground:5 hour fcst:
+13:26608763:d=2019060218:SOILW:0.1-0.4 m below ground:5 hour fcst:
+16:31654672:d=2019060218:SOILW:0.4-1 m below ground:5 hour fcst:
+19:36633252:d=2019060218:SOILW:1-2 m below ground:5 hour fcst:
+46:79491058:d=2019060218:LHTFL:surface:0-5 hour ave fcst:
+47:82085114:d=2019060218:SHTFL:surface:0-5 hour ave fcst:
+/gpfs/hps/nco/ops/com/gfs/prod/gdas.20190602/gdas.t18z.sfluxgrbf06.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/gdas.20190602/gdas.t18z.sfluxgrbf06.grib2
+/gpfs/dell2/ptmp/Youlong.Xia/force/gdas.20190602/gdas1.t18z.sfluxgrbf06
+2:1645813:d=2019060218:TMP:1 hybrid level:6 hour fcst:
+3:3286724:d=2019060218:SPFH:1 hybrid level:6 hour fcst:
+88:170779124:d=2019060218:DSWRF:surface:0-6 hour ave fcst:
+96:183043507:d=2019060218:DSWRF:surface:6 hour fcst:
+91:174300479:d=2019060218:DLWRF:surface:0-6 hour ave fcst:
+97:183870596:d=2019060218:DLWRF:surface:6 hour fcst:
+4:7187952:d=2019060218:UGRD:1 hybrid level:6 hour fcst:
+39:66460304:d=2019060218:UGRD:10 m above ground:6 hour fcst:
+5:10038396:d=2019060218:VGRD:1 hybrid level:6 hour fcst:
+40:69305801:d=2019060218:VGRD:10 m above ground:6 hour fcst:
+6:12719215:d=2019060218:PRES:surface:6 hour fcst:
+43:74912779:d=2019060218:PRATE:surface:0-6 hour ave fcst:
+59:108739311:d=2019060218:VEG:surface:6 hour fcst:
+114:210443391:d=2019060218:ALBDO:surface:0-6 hour ave fcst:
+1:0:d=2019060218:HGT:1 hybrid level:6 hour fcst:
+52:93292196:d=2019060218:SFCR:surface:6 hour fcst:
+58:106086325:d=2019060218:SFEXC:surface:6 hour fcst:
+8:18278391:d=2019060218:TMP:surface:6 hour fcst:
+23:41633168:d=2019060218:WEASD:surface:6 hour fcst:
+25:42888789:d=2019060218:SNOD:surface:6 hour fcst:
+10:22057346:d=2019060218:SOILW:0-0.1 m below ground:6 hour fcst:
+13:26673435:d=2019060218:SOILW:0.1-0.4 m below ground:6 hour fcst:
+16:31719587:d=2019060218:SOILW:0.4-1 m below ground:6 hour fcst:
+19:36698239:d=2019060218:SOILW:1-2 m below ground:6 hour fcst:
+46:79710654:d=2019060218:LHTFL:surface:0-6 hour ave fcst:
+47:82304065:d=2019060218:SHTFL:surface:0-6 hour ave fcst:
+/gpfs/hps/nco/ops/com/gfs/prod
+/gpfs/dell2/ptmp/Youlong.Xia
+/gpfs/dell2/ptmp/Youlong.Xia/force
++ /gpfs/dell2/emc/retros/noscrub/Youlong.Xia/gldas.v2.3.0/scripts/gfs_gdas_gldas_precip.sh 20190602
+/gpfs/dell2/emc/retros/noscrub/Youlong.Xia/gldas.v2.3.0/scripts/gfs_gdas_gldas_precip.sh 20190602 20190602
+/gpfs/gp1/nco/ops/dcom/us007003/20190602/wgrbbul/cpc_rcdas/PRCP_CU_GAUGE_V1.0GLB_0.25deg.lnx.20190602.RT
+/gpfs/dell2/ptmp/Youlong.Xia/force/gdas.20190602/gdas1.t00z.sfluxgrbf06
+12:76678044:d=19060200:PRATE:kpds5=59:kpds6=1:kpds7=0:TR=3:P1=0:P2=6:TimeU=1:sfc:0-6hr ave:NAve=0
+/gpfs/dell2/ptmp/Youlong.Xia/force/gdas.20190602/gdas1.t06z.sfluxgrbf06
+12:74908572:d=19060206:PRATE:kpds5=59:kpds6=1:kpds7=0:TR=3:P1=0:P2=6:TimeU=1:sfc:0-6hr ave:NAve=0
+/gpfs/dell2/ptmp/Youlong.Xia/force/gdas.20190602/gdas1.t12z.sfluxgrbf06
+12:76678044:d=19060212:PRATE:kpds5=59:kpds6=1:kpds7=0:TR=3:P1=0:P2=6:TimeU=1:sfc:0-6hr ave:NAve=0
+/gpfs/dell2/ptmp/Youlong.Xia/force/gdas.20190602/gdas1.t18z.sfluxgrbf06
+12:76678044:d=19060218:PRATE:kpds5=59:kpds6=1:kpds7=0:TR=3:P1=0:P2=6:TimeU=1:sfc:0-6hr ave:NAve=0
+1:0:d=19060200:PRATE:kpds5=59:kpds6=1:kpds7=0:TR=3:P1=0:P2=6:TimeU=1:sfc:0-6hr ave:NAve=0
+1:0:d=19060206:PRATE:kpds5=59:kpds6=1:kpds7=0:TR=3:P1=0:P2=6:TimeU=1:sfc:0-6hr ave:NAve=0
+1:0:d=19060212:PRATE:kpds5=59:kpds6=1:kpds7=0:TR=3:P1=0:P2=6:TimeU=1:sfc:0-6hr ave:NAve=0
+1:0:d=19060218:PRATE:kpds5=59:kpds6=1:kpds7=0:TR=3:P1=0:P2=6:TimeU=1:sfc:0-6hr ave:NAve=0
+        2019           6           2           0
+           7         141         255         192          59           1
+           0          19           6           2           0           0
+           1           0           6           3           0           0
+         130           0          21           6           4           0
+           0
+           0        1440         720       89875         125         128
+      -89875      359875         250         250           0           0
+           0           0           0           0           0           0
+           0         255           0           0           0           0
+           0
+ fort.21           0
+ iret =           0
+ iret =           0
+ iret =           0
+ 
+ fort.22           6
+ iret =           0
+ iret =           0
+ iret =           0
+ 
+ fort.23          12
+ iret =           0
+ iret =           0
+ iret =           0
+ 
+ fort.24          18
+ iret =           0
+ iret =           0
+ iret =           0
+ 
+/gpfs/dell2/ptmp/Youlong.Xia/force
+/gpfs/dell2/ptmp/Youlong.Xia/force
+Mon Jun  3 23:17:03 UTC 2019
++ gds='255 4 3072 1536 89909 0 128 -89909 -117 117 768 0 0 0 0 0 0 0 0 0 255 0 0 0 0 0'
++ /gpfs/dell1/nco/ops/nwprod/grib_util.v1.0.6/exec/copygb '-g255 4 3072 1536 89909 0 128 -89909 -117 117 768 0 0 0 0 0 0 0 0 0 255 0 0 0 0 0' -x /gpfs/dell2/ptmp/Youlong.Xia/force/gob.20190602/precip.gldas.2019060200 /gpfs/dell2/ptmp/Youlong.Xia/gldas.20190601/cmap.gdas.2019060200
++ /gpfs/dell1/nco/ops/nwprod/grib_util.v1.0.6/exec/copygb '-g255 4 3072 1536 89909 0 128 -89909 -117 117 768 0 0 0 0 0 0 0 0 0 255 0 0 0 0 0' -x /gpfs/dell2/ptmp/Youlong.Xia/force/gob.20190602/precip.gldas.2019060206 /gpfs/dell2/ptmp/Youlong.Xia/gldas.20190601/cmap.gdas.2019060206
++ /gpfs/dell1/nco/ops/nwprod/grib_util.v1.0.6/exec/copygb '-g255 4 3072 1536 89909 0 128 -89909 -117 117 768 0 0 0 0 0 0 0 0 0 255 0 0 0 0 0' -x /gpfs/dell2/ptmp/Youlong.Xia/force/gob.20190602/precip.gldas.2019060212 /gpfs/dell2/ptmp/Youlong.Xia/gldas.20190601/cmap.gdas.2019060212
++ /gpfs/dell1/nco/ops/nwprod/grib_util.v1.0.6/exec/copygb '-g255 4 3072 1536 89909 0 128 -89909 -117 117 768 0 0 0 0 0 0 0 0 0 255 0 0 0 0 0' -x /gpfs/dell2/ptmp/Youlong.Xia/force/gob.20190602/precip.gldas.2019060218 /gpfs/dell2/ptmp/Youlong.Xia/gldas.20190601/cmap.gdas.2019060218
++ sh finddate.sh 20190602 d+1
++ yyyymmdd=20190603
++ [ 20190603 -lt 20190603 ]
++ noahrst=/gpfs/dell2/emc/retros/noscrub/Youlong.Xia/gldas.T1534.igbp.2019/output/gldas.20190601/noah.rst.20190601
++ [ -s /gpfs/dell2/emc/retros/noscrub/Youlong.Xia/gldas.T1534.igbp.2019/output/gldas.20190601/noah.rst.20190601 ]
++ echo 'restart with /gpfs/dell2/emc/retros/noscrub/Youlong.Xia/gldas.T1534.igbp.2019/output/gldas.20190601/noah.rst.20190601'
+restart with /gpfs/dell2/emc/retros/noscrub/Youlong.Xia/gldas.T1534.igbp.2019/output/gldas.20190601/noah.rst.20190601
++ cp /gpfs/dell2/emc/retros/noscrub/Youlong.Xia/gldas.T1534.igbp.2019/output/gldas.20190601/noah.rst.20190601 noah.rst
++ /gpfs/dell2/emc/retros/noscrub/Youlong.Xia/gldas.v2.3.0/scripts/lis.crd.sh 20190601 20190603 1534
++ cp /gpfs/dell2/emc/retros/noscrub/Youlong.Xia/gldas.v2.3.0/parm/LIS.lsf.32.tmp LIS.lsf.32
++ echo '#BSUB -oo /gpfs/dell2/ptmp/Youlong.Xia/gldas.20190601/LIS.out'
++ 1>> LIS.lsf.32
++ echo '#BSUB -eo /gpfs/dell2/ptmp/Youlong.Xia/gldas.20190601/LIS.error'
++ 1>> LIS.lsf.32
++ echo 'cd /gpfs/dell2/ptmp/Youlong.Xia/gldas.20190601'
++ 1>> LIS.lsf.32
++ echo 'mpirun ./LIS'
++ 1>> LIS.lsf.32
++ echo '/gpfs/dell2/emc/retros/noscrub/Youlong.Xia/gldas.v2.3.0/scripts/lis.output.sh 20190601 20190603'
++ 1>> LIS.lsf.32
++ bsub
++ 0< /gpfs/dell2/ptmp/Youlong.Xia/gldas.20190601/LIS.lsf.32
+ESUB: MEMORY LIMIT RLIMIT_RSS set to 7296
+Job <5099732> is submitted to queue <dev>.
++ echo /gpfs/dell2/ptmp/Youlong.Xia/gldas.20190601
+/gpfs/dell2/ptmp/Youlong.Xia/gldas.20190601

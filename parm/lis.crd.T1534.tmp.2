@@ -1,0 +1,107 @@
+LIS%t%TS         = 900
+LIS%d%UDEF       = -9999.
+LIS%o%ODIR       = "."
+LIS%o%DFILE      = "lisdiag"
+LIS%f%GPCPSRC    = 4
+LIS%f%RADSRC     = 0
+LIS%d%MAXT       = 1
+LIS%d%MINA       = 0.05
+/
+
+&run_domain
+run_dd(1)   = 4
+run_dd(2)   =   89.909348
+run_dd(3)   =    0.000000
+run_dd(4)   =  -89.909348
+run_dd(5)   =  359.882782
+run_dd(6)   =    0.117187
+run_dd(7)   =  768
+/
+
+&param_domain
+param_dd(1)   =   89.909348
+param_dd(2)   =    0.000000
+param_dd(3)   =  -89.909348
+param_dd(4)   =  359.882782
+param_dd(5)   =    0.117187
+param_dd(6)   =  768
+/
+
+&landcover
+LIS%p%MFILE      = "FIX/lmask_gfs_T1534.bfsa"
+LIS%p%VFILE      = "FIX/vtype_gfs_T1534.bfsa"
+LIS%d%lc_gridDesc(1) =   89.909348
+LIS%d%lc_gridDesc(2) =    0.000000
+LIS%d%lc_gridDesc(3) =  -89.909348
+LIS%d%lc_gridDesc(4) =  359.882782
+LIS%d%lc_gridDesc(5) =    0.117187
+LIS%d%lc_gridDesc(6) =  768
+/
+
+&elevation
+LIS%p%ELEVFILE   = "FIX/elev_gfs_T1534.bfsa"
+LIS%d%elev_gridDesc(1) =   89.909348
+LIS%d%elev_gridDesc(2) =    0.000000
+LIS%d%elev_gridDesc(3) =  -89.909348
+LIS%d%elev_gridDesc(4) =  359.882782
+LIS%d%elev_gridDesc(5) =    0.117187
+LIS%d%elev_gridDesc(6) =  768
+/
+
+&soils
+LIS%p%SAFILE   = "FIX/stype_gfs_T1534.bfsa"
+LIS%p%CLFILE   = "FIX/stype_gfs_T1534.bfsa"
+LIS%p%ISCFILE  = ""
+LIS%p%PO1FILE  = ""
+LIS%p%PO2FILE  = ""
+LIS%p%PO3FILE  = ""
+LIS%p%SIFILE   = ""
+LIS%p%SLFILE   = "FIX/slope_gfs_T1534.bfsa"
+LIS%d%soil_gridDesc(1) =   89.909348
+LIS%d%soil_gridDesc(2) =    0.000000
+LIS%d%soil_gridDesc(3) =  -89.909348
+LIS%d%soil_gridDesc(4) =  359.882782
+LIS%d%soil_gridDesc(5) =    0.117187
+LIS%d%soil_gridDesc(6) =  768
+/
+
+&lai
+LIS%p%AVHRRDIR   = "FIX/AVHRR_LAI"
+LIS%p%MODISDIR   = "FIX/MODIS_LAI"
+/
+
+&gdas
+gdasdrv%GDASDIR    = "input/GDAS"
+gdasdrv%NROLD      = 1536
+gdasdrv%NCOLD      = 3072
+gdasdrv%NMIF       = 16
+/
+
+&cmap
+cmapdrv%CMAPDIR    = "input/CMAP"
+cmapdrv%NROLD      =  720
+cmapdrv%NCOLD      = 1440
+/
+
+&agrmet
+agrmetdrv%AGRMETDIR  = "input/AGRMET"
+/
+
+&template
+templatedrv%WRITEINT  = 24
+/
+
+&noah
+noahdrv%WRITEINTN    = 24
+noahdrv%NOAH_RFILE   = "noah.rst"
+noahdrv%NOAH_MGFILE  = "FIX/"
+noahdrv%NOAH_ALBFILE = "FIX/"
+noahdrv%NOAH_VFILE   = "FIX/noah.vegparms.txt"
+noahdrv%NOAH_SFILE   = "FIX/noah.soilparms.txt"
+noahdrv%NOAH_MXSNAL  = "FIX/maxsnowalb_gfs_T1534.bfsa"
+noahdrv%NOAH_TBOT    = "FIX/tbot_gfs_T1534.bfsa"
+noahdrv%NOAH_ISM     = 0.30
+noahdrv%NOAH_IT      = 290.0
+noahdrv%NOAH_NVEGP   = 7
+noahdrv%NOAH_NSOILP  = 5
+/
