@@ -1,12 +1,12 @@
+gldas_run.sh yyyymmdd [yyyymmdd2]
 
-lis.run.sh yyyymmdd [yyyymmdd2]
 
-run gldas from yyyymmdd 00z to yyyymmdd2 00z (default is 24 hr, gldas fy19 designed for 48 hr).
+run gldas from yyyymmdd 00z to yyyymmdd2 00z (default is 24 hr, gldas fy19 designed for 72 hr).
 to start gldas 00z need forcing of t18z.f06 from the previous day.
 
-call lis.forcing.gdas.prod.sh 
-call gfs_gdas_gldas_precip.sh
-generate 3 days forcing starting previous day (day0, day1, day2)
+call gldas_get_data.sh 
+call gldas_forcing.sh
+generate 4 days forcing starting previous day (day0, day1, day2)
 
 setup rundir
 link forcing direcroty
@@ -14,14 +14,14 @@ link fix fields
 link LIS executable
 link restart file (if not exist then generate restart from sfcanl) 
 
-call lis.crd.sh
+call gldas_liscrd.sh
 generate configure file lis.crd
 
 create lsf job submission file
-LIS.lsf.32
+LIS.lsf
 
-after completion gldas run, LIS.lsf.32 call lis.output.sh to form output directories and files
-call lis.output.sh
+after completion gldas run, LIS.lsf call gldas_archive.sh to form output directories and files
+call gldas_archive.sh
 
 export COMDIR=/land/noscrub/$USER/gldas.T1534.igbp.2019/output
 
@@ -31,3 +31,7 @@ $COMDIR/gldas.day3 - gdas.t00z.sfcanl.nemsio.gldas.day3 for next cycle gfs resta
 
 /land/noscrub/$USER/gldas.T1534.igbp.2019/output
 
+To run George Gayno's script, used the following command:
+
+cat run.gdas2gldas.dell.sh | bsub
+cat run.gldas2gdas.dell.sh | bsub
