@@ -2,14 +2,16 @@
 #
 #########################################################
 # This script collects gldas output to archive directory
+# Replace soil moisture and temperature for gdas nemsio file
+# generate from Gaussian grid fileds to 6-tile netcdf file 
 #
-# usage - lis.output.sh BDATE [GDATE]
+# usage - gldas_archive.sh BDATE [GDATE]
 #         BDATE/GDATE in yyyymmdd
 #
 # LISDIR - software directory
 # COMDIR - output archive directory
 # RUNDIR - run directory
-# GDAS   - /com/gfs/prod
+# GDAS   - /gpfs/dell1/nco/ops/com/gfs/prod
 #
 # gldas runs 72 hrs, from day1.00z to day4.00z
 # first 36 hr obs precip forcing
@@ -21,6 +23,7 @@
 #
 # script history:
 # 20190604 Jesse Meng - first version
+# 20191010 Youlong Xia - modified
 #########################################################
 set -ux
 export FINDDATE=finddate.sh
@@ -39,10 +42,12 @@ yyyy=`echo $yyyymmdd1 | cut -c1-4`
 
 ### define work directories
 
-export LISDIR=/gpfs/dell2/emc/retros/noscrub/Youlong.Xia/gldas.v2.3.0
+export LISDIR=/gpfs/dell2/emc/retros/noscrub/Youlong.Xia/GLDAS
 export COMDIR=/gpfs/dell2/emc/retros/noscrub/$USER/gldas.T1534.igbp.2019/output
 export RUNDIR=/gpfs/dell2/ptmp/$USER/gldas.$BDATE
-export GDAS=$COMROOThps/gfs/prod
+export GDAS=$COMROOT/gfs/prod
+
+export cyc1=00
 
 ### setup archive directories
 ### save all output to day1 directory
@@ -78,16 +83,19 @@ yyyy=`echo $yyyymmdd | cut -c1-4`
 mkdir -p $COMDIR/gldas.$yyyymmdd
 cp $RUNDIR/EXP901/NOAH/$yyyy/$yyyymmdd/LIS.E901.${yyyymmdd}00.Noahrst $COMDIR/gldas.$yyyymmdd/noah.rst.$yyyymmdd
 
-### generate and save gdas.t00z.sfcanl.nemsio.gldas.day4 to day4 directory for next cycle gfs restart
+### generate and save gdas.t${cyc1}z.sfcanl.nemsio.gldas.day4 to day4 directory for next cycle gfs restart
 
 mkdir -p $COMDIR/gldas.$yyyymmdd2
 yyyy=`echo $yyyymmdd2 | cut -c1-4`
 gbin=$RUNDIR/EXP901/NOAH/$yyyy/$yyyymmdd2/LIS.E901.${yyyymmdd2}00.NOAHgbin
-cp $GDAS/gdas.$yyyymmdd2/gfs.t00z.sfcanl.nemsio $COMDIR/gldas.$yyyymmdd2
-cp $GDAS/gdas.$yyyymmdd2/gdas.t00z.sfcanl.nemsio $COMDIR/gldas.$yyyymmdd2
-sfcanl=$COMDIR/gldas.$yyyymmdd2/gdas.t00z.sfcanl.nemsio
-$LISDIR/scripts/gfs_gdas_gldas_gldas2gdas.sh $gbin $sfcanl
-mv $sfcanl.gldas $sfcanl.gldas.$yyyymmdd2
+cp $GDAS/gdas.$yyyymmdd2/gfs.t${cyc1}z.sfcanl.nemsio $COMDIR/gldas.$yyyymmdd2
+cp $GDAS/gdas.$yyyymmdd2/gdas.t${cyc1}z.sfcanl.nemsio $COMDIR/gldas.$yyyymmdd2
+sfcanl=$COMDIR/gldas.$yyyymmdd2/gdas.t${cyc1}z.sfcanl.nemsio
+$LISDIR/scripts/gldas_post.sh $gbin $sfcanl
+cp $sfcanl.gldas $sfcanl.gldas.$yyyymmdd2
+
+### use $sfcanl.gldas to produce 6-tile netcdf file 
+   run.gldas2gdas.dell.sh $BDATE
 
 
 echo $COMDIR/gldas.$yyyymmdd1

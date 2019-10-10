@@ -13,8 +13,8 @@ yyyymmdd2=$2
 fi
 echo $0 $yyyymmdd $yyyymmdd2
 
-export LISDIR=/gpfs/dell2/emc/retros/noscrub/Youlong.Xia/gldas.v2.3.0/
-export cpath=${DCOMROOT}/us007003
+export LISDIR=/gpfs/dell2/emc/retros/noscrub/Youlong.Xia/GLDAS/
+export cpath=/gpfs/dell1/nco/ops/dcom/prod
 export fpath=/gpfs/dell2/ptmp/$USER/force
 export xpath=/gpfs/dell2/ptmp/$USER/force
 
@@ -74,7 +74,7 @@ $wgrib -d -bin grib.06 -o fort.14
 
 cp $xpath/cpc.$yyyymmdd/PRCP_CU_GAUGE_V1.0GLB_0.125deg.lnx.$yyyymmdd.RT fort.15
 
-$LISDIR/exec/gfs_gdas_gldas_precip
+$LISDIR/exec/gldas_forcing
 
 cp fort.21 $xpath/cpc.$yyyymmdd0/precip.gldas.${yyyymmdd0}12
 cp fort.22 $xpath/cpc.$yyyymmdd0/precip.gldas.${yyyymmdd0}18

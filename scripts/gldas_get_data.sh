@@ -3,10 +3,11 @@
 #########################################################
 # This script generate gldas forcing from gdas prod sflux
 #
-# usage - lis.forcing.gdas.prod.sh yyyymmdd [yyyymmdd2]
+# usage - gldas_get_data.sh yyyymmdd [yyyymmdd2]
 # 
 # script history:
 # 20190509 Jesse Meng - first version
+# 20191008 Youlong Xia - modified
 #########################################################
 force=1
 finddate=finddate.sh
@@ -50,11 +51,14 @@ echo $gpath/gdas.$yyyymmdd
 rm -fr $gpath/gdas.$yyyymmdd
 mkdir -p $gpath/gdas.$yyyymmdd
 
-cp $rpath/gfs.$yyyymmdd/${cc[0]}/gfs.t00z.sfcanl.nemsio $gpath/gdas.$yyyymmdd
-cp $rpath/gdas.$yyyymmdd/${cc[0]}/gdas.t00z.sfcanl.nemsio $gpath/gdas.$yyyymmdd
-
 k=0
 while [ $k -le 3 ]; do
+
+# to get surface nemsio and tile netcdf files
+cp $rpath/gfs.$yyyymmdd/${cc[k]}/gfs.t${cc[$k]}z.sfcanl.nemsio $gpath/gdas.$yyyymmdd
+cp $rpath/gdas.$yyyymmdd/${cc[k]}/gdas.t${cc[$k]}z.sfcanl.nemsio $gpath/gdas.$yyyymmdd
+
+cp $rpath/gfs.$yyyymmdd/${cc[k]}/RESTART/$yyyymmdd.${cc[$k]}0000.sfcanl_data.tile*.nc $gpath/gdas.$yyyymmdd
 
 f=0
 while [ $f -le 6 ]; do
@@ -112,7 +116,8 @@ fi
 mkdir -p $gpath/gdas.$yyyymmdd
 cp $rpath/gfs.$yyyymmdd/${cc[0]}/gfs.t00z.sfcanl.nemsio $gpath/gdas.$yyyymmdd
 cp $rpath/gdas.$yyyymmdd/${cc[0]}/gdas.t00z.sfcanl.nemsio $gpath/gdas.$yyyymmdd
- 
+cp $rpath/gdas.$yyyymmdd/${cc[0]}/RESTART/$yyyymmdd.${cc[00]}0000.sfcanl_data.tile*.nc $gpath/gdas.$yyyymmdd
+
 echo $rpath
 echo $fpath
 echo $gpath
