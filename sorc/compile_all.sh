@@ -32,8 +32,7 @@ make clean
 make
 
 cd ../gldas_rst.fd
-make clean
-make
+sh complile_rst.sh
 
 cd ../gldas_model.fd
 sh compile.sh
