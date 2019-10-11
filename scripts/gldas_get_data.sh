@@ -74,26 +74,31 @@ echo $rflux
 echo $fflux
 echo $gflux
 
-$wgrib2 $rflux | grep "TMP:1"     | grep fcst | $wgrib2 -i $rflux -append -grib $fflux
-$wgrib2 $rflux | grep "SPFH:1"    | grep fcst | $wgrib2 -i $rflux -append -grib $fflux
-$wgrib2 $rflux | grep "DSWRF:s"   | grep fcst | $wgrib2 -i $rflux -append -grib $fflux
-$wgrib2 $rflux | grep "DLWRF:s"   | grep fcst | $wgrib2 -i $rflux -append -grib $fflux
-$wgrib2 $rflux | grep "UGRD:1"    | grep fcst | $wgrib2 -i $rflux -append -grib $fflux
-$wgrib2 $rflux | grep "VGRD:1"    | grep fcst | $wgrib2 -i $rflux -append -grib $fflux
-$wgrib2 $rflux | grep "PRES:s"    | grep fcst | $wgrib2 -i $rflux -append -grib $fflux
+fcsty=anl
+if [ $f -ge 1 ]; then
+fcsty=fcst
+fi
+
+$wgrib2 $rflux | grep "TMP:1"     | grep $fcsty | $wgrib2 -i $rflux -append -grib $fflux
+$wgrib2 $rflux | grep "SPFH:1"    | grep $fcsty | $wgrib2 -i $rflux -append -grib $fflux
+$wgrib2 $rflux | grep "DSWRF:s"   | grep $fcsty | $wgrib2 -i $rflux -append -grib $fflux
+$wgrib2 $rflux | grep "DLWRF:s"   | grep $fcsty | $wgrib2 -i $rflux -append -grib $fflux
+$wgrib2 $rflux | grep "UGRD:1"    | grep $fcsty | $wgrib2 -i $rflux -append -grib $fflux
+$wgrib2 $rflux | grep "VGRD:1"    | grep $fcsty | $wgrib2 -i $rflux -append -grib $fflux
+$wgrib2 $rflux | grep "PRES:s"    | grep $fcsty | $wgrib2 -i $rflux -append -grib $fflux
 $wgrib2 $rflux | grep "PRATE:s"   | grep ave  | $wgrib2 -i $rflux -append -grib $fflux
-$wgrib2 $rflux | grep "VEG:s"     | grep fcst | $wgrib2 -i $rflux -append -grib $fflux
+$wgrib2 $rflux | grep "VEG:s"     | grep $fcsty | $wgrib2 -i $rflux -append -grib $fflux
 $wgrib2 $rflux | grep "ALBDO:s"   | grep ave  | $wgrib2 -i $rflux -append -grib $fflux
-$wgrib2 $rflux | grep "HGT:1"     | grep fcst | $wgrib2 -i $rflux -append -grib $fflux
-$wgrib2 $rflux | grep "SFCR:s"    | grep fcst | $wgrib2 -i $rflux -append -grib $fflux
-$wgrib2 $rflux | grep "SFEXC:s"   | grep fcst | $wgrib2 -i $rflux -append -grib $fflux
-$wgrib2 $rflux | grep "TMP:s"     | grep fcst | $wgrib2 -i $rflux -append -grib $fflux
-$wgrib2 $rflux | grep "WEASD:s"   | grep fcst | $wgrib2 -i $rflux -append -grib $fflux
-$wgrib2 $rflux | grep "SNOD:s"    | grep fcst | $wgrib2 -i $rflux -append -grib $fflux
-$wgrib2 $rflux | grep "SOILW:0-0" | grep fcst | $wgrib2 -i $rflux -append -grib $fflux
-$wgrib2 $rflux | grep "SOILW:0.1" | grep fcst | $wgrib2 -i $rflux -append -grib $fflux
-$wgrib2 $rflux | grep "SOILW:0.4" | grep fcst | $wgrib2 -i $rflux -append -grib $fflux
-$wgrib2 $rflux | grep "SOILW:1-2" | grep fcst | $wgrib2 -i $rflux -append -grib $fflux
+$wgrib2 $rflux | grep "HGT:1"     | grep $fcsty | $wgrib2 -i $rflux -append -grib $fflux
+$wgrib2 $rflux | grep "SFCR:s"    | grep $fcsty | $wgrib2 -i $rflux -append -grib $fflux
+$wgrib2 $rflux | grep "SFEXC:s"   | grep $fcsty | $wgrib2 -i $rflux -append -grib $fflux
+$wgrib2 $rflux | grep "TMP:s"     | grep $fcsty | $wgrib2 -i $rflux -append -grib $fflux
+$wgrib2 $rflux | grep "WEASD:s"   | grep $fcsty | $wgrib2 -i $rflux -append -grib $fflux
+$wgrib2 $rflux | grep "SNOD:s"    | grep $fcsty | $wgrib2 -i $rflux -append -grib $fflux
+$wgrib2 $rflux | grep "SOILW:0-0" | grep $fcsty | $wgrib2 -i $rflux -append -grib $fflux
+$wgrib2 $rflux | grep "SOILW:0.1" | grep $fcsty | $wgrib2 -i $rflux -append -grib $fflux
+$wgrib2 $rflux | grep "SOILW:0.4" | grep $fcsty | $wgrib2 -i $rflux -append -grib $fflux
+$wgrib2 $rflux | grep "SOILW:1-2" | grep $fcsty | $wgrib2 -i $rflux -append -grib $fflux
 $wgrib2 $rflux | grep "LHTFL:s"   | grep ave  | $wgrib2 -i $rflux -append -grib $fflux
 $wgrib2 $rflux | grep "SHTFL:s"   | grep ave  | $wgrib2 -i $rflux -append -grib $fflux
 
