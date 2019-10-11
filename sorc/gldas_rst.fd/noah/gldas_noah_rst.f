@@ -163,37 +163,103 @@
           call yrev(sdata,snowh)
           snowh=snowh*0.001
           n=n+1
-     elseif(trim(varname)=='smcsoillayer') then
+       elseif(trim(varname)=='soilw0_10cmdown') then
        ismc=n
-       do k=1,4
-          print*,n,trim(varname),' GLDAS SMC'
+          print*,n,trim(varname),' GLDAS SMC1'
           read(12)  mxmy
           read(12)  sdata
           read(12)  mxmy
-          call yrev(sdata,smc(:,:,k))          
+          call yrev(sdata,smc(:,:,1))
           n=n+1
-       end do
-     elseif(trim(varname)=='slcsoillayer') then
+     elseif(trim(varname)=='soilw10_40cmdown') then
+       ismc=n
+          print*,n,trim(varname),' GLDAS SMC2'
+          read(12)  mxmy
+          read(12)  sdata
+          read(12)  mxmy
+          call yrev(sdata,smc(:,:,2))
+          n=n+1
+       elseif(trim(varname)=='soilw40_100cmdown') then
+       ismc=n
+          print*,n,trim(varname),' GLDAS SMC3'
+          read(12)  mxmy
+          read(12)  sdata
+          read(12)  mxmy
+          call yrev(sdata,smc(:,:,3))
+          n=n+1
+     elseif(trim(varname)=='soilw100_200cmdown') then
+       ismc=n
+          print*,n,trim(varname),' GLDAS SMC4'
+          read(12)  mxmy
+          read(12)  sdata
+          read(12)  mxmy
+          call yrev(sdata,smc(:,:,4))
+          n=n+1
+      elseif(trim(varname)=='soill0_10cmdown') then
        islc=n
-       do k=1,4
-          print*,n,trim(varname),' GLDAS SLC'
+          print*,n,trim(varname),' GLDAS SLC1'
           read(12)  mxmy
           read(12)  sdata
           read(12)  mxmy
-          call yrev(sdata,slc(:,:,k))
+          call yrev(sdata,slc(:,:,1))
           n=n+1
-       end do
-     elseif(trim(varname)=='stcsoillayer') then
+     elseif(trim(varname)=='soill10_40cmdown') then
+       islc=n
+          print*,n,trim(varname),' GLDAS SLC2'
+          read(12)  mxmy
+          read(12)  sdata
+          read(12)  mxmy
+          call yrev(sdata,slc(:,:,2))
+          n=n+1
+      elseif(trim(varname)=='soill40_100cmdown') then
+       islc=n
+          print*,n,trim(varname),' GLDAS SLC3'
+          read(12)  mxmy
+          read(12)  sdata
+          read(12)  mxmy
+          call yrev(sdata,slc(:,:,3))
+          n=n+1
+     elseif(trim(varname)=='soill100_200cmdown') then
+       islc=n
+          print*,n,trim(varname),' GLDAS SLC4'
+          read(12)  mxmy
+          read(12)  sdata
+          read(12)  mxmy
+          call yrev(sdata,slc(:,:,4))
+          n=n+1
+      elseif(trim(varname)=='tmp0_10cmdown') then
        istc=n
-       do k=1,4
-          print*,n,trim(varname),' GLDAS STC'
+          print*,n,trim(varname),' GLDAS STC1'
           read(12)  mxmy
           read(12)  sdata
           read(12)  mxmy
-          call yrev(sdata,stc(:,:,k))
+          call yrev(sdata,stc(:,:,1))
           n=n+1
-       end do
-     elseif(trim(varname)=='landsfc') then
+      elseif(trim(varname)=='tmp10_40cmdown') then
+       istc=n
+          print*,n,trim(varname),' GLDAS STC2'
+          read(12)  mxmy
+          read(12)  sdata
+          read(12)  mxmy
+          call yrev(sdata,stc(:,:,2))
+          n=n+1
+      elseif(trim(varname)=='tmp40_100cmdown') then
+       istc=n
+          print*,n,trim(varname),' GLDAS STC3'
+          read(12)  mxmy
+          read(12)  sdata
+          read(12)  mxmy
+          call yrev(sdata,stc(:,:,3))
+          n=n+1
+      elseif(trim(varname)=='tmp100_200cmdown') then
+       istc=n
+          print*,n,trim(varname),' GLDAS STC4'
+          read(12)  mxmy
+          read(12)  sdata
+          read(12)  mxmy
+          call yrev(sdata,stc(:,:,4))
+          n=n+1
+      elseif(trim(varname)=='landsfc') then
           print*,n,trim(varname)
           read(12)  mxmy
           read(12)  sdata
