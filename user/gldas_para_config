@@ -1,0 +1,36 @@
+##################################################################
+# This parameter file set up the environment variables used in
+# the J-Job scripts to run the gldas land analsis system
+##################################################################
+# module load for untility in run_all of lsf directory 
+
+#export GDATE=20200101 #use for test/retrospective
+#export cyc=00
+
+export workdir=/gpfs/dell2/emc/retros/noscrub/
+
+export gldas_ver=${gldas_ver:-v2.3.0}
+export HOMEgldas=${HOMEgldas:-$workdir/$LOGNAME/GLDAS}
+export EXECgldas=${EXECgldas:-$HOMEgldas/exec}
+export PARMgldas=${PARMgldas:-$HOMEgldas/parm}
+export FIXgldas=${FIXgldas:-$HOMEgldas/fix}
+
+export COM_IN=${COM_IN:-$workdir/$LOGNAME/gldas.${gldas_ver}}
+export COM_OUT=${COM_OUT:-$COM_IN}
+
+# set up com and decom directory used
+export COMROOT=/gpfs/dell1/nco/ops/com
+export DCOMROOT=/gpfs/dell1/nco/ops/dcom
+
+export COMINgdas=${COMINgdas:-${COMROOT}/gfs/prod}
+export DCOMIN=${DCOM_IN:-${DCOMROOT}/prod}
+
+#export DATA_IN=/gpfs/dell2/ptmp/$LOGNAME/tmpnwprd
+#export jlogfile=$DATA_IN/jlogfile
+export DATA=/gpfs/dell2/ptmp/$LOGNAME/tmpnwprd
+export jlogfile=$DATA/jlogfile
+
+export SENDCOM=${SENDCOM:-YES}
+export SENDECF=${SENDECF:-NO}
+export SENDDBN=${SENDDBN:-NO}
+
