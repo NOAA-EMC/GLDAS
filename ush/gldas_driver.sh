@@ -138,6 +138,9 @@ sed -i 's|/indirect/|'"$input2"'|g' fort.41
 sed -i 's|/orogdir/|'"$topodir"'|g' fort.41
 
 ### 5b) use gdas2gldas to produce nemsio file
+if [ -s sfc.gaussian.nemsio ]; then
+rm -rm sfc.gaussian.nemsio
+fi
 
 export OMP_NUM_THREADS=1
 bsub -e $LOG_FILE -o $LOG_FILE -q $QUEUE -P $PROJECT_CODE -J gdas2gldas -W 0:05 -x -n 6 -w 'ended(LIS)' \
@@ -146,7 +149,7 @@ bsub -e $LOG_FILE -o $LOG_FILE -q $QUEUE -P $PROJECT_CODE -J gdas2gldas -W 0:05 
 ### 5c) use gldas_post to replace soil moisture and temperature
 yyyy=`echo $RUNENDDATE | cut -c1-4`
 gbin=$RUNDIR/EXP901/NOAH/$yyyy/$RUNENDDATE/LIS.E901.${RUNENDDATE}00.NOAHgbin
-fcanl=$sfc.gaussian.nemsio
+fcanl=sfc.gaussian.nemsio
 
 export OMP_NUM_THREADS=1
 bsub -e $LOG_FILE -o $LOG_FILE -q $QUEUE -P $PROJECT_CODE -J gldas_post -W 0:02 -x -n 1 -w 'ended(gdas2gldas)' \
@@ -158,10 +161,29 @@ echo "create gdas2gldqas input file fort.42"
 cp ${HOMEgldas}/parm/gdas2gldas.input fort.42
 sed -i 's|/orogdir/|'"$topodir"'|g' fort.42
 
+# copy gdas netcdf tiles
+gdate=${RUNENDDATE}
+gdas_date=${gdate}.${cyc0}0000
+cp ${GDAS}/gdas.${gdate}/${gdas_date}.sfcanl_data.tile1.nc ./sfc_data.tile1.nc
+cp ${GDAS}/gdas.${gdate}/${gdas_date}.sfcanl_data.tile2.nc ./sfc_data.tile2.nc
+cp ${GDAS}/gdas.${gdate}/${gdas_date}.sfcanl_data.tile3.nc ./sfc_data.tile3.nc
+cp ${GDAS}/gdas.${gdate}/${gdas_date}.sfcanl_data.tile4.nc ./sfc_data.tile4.nc
+cp ${GDAS}/gdas.${gdate}/${gdas_date}.sfcanl_data.tile5.nc ./sfc_data.tile5.nc
+cp ${GDAS}/gdas.${gdate}/${gdas_date}.sfcanl_data.tile6.nc ./sfc_data.tile6.nc
+
+chmod 744 sfc_data.tile*.nc
+
+# copy soil type
+cp ${HOMEgldas}/fix/FIX_T1534/stype_gfs_T1534.bfsa  ./stype_gfs_T1534.bfsa
+
 export OMP_NUM_THREADS=1
 bsub -e $LOG_FILE -o $LOG_FILE -q $QUEUE -P $PROJECT_CODE -J gldas2gdas -W 0:05 -x -n 6 -w 'ended(gdas_post)' \
         -R "span[ptile=1]" -R "affinity[core(${OMP_NUM_THREADS}):distribute=balance]" "$PWD/gldas2gdas.sh"
 
 ### 5e) archive gldas results
+
+export OMP_NUM_THREADS=1
+bsub -e $LOG_FILE -o $LOG_FILE -q $QUEUE -P $PROJECT_CODE -J gldas_archive -W 0:05 -x -n 1 -w 'ended(gldas2gdas)' \
+        -R "span[ptile=1]" -R "affinity[core(${OMP_NUM_THREADS}):distribute=balance]" "$PWD/gldas_archive.sh $RUNSTARTDATE $RUNENDDATE"
 
 echo $RUNDIR
