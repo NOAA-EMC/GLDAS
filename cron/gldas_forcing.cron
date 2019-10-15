@@ -1,0 +1,14 @@
+#!/bin/csh
+set finddate = finddate.sh
+set yyyy = `date +%Y`
+set   mm = `date +%m`
+set   dd = `date +%d`
+set yyyymmdd = $yyyy$mm$dd
+set yyyymmdd = `sh $finddate $yyyymmdd d-1`
+set homedir=/gpfs/dell2/emc/retros/noscrub/Youlong.Xia/
+$homedir/gldas.v2.3.0/scripts/gldas_get_data.sh $yyyymmdd
+set yyyymmdd = `sh $finddate $yyyymmdd d-1`
+$homedir/gldas.v2.3.0/scripts/gldas_get_data.sh $yyyymmdd
+set yyyymmdd = `sh $finddate $yyyymmdd d-1`
+$homedir/gldas.v2.3.0/scripts/gldas_get_data.sh $yyyymmdd
+
