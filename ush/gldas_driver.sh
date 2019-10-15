@@ -3,8 +3,8 @@
 #########################################################
 # This script runs gldas from BDATE 00Z to GDATE 00Z 
 #
-# usage - lis.run.sh BDATE [GDATE]
-#         BDATE/GDATE in yyyymmdd 
+# usage - gldas_driver.sh GDATE
+#         GDATE in yyyymmdd 
 #
 # HOMEgldas - software directory
 # COMDIR    - output archive directory
@@ -46,12 +46,17 @@ echo "GLDAS runs from $yyyymmdd0 00Z to $yyyymmdd2 00Z"
 # As CPC precipitation is from 12z to 12z, the script needs to get one more
 # day gdas data to disaggregate daily CPC precipitation value to hourly
 
-### define work directories
+### define directories
 
-export HOMEgldas=/gpfs/dell2/emc/retros/noscrub/Youlong.Xia/GLDAS
-export COM_OUT=/gpfs/dell2/emc/retros/noscrub/$USER/gldas.T1534.igbp.2019/output
-export WORKDIR=/gpfs/dell2/ptmp/$USER/gldas.$BDATE
-export GDAS=/gpfs/dell2/ptmp/$USER/force
+export HOMEgldas=/gpfs/dell2/emc/retros/noscrub/$LOGNAME/GLDAS
+export COM_OUT=/gpfs/dell2/emc/retros/noscrub/$LOGNAME/gldas.T1534.igbp.2019/output
+export WORKDIR=/gpfs/dell2/ptmp/$LOGNAME
+export GDAS=/gpfs/dell2/ptmp/$LOGNAME/force
+export RUNDIR=${WORKDIR}/gldas.$RUNSTARTDATE
+
+export input1=$GDAS/gdas.$RUNSTARTDATE
+export input2=$GDAS/gdas.$RUNSTARTDATE
+export topodir=/gpfs/dell2/emc/modeling/noscrub/George.Gayno/fv3gfs.git/global-workflow/fix/fix_fv3_gmted2010/C768/
 
 ### setup WORKDIR and model
 
@@ -62,8 +67,8 @@ rm -fr $WORKDIR
 mkdir -p $WORKDIR
 cd $WORKDIR
 
-ln -s $HOMEGLDAS/fix/FIX_T1534 $WORKDIR/FIX
-ln -s $HOMEGLDAS/exec/gldas_${model} $WORKDIR/LIS
+ln -s $HOMEgldas/fix/FIX_T1534 $WORKDIR/FIX
+ln -s $HOMEgldas/exec/gldas_${model} $WORKDIR/LIS
 
 ### 1) Get all gdas data and 6-tile netcdf restart data -----
 
@@ -85,13 +90,13 @@ $HOMEgldas/scripts/gldas_forcing.sh $yyyymmdd
 yyyymmdd=`sh $FINDDATE $yyyymmdd d+1`
 done
 
-### 3) Produce intials noah.rs from 6-tile gdas restart files ----
+### 3) Produce initials noah.rst from 6-tile gdas restart files ----
 
 ### 3a) create gdas2gldas input file ----
 
 echo "create gdas2gldqas input file fort.41"
-cp ${LISDIR}/parm/gdas2gldas.input fort.41
-sed -i -e 's/date/'"RUNSTARTDATE"'/g' -e 's/cyc/'"$cyc0"'/g' fort.41
+cp ${HOMEgldas}/parm/gdas2gldas.input fort.41
+sed -i -e 's/date/'"$RUNSTARTDATE"'/g' -e 's/cyc/'"$cyc0"'/g' fort.41
 sed -i 's|/indirect/|'"$input1"'|g' fort.41
 sed -i 's|/orogdir/|'"$topodir"'|g' fort.41
 
@@ -104,26 +109,59 @@ rm -rm $LOG_FILE $SUM_FILE
 rm -rm noah.rst
 
 export OMP_NUM_THREADS=1
-bsub -e $LOG_FILE -o $LOG_FILE -q $QUEUE -P $PROJECT_CODE -J gdas2gldas -W 0:15 -x -n 6 \
+bsub -e $LOG_FILE -o $LOG_FILE -q $QUEUE -P $PROJECT_CODE -J gdas2gldas -W 0:05 -x -n 6 \
         -R "span[ptile=6]" -R "affinity[core(${OMP_NUM_THREADS}):distribute=balance]" "$PWD/gdas2gldas.sh"
 
 export OMP_NUM_THREADS=1
-bsub -e $LOG_FILE -o $LOG_FILE -q $QUEUE -P $PROJECT_CODE -J gldas_res -W 0:01 -x -n 1 -w 'ended(gdas2gldas)' \
+bsub -e $LOG_FILE -o $LOG_FILE -q $QUEUE -P $PROJECT_CODE -J gldas_res -W 0:02 -x -n 1 -w 'ended(gdas2gldas)' \
         -R "span[ptile=1]" -R "affinity[core(${OMP_NUM_THREADS}):distribute=balance]" "$PWD/gldas_rst.sh"
 
 ### 4) run noah/noahmp model
-if [ -s noah.rst };
-bsub<$WORKDIR/LIS.lsf
+if [ -s noah.rst ]; then
+bsub<$RUNDIR/LIS.lsf
 fi
 
+### 5) using gdas2gldas to generate nemsio file for RUNENDDATE
+###    use gldas_post to replace soil moisture and temperature
+###    use gldas2gdas to produce 6-tile restart file 
 
+if [-s fort.41 ]; then
+rm -rm fort.41
+fi
 
-# ------- create gldas2gdas input file for.42 ---------------------------
+### 5a) create input file for gdas2gldas
+
+echo "create gdas2gldqas input file fort.41"
+cp ${HOMEgldas}/parm/gdas2gldas.input fort.41
+sed -i -e 's/date/'"$RUNENDDATE"'/g' -e 's/cyc/'"$cyc0"'/g' fort.41
+sed -i 's|/indirect/|'"$input2"'|g' fort.41
+sed -i 's|/orogdir/|'"$topodir"'|g' fort.41
+
+### 5b) use gdas2gldas to produce nemsio file
+
+export OMP_NUM_THREADS=1
+bsub -e $LOG_FILE -o $LOG_FILE -q $QUEUE -P $PROJECT_CODE -J gdas2gldas -W 0:05 -x -n 6 -w 'ended(LIS)' \
+        -R "span[ptile=1]" -R "affinity[core(${OMP_NUM_THREADS}):distribute=balance]" "$PWD/gdas2gldas.sh"
+
+### 5c) use gldas_post to replace soil moisture and temperature
+yyyy=`echo $RUNENDDATE | cut -c1-4`
+gbin=$RUNDIR/EXP901/NOAH/$yyyy/$RUNENDDATE/LIS.E901.${RUNENDDATE}00.NOAHgbin
+fcanl=$sfc.gaussian.nemsio
+
+export OMP_NUM_THREADS=1
+bsub -e $LOG_FILE -o $LOG_FILE -q $QUEUE -P $PROJECT_CODE -J gldas_post -W 0:02 -x -n 1 -w 'ended(gdas2gldas)' \
+        -R "span[ptile=1]" -R "affinity[core(${OMP_NUM_THREADS}):distribute=balance]" "$PWD/gldas_post.sh $gbin $sfcanl"
+
+### 5d) use gldas2gdas to create 6-tile restart tiles
 
 echo "create gdas2gldqas input file fort.42"
-cp ${LISDIR}/parm/gdas2gldas.input fort.42
+cp ${HOMEgldas}/parm/gdas2gldas.input fort.42
 sed -i 's|/orogdir/|'"$topodir"'|g' fort.42
 
+export OMP_NUM_THREADS=1
+bsub -e $LOG_FILE -o $LOG_FILE -q $QUEUE -P $PROJECT_CODE -J gldas2gdas -W 0:05 -x -n 6 -w 'ended(gdas_post)' \
+        -R "span[ptile=1]" -R "affinity[core(${OMP_NUM_THREADS}):distribute=balance]" "$PWD/gldas2gdas.sh"
 
+### 5e) archive gldas results
 
 echo $RUNDIR
