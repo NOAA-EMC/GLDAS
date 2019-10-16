@@ -14,7 +14,7 @@ export yyyy2=`echo $date2 | cut -c 1-4`
 export   mm2=`echo $date2 | cut -c 5-6`
 export   dd2=`echo $date2 | cut -c 7-8`
 export  grid=$grid
-export PARM_LM=/gpfs/dell2/emc/retros/noscrub/Youlong.Xia/gldas.v2.3.0/parm
+export PARM_LM=${PARMgldas}
 export LISCARD=lis.crd
 
 rm -f $LISCARD

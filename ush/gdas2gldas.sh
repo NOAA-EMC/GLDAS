@@ -1,7 +1,13 @@
 #!/bin/bash
 set -x
 
-export HOMEgldas=/gpfs/dell2/emc/retros/noscrub/Youlong.Xia/GLDAS
-mpirun ${HOMEgldas}/exec/gdas2gldas
+cd $RUNDIR
+ export pgm=gdas2gldas
+  . prep_step
+
+echo 'running gdas2gldas'
+  startmsg
+  mpirun ${HOMEgldas}/exec/gdas2gldas  >>$pgmout 2>errfile
+  export err=$?; err_chk
 
 exit

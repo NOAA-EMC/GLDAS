@@ -8,7 +8,7 @@
 # usage - gldas_archive.sh BDATE [GDATE]
 #         BDATE/GDATE in yyyymmdd
 #
-# LISDIR - software directory
+# HOMEgldas - software directory
 # COMDIR - output archive directory
 # RUNDIR - run directory
 # GDAS   - /gpfs/dell1/nco/ops/com/gfs/prod
@@ -29,75 +29,63 @@ set -ux
 export FINDDATE=finddate.sh
 
 if [ $# -lt 1 ]; then
-echo "usage: ksh $0 yyyymmdd [yyyymmdd2]"
+echo "usage: ksh $0 sdate [edate]"
 exit
 fi
 BDATE=$1
-yyyymmdd1=$1
-yyyymmdd2=`sh $FINDDATE $1 d+1`
-if [ $# -gt 1 ]; then yyyymmdd2=$2 ; fi
-GDATE=$yyyymmdd2
+sdate=$1
+edate=`sh $FINDDATE $1 d+1`
+if [ $# -gt 1 ]; then edate=$2 ; fi
+GDATE=$edate
 
-yyyy=`echo $yyyymmdd1 | cut -c1-4`
+cyc0=${cyc}
 
-### define work directories
+yyyy=`echo $sdate | cut -c1-4`
 
-export LISDIR=/gpfs/dell2/emc/retros/noscrub/Youlong.Xia/GLDAS
-export COMDIR=/gpfs/dell2/emc/retros/noscrub/$USER/gldas.T1534.igbp.2019/output
-export RUNDIR=/gpfs/dell2/ptmp/$USER/gldas.$BDATE
-export GDAS=$COMROOT/gfs/prod
-
-export cyc1=00
-
-### setup archive directories
 ### save all output to day1 directory
+export COMDIR=${COM_OUT}
 
-mkdir -p $COMDIR/gldas.$yyyymmdd1
-yyyymmdd=`sh $FINDDATE $yyyymmdd1 d+1`
-while [ $yyyymmdd -le $yyyymmdd2 ]; do
+mkdir -p $COMDIR/gldas.$sdate
+yyyymmdd=`sh $FINDDATE $sdate d+1`
+while [ $yyyymmdd -le $edate ]; do
 
 mkdir -p $COMDIR/gldas.$yyyymmdd
 
 yyyy=`echo $yyyymmdd | cut -c1-4`
-cp $RUNDIR/EXP901/NOAH/$yyyy/$yyyymmdd/* $COMDIR/gldas.$yyyymmdd1
+cp $RUNDIR/EXP901/NOAH/$yyyy/$yyyymmdd/* $COMDIR/gldas.$sdate
 
 yyyymmdd=`sh $FINDDATE $yyyymmdd d+1`
 done
 
 ### rename grb files
 
-yyyymmdd=$yyyymmdd1
-while [ $yyyymmdd -lt $yyyymmdd2 ]; do
+yyyymmdd=$sdate
+while [ $yyyymmdd -lt $edate ]; do
 
 day1=$yyyymmdd
 day2=`sh $FINDDATE $yyyymmdd d+1`
-mv $COMDIR/gldas.$yyyymmdd1/LIS.E901.${day2}00.NOAH.grb $COMDIR/gldas.$yyyymmdd1/LIS.E901.${day1}00.NOAH.grb
+mv $COMDIR/gldas.$sdate/LIS.E901.${day2}00.NOAH.grb $COMDIR/gldas.$sdate/LIS.E901.${day1}00.NOAH.grb
 
 yyyymmdd=`sh $FINDDATE $yyyymmdd d+1`
 done
 
 ### save noah.rst.day2 to day2 directory for next day gldas restart 
 
-yyyymmdd=`sh $FINDDATE $yyyymmdd1 d+1`
+yyyymmdd=`sh $FINDDATE $sdate d+1`
 yyyy=`echo $yyyymmdd | cut -c1-4`
 mkdir -p $COMDIR/gldas.$yyyymmdd
 cp $RUNDIR/EXP901/NOAH/$yyyy/$yyyymmdd/LIS.E901.${yyyymmdd}00.Noahrst $COMDIR/gldas.$yyyymmdd/noah.rst.$yyyymmdd
 
 ### generate and save gdas.t${cyc1}z.sfcanl.nemsio.gldas.day4 to day4 directory for next cycle gfs restart
 
-mkdir -p $COMDIR/gldas.$yyyymmdd2
-yyyy=`echo $yyyymmdd2 | cut -c1-4`
-gbin=$RUNDIR/EXP901/NOAH/$yyyy/$yyyymmdd2/LIS.E901.${yyyymmdd2}00.NOAHgbin
-cp $GDAS/gdas.$yyyymmdd2/gfs.t${cyc1}z.sfcanl.nemsio $COMDIR/gldas.$yyyymmdd2
-cp $GDAS/gdas.$yyyymmdd2/gdas.t${cyc1}z.sfcanl.nemsio $COMDIR/gldas.$yyyymmdd2
-sfcanl=$COMDIR/gldas.$yyyymmdd2/gdas.t${cyc1}z.sfcanl.nemsio
-$LISDIR/scripts/gldas_post.sh $gbin $sfcanl
-cp $sfcanl.gldas $sfcanl.gldas.$yyyymmdd2
+mkdir -p $COMDIR/gldas.$edate
+gdate=${edate}
+gdas_date=${gdate}.${cyc0}0000
+cp sfc_data.tile1.nc $COMDIR/gldas.$edate/${gdas_date}.sfcanl_data.tile1.nc
+cp sfc_data.tile2.nc $COMDIR/gldas.$edate/${gdas_date}.sfcanl_data.tile2.nc
+cp sfc_data.tile3.nc $COMDIR/gldas.$edate/${gdas_date}.sfcanl_data.tile3.nc
+cp sfc_data.tile4.nc $COMDIR/gldas.$edate/${gdas_date}.sfcanl_data.tile4.nc
+cp sfc_data.tile5.nc $COMDIR/gldas.$edate/${gdas_date}.sfcanl_data.tile5.nc
+cp sfc_data.tile6.nc $COMDIR/gldas.$edate/${gdas_date}.sfcanl_data.tile6.nc
 
-### use $sfcanl.gldas to produce 6-tile netcdf file 
-   run.gldas2gdas.dell.sh $BDATE
-
-
-echo $COMDIR/gldas.$yyyymmdd1
-echo $COMDIR/gldas.$yyyymmdd/noah.rst.$yyyymmdd
-echo $COMDIR/gldas.$yyyymmdd2/gdas.t00z.sfcanl.nemsio.gldas.$yyyymmdd2
+echo $COMDIR/gldas.$edate/${gdas_date}.sfcanl_data.tile6.nc

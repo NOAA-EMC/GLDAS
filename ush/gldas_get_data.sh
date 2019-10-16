@@ -11,7 +11,7 @@
 #########################################################
 set -x
 
-cd $WORKDIR
+cd $DATA
 
 force=1
 finddate=finddate.sh
@@ -22,21 +22,24 @@ copygb=$COPYGB
 
 if [ $# -lt 1 ]; then 
 echo "usage: ksh $0 start-date [end-date]"
-exit 
+err_exit 99
 fi
+
 sdate=$1
 edate=$1
 if [ $# -gt 1 ]; then
 edate=$2
 fi
-echo $0 $sdate $edate
 
 ### COMINgdas = prod gdas sflux grib2
-### WORKDIR = gldas forcing grib2
-### WORKDIR/force = gldas forcing grib1
+### DATA = gldas forcing grib2
+### DATA/force = gldas forcing grib1
 
-fpath=${WORKDIR}
-gpath=${WORKDIR}/force
+fpath=$DATA
+gpath=$DATA/force
+
+mkdir -p $fpath
+mkdir -p $gpath
 
 #--- extract variables of each timestep and create forcing files
 if [ $force -eq 1 ]; then
@@ -45,12 +48,13 @@ echo ${cc[0]}
 #echo ${cc[1]}
 #echo ${cc[2]}
 #echo ${cc[3]}
+fi
 
 while [ $sdate -le $edate ];do
 
 rm -fr $fpath/gdas.${sdate}
 mkdir -p $fpath/gdas.${sdate}
-rm -fr $gpath/force/gdas.${sdate}
+rm -fr $gpath/gdas.${sdate}
 mkdir -p $gpath/gdas.${sdate} 
 
 k=0
@@ -58,14 +62,14 @@ while [ $k -le 3 ]; do
 
 # to get surface 6-tile restart netcdf files
 
-cp ${COMINgdas}/gfs.${sdate}/${cc[k]}/RESTART/${sdate}.${cc[$k]}0000.sfcanl_data.tile*.nc $gpath/force/gdas.${sdate}
+cp ${COMINgdas}/gfs.${sdate}/${cc[k]}/RESTART/${sdate}.${cc[$k]}0000.sfcanl_data.tile*.nc $gpath/gdas.${sdate}
 
 f=0
 while [ $f -le 6 ]; do
 
 rflux=${COMINgdas}/gdas.$sdate/${cc[$k]}/gdas.t${cc[$k]}z.sfluxgrbf00$f.grib2
 fflux=$fpath/gdas.${sdate}/gdas.t${cc[$k]}z.sfluxgrbf0$f.grib2
-gflux=$gpath/force/gdas.${sdate}/gdas1.t${cc[$k]}z.sfluxgrbf0$f
+gflux=$gpath/gdas.${sdate}/gdas1.t${cc[$k]}z.sfluxgrbf0$f
 rm -f $fflux
 touch $fflux
 rm -f $gflux
@@ -113,7 +117,6 @@ done
 
 sdate=`finddate.sh $sdate d+1`
 done
-fi
 
 mkdir -p $gpath/gdas.$yyyymmdd
 cp ${COMINgdas}/gdas.$yyyymmdd/${cc[0]}/RESTART/$yyyymmdd.${cc[00]}0000.sfcanl_data.tile*.nc $gpath/gdas.$yyyymmdd

@@ -24,7 +24,7 @@ edate=$2
 fi
 
 sda=${sdate}
-export RUNDIR=$(WORKDIR}/gldas.${sdate}
+export RUNDIR=${DATA}/gldas.${sdate}
 cd $RUNDIR
 
 # HOMEgldas - gldas directory
@@ -33,16 +33,12 @@ cd $RUNDIR
 # FIXgldas  - gldas fix field directory
 
 export LISDIR=$HOMEgldas
-export cpath=$DCOM_IN
-export fpath=${WORKDIR}/force
-export xpath=${WORKDIR/force
+export cpath=$DCOMIN
+export fpath=${DATA}/force
+export xpath=${DATA}/force
 
 mkdir -p input
 ln -s $fpath $RUNDIR/input/GDAS
-
-export input1=$RUNDIR
-export topodir=/gpfs/dell2/emc/modeling/noscrub/George.Gayno/fv3gfs.git/global-workflow/fix/fix_fv3_gmted2010/C768/
-export cyc0=00
 
 #--- extract variables of each timestep and create forcing files
 
@@ -68,7 +64,7 @@ prate=gdas.${sdat0}12
 $wgrib -s $sflux | grep "PRATE:sfc" | $wgrib -i $sflux -grib -o $prate
 
 sflux=$fpath/gdas.${sdat0}/gdas1.t18z.sfluxgrbf06
-prate=gdas.${yyyymmdd0}18
+prate=gdas.${sdat0}18
 $wgrib -s $sflux | grep "PRATE:sfc" | $wgrib -i $sflux -grib -o $prate
 
 sflux=$fpath/gdas.${sdate}/gdas1.t00z.sfluxgrbf06
@@ -79,10 +75,10 @@ sflux=$fpath/gdas.${sdate}/gdas1.t06z.sfluxgrbf06
 prate=gdas.${sdate}06
 $wgrib -s $sflux | grep "PRATE:sfc" | $wgrib -i $sflux -grib -o $prate
 
-$copygb -i3 -g"255 0 2881 1441 90000 0 128 -90000 360000 125 125" -x gdas.${yyyymmdd0}12 grib.12
-$copygb -i3 -g"255 0 2881 1441 90000 0 128 -90000 360000 125 125" -x gdas.${yyyymmdd0}18 grib.18
-$copygb -i3 -g"255 0 2881 1441 90000 0 128 -90000 360000 125 125" -x gdas.${yyyymmdd}00  grib.00
-$copygb -i3 -g"255 0 2881 1441 90000 0 128 -90000 360000 125 125" -x gdas.${yyyymmdd}06  grib.06
+$copygb -i3 -g"255 0 2881 1441 90000 0 128 -90000 360000 125 125" -x gdas.${sdat0}12 grib.12
+$copygb -i3 -g"255 0 2881 1441 90000 0 128 -90000 360000 125 125" -x gdas.${sdat0}18 grib.18
+$copygb -i3 -g"255 0 2881 1441 90000 0 128 -90000 360000 125 125" -x gdas.${sdate}00  grib.00
+$copygb -i3 -g"255 0 2881 1441 90000 0 128 -90000 360000 125 125" -x gdas.${sdate}06  grib.06
 
 rm -f fort.10
 touch fort.10
@@ -94,7 +90,7 @@ $wgrib -d -bin grib.18 -o fort.12
 $wgrib -d -bin grib.00 -o fort.13
 $wgrib -d -bin grib.06 -o fort.14
 
-cp $xpath/cpc.$sdae/PRCP_CU_GAUGE_V1.0GLB_0.125deg.lnx.$yyyymmdd.RT fort.15
+cp $xpath/cpc.$sdate/PRCP_CU_GAUGE_V1.0GLB_0.125deg.lnx.${sdate}.RT fort.15
 
 export pgm=gldas_forcing
   . prep_step
@@ -130,11 +126,11 @@ sdate=`sh $finddate $sdate d+1`
 done
 
 ### create configure file
-${HOMEgldas}/scripts/gldas_liscrd.sh ${sda} $edate 1534
+${HOMEgldas}/ush/gldas_liscrd.sh ${sda} $edate 1534
 
 ### create lsf file
 
-cp ${HOMEgldas}/parm/LIS.lsf.tmp LIS.lsf
+cp ${PARMgldas}/LIS.lsf.tmp LIS.lsf
 echo "#BSUB -oo $RUNDIR/LIS.out"   >> LIS.lsf
 echo "#BSUB -eo $RUNDIR/LIS.error" >> LIS.lsf
 echo "cd $RUNDIR"                  >> LIS.lsf
