@@ -109,30 +109,3 @@ sdate=`sh $finddate $sdate d+1`
 
 done
 
-### ----- copygb to interploate 0.125 degree P into T1534 GDAS grid -----
-
-sdate=${sda}
-while [ $sdate -le $edate ];do
-
-gds='255 4 3072 1536 89909 0 128 -89909 -117 117 768 0 0 0 0 0 0 0 0 0 255 0 0 0 0 0'
-
-$copygb -i3 -g"$gds" -x $fpath/cpc.$sdate/precip.gldas.${sdate}00 $RUNDIR/cmap.gdas.${sdate}00
-$copygb -i3 -g"$gds" -x $fpath/cpc.$sdate/precip.gldas.${sdate}06 $RUNDIR/cmap.gdas.${sdate}06
-$copygb -i3 -g"$gds" -x $fpath/cpc.$sdate/precip.gldas.${sdate}12 $RUNDIR/cmap.gdas.${sdate}12
-$copy -i3 -g"$gds" -x $fpath/cpc.$sdate/precip.gldas.${sdate}18 $RUNDIR/cmap.gdas.${sdate}18
-
-sdate=`sh $finddate $sdate d+1`
-
-done
-
-### create configure file
-${HOMEgldas}/ush/gldas_liscrd.sh ${sda} $edate 1534
-
-### create lsf file
-
-cp ${PARMgldas}/LIS.lsf.tmp LIS.lsf
-echo "#BSUB -oo $RUNDIR/LIS.out"   >> LIS.lsf
-echo "#BSUB -eo $RUNDIR/LIS.error" >> LIS.lsf
-echo "cd $RUNDIR"                  >> LIS.lsf
-echo "mpirun -n 112 ./LIS"            >> LIS.lsf
-

@@ -17,32 +17,22 @@
 #########################################################
 set -x
 
+export FINDDATE=${FINDDATE:-finddate.sh}
+
 mkdir $RUNDIR
 cd $RUNDIR
 
 if [ $# -lt 1 ]; then
-  echo "Usage: gldas_driver.sh RUNENDDATE"
+  echo "Usage: gldas_driver.sh RUNENDDATE [RUNENDDATE]"
   err_exit 99
 fi
 
-module purge
-module load EnvVars/1.0.2
-module load ips/18.0.1.163
-module load impi/18.0.1
-module load lsf/10.1
-module use /usrx/local/dev/modulefiles
-module load NetCDF/4.5.0
+RUNSTARTDATE=$1
+yyyymmdd0=`sh $FINDDATE $1 d-1`
+RUNENDDATE=`sh $FINDDATE $1 d+1`
 
-export CURRENTD=$1
-echo $CURRENTD
-
-# GET START DATE
-export 
-export RUNSTARTDATE=`finddate.sh $CURRENTD d-3`
-export RUNENDDATE=$CURRENTD
-
-# GET START DATE
-export FINDDATE=finddate.sh
+if [ $# -gt 1 ]; then RUNENDDATE=$2 ; fi
+yyyy=`echo $RUNSTARTDATE | cut -c1-4`
 
 QUEUE="debug"
 PROJECT_CODE="NLDAS-T2O"
@@ -50,8 +40,6 @@ PROJECT_CODE="NLDAS-T2O"
 echo $RUNSTARTDATE
 echo "USING: $RUNSTARTDATE to GET START DATA"
 echo "RUNNING THROUGH: $RUNENDDATE"
-
-yyyymmdd0=`sh $FINDDATE $RUNSTARTDATE d-1`
 
 echo "GLDAS runs from $yyyymmdd0 00Z to $yyyymmdd2 00Z"
 
@@ -81,7 +69,7 @@ $HOMEgldas/ush/gldas_get_data.sh $yyyymmdd
 yyyymmdd=`sh $FINDDATE $yyyymmdd d+1`
 done
 
-### 2) Get CPC daily precip and spatially and temporally disaggreated ---
+### 2) Get CPC daily precip and temporally disaggreated ---
 
 yyyymmdd=$RUNSTARTDATE
 while [ $yyyymmdd -lt $RUNENDDATE ];do
@@ -91,6 +79,33 @@ $HOMEgldas/ush/gldas_forcing.sh $yyyymmdd
 yyyymmdd=`sh $FINDDATE $yyyymmdd d+1`
 done
 
+### spatially disaggregated
+yyyymmdd=$RUNSTARTDATE
+
+while [ $yyyymmdd -lt $RUNENDDATE ]; do
+
+gds='255 4 3072 1536 89909 0 128 -89909 -117 117 768 0 0 0 0 0 0 0 0 0 255 0 0 0 0 0'
+$COPYGB -i3 -g"$gds" -x $GDAS/cpc.$yyyymmdd/precip.gldas.${yyyymmdd}00 $RUNDIR/cmap.gdas.${yyyymmdd}00
+$COPYGB -i3 -g"$gds" -x $GDAS/cpc.$yyyymmdd/precip.gldas.${yyyymmdd}06 $RUNDIR/cmap.gdas.${yyyymmdd}06
+$COPYGB -i3 -g"$gds" -x $GDAS/cpc.$yyyymmdd/precip.gldas.${yyyymmdd}12 $RUNDIR/cmap.gdas.${yyyymmdd}12
+$COPYGB -i3 -g"$gds" -x $GDAS/cpc.$yyyymmdd/precip.gldas.${yyyymmdd}18 $RUNDIR/cmap.gdas.${yyyymmdd}18
+
+yyyymmdd=`sh $FINDDATE $yyyymmdd d+1`
+
+done
+
+### create configure file
+${HOMEgldas}/ush/gldas_liscrd.sh $RUNSTARTDATE $RUNENDDATE 1534
+
+### create lsf file
+
+cp ${PARMgldas}/LIS.lsf.tmp LIS.lsf
+echo "#BSUB -oo $RUNDIR/LIS.out"   >> LIS.lsf
+echo "#BSUB -eo $RUNDIR/LIS.error" >> LIS.lsf
+echo "cd $RUNDIR"                  >> LIS.lsf
+echo "mpirun -n 112 ./LIS"            >> LIS.lsf
+
+exit
 ### 3) Produce initials noah.rst from 6-tile gdas restart files ----
 
 ### 3a) create gdas2gldas input file ----
@@ -112,7 +127,9 @@ export OMP_NUM_THREADS=1
 bsub -e $LOG_FILE -o $LOG_FILE -q $QUEUE -P $PROJECT_CODE -J gdas2gldas -W 0:05 -x -n 6 \
         -R "span[ptile=6]" -R "affinity[core(${OMP_NUM_THREADS}):distribute=balance]" "$HOMEgldas/ush/gdas2gldas.sh"
 
-xport LOG_FILE=gldas_rst.log 
+rm PET*ESMF_LogFile
+
+export LOG_FILE=gldas_rst.log 
 export OMP_NUM_THREADS=1
 bsub -e $LOG_FILE -o $LOG_FILE -q $QUEUE -P $PROJECT_CODE -J gldas_rst -W 0:02 -x -n 1 -w 'ended(gdas2gldas)' \
         -R "span[ptile=1]" -R "affinity[core(${OMP_NUM_THREADS}):distribute=balance]" "$HOMEgldas/ush/gldas_rst.sh"
@@ -120,7 +137,6 @@ bsub -e $LOG_FILE -o $LOG_FILE -q $QUEUE -P $PROJECT_CODE -J gldas_rst -W 0:02 -
 ### 4) run noah/noahmp model
 bsub<$RUNDIR/LIS.lsf
 
-exit
 ### 5) using gdas2gldas to generate nemsio file for RUNENDDATE
 ###    use gldas_post to replace soil moisture and temperature
 ###    use gldas2gdas to produce 6-tile restart file 
@@ -144,7 +160,7 @@ fi
 
 export LOG_FILE=gdas2gldas_2nd.log
 export OMP_NUM_THREADS=1
-bsub -e $LOG_FILE -o $LOG_FILE -q $QUEUE -P $PROJECT_CODE -J gdas2gldas -W 0:05 -x -n 6 -w 'ended(LIS)' \
+bsub -e $LOG_FILE -o $LOG_FILE -q $QUEUE -P $PROJECT_CODE -J gdas2gldas -W 0:05 -x -n 6 -w 'ended(gldas_model)' \
         -R "span[ptile=1]" -R "affinity[core(${OMP_NUM_THREADS}):distribute=balance]" "$HOMEgldas/ush/gdas2gldas.sh"
 
 ### 5c) use gldas_post to replace soil moisture and temperature
@@ -154,7 +170,7 @@ sfcanl=sfc.gaussian.nemsio
 
 export LOG_FILE=gldas_post.log
 export OMP_NUM_THREADS=1
-bsub -e $LOG_FILE -o $LOG_FILE -q $QUEUE -P $PROJECT_CODE -J gldas_post -W 0:02 -x -n 1 -w 'ended(gdas2gldas)' \
+bsub -e $LOG_FILE -o $LOG_FILE -q $QUEUE -P $PROJECT_CODE -J gldas_post -W 0:05 -x -n 1 -w 'ended(gdas2gldas)' \
         -R "span[ptile=1]" -R "affinity[core(${OMP_NUM_THREADS}):distribute=balance]" "$HOMEgldas/ush/gldas_post.sh $gbin $sfcanl"
 
 ### 5d) use gldas2gdas to create 6-tile restart tiles
