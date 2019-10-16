@@ -30,18 +30,16 @@ export COPYGB=${COPYGB:-$utilexec/copygb}
 ##############################
 
 export LISDIR=$HOMEgldas
-export RUNDIR=$DATA
-export WORKDIR=$DATA
 export GDATE=$GDATE
 export BDATE=`$FINDDATE $GDATE d-3`
 
+export RUNDIR=$DATA/gldas.${BDATE}
 #############################################################
 # execute the script
 
-echo "----------$HOMEgldas/ush/gldas_run.sh $BDATE $GDATE----------"
+echo "----------$HOMEgldas/ush/gldas_run.sh $GDATE----------"
 
-$HOMEgldas/ush/gldas_driver.sh $BDATE $GDATE
-#$HOMEgldas/ush/gldas_run.sh $BDATE $GDATE
+$HOMEgldas/ush/gldas_driver.sh $GDATE
 #$HOMEgldas/ush/gldas_post.sh $BDATE $GDATE 
 
 msg="$HOMEgldas/scripts/gldas_run.sh ENDED NORMALLY."
