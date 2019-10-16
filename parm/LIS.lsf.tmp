@@ -1,4 +1,5 @@
 #!/bin/bash
+#BSUB -w "ended(gldas_rst)"
 #BSUB -n 112
 #BSUB -R affinity[core]
 #BSUB -R span[ptile=28]
