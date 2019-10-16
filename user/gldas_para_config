@@ -25,6 +25,8 @@ export DCOMROOT=/gpfs/dell1/nco/ops/dcom
 export COMINgdas=${COMINgdas:-${COMROOT}/gfs/prod}
 export DCOMIN=${DCOM_IN:-${DCOMROOT}/prod}
 
+export topodir=/gpfs/dell2/emc/modeling/noscrub/George.Gayno/fv3gfs.git/global-workflow/fix/fix_fv3_gmted2010/C768/
+
 #export DATA_IN=/gpfs/dell2/ptmp/$LOGNAME/tmpnwprd
 #export jlogfile=$DATA_IN/jlogfile
 export DATA=/gpfs/dell2/ptmp/$LOGNAME/tmpnwprd
