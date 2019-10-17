@@ -1,0 +1,11 @@
+#%Module#####################################################
+## Build module for Dell
+#############################################################
+
+module load ips/18.0.1.163
+
+module load w3nco/2.0.6
+module load bacio/2.0.2
+
+export FC=ifort
+export FOPTS="-O0 -FR"

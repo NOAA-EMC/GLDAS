@@ -38,3 +38,5 @@ setup.o:  setup.f90
 
 clean:
 	rm -f *.o *.mod ${CMD} ../../exec/${CMD}
+install:
+	mv $(CMD) ../../exec

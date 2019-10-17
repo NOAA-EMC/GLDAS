@@ -23,23 +23,7 @@ module load ip/3.0.1
 module load NetCDF/3.6.3 
 module load nemsio/2.2.3
 
-cd ./gldas_forcing.fd
-make clean
-make
-
-cd ../gldas_post.fd
-make clean
-make
-
-cd ../gldas_rst.fd
-sh complile_rst.sh
-
-cd ../gldas_model.fd
+cd gldas_model.fd
 sh compile.sh
 
-cd ..
-build_gdas2gldas.sh
-build_gldas2gdas.sh
-
 date
-

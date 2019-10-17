@@ -6,7 +6,7 @@ cwd=`pwd`
 
 USE_PREINST_LIBS=${USE_PREINST_LIBS:-"true"}
 if [ $USE_PREINST_LIBS = true ]; then
-  export MOD_PATH=/scratch3/NCEPDEV/nwprod/lib/modulefiles
+  export MOD_PATH
   source ../modulefiles/gdas2gldas.$target             > /dev/null 2>&1
 else
   export MOD_PATH=${cwd}/lib/modulefiles
@@ -29,5 +29,6 @@ cd gdas2gldas.fd
 
 make clean
 make
+make install
 
 exit

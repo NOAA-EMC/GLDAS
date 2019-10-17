@@ -33,4 +33,6 @@ utils.o:  utils.f90
 	$(FCOMP) $(FFLAGS) $(ESMF_F90COMPILEPATHS) -c utils.f90
 
 clean:
-	rm -f *.o *.mod ${CMD} ../../exec/${CMD}
+	rm -f *.o *.mod $(CMD) ../../exec/${CMD}
+install:
+	mv $(CMD) ../../exec
