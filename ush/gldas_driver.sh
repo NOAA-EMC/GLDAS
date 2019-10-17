@@ -105,7 +105,6 @@ echo "#BSUB -eo $RUNDIR/LIS.error" >> LIS.lsf
 echo "cd $RUNDIR"                  >> LIS.lsf
 echo "mpirun -n 112 ./LIS"            >> LIS.lsf
 
-exit
 ### 3) Produce initials noah.rst from 6-tile gdas restart files ----
 
 ### 3a) create gdas2gldas input file ----
