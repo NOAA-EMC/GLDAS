@@ -79,7 +79,7 @@ VPATH    := $(subst $(space),:,$(VPATH))
 all: $(MODEL_EXEDIR)/$(EXENAME)
 
 # Get list of files and determine objects and dependency files
-FIND_FILES = $(wildcard $(dir)/*.F $(dir)/*.f $(dir)/*.F90 $(dir)/*.f90 $(dir)/*.c)
+FIND_FILES = $(wildcard $(dir)/*.F $(dir)/*.f $(dir)/*.F90 $(dir)/*.c)
 FILES      = $(foreach dir, $(dirs),$(FIND_FILES))
 SOURCES   := $(sort $(notdir $(FILES)))
 DEPS      := $(addsuffix .d, $(basename $(SOURCES)))
@@ -188,9 +188,9 @@ PSASINC      =
 CFLAGS       = -DIRIX64 -c -O
 ##FFLAGS       = -free -c -O0 -g -traceback -check all -fpe0 -ftrapuv -CB -convert big_endian
 ## Fanglin Yang
-####FFLAGS       = -fp-model strict -free -c -O1 -convert big_endian
+##FFLAGS       = -fp-model strict -free -c -O0 -convert big_endian
 ## Dell standard flags
-FFLAGS       = -fp-model precise -ftz -fast-transcendentals -no-prec-div -no-prec-sqrt -align array64byte -free -c -g -O2 -convert big_endian
+FFLAGS       = -fp-model precise -ftz -fast-transcendentals -no-prec-div -no-prec-sqrt -align array64byte -free -c -O0 -convert big_endian
 LDFLAGS      = ${ESMF_POST_LINK_OPTS} ${BACIO_LIB4} ${IP_LIB4} ${W3EMC_LIB4} ${W3NCO_LIB4} ${SP_LIB4} -qopenmp
 ifeq ($(SPMD),TRUE)
 #  FFLAGS  -= -mp
@@ -250,7 +250,7 @@ realclean:
 #       to:
 #       make.o make.d : make.c make.h
 #------------------------------------------------------------------------
-DEPGEN := ./MAKDEP/makdep -s F -s f90
+DEPGEN := ./MAKDEP/makdep -s F
 %.d : %.c
 	@echo "Building dependency file $@"
 	@$(DEPGEN) -f $(cpp_path) $< > $@
@@ -260,9 +260,6 @@ DEPGEN := ./MAKDEP/makdep -s F -s f90
 %.d : %.F90
 	@echo "Building dependency file $@"
 	@$(DEPGEN) -f $(cpp_path) $<  > $@
-%.d : %.f90
-	@echo "Building dependency file $@"
-	@$(DEPGEN) -f $(cpp_path) $< > $@
 %.d : %.F
 	@echo "Building dependency file $@"
 	@$(DEPGEN) -f $(cpp_path) $< > $@

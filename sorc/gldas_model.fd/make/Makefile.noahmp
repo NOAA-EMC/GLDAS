@@ -190,7 +190,7 @@ CFLAGS       = -DIRIX64 -c -O
 ## Fanglin Yang
 ####FFLAGS       = -fp-model strict -free -c -O1 -convert big_endian
 ## Dell standard flags
-FFLAGS       = -fp-model precise -ftz -fast-transcendentals -no-prec-div -no-prec-sqrt -align array64byte -free -c -g -O2 -convert big_endian
+FFLAGS       = -fp-model precise -ftz -fast-transcendentals -no-prec-div -no-prec-sqrt -align array64byte -free -c -g -O1 -convert big_endian
 LDFLAGS      = ${ESMF_POST_LINK_OPTS} ${BACIO_LIB4} ${IP_LIB4} ${W3EMC_LIB4} ${W3NCO_LIB4} ${SP_LIB4} -qopenmp
 ifeq ($(SPMD),TRUE)
 #  FFLAGS  -= -mp
