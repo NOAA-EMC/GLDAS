@@ -1,0 +1,12 @@
+#%Module#####################################################
+## Build module for Cray
+#############################################################
+
+module load PrgEnv-intel
+module load craype-haswell
+
+module load w3nco-intel/2.0.6
+module load bacio-intel/2.0.2
+
+export FC=ftn
+export FOPTS="-O0 -FR"

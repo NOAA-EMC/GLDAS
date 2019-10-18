@@ -1,0 +1,14 @@
+#%Module#####################################################
+## Build module for cray
+#############################################################
+
+module load PrgEnv-intel
+module load craype-haswell
+
+module load w3nco-intel/2.0.6
+module load w3emc-intel/2.3.0
+module load bacio-intel/2.0.2
+module load nemsio-intel/2.2.3
+
+export FC=ftn
+export FOPTS='-O -FR -I$(NEMSIO_INC) -convert big_endian'
