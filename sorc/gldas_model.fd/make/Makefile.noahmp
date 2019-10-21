@@ -24,36 +24,13 @@ ifeq ($(SPMD),$(null))
   endif
 endif
 
-# Determine platform
-UNAMES := $(shell uname -s)
-UMACHINE := $(shell uname -m)
-
-ifeq ($(UNAMES),Linux)
-
-### Zeus/Gaea
-#LIB_ESMF   :=/scratch2/portfolios/NCEPDEV/global/save/Shrinivas.Moorthi/para/lib
-#LIB_NETCDF := /scratch2/portfolios/NCEPDEV/global/save/Shrinivas.Moorthi/para/lib/libnetcdf.a
-#INC_NETCDF := /scratch2/portfolios/NCEPDEV/global/save/Shrinivas.Moorthi/para/lib/netcdf
-
-### Eddy/Tide
-##LIB_ESMF   := /usrx/local/esmf-3.1.0rp2
-##LIB_NETCDF := /usrx/local/netcdf-3.6.3/lib/libnetcdf.a
-##INC_NETCDF := /usrx/local/netcdf-3.6.3/include
-
-LIB_ESMF   := /usrx/local/prod/packages/ips/18.0.1/impi/18.0.1/esmf/4_0_0rp2
-LIB_NETCDF := ${NETCDF_LIB}
-INC_NETCDF := ${NETCDF_INC}
-
-MOD_ESMF   := $(LIB_ESMF)/include
 LIB_MPI    := 
 INC_MPI    :=
-
-endif
 
 # Load dependency search path.
 dirs := . $(shell cat Filepathnoahmp)
 # Set cpp search path, include netcdf
-cpp_dirs := $(dirs) $(INC_NETCDF) $(INC_MPI)
+cpp_dirs := $(dirs) $(INC_MPI)
 cpp_path := $(foreach dir,$(cpp_dirs),-I$(dir)) # format for command line
 
 # Expand any tildes in directory names. Change spaces to colons.
@@ -88,16 +65,15 @@ debug: $(OBJS)
 # ZEUS/GAEA/Eddy/Tide
 #----------------------------------------------------------------
 
-ifeq ($(UNAMES),Linux)
+ifeq ($(target),wcoss_cray)
+  FC          = ftn
+  CC          = cc
+else
+  FC          = mpiifort
+  CC          = mpiicc
+endif
 
-FC           = mpiifort
 CPP          =
-CC           = mpiicc
-MPI_PATH     = 
-
-INCMOD1	=${SIGIO_INC4}
-INCMOD2	=${SFCIO_INC4}
-
 CPPFLAGS     = -P
 # CFLAGS       = $(cpp_path) -c -w -O -q64 -qcpluscmt
 CFLAGS       = -DIRIX64 -c -O
@@ -106,7 +82,7 @@ CFLAGS       = -DIRIX64 -c -O
 ####FFLAGS       = -fp-model strict -free -c -O1 -convert big_endian
 ## Dell standard flags
 FFLAGS       = -fp-model precise -ftz -fast-transcendentals -no-prec-div -no-prec-sqrt -align array64byte -free -c -g -O1 -convert big_endian
-LDFLAGS      = ${ESMF_POST_LINK_OPTS} ${BACIO_LIB4} ${IP_LIB4} ${W3EMC_LIB4} ${W3NCO_LIB4} ${SP_LIB4} -qopenmp
+LDFLAGS      = ${BACIO_LIB4} ${IP_LIB4} ${W3EMC_LIB4} ${W3NCO_LIB4} ${SP_LIB4} -qopenmp
 ifeq ($(SPMD),TRUE)
 #  FFLAGS  -= -mp
 #  #  FFLAGS  += -macro_expand
@@ -127,9 +103,6 @@ endif
 	$(FC) $(FFLAGS) $<
 .c.o:
 	$(CC) $(cpp_path) $(CFLAGS) $<
-
-endif
-
 
 RM := rm
 

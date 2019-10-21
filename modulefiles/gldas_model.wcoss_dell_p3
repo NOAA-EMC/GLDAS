@@ -10,6 +10,3 @@ module load w3nco/2.0.6
 module load bacio/2.0.2
 module load sp/2.0.2
 module load ip/3.0.1
-
-#export FC=ifort
-#export FOPTS='-O -FR -I$(NEMSIO_INC) -convert big_endian'

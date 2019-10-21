@@ -22,6 +22,8 @@ if [ ! -d "../exec" ]; then
   mkdir ../exec
 fi
 
+export target
+
 cd gldas_model.fd/make/MAKDEP
 gmake clean
 gmake
