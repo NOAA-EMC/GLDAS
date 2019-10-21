@@ -56,6 +56,11 @@ echo " .... Building gldas_post .... "
 echo " .... Building gldas_rst .... "
 ./build_gldas_rst.sh > $logs_dir/build_gldas_rst.log 2>&1
 
+#------------------------------------
+# build gldas_model
+#------------------------------------
+echo " .... Building gldas_model .... "
+./build_gldas_model.sh > $logs_dir/build_gldas_model.log 2>&1
 echo;echo " .... Build system finished .... "
 
 exit 0

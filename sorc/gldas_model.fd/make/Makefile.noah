@@ -28,19 +28,6 @@ endif
 UNAMES := $(shell uname -s)
 UMACHINE := $(shell uname -m)
 
-ifeq ($(UNAMES),AIX)
-
-LIB_ESMF   := ../../../../lib
-MOD_ESMF   := $(LIB_ESMF)/incmod/esmf_3_1_0rp2
-LIB_NETCDF := $(LIB_ESMF)
-INC_NETCDF := $(LIB_ESMF)/incmod/netcdf-3.5.0
-#LIB_NETCDF := /usrx/local/netcdf
-#INC_NETCDF := /usrx/local/netcdf/include
-LIB_MPI    := /usr/lpp/ppe.poe/lib
-INC_MPI    := /usr/lpp/ppe.poe/include
-
-endif
-
 ifeq ($(UNAMES),Linux)
 
 ### Zeus/Gaea
@@ -96,57 +83,6 @@ debug: $(OBJS)
 #***********************************************************************
 #********** Architecture-specific flags and rules***********************
 #***********************************************************************
-# AIX
-#----------------------------------------------------------------
-
-ifeq ($(UNAMES),AIX)
-
-ESMF_ARCH = rs6000_64
-#FC           = mpxlf90_r
-FC           = mpxlf90
-CPP          = /lib/cpp
-CC           = /usr/lpp/ppe.poe/bin/mpcc_r
-#CC           = mpcc
-MPI_PATH     = /usr/lpp/ppe.poe
-
-# Library directories
-#LIB_DIR     = /nwprod/lib/
-LIB_DIR      = ../../../../lib
-LIB_DIR2      = ../lib/
-HDFLIBDIR    = $(LIB_DIR)
-GFIOLIBDIR   = $(LIB_DIR)
-INCMOD1 =$(LIB_DIR)/incmod/sigio_4
-INCMOD2 =$(LIB_DIR)/incmod/sfcio_4
-CPPFLAGS     = -P
-PSASINC      =
-CFLAGS       = $(cpp_path) -c -w -O -q64 -qcpluscmt
-#FFLAGS       = $(cpp_path) -I$(MOD_ESMF)/$(ESMF_ARCH) -I$(MPI_PATH)/include -I $(INCMOD1) -I $(INCMOD2) -O -qstrict -qtune=auto -qarch=auto -qmaxmem=-1 -NS2000 -qnosave -c -q64 -qsource -qxref=full -qattr=full
-FFLAGS       = $(cpp_path) -I$(MOD_ESMF) -I$(MPI_PATH)/include -I $(INCMOD1) -I $(INCMOD2) -O -qstrict -qtune=auto -qarch=auto -qmaxmem=-1 -NS2000 -qnosave -c -q64 -qsource -qxref=full -qattr=full
-#FOPTS        = $(LIB_DIR)libw3_4.a
-#LDFLAGS      = -bmap:map -bloadmap:lm -lmass -L$(LIB_ESMF)/$(ESMF_ARCH) -lesmf -L$(LIB_DIR) -lbacio_4
-#LDFLAGS      = -bmap:map -bloadmap:lm -lmass -L$(LIB_ESMF)/$(ESMF_ARCH) -lesmf -L$(LIB_DIR) -lbacio_4 -lip_4 -lw3_4 -lsp_4 -qsmp=noauto -lessl
-LDFLAGS      = -bmap:map -bloadmap:lm -lmass -L$(LIB_ESMF) -lesmf_3_1_0rp2 -L$(LIB_DIR) -lbacio_4 -lip_4 -lsp_4 qsmp=nonauto -lessl
-ifeq ($(SPMD),TRUE)
-#  FFLAGS  -= -mp
-#  FFLAGS  += -macro_expand
-#  FFLAGS  += -I$(INC_MPI) -macro_expand
-
-#  LDFLAGS += -L$(LIB_MPI) -lmpi
-else
-  FFLAGS  += -DHIDE_MPI
-endif
-.F.o:
-	$(FC) $(FFLAGS) $<
-.F90.o:
-	$(FC) $(FFLAGS) $<
-.f.o:
-	$(FC) $(FFLAGS) $<
-.f90.o:
-        $(FC) $(FFLAGS) $<
-.c.o:
-	$(CC) $(cpp_path) $(CFLAGS) $<
-
-endif
 
 #----------------------------------------------------------------
 # ZEUS/GAEA/Eddy/Tide
@@ -154,36 +90,14 @@ endif
 
 ifeq ($(UNAMES),Linux)
 
-ESMF_ARCH = rs6000_64
-
-### for Current, Eddy, Tide
 FC           = mpiifort
-
-### for Zeus/Gaea
-#FC	     = ifort -lmpi
-
 CPP          =
 CC           = mpiicc
-MPI_PATH     = 
 
-# Library directories
-### Production
-# LIB_DIR      = /nwprod/lib/
-
-### Zeus/Gaea
-#LIB_DIR      = /scratch2/portfolios/NCEPDEV/global/save/Shrinivas.Moorthi/para/lib
-INCMOD1	=${LIB_DIR}/incmod/sigio_4
-INCMOD2	=${LIB_DIR}/incmod/sfcio_4
-
-### Mars/Venus
-LIB_DIR      = 
 INCMOD1	=${SIGIO_INC4}
 INCMOD2	=${SFCIO_INC4}
 
-HDFLIBDIR    = $(LIB_DIR)
-GFIOLIBDIR   = $(LIB_DIR)
 CPPFLAGS     = -P
-PSASINC      =
 # CFLAGS       = $(cpp_path) -c -w -O -q64 -qcpluscmt
 CFLAGS       = -DIRIX64 -c -O
 ##FFLAGS       = -free -c -O0 -g -traceback -check all -fpe0 -ftrapuv -CB -convert big_endian
@@ -220,6 +134,8 @@ RM := rm
 
 clean:
 	$(RM) -f *.o *.mod *.stb  $(MODEL_EXEDIR)/$(EXENAME)
+install:
+	mv $(MODEL_EXEDIR)/$(EXENAME) ../../../exec
 
 realclean:
 	$(RM) -f *.o *.d *.mod *.stb  $(MODEL_EXEDIR)/$(EXENAME)
