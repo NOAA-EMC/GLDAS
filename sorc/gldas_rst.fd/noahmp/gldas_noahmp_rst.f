@@ -3,6 +3,7 @@
 !
 ! input
 !  fort.12 gfs.sfcanl.nemsio
+!  fort.11 lmask_gfs_T1534.bfsa
 !
 ! output
 !  noah.rst
@@ -38,8 +39,6 @@
   character*3 var3(3)
   integer idx3(3)
 
-  character*40 fixfile
-  character*4, parameter :: gaussian = '1534'
   integer, parameter :: mx = 3072
   integer, parameter :: my = 1536
   real mxmy
