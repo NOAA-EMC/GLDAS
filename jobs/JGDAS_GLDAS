@@ -53,6 +53,10 @@ export cycle=t${cyc}z
 export NET=${NET:-gldas}
 export RUN=${RUN:-gldas}
 
+#############################
+# Specify model (noah/noahmp)
+############################
+
 export model=${model:-noah}
 export MODEL=${MODEL:-`echo $model |tr '[a-z]' '[A-Z]'`}
 
@@ -110,7 +114,7 @@ env
 fi
 #############################################################
 # execute the script
-echo "----------${FCSTSH:-$HOMEgldas/scripts/exgdas_gldas.sh.ecf}----------"
+echo "--${FCSTSH:-$HOMEgldas/scripts/exgdas_gldas.sh.ecf}---"
 $HOMEgldas/scripts/exgdas_gldas.sh.ecf
 
 cat $pgmout
