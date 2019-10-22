@@ -52,9 +52,7 @@ fi
 
 while [ $sdate -le $edate ];do
 
-rm -fr $fpath/gdas.${sdate}
 mkdir -p $fpath/gdas.${sdate}
-rm -fr $gpath/gdas.${sdate}
 mkdir -p $gpath/gdas.${sdate} 
 
 k=0
@@ -62,7 +60,7 @@ while [ $k -le 3 ]; do
 
 # to get surface 6-tile restart netcdf files
 
-cp ${COMINgdas}/gfs.${sdate}/${cc[k]}/RESTART/${sdate}.${cc[$k]}0000.sfcanl_data.tile*.nc $gpath/gdas.${sdate}
+cp ${COMINgdas}/gdas.${sdate}/${cc[k]}/RESTART/${sdate}.${cc[$k]}0000.sfcanl_data.tile*.nc $gpath/gdas.${sdate}
 
 f=0
 while [ $f -le 6 ]; do
@@ -118,7 +116,7 @@ done
 sdate=`finddate.sh $sdate d+1`
 done
 
-mkdir -p $gpath/gdas.$yyyymmdd
-cp ${COMINgdas}/gdas.$yyyymmdd/${cc[0]}/RESTART/$yyyymmdd.${cc[00]}0000.sfcanl_data.tile*.nc $gpath/gdas.$yyyymmdd
+mkdir -p $gpath/gdas.$edate
+cp ${COMINgdas}/gdas.$edate/${cc[0]}/RESTART/$edate.${cc[00]}0000.sfcanl_data.tile*.nc $gpath/gdas.$edate
 
 

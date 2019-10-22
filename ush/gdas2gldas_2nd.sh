@@ -5,7 +5,8 @@ cd $RUNDIR
  export pgm=gdas2gldas
   . prep_step
 
-cp fort.43 fort.41
+### to produce edate input file to avoid refill sdate input file
+cp fort.45 fort.41
 
 echo 'running gdas2gldas'
   startmsg

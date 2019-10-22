@@ -109,11 +109,12 @@ echo "mpirun -n 112 ./LIS"            >> LIS.lsf
 
 ### 3a) create gdas2gldas input file ----
 
-echo "create gdas2gldqas input file fort.41"
-cp ${HOMEgldas}/parm/gdas2gldas.input fort.41
-sed -i -e 's/date/'"$RUNSTARTDATE"'/g' -e 's/cyc/'"$cyc"'/g' fort.41
-sed -i 's|/indirect/|'"$input1"'|g' fort.41
-sed -i 's|/orogdir/|'"$topodir"'|g' fort.41
+echo "create gdas2gldqas input file fort.43 and copy into fort.41"
+cp ${HOMEgldas}/parm/gdas2gldas.input fort.43
+sed -i -e 's/date/'"$RUNSTARTDATE"'/g' -e 's/cyc/'"$cyc"'/g' fort.43
+sed -i 's|/indirect/|'"$input1"'|g' fort.43
+sed -i 's|/orogdir/|'"$topodir"'|g' fort.43
+sed -i -e 's/noahmp/'"${model}"'/g' fort.43
 
 ### 3b) Use gdas2gldas to generate nemsio file and 
 ###     gldas_noah_rst/gldas_noahmp_rst to generate noah.rst ---
@@ -146,11 +147,13 @@ fi
 
 ### 5a) create input file for gdas2gldas
 
-echo "create gdas2gldqas input file fort.41"
-cp ${PARMgldas}/gdas2gldas.input fort.41
-sed -i -e 's/date/'"$RUNENDDATE"'/g' -e 's/cyc/'"$cyc"'/g' fort.41
-sed -i 's|/indirect/|'"$input2"'|g' fort.41
-sed -i 's|/orogdir/|'"$topodir"'|g' fort.41
+echo "create gdas2gldqas input file fort.45, and then cp fort.45 to for.41 to
+avoid refill fort.41 in the first step"
+cp ${PARMgldas}/gdas2gldas.input fort.45
+sed -i -e 's/date/'"$RUNENDDATE"'/g' -e 's/cyc/'"$cyc"'/g' fort.45
+sed -i 's|/indirect/|'"$input2"'|g' fort.45
+sed -i 's|/orogdir/|'"$topodir"'|g' fort.45
+sed -i -e 's/noahmp/'"${model}"'/g' fort.43
 
 ### 5b) use gdas2gldas to produce nemsio file
 if [ -s sfc.gaussian.nemsio ]; then
@@ -159,8 +162,8 @@ fi
 
 export LOG_FILE=gdas2gldas_2nd.log
 export OMP_NUM_THREADS=1
-bsub -e $LOG_FILE -o $LOG_FILE -q $QUEUE -P $PROJECT_CODE -J gdas2gldas -W 0:05 -x -n 6 -w 'ended(gldas_model)' \
-        -R "span[ptile=1]" -R "affinity[core(${OMP_NUM_THREADS}):distribute=balance]" "$HOMEgldas/ush/gdas2gldas.sh"
+bsub -e $LOG_FILE -o $LOG_FILE -q $QUEUE -P $PROJECT_CODE -J gdas2gldas_2nd -W 0:05 -x -n 6 -w 'ended(gldas_model)' \
+        -R "span[ptile=1]" -R "affinity[core(${OMP_NUM_THREADS}):distribute=balance]" "$HOMEgldas/ush/gdas2gldas_2nd.sh"
 
 ### 5c) use gldas_post to replace soil moisture and temperature
 yyyy=`echo $RUNENDDATE | cut -c1-4`
@@ -169,7 +172,7 @@ sfcanl=sfc.gaussian.nemsio
 
 export LOG_FILE=gldas_post.log
 export OMP_NUM_THREADS=1
-bsub -e $LOG_FILE -o $LOG_FILE -q $QUEUE -P $PROJECT_CODE -J gldas_post -W 0:05 -x -n 1 -w 'ended(gdas2gldas)' \
+bsub -e $LOG_FILE -o $LOG_FILE -q $QUEUE -P $PROJECT_CODE -J gldas_post -W 0:05 -x -n 1 -w 'ended(gdas2gldas_2nd)' \
         -R "span[ptile=1]" -R "affinity[core(${OMP_NUM_THREADS}):distribute=balance]" "$HOMEgldas/ush/gldas_post.sh $gbin $sfcanl"
 
 ### 5d) use gldas2gdas to create 6-tile restart tiles
@@ -191,11 +194,11 @@ cp ${GDAS}/gdas.${gdate}/${gdas_date}.sfcanl_data.tile6.nc ./sfc_data.tile6.nc
 chmod 744 sfc_data.tile*.nc
 
 # copy soil type
-cp ${PARMgldas}/FIX_T1534/stype_gfs_T1534.bfsa  ./stype_gfs_T1534.bfsa
+cp ${FIXgldas}/FIX_T1534/stype_gfs_T1534.bfsa  ./stype_gfs_T1534.bfsa
 
 LOG_FILE=gldas2gdas.log
 export OMP_NUM_THREADS=1
-bsub -e $LOG_FILE -o $LOG_FILE -q $QUEUE -P $PROJECT_CODE -J gldas2gdas -W 0:05 -x -n 6 -w 'ended(gdas_post)' \
+bsub -e $LOG_FILE -o $LOG_FILE -q $QUEUE -P $PROJECT_CODE -J gldas2gdas -W 0:05 -x -n 6 -w 'ended(gldas_post)' \
         -R "span[ptile=1]" -R "affinity[core(${OMP_NUM_THREADS}):distribute=balance]" "$HOMEgldas/ush/gldas2gdas.sh"
 
 ### 5e) archive gldas results

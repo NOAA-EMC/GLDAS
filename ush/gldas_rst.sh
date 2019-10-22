@@ -25,13 +25,9 @@ if [ -s fort.12 ]; then
 rm -f fort.12
 fi
 
-ln -s ${HOMEgldas}/fix/FIX_T1534/lmask_gfs_T1534.bfsa fort.11
+ln -s ${FIXgldas}/FIX_T1534/lmask_gfs_T1534.bfsa fort.11
 ln -s $sfcanl fort.12
 
-cp ${HOMEgldas}/exec/gldas_${model}_rst gldas_rst
 startmsg
-./gldas_rst >> $pgmout 2>>errfile
+${HOMEgldas}/exec/gldas_${model}_rst >> $pgmout 2>>errfile
 export err=$?; err_chk
-
-cp fort.22 ${sfcanl}.gldas
-rm -f fort.11 fort.12 fort.22

@@ -23,6 +23,7 @@ cp $sfcanl fort.12
 
 ##cp fort.22 ${sfcanl}.gldas
 cp fort.22 ./gldas.nemsio
+cp  fort.22 ${sfcanl}.gldas
 rm -f fort.11 fort.12 fort.22
 
 echo ${sfcanl}.gldas
