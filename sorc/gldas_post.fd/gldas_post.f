@@ -223,42 +223,117 @@
   n=1
    do while (n<=nrec)
      varname=sweep_blanks(trim(recname(n))//trim(reclevtyp(n)))
-     if(trim(varname)=='smcsoillayer') then
-       do k=1,4
-       !   print*,n,'GLDAS SMC'
+     if(trim(varname)=='soilw0_10cmdown') then
+       !   print*,n,'GLDAS SMC1'
           read(12)  mxmy
           write(22) mxmy
           read(12)  sdata
-          where(smc(:,:,k) < 0.) smc(:,:,k)=sdata 
-          write(22) smc(:,:,k)
+          where(smc(:,:,1) < 0.) smc(:,:,1)=sdata 
+          write(22) smc(:,:,1)
           read(12)  mxmy
           write(22) mxmy
           n=n+1
-       end do
-     elseif(trim(varname)=='slcsoillayer') then
-       do k=1,4
+     elseif(trim(varname)=='soilw10_40cmdown') then   
+          read(12)  mxmy
+          write(22) mxmy
+          read(12)  sdata
+          where(smc(:,:,2) < 0.) smc(:,:,2)=sdata
+          write(22) smc(:,:,2)
+          read(12)  mxmy
+          write(22) mxmy
+          n=n+1
+      elseif(trim(varname)=='soilw40_100cmdown') then
+          read(12)  mxmy
+          write(22) mxmy
+          read(12)  sdata
+          where(smc(:,:,3) < 0.) smc(:,:,3)=sdata
+          write(22) smc(:,:,3)
+          read(12)  mxmy
+          write(22) mxmy
+          n=n+1
+       elseif(trim(varname)=='soilw100_200cmdown') then
+          read(12)  mxmy
+          write(22) mxmy
+          read(12)  sdata
+          where(smc(:,:,4) < 0.) smc(:,:,4)=sdata
+          write(22) smc(:,:,4)
+          read(12)  mxmy
+          write(22) mxmy
+          n=n+1
+     elseif(trim(varname)=='soill0_10cmdown') then
        !   print*,n,'GLDAS SLC'
           read(12)  mxmy
           write(22) mxmy
           read(12)  sdata
-          where(slc(:,:,k) < 0.) slc(:,:,k)=sdata
-          write(22) slc(:,:,k)
+          where(slc(:,:,1) < 0.) slc(:,:,1)=sdata
+          write(22) slc(:,:,1)
           read(12)  mxmy
           write(22) mxmy
           n=n+1
-       end do
-     elseif(trim(varname)=='stcsoillayer') then
-       do k=1,4
+      elseif(trim(varname)=='soill10_40cmdown') then           
+          read(12)  mxmy
+          write(22) mxmy
+          read(12)  sdata
+          where(slc(:,:,2) < 0.) slc(:,:,2)=sdata
+          write(22) slc(:,:,2)
+          read(12)  mxmy
+          write(22) mxmy
+          n=n+1
+       elseif(trim(varname)=='soill40_100cmdown') then
+          read(12)  mxmy
+          write(22) mxmy
+          read(12)  sdata
+          where(slc(:,:,3) < 0.) slc(:,:,3)=sdata
+          write(22) slc(:,:,3)
+          read(12)  mxmy
+          write(22) mxmy
+          n=n+1
+        elseif(trim(varname)=='soill100_200cmdown') then
+          read(12)  mxmy
+          write(22) mxmy
+          read(12)  sdata
+          where(slc(:,:,4) < 0.) slc(:,:,4)=sdata
+          write(22) slc(:,:,4)
+          read(12)  mxmy
+          write(22) mxmy
+          n=n+1
+     elseif(trim(varname)=='tmp0_10cmdown') then
        !   print*,n,'GLDAS STC'
           read(12)  mxmy
           write(22) mxmy
           read(12)  sdata
-          where(stc(:,:,k) < 0.) stc(:,:,k)=sdata
-          write(22) stc(:,:,k)
+          where(stc(:,:,1) < 0.) stc(:,:,1)=sdata
+          write(22) stc(:,:,1)
           read(12)  mxmy
           write(22) mxmy
           n=n+1
-       end do
+     elseif(trim(varname)=='tmp10_40cmdown') then
+          read(12)  mxmy
+          write(22) mxmy
+          read(12)  sdata
+          where(stc(:,:,2) < 0.) stc(:,:,2)=sdata
+          write(22) stc(:,:,2)
+          read(12)  mxmy
+          write(22) mxmy
+          n=n+1
+      elseif(trim(varname)=='tmp40_100cmdown') then
+          read(12)  mxmy
+          write(22) mxmy
+          read(12)  sdata
+          where(stc(:,:,3) < 0.) stc(:,:,3)=sdata
+          write(22) stc(:,:,3)
+          read(12)  mxmy
+          write(22) mxmy
+          n=n+1
+       elseif(trim(varname)=='tmp100_200cmdown') then 
+          read(12)  mxmy
+          write(22) mxmy
+          read(12)  sdata
+          where(stc(:,:,4) < 0.) stc(:,:,4)=sdata
+          write(22) stc(:,:,4)
+          read(12)  mxmy
+          write(22) mxmy
+          n=n+1
      elseif(trim(varname)=='snodsfc') then
        !   print*,n,'GLDAS SNOWH'
           read(12)  mxmy

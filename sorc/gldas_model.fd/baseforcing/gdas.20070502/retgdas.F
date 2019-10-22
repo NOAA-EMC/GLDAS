@@ -60,6 +60,7 @@ subroutine retgdas( order, ld, gindex, name, ferror,try )
   real              :: f(gdasdrv%ncold*gdasdrv%nrold)
  !real, allocatable :: varfield(:,:)
   real              :: varfield(ld%d%lnc,ld%d%lnr)
+  real              :: elev(ld%d%lnc,ld%d%lnr)
   real :: ism
   integer :: count
 
@@ -80,6 +81,14 @@ subroutine retgdas( order, ld, gindex, name, ferror,try )
 
 !=== End Variable Definition =======================
 !BOC
+
+     print*,'MSG: Reading ',trim(lis%p%elevfile)
+     open(30,file=lis%p%elevfile,form='unformatted',status='old')
+     read(30) elev
+     read(30) elev
+     read(30) elev
+     close(30)
+
   ngdas = (gdasdrv%ncold*gdasdrv%nrold)
 !--------------------------------------------------------------------------
 ! Set the GRIB parameter specifiers
@@ -246,6 +255,9 @@ subroutine retgdas( order, ld, gindex, name, ferror,try )
      do r = ld%d%lnr, 1, -1
         do c = 1, ld%d%lnc
            varfield(c,r) = g(c+count)
+           if(iv==11) then !covert hgt to hgt above sfc 
+              varfield(c,r)=varfield(c,r)-elev(c,r)
+           endif
         end do
         count = count + ld%d%lnc
      end do
