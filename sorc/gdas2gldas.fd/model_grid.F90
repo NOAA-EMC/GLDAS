@@ -25,6 +25,7 @@
 
  integer, intent(in)  :: npets
 
+ character(len=20)  :: model 
  character(len=200) :: mosaic_file_input_grid, orog_dir_input_grid
  character(len=200) :: sfc_files_input_grid(6), data_dir_input_grid
  character(len=200) :: orog_files_input_grid(6)
@@ -34,7 +35,7 @@
  integer, allocatable         :: decomptile(:,:)
 
  namelist /config/ data_dir_input_grid, sfc_files_input_grid, &
-                   orog_dir_input_grid, orog_files_input_grid
+                   orog_dir_input_grid, orog_files_input_grid, model
 
 !-----------------------------------------------------------------------
 ! Create ESMF grid object for the model grid.

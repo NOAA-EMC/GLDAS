@@ -19,9 +19,8 @@
  integer, parameter, public :: levels_input = lsoil_input + lsnow_input
 
 ! When true, process noah and noahmp fields.  when false, process
-! only noah fields.
-logical, public                 :: noahmp = .false.
-! logical, public                 :: noahmp = .true.
+! only noah fields.  Setting can be overwritten by namelist option below.
+ logical, public                 :: noahmp = .true.
 
  type(esmf_field), public        :: landsea_mask_input_grid
  type(esmf_field), public        :: soil_type_input_grid    ! soil type
@@ -104,9 +103,24 @@ logical, public                 :: noahmp = .false.
 
  implicit none
 
+ character(len=20) :: model
  integer, intent(in) :: localpet
 
  integer :: rc
+
+ namelist /config/ data_dir_input_grid, sfc_files_input_grid, &
+                   orog_dir_input_grid, orog_files_input_grid, &
+                   model
+
+ open(41, file="./fort.41", iostat=rc)
+ if (rc /= 0) call error_handler("OPENING SETUP NAMELIST.", rc)
+ read(41, nml=config, iostat=rc)
+ if (rc /= 0) call error_handler("READING SETUP NAMELIST.", rc)
+ close (41)
+
+ if (trim(model) == 'noah') then
+   noahmp=.false.
+ endif
 
  if (noahmp) then
    print*,"- WILL PROCESS NOAH AND NOAHMP FIELDS."
@@ -636,15 +650,6 @@ logical, public                 :: noahmp = .false.
  real(esmf_kind_r8), allocatable :: data_one_tile_3d(:,:,:)
  real(esmf_kind_r8), allocatable :: data_one_tile_3dsnow(:,:,:)
  real(esmf_kind_r8), allocatable :: data_one_tile_3dlevels(:,:,:)
-
- namelist /config/ data_dir_input_grid, sfc_files_input_grid, &
-                   orog_dir_input_grid, orog_files_input_grid
-
- open(41, file="./fort.41", iostat=rc)
- if (rc /= 0) call error_handler("OPENING SETUP NAMELIST.", rc)
- read(41, nml=config, iostat=rc)
- if (rc /= 0) call error_handler("READING SETUP NAMELIST.", rc)
- close (41)
 
  data_dir_input_grid=trim(data_dir_input_grid) // '/'
 
