@@ -3,7 +3,7 @@
 #BSUB -n 112
 #BSUB -R affinity[core]
 #BSUB -R span[ptile=28]
-#BSUB -J NLDAS-T2O
+#BSUB -J gldas_model
 #BSUB -P NLDAS-T2O
 #BSUB -q dev
 #BSUB -W 00:10
