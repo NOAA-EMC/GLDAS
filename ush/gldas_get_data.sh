@@ -3,7 +3,7 @@
 #########################################################
 # This script generate gldas forcing from gdas prod sflux
 #
-# usage - gldas_get_data.sh yyyymmdd [yyyymmdd2]
+# usage - gldas_get_data.sh sdate [edate]
 # 
 # script history:
 # 20190509 Jesse Meng - first version
