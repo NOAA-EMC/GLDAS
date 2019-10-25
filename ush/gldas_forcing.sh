@@ -24,7 +24,7 @@ edate=$2
 fi
 
 sda=${sdate}
-export RUNDIR=${DATA}/gldas.${sdate}
+export RUNDIR=${DATA}/gldas.${BDATE}
 cd $RUNDIR
 
 # HOMEgldas - gldas directory
@@ -37,8 +37,10 @@ export cpath=$DCOMIN
 export fpath=${DATA}/force
 export xpath=${DATA}/force
 
+if[ !-s $RUNDIR/input/GDAS ]; then
 mkdir -p input
 ln -s $fpath $RUNDIR/input/GDAS
+fi
 
 #--- extract variables of each timestep and create forcing files
 

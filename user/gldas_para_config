@@ -20,16 +20,13 @@ export COM_OUT=${COM_OUT:-$COM_IN}
 
 # set up com and decom directory used
 # GFS OPS
-if [ ${model} == 'noah' ]; then
 export COMROOT=/gpfs/dell1/nco/ops/com
 export DCOMROOT=/gpfs/dell1/nco/ops/dcom
-fi
 
 # gfsv16 systhesis test
-if [ ${model} == 'noahmp' ]; then
-export COMROOT=/gpfs/dell2/emc/retros/noscrub/Youlong.Xia/com
-export DCOMROOT=/gpfs/dell2/emc/retros/noscrub/Youlong.Xia/com
-fi
+##export COMROOT=/gpfs/dell2/emc/retros/noscrub/Youlong.Xia/com
+##export DCOMROOT=/gpfs/dell2/emc/retros/noscrub/Youlong.Xia/com
+
 
 export COMINgdas=${COMINgdas:-${COMROOT}/gfs/prod}
 export DCOMIN=${DCOM_IN:-${DCOMROOT}/prod}

@@ -85,10 +85,21 @@ yyyymmdd=$RUNSTARTDATE
 while [ $yyyymmdd -lt $RUNENDDATE ]; do
 
 gds='255 4 3072 1536 89909 0 128 -89909 -117 117 768 0 0 0 0 0 0 0 0 0 255 0 0 0 0 0'
+if [ -s $GDAS/cpc.$yyyymmdd/precip.gldas.${yyyymmdd}00 ]; then
 $COPYGB -i3 -g"$gds" -x $GDAS/cpc.$yyyymmdd/precip.gldas.${yyyymmdd}00 $RUNDIR/cmap.gdas.${yyyymmdd}00
+fi
+
+if [ -s $GDAS/cpc.$yyyymmdd/precip.gldas.${yyyymmdd}06 ]; then
 $COPYGB -i3 -g"$gds" -x $GDAS/cpc.$yyyymmdd/precip.gldas.${yyyymmdd}06 $RUNDIR/cmap.gdas.${yyyymmdd}06
+fi
+
+if [ -s $GDAS/cpc.$yyyymmdd/precip.gldas.${yyyymmdd}12 ]; then
 $COPYGB -i3 -g"$gds" -x $GDAS/cpc.$yyyymmdd/precip.gldas.${yyyymmdd}12 $RUNDIR/cmap.gdas.${yyyymmdd}12
+fi
+
+if [ -s $GDAS/cpc.$yyyymmdd/precip.gldas.${yyyymmdd}18 ]; then
 $COPYGB -i3 -g"$gds" -x $GDAS/cpc.$yyyymmdd/precip.gldas.${yyyymmdd}18 $RUNDIR/cmap.gdas.${yyyymmdd}18
+fi
 
 yyyymmdd=`sh $FINDDATE $yyyymmdd d+1`
 
@@ -153,7 +164,7 @@ cp ${PARMgldas}/gdas2gldas.input fort.45
 sed -i -e 's/date/'"$RUNENDDATE"'/g' -e 's/cyc/'"$cyc"'/g' fort.45
 sed -i 's|/indirect/|'"$input2"'|g' fort.45
 sed -i 's|/orogdir/|'"$topodir"'|g' fort.45
-sed -i -e 's/noahmp/'"${model}"'/g' fort.43
+sed -i -e 's/noahmp/'"${model}"'/g' fort.45
 
 ### 5b) use gdas2gldas to produce nemsio file
 if [ -s sfc.gaussian.nemsio ]; then
