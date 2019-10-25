@@ -5,8 +5,8 @@
 # Replace soil moisture and temperature for gdas nemsio file
 # generate from Gaussian grid fileds to 6-tile netcdf file 
 #
-# usage - gldas_archive.sh BDATE [GDATE]
-#         BDATE/GDATE in yyyymmdd
+# usage - gldas_archive.sh sdate edate
+#         sdate/edate in yyyymmdd
 #
 # HOMEgldas - software directory
 # COMDIR - output archive directory
@@ -32,13 +32,10 @@ if [ $# -lt 1 ]; then
 echo "usage: ksh $0 sdate [edate]"
 exit
 fi
-BDATE=$1
+
 sdate=$1
 edate=`sh $FINDDATE $1 d+1`
 if [ $# -gt 1 ]; then edate=$2 ; fi
-GDATE=$edate
-
-cyc0=${cyc}
 
 yyyy=`echo $sdate | cut -c1-4`
 
@@ -73,14 +70,14 @@ done
 
 yyyymmdd=`sh $FINDDATE $sdate d+1`
 yyyy=`echo $yyyymmdd | cut -c1-4`
-mkdir -p $COMDIR/gldas.$yyyymmdd
-cp $RUNDIR/EXP901/NOAH/$yyyy/$yyyymmdd/LIS.E901.${yyyymmdd}00.Noahrst $COMDIR/gldas.$yyyymmdd/noah.rst.$yyyymmdd
+mkdir -p $COMDIR/gldas.$edate
+cp $RUNDIR/EXP901/NOAH/$yyyy/$edate/LIS.E901.${edate}00.Noahrst $COMDIR/gldas.$yyyymmdd/noah.rst.$edate
 
 ### generate and save gdas.t${cyc1}z.sfcanl.nemsio.gldas.day4 to day4 directory for next cycle gfs restart
 
 mkdir -p $COMDIR/gldas.$edate
 gdate=${edate}
-gdas_date=${gdate}.${cyc0}0000
+gdas_date=${gdate}.${cyc}0000
 cp sfc_data.tile1.nc $COMDIR/gldas.$edate/${gdas_date}.sfcanl_data.tile1.nc
 cp sfc_data.tile2.nc $COMDIR/gldas.$edate/${gdas_date}.sfcanl_data.tile2.nc
 cp sfc_data.tile3.nc $COMDIR/gldas.$edate/${gdas_date}.sfcanl_data.tile3.nc
