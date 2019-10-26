@@ -85,4 +85,8 @@ cp sfc_data.tile4.nc $COMDIR/gldas.$edate/${gdas_date}.sfcanl_data.tile4.nc
 cp sfc_data.tile5.nc $COMDIR/gldas.$edate/${gdas_date}.sfcanl_data.tile5.nc
 cp sfc_data.tile6.nc $COMDIR/gldas.$edate/${gdas_date}.sfcanl_data.tile6.nc
 
+cp sfc.gaussian.nemsio.gldas $COMDIR/gldas.$edate/${gdas_date}.sfc.gaussian.nemsio.gldas
+
+cp sfc.gaussian.nemsio $COMDIR/gldas.$edate/${gdas_date}.sfc.gaussian.nemsio.gdas
+
 echo $COMDIR/gldas.$edate/${gdas_date}.sfcanl_data.tile6.nc

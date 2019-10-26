@@ -59,10 +59,11 @@ cd $RUNDIR
 ln -s $FIXgldas/FIX_T1534 $RUNDIR/FIX
 ln -s $EXECgldas/gldas_${model} $RUNDIR/LIS
 
+
 ### 1) Get all gdas data and 6-tile netcdf restart data -----
 
 yyyymmdd=$yyyymmdd0
-while [ $yyyymmdd -le $RUNENDDATE ];do
+while [ $yyyymmdd -lt $RUNENDDATE ];do
 
 $HOMEgldas/ush/gldas_get_data.sh $yyyymmdd
 
@@ -79,27 +80,20 @@ $HOMEgldas/ush/gldas_forcing.sh $yyyymmdd
 yyyymmdd=`sh $FINDDATE $yyyymmdd d+1`
 done
 
+mkdir -p input
+ln -s $GDAS $RUNDIR/input/GDAS
+
 ### spatially disaggregated
 yyyymmdd=$RUNSTARTDATE
 
 while [ $yyyymmdd -lt $RUNENDDATE ]; do
 
 gds='255 4 3072 1536 89909 0 128 -89909 -117 117 768 0 0 0 0 0 0 0 0 0 255 0 0 0 0 0'
-if [ -s $GDAS/cpc.$yyyymmdd/precip.gldas.${yyyymmdd}00 ]; then
+
 $COPYGB -i3 -g"$gds" -x $GDAS/cpc.$yyyymmdd/precip.gldas.${yyyymmdd}00 $RUNDIR/cmap.gdas.${yyyymmdd}00
-fi
-
-if [ -s $GDAS/cpc.$yyyymmdd/precip.gldas.${yyyymmdd}06 ]; then
 $COPYGB -i3 -g"$gds" -x $GDAS/cpc.$yyyymmdd/precip.gldas.${yyyymmdd}06 $RUNDIR/cmap.gdas.${yyyymmdd}06
-fi
-
-if [ -s $GDAS/cpc.$yyyymmdd/precip.gldas.${yyyymmdd}12 ]; then
 $COPYGB -i3 -g"$gds" -x $GDAS/cpc.$yyyymmdd/precip.gldas.${yyyymmdd}12 $RUNDIR/cmap.gdas.${yyyymmdd}12
-fi
-
-if [ -s $GDAS/cpc.$yyyymmdd/precip.gldas.${yyyymmdd}18 ]; then
 $COPYGB -i3 -g"$gds" -x $GDAS/cpc.$yyyymmdd/precip.gldas.${yyyymmdd}18 $RUNDIR/cmap.gdas.${yyyymmdd}18
-fi
 
 yyyymmdd=`sh $FINDDATE $yyyymmdd d+1`
 

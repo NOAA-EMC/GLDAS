@@ -116,7 +116,7 @@ done
 sdate=`finddate.sh $sdate d+1`
 done
 
-mkdir -p $gpath/gdas.$edate
-cp ${COMINgdas}/gdas.$edate/${cc[0]}/RESTART/$edate.${cc[00]}0000.sfcanl_data.tile*.nc $gpath/gdas.$edate
+mkdir -p $gpath/gdas.$sdate
+cp ${COMINgdas}/gdas.$sdate/${cc[0]}/RESTART/$sdate.${cc[00]}0000.sfcanl_data.tile*.nc $gpath/gdas.$sdate
 
 
