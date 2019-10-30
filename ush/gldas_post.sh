@@ -6,7 +6,7 @@ fi
 
 cd $RUNDIR
 
-export pgm=nldas_noah_ldas
+export pgm=gldas_post
   . prep_step
 
 gbin=$1

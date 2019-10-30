@@ -1,7 +1,9 @@
 #!/bin/ksh
-date
-export PS4='$SECONDS + '
 set -x
+
+#export RUN_ENVIR=${RUN_ENVIR:-"nco"}
+export PS4='$SECONDS + '
+date
 
 #############################################################
 # NOTE: This job depends on the prod_util module being loaded
@@ -23,73 +25,20 @@ set -x
 #
 # History:  2019 10 15 Jesse Meng and Youlong Xia, first version
 #####################################################################################
-if [ "$RUN_ENVIR" != "nco" ]      ### For Developers
-then
-  export gldas_ver=${gldas_ver:-v2.3.0}
-#  export HOMEgldas=${HOMEgldas:-/gpfs/dell2/emc/modeling/noscrub/$LOGNAME/gldas.${gldas_ver}}
-  export HOMEgldas=${HOMEgldas:-/gpfs/dell2/emc/retros/noscrub/Youlong.Xia/GLDAS}
-  export PARA_CONFIG=${gldas_para_config:-$HOMEgldas/user/gldas_para_config}
-  if [ -s $PARA_CONFIG ] ; then . $PARA_CONFIG ; fi
-  export DATA=${DATA:-/gpfs/dell2/ptmp/$LOGNAME/tmpnwprd}
-  export SENDECF=${SENDECF:-NO}
-  export SENDDBN=${SENDDBN:-NO}
-  export SENDCOM=${SENDCOM:-YES}
-  export jobid="LL${job}_${envir}.o$$"
-  export jlogfile=${jlogfile:-$DATA/jlogfiles/jlogfile.${jobid}}
-fi
-
-########################################################
-# obtain unique process id and make temp directory
-########################################################
-mkdir -p $DATA
-cd $DATA
-
-export cyc=${cyc:-00}
-export cycle=t${cyc}z
-
-##########################
-# Specify NET and RUN Name
-##########################
-export NET=${NET:-gldas}
-export RUN=${RUN:-gldas}
-
-#############################
-# Specify model (noah/noahmp)
-############################
-
-export model=${model:-noah}
-export MODEL=${MODEL:-`echo $model |tr '[a-z]' '[A-Z]'`}
-
-###########################
-# Define alert_type
-###########################
-if [ "$RUN_ENVIR" = "prod" -a "$envir" != "prod" ]; then
-  export alert_type=GLDAS_GB2_PARA
-fi
-
-export alert_type=${alert_type:-GLDAS_GB2}
-
-export pgmout="OUTPUT.$$"
-
-####################################
-# Specify Execution Areas
-####################################
-export FIXgldas=${FIXgldas:-$HOMEgldas/fix}
-export PARMgldas=${PARMgldas:-$HOMEgldas/parm}
-export EXECgldas=${EXECgldas:-$HOMEgldas/exec}
-export USHgldas=${USHgldas:-$HOMEgldas/ush}
-
 ##############################
-# Run setpdy and initialize PDY variables
+# Set up the UTILITIES
 ##############################
-setpdy.sh
-. ./PDY
+export utilscript=${utilscript:-/gpfs/dell1/nco/ops/nwprod/prod_util.v1.1.0/ush}
+export FINDDATE=${FINDDATE:-$utilscript/finddate.sh}
 
-export GDATE=${GDATE:-$PDY}
-echo "GLDAS CYCLE = ${GDATE}.${cycle}"
+export utilexec=${utilexec:-/gpfs/dell1/nco/ops/nwprod/grib_util.v1.1.0/exec}
+export CNVGRIB=${CNVGRIB:-$utilexec/cnvgrib}
+export WGRIB=${WGRIB:-$utilexec/wgrib}
+export WGRIB2=${WGRIB2:-$utilexec/wgrib2}
+export COPYGB=${COPYGB:-$utilexec/copygb}
 
 ##############################################
-# Define COM directories
+# Define directories for nco
 ##############################################
 if [ "$RUN_ENVIR" = "nco" ] ### For nco operation
 then
@@ -112,6 +61,83 @@ mkdir -m 775 -p $COMOUT $COMOUTp1 $LOGDIR
 
 env
 fi
+
+##############################################
+# Define directories for deveopers
+##############################################
+
+if [ "$RUN_ENVIR" != "nco" ]      ### For Developers
+then
+#  export gldas_ver=${gldas_ver:-v2.3.0}
+#  export HOMEgldas=${HOMEgldas:-/gpfs/dell2/emc/modeling/noscrub/$LOGNAME/gldas.${gldas_ver}}
+#  export HOMEgldas=${HOMEgldas:-/gpfs/dell2/emc/retros/noscrub/Youlong.Xia/GLDAS}
+  export HOMEgldas=${HOMEgldas:-/gpfs/dell2/emc/retros/noscrub/$LOGNAME/GLDAS}
+  export PARA_CONFIG=${gldas_para_config:-$HOMEgldas/user/gldas_para_config}
+  if [ -s $PARA_CONFIG ] ; then . $PARA_CONFIG ; fi
+  export DATA=${DATA:-/gpfs/dell2/ptmp/$LOGNAME/tmpnwprd}
+  export SENDECF=${SENDECF:-NO}
+  export SENDDBN=${SENDDBN:-NO}
+  export SENDCOM=${SENDCOM:-YES}
+  export jobid="LL${job}_${envir}.o$$"
+  export jlogfile=${jlogfile:-$DATA/jlogfiles/jlogfile.${jobid}}
+fi
+
+########################################################
+# obtain unique process id and make temp directory
+########################################################
+#export pid=${pid:-$$}
+#export outid=${outid:-"LL$job"}
+#export DATA=${DATA:-${DATAROOT}/${jobid:?}}
+mkdir -p $DATA
+cd $DATA
+
+##########################
+# Specify NET and RUN Name
+##########################
+export NET=${NET:-gldas}
+export RUN=${RUN:-gldas}
+
+#############################
+# Specify model (noah/noahmp)
+############################
+
+export model=${model:-noah}
+export MODEL=${MODEL:-`echo $model |tr '[a-z]' '[A-Z]'`}
+
+###########################
+# Define alert_type
+###########################
+if [ "$RUN_ENVIR" = "nco"  -a "$envir" != "prod" ]; then
+  export alert_type=GLDAS_GB2_PARA
+fi
+
+export alert_type=${alert_type:-GLDAS_GB2}
+
+export pgmout="OUTPUT.$$"
+
+####################################
+# Specify Execution Areas
+####################################
+export FIXgldas=${FIXgldas:-$HOMEgldas/fix}
+export PARMgldas=${PARMgldas:-$HOMEgldas/parm}
+export EXECgldas=${EXECgldas:-$HOMEgldas/exec}
+export USHgldas=${USHgldas:-$HOMEgldas/ush}
+
+##############################
+# Run setpdy and initialize PDY variables
+##############################
+setpdy.sh
+. ./PDY
+
+export GDATE=${GDATE:-$PDY}
+export BDATE=$PDYm3
+export cyc=${cyc:-00}
+export cycle=t${cyc}z
+
+export RUNDIR=${DATA}/gldas.$BDATE
+
+echo "GLDAS CYCLE = ${GDATE}.${cycle}"
+
 #############################################################
 # execute the script
 echo "--${FCSTSH:-$HOMEgldas/scripts/exgdas_gldas.sh.ecf}---"

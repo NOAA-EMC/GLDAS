@@ -1,17 +1,19 @@
 #!/bin/sh --login
 
+date
+
 #BSUB -L /bin/sh
 #BSUB -P GFS-T2O
 #BSUB -J jgdas_gldas_12
 #BSUB -o gdas_gldas.o%J
 #BSUB -e gdas_gldas.o%J
 #BSUB -W 02:30
-##BSUB -q debug
+#BSUB -q debug
+##BSUB -q devonprod
 #BSUB -n 24                      # number of tasks
-#BSUB -R span[ptile=1]          # 1 task per node
-#BSUB -cwd /gpfs/dell2/ptmp/Hang.Lei/output
+#BSUB -R span[ptile=24]          # tasks per node
+#BSUB -cwd /gpfs/dell2/ptmp/$LOGNAME/output
 #BSUB -R affinity[core(1):distribute=balance]
-#BSUB -q devonprod
 #BSUB -M 3072
 #BSUB -extsched 'CRAYLINUX[]'
 
@@ -19,21 +21,21 @@ set -x
 
 export NODES=1
 export ntasks=24
-export ptile=1
+export ptile=24
 export threads=1
 
-export CDATE=2017030806
+export CDATE=2019102900
 
 
 #############################################################
 export KMP_AFFINITY=disabled
 
 export PDY=`date -u +%Y%m%d`
-export PDY=20180925
+export PDY=20191029
 
 export PDY1=`expr $PDY - 1`
 
-export cyc=12
+export cyc=00
 export cycle=t${cyc}z
 
 set -xa
@@ -76,13 +78,21 @@ export jobid=${job}.${pid}
 ##############################################
 if [ $envir = "prod" ] ; then
 #  This setting is for testing with GDAS (production)
-  export COMIN=/gpfs/hps/nco/ops/com/nawips/prod/${RUN}.${PDY}         ### NCO PROD
-  export COMROOT=/gpfs/hps/nco/ops/com
+  export HOMEgldas=/nwprod/gldas.${gldas_ver}
+  export COMIN=/gpfs/dell1/nco/ops/com/gfs/prod/${RUN}.${PDY}         ### NCO PROD
+  export COMROOT=/gpfs/dell1/nco/ops/com
+  export DCOMROOT=/gpfs/dell1/nco/ops/dcom
 else
 # export COMIN=/gpfs/dell3/ptmp/emc.glopara/ROTDIRS/prfv3rt1/${RUN}.${PDY}/${cyc}/nawips ### EMC PARA Realtime
 # export COMINgdas=/gpfs/dell3/ptmp/emc.glopara/ROTDIRS/prfv3rt1/${RUN} ### EMC PARA Realtime
-  export COMIN=/gpfs/dell2/emc/modeling/noscrub/
-  export COMOUT=/gpfs/dell2/emc/modeling/noscrub/
+  export workdir=/gpfs/dell2/emc//retros/noscrub/$LOGNAME
+  export HOMEgldas=$workdir/GLDAS
+  export COMROOT=$workdir/com
+  export DCOMROOT=$workdir/dcom
+#  export COMINgdas=$COMROOT
+#  export DCOMIN=$DCOMROOT
+  export COMIN=$workdir/comin
+  export COMOUT=$workdir/comout
 fi
 
 if [ $SENDCOM = YES ] ; then
@@ -99,6 +109,8 @@ export JOBGLOBAL=./jobs
 #############################################################
 # Execute job
 #############################################################
+echo $JOBGLOBAL/JGDAS_GLDAS
 $JOBGLOBAL/JGDAS_GLDAS
 
 exit
+

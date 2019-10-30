@@ -26,7 +26,6 @@
 # 20191010 Youlong Xia - modified
 #########################################################
 set -ux
-export FINDDATE=finddate.sh
 
 if [ $# -lt 1 ]; then
 echo "usage: ksh $0 sdate [edate]"
@@ -53,6 +52,8 @@ cp $RUNDIR/EXP901/NOAH/$yyyy/$yyyymmdd/* $COMDIR/gldas.$sdate
 
 yyyymmdd=`sh $FINDDATE $yyyymmdd d+1`
 done
+
+cp $RUNDIR/sfc.gaussian.nemsio.$sdate $COMDIR/gldas.$sdate
 
 ### rename grb files
 

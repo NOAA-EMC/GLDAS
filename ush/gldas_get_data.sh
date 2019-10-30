@@ -14,7 +14,7 @@ set -x
 cd $DATA
 
 force=1
-finddate=finddate.sh
+finddate=$FINDDATE
 cnvgrib=$CNVGRIB
 wgrib=$WGRIB
 wgrib2=$WGRIB2

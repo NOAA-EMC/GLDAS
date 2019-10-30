@@ -25,9 +25,12 @@ if [ -s fort.12 ]; then
 rm -f fort.12
 fi
 
-cp ${FIXgldas}/FIX_T1534/lmask_gfs_T1534.bfsa fort.11
-cp $sfcanl fort.12
+ln -s ${FIXgldas}/FIX_T1534/lmask_gfs_T1534.bfsa fort.11
+ln -s $sfcanl fort.12
 
 startmsg
 ${EXECgldas}/gldas_${model}_rst >> $pgmout 2>>errfile
 export err=$?; err_chk
+
+cp sfc.gaussian.nemsio sfc.gaussian.nemsio.$BDATE
+rm -f sfc.gaussian.nemsio

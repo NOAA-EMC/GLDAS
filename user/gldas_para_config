@@ -4,34 +4,42 @@
 ##################################################################
 # module load for untility in run_all of lsf directory 
 
-#export GDATE=20200101 #use for test/retrospective
-#export cyc=00
+export GDATE=${PDY:-20191025}
+export cyc=${cyc:-00}
+export model=${model:-noah}
+export QUEUE=debug
+export PROJECT_CODE=NLDAS-T2O
 
-export workdir=/gpfs/dell2/emc/retros/noscrub/
+export workdir=/gpfs/dell2/emc/retros/noscrub/$LOGNAME
 
 export gldas_ver=${gldas_ver:-v2.3.0}
-export HOMEgldas=${HOMEgldas:-$workdir/$LOGNAME/GLDAS}
-export EXECgldas=${EXECgldas:-$HOMEgldas/exec}
-export PARMgldas=${PARMgldas:-$HOMEgldas/parm}
+export HOMEgldas=${HOMEgldas:-$workdir/GLDAS}
 export FIXgldas=${FIXgldas:-$HOMEgldas/fix}
+export PARMgldas=${PARMgldas:-$HOMEgldas/parm}
+export EXECgldas=${EXECgldas:-$HOMEgldas/exec}
+export USHgldas=${USHgldas:-$HOMEgldas/ush}
 
-export COM_IN=${COM_IN:-$workdir/$LOGNAME/com/gldas.${gldas_ver}}
+export topodir=/gpfs/dell2/emc/modeling/noscrub/George.Gayno/fv3gfs.git/global-workflow/fix/fix_fv3_gmted2010/C768/
+
+export COM_IN=${COM_IN:-$workdir/com/gldas.${gldas_ver}}
 export COM_OUT=${COM_OUT:-$COM_IN}
 
 # set up com and decom directory used
 # GFS OPS
+if [ ${model} == 'noah' ]; then
 export COMROOT=/gpfs/dell1/nco/ops/com
 export DCOMROOT=/gpfs/dell1/nco/ops/dcom
+fi
 
 # gfsv16 systhesis test
-##export COMROOT=/gpfs/dell2/emc/retros/noscrub/Youlong.Xia/com
-##export DCOMROOT=/gpfs/dell2/emc/retros/noscrub/Youlong.Xia/com
-
+if [ ${model} == 'noahmp' ]; then
+export COMROOT=/gpfs/dell2/emc/retros/noscrub/Youlong.Xia/com
+export DCOMROOT=/gpfs/dell2/emc/retros/noscrub/Youlong.Xia/com
+fi
 
 export COMINgdas=${COMINgdas:-${COMROOT}/gfs/prod}
 export DCOMIN=${DCOM_IN:-${DCOMROOT}/prod}
 
-export topodir=/gpfs/dell2/emc/modeling/noscrub/George.Gayno/fv3gfs.git/global-workflow/fix/fix_fv3_gmted2010/C768/
 
 #export DATA_IN=/gpfs/dell2/ptmp/$LOGNAME/tmpnwprd
 #export jlogfile=$DATA_IN/jlogfile
