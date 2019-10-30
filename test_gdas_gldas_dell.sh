@@ -24,9 +24,6 @@ export ntasks=24
 export ptile=24
 export threads=1
 
-export CDATE=2019102900
-
-
 #############################################################
 export KMP_AFFINITY=disabled
 

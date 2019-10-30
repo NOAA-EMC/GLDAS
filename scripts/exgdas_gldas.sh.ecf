@@ -60,8 +60,13 @@ mkdir -p $GDAS
 input1=$GDAS/gdas.$RUNSTARTDATE
 input2=$GDAS/gdas.$RUNENDDATE
 
-rm -f $FIXgldas/FIX_T1534
+rm -f $RUNDIR/input
+mkdir -p $RUNDIR/input
+ln -s $GDAS $RUNDIR/input/GDAS
+
+rm -f $RUNDIR/FIX
 ln -s $FIXgldas/FIX_T1534 $RUNDIR/FIX
+rm -f $RUNDIR/LIS
 ln -s $EXECgldas/gldas_${model} $RUNDIR/LIS
 
 ### 1) Get all gdas data and 6-tile netcdf restart data -----
@@ -125,13 +130,7 @@ sed -i -e 's/noahmp/'"${model}"'/g' fort.43
 ### 3b) Use gdas2gldas to generate nemsio file and
 ###     gldas_noah_rst/gldas_noahmp_rst to generate noah.rst ---
 
-#QUEUE and PROJECT_CODE defined in user/gldas_para_config
-#QUEUE="debug"
-#PROJECT_CODE="NLDAS-T2O"
-
 LOG_FILE=gdas2gldas.log
-rm -f $LOG_FILE
-rm -f noah.rst
 
 OMP_NUM_THREADS=1
 bsub -e $LOG_FILE -o $LOG_FILE -q $QUEUE -P $PROJECT_CODE -J gdas2gldas -W 0:05 -x -n 6 \
@@ -168,9 +167,6 @@ sed -i 's|/orogdir/|'"$topodir"'|g' fort.45
 sed -i -e 's/noahmp/'"${model}"'/g' fort.45
 
 ### 5b) use gdas2gldas to produce nemsio file
-#if [ -s sfc.gaussian.nemsio ]; then
-#rm -rf sfc.gaussian.nemsio
-#fi
 
 LOG_FILE=gdas2gldas_2nd.log
 OMP_NUM_THREADS=1
