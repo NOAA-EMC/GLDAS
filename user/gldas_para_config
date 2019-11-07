@@ -11,16 +11,15 @@ export QUEUE=debug
 export PROJECT_CODE=NLDAS-T2O
 
 export workdir=/gpfs/dell2/emc/retros/noscrub/$LOGNAME
+export FIXgldas=/gpfs/dell2/emc/modeling/noscrub/emc.glopara/git/fv3gfs/fix/fix_gldas
+export topodir=/gpfs/dell2/emc/modeling/noscrub/emc.glopara/git/fv3gfs/fix/fix_fv3_gmted2010/C768
 
 export gldas_ver=${gldas_ver:-v2.3.0}
 export HOMEgldas=${HOMEgldas:-$workdir/GLDAS}
+export FIXgldas=${FIXgldas:-$HOMEgldas/fix}
 export PARMgldas=${PARMgldas:-$HOMEgldas/parm}
 export EXECgldas=${EXECgldas:-$HOMEgldas/exec}
 export USHgldas=${USHgldas:-$HOMEgldas/ush}
-
-export FIXgldas=/gpfs/dell2/emc/modeling/noscrub/emc.glopara/git/fv3gfs/fix/fix_gldas
-
-export topodir=/gpfs/dell2/emc/modeling/noscrub/emc.glopara/git/fv3gfs/fix/fix_fv3_gmted2010/C768/
 
 export COM_IN=${COM_IN:-$workdir/com/gldas.${gldas_ver}}
 export COM_OUT=${COM_OUT:-$COM_IN}
