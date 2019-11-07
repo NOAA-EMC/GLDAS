@@ -11,7 +11,7 @@
 set -x
 
 copygb=$COPYGB
-finddate=finddate.sh
+finddate=$FINDDATE
 wgrib=$WGRIB
 if [ $# -lt 1 ]; then
 echo "usage: ksh $0 sdate [edate]"

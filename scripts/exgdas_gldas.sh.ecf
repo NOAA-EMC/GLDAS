@@ -65,7 +65,9 @@ mkdir -p $RUNDIR/input
 ln -s $GDAS $RUNDIR/input/GDAS
 
 rm -f $RUNDIR/FIX
-ln -s $FIXgldas/FIX_T1534 $RUNDIR/FIX
+#ln -s $FIXgldas/FIX_T1534 $RUNDIR/FIX
+#T1534 fix files are in /gpfs/dell2/emc/modeling/noscrub/emc.glopara/git/fv3gfs/fix/fix_gldas
+ln -s $FIXgldas $RUNDIR/FIX
 rm -f $RUNDIR/LIS
 ln -s $EXECgldas/gldas_${model} $RUNDIR/LIS
 
@@ -74,7 +76,7 @@ ln -s $EXECgldas/gldas_${model} $RUNDIR/LIS
 yyyymmdd=$yyyymmdd0
 while [ $yyyymmdd -le $RUNENDDATE ];do
 
-$HOMEgldas/ush/gldas_get_data.sh $yyyymmdd
+${USHgldas}/gldas_get_data.sh $yyyymmdd
 
 yyyymmdd=`sh $FINDDATE $yyyymmdd d+1`
 done
@@ -84,7 +86,7 @@ done
 yyyymmdd=$RUNSTARTDATE
 while [ $yyyymmdd -lt $RUNENDDATE ];do
 
-$HOMEgldas/ush/gldas_forcing.sh $yyyymmdd
+${USHgldas}/gldas_forcing.sh $yyyymmdd
 
 yyyymmdd=`sh $FINDDATE $yyyymmdd d+1`
 done
@@ -106,22 +108,14 @@ yyyymmdd=`sh $FINDDATE $yyyymmdd d+1`
 done
 
 ### create configure file
-${HOMEgldas}/ush/gldas_liscrd.sh $RUNSTARTDATE $RUNENDDATE 1534
-
-### create lsf file
-
-cp ${PARMgldas}/LIS.lsf.tmp LIS.lsf
-echo "#BSUB -oo $RUNDIR/LIS.out"   >> LIS.lsf
-echo "#BSUB -eo $RUNDIR/LIS.error" >> LIS.lsf
-echo "cd $RUNDIR"                  >> LIS.lsf
-echo "mpirun -n 112 ./LIS"         >> LIS.lsf
+${USHgldas}/gldas_liscrd.sh $RUNSTARTDATE $RUNENDDATE 1534
 
 ### 3) Produce initials noah.rst from 6-tile gdas restart files ----
 
 ### 3a) create gdas2gldas input file ----
 
 echo "create gdas2gldqas input file fort.43 and copy into fort.41"
-cp ${HOMEgldas}/parm/gdas2gldas.input fort.43
+cp ${PARMgldas}/gdas2gldas.input fort.43
 sed -i -e 's/date/'"$RUNSTARTDATE"'/g' -e 's/cyc/'"$cyc"'/g' fort.43
 sed -i 's|/indirect/|'"$input1"'|g' fort.43
 sed -i 's|/orogdir/|'"$topodir"'|g' fort.43
@@ -133,18 +127,15 @@ sed -i -e 's/noahmp/'"${model}"'/g' fort.43
 LOG_FILE=gdas2gldas.log
 
 OMP_NUM_THREADS=1
-bsub -e $LOG_FILE -o $LOG_FILE -q $QUEUE -P $PROJECT_CODE -J gdas2gldas -W 0:05 -x -n 6 \
-        -R "span[ptile=6]" -R "affinity[core(${OMP_NUM_THREADS}):distribute=balance]" "$HOMEgldas/ush/gdas2gldas.sh"
-
-rm PET*ESMF_LogFile
+${USHgldas}/gdas2gldas.sh > $LOG_FILE
 
 LOG_FILE=gldas_rst.log
 OMP_NUM_THREADS=1
-bsub -e $LOG_FILE -o $LOG_FILE -q $QUEUE -P $PROJECT_CODE -J gldas_rst -W 0:02 -x -n 1 -w 'ended(gdas2gldas)' \
-        -R "span[ptile=1]" -R "affinity[core(${OMP_NUM_THREADS}):distribute=balance]" "$HOMEgldas/ush/gldas_rst.sh"
+${USHgldas}/gldas_rst.sh > $LOG_FILE
 
 ### 4) run noah/noahmp model
-bsub<$RUNDIR/LIS.lsf
+$APRUN_GLDAS ./LIS >>$pgmout 2>errfile
+export err=$?; err_chk
 
 ### 5) using gdas2gldas to generate nemsio file for RUNENDDATE
 ###    use gldas_post to replace soil moisture and temperature
@@ -170,8 +161,7 @@ sed -i -e 's/noahmp/'"${model}"'/g' fort.45
 
 LOG_FILE=gdas2gldas_2nd.log
 OMP_NUM_THREADS=1
-bsub -e $LOG_FILE -o $LOG_FILE -q $QUEUE -P $PROJECT_CODE -J gdas2gldas_2nd -W 0:05 -x -n 6 -w 'ended(gldas_model)' \
-        -R "span[ptile=1]" -R "affinity[core(${OMP_NUM_THREADS}):distribute=balance]" "$HOMEgldas/ush/gdas2gldas_2nd.sh"
+${USHgldas}/gdas2gldas_2nd.sh > $LOG_FILE
 
 ### 5c) use gldas_post to replace soil moisture and temperature
 
@@ -181,8 +171,7 @@ sfcanl=sfc.gaussian.nemsio
 
 LOG_FILE=gldas_post.log
 OMP_NUM_THREADS=1
-bsub -e $LOG_FILE -o $LOG_FILE -q $QUEUE -P $PROJECT_CODE -J gldas_post -W 0:05 -x -n 1 -w 'ended(gdas2gldas_2nd)' \
-        -R "span[ptile=1]" -R "affinity[core(${OMP_NUM_THREADS}):distribute=balance]" "$HOMEgldas/ush/gldas_post.sh $gbin $sfcanl"
+${USHgldas}/gldas_post.sh $gbin $sfcanl > $LOG_FILE
 
 ### 5d) use gldas2gdas to create 6-tile restart tiles
 
@@ -203,18 +192,16 @@ cp ${GDAS}/gdas.${gdate}/${gdas_date}.sfcanl_data.tile6.nc ./sfc_data.tile6.nc
 chmod 744 sfc_data.tile*.nc
 
 # copy soil type
-cp ${FIXgldas}/FIX_T1534/stype_gfs_T1534.bfsa  ./stype_gfs_T1534.bfsa
+cp ${FIXgldas}/stype_gfs_T1534.bfsa  ./stype_gfs_T1534.bfsa
 
 LOG_FILE=gldas2gdas.log
 OMP_NUM_THREADS=1
-bsub -e $LOG_FILE -o $LOG_FILE -q $QUEUE -P $PROJECT_CODE -J gldas2gdas -W 0:05 -x -n 6 -w 'ended(gldas_post)' \
-        -R "span[ptile=1]" -R "affinity[core(${OMP_NUM_THREADS}):distribute=balance]" "$HOMEgldas/ush/gldas2gdas.sh"
+${USHgldas}/gldas2gdas.sh > $LOG_FILE
 
 ### 5e) archive gldas results
 LOG_FILE=gldas_archive.log
 OMP_NUM_THREADS=1
-bsub -e $LOG_FILE -o $LOG_FILE -q $QUEUE -P $PROJECT_CODE -J gldas_archive -W 0:05 -x -n 1 -w 'ended(gldas2gdas)' \
-        -R "span[ptile=1]" -R "affinity[core(${OMP_NUM_THREADS}):distribute=balance]" "$HOMEgldas/ush/gldas_archive.sh $RUNSTARTDATE $RUNENDDATE"
+${USHgldas}/gldas_archive.sh $RUNSTARTDATE $RUNENDDATE > $LOG_FILE
 
 echo $RUNDIR
 

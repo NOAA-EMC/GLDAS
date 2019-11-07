@@ -10,7 +10,7 @@ cp fort.45 fort.41
 
 echo 'running gdas2gldas'
   startmsg
-  mpirun ${HOMEgldas}/exec/gdas2gldas  >>$pgmout 2>errfile
+  $APRUN_GAUSSIAN ${EXECgldas}/gdas2gldas  >>$pgmout 2>errfile
   export err=$?; err_chk
 
 exit

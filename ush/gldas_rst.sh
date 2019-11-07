@@ -25,7 +25,7 @@ if [ -s fort.12 ]; then
 rm -f fort.12
 fi
 
-cp ${FIXgldas}/FIX_T1534/lmask_gfs_T1534.bfsa fort.11
+cp ${FIXgldas}/lmask_gfs_T1534.bfsa fort.11
 cp $sfcanl fort.12
 
 startmsg

@@ -8,7 +8,7 @@ export pgm=gldas2gdas
 
 echo 'running  gldas2gdas'
   startmsg
-  mpirun $EXECgldas/gldas2gdas >> $pgmout 2>errfile
+  $APRUN_GAUSSIAN $EXECgldas/gldas2gdas >> $pgmout 2>errfile
   export err=$?; err_chk
 
 exit

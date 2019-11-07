@@ -1,38 +1,43 @@
-#!/bin/sh --login
+#!/bin/sh
 
-date
-
-#BSUB -L /bin/sh
-#BSUB -P GFS-T2O
+#BSUB -o /gpfs/dell2/ptmp/Youlong.Xia/gdas_gldas.o%J
+#BSUB -e /gpfs/dell2/ptmp/Youlong.Xia/gdas_gldas.o%J
+#BSUB -P NLDAS-T2O
 #BSUB -J jgdas_gldas_12
-#BSUB -o gdas_gldas.o%J
-#BSUB -e gdas_gldas.o%J
-#BSUB -W 02:30
-#BSUB -q debug
-##BSUB -q devonprod
-#BSUB -n 24                      # number of tasks
-#BSUB -R span[ptile=24]          # tasks per node
-#BSUB -cwd /gpfs/dell2/ptmp/$LOGNAME/output
+#BSUB -W 01:00
+#BSUB -q dev
+#BSUB -n 112                     # number of tasks
+#BSUB -R span[ptile=28]          # tasks per node
 #BSUB -R affinity[core(1):distribute=balance]
 #BSUB -M 3072
 #BSUB -extsched 'CRAYLINUX[]'
 
 set -x
 
-export NODES=1
-export ntasks=24
-export ptile=24
+date
+
+export NODES=4
+export ntasks=112
+export ptile=28
 export threads=1
+
+export launcher="mpirun -n"
+export npe_gaussian=6
+export npe_gldas=112
+export APRUN_GAUSSIAN="$launcher $npe_gaussian"
+export APRUN_GLDAS="$launcher $npe_gldas"
+
+export CDATE=${CDATE:-2019110500}
 
 #############################################################
 export KMP_AFFINITY=disabled
 
 export PDY=`date -u +%Y%m%d`
-export PDY=20191029
+export PDY=`echo $CDATE | cut -c1-8`
 
 export PDY1=`expr $PDY - 1`
 
-export cyc=00
+export cyc=`echo $CDATE | cut -c9-10`
 export cycle=t${cyc}z
 
 set -xa
@@ -42,27 +47,29 @@ date
 ####################################
 ##  Load theUtilities module
 #####################################
+module purge
 module load EnvVars/1.0.2
 module load ips/18.0.1.163
 module load CFP/2.0.1
 module load impi/18.0.1
 module load lsf/10.1
-module load prod_util/1.1.0
 module load prod_envir/1.0.2
-module use -a /gpfs/dell1/nco/ops/nwpara/modulefiles/compiler_prod/ips/18.0.1
+module load prod_util/1.1.0
 module load grib_util/1.1.0
+module load NetCDF/4.5.0
 ###########################################
 # Now set up environment
 ###########################################
-module use -a /gpfs/dell1/nco/ops/nwpara/modulefiles/
 module list
 
 ############################################
 # GDAS META PRODUCT GENERATION
 ############################################
 # set envir=prod or para to test with data in prod or para
- export envir=para
 # export envir=prod
+ export envir=para
+
+export RUN=${RUN:-gdas}
 
 export SENDCOM=YES
 export KEEPDATA=YES
@@ -79,15 +86,21 @@ if [ $envir = "prod" ] ; then
   export COMIN=/gpfs/dell1/nco/ops/com/gfs/prod/${RUN}.${PDY}         ### NCO PROD
   export COMROOT=/gpfs/dell1/nco/ops/com
   export DCOMROOT=/gpfs/dell1/nco/ops/dcom
+elif [ $envir = "para" ] ; then
+#  This setting is for testing with GDAS (production)
+  export HOMEgldas=/gpfs/dell2/emc/retros/noscrub/$LOGNAME/GLDAS
+  export COMIN=/gpfs/dell1/nco/ops/com/gfs/prod/${RUN}.${PDY}         ### NCO PROD
+  export COMROOT=/gpfs/dell1/nco/ops/com
+  export DCOMROOT=/gpfs/dell1/nco/ops/dcom
 else
 # export COMIN=/gpfs/dell3/ptmp/emc.glopara/ROTDIRS/prfv3rt1/${RUN}.${PDY}/${cyc}/nawips ### EMC PARA Realtime
 # export COMINgdas=/gpfs/dell3/ptmp/emc.glopara/ROTDIRS/prfv3rt1/${RUN} ### EMC PARA Realtime
-  export workdir=/gpfs/dell2/emc//retros/noscrub/$LOGNAME
+  export workdir=/gpfs/dell2/emc/retros/noscrub/$LOGNAME
   export HOMEgldas=$workdir/GLDAS
   export COMROOT=$workdir/com
   export DCOMROOT=$workdir/dcom
-#  export COMINgdas=$COMROOT
-#  export DCOMIN=$DCOMROOT
+  export COMINgdas=$COMROOT
+  export DCOMIN=$DCOMROOT
   export COMIN=$workdir/comin
   export COMOUT=$workdir/comout
 fi
