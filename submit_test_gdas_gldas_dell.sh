@@ -27,7 +27,7 @@ export npe_gldas=112
 export APRUN_GAUSSIAN="$launcher $npe_gaussian"
 export APRUN_GLDAS="$launcher $npe_gldas"
 
-export CDATE=${CDATE:-2019110500}
+export CDATE=${CDATE:-2019110700}
 
 #############################################################
 export KMP_AFFINITY=disabled
