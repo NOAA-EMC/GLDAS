@@ -16,4 +16,4 @@ module use -a $NCEPLIBS/modulefiles
 module load esmflocal/8_0_48b.netcdf47
 
 export FCOMP=mpiifort
-export FFLAGS="-O0 -g -traceback -r8 -i4 -qopenmp -convert big_endian -check bounds -warn unused -assume byterecl"
+export FFLAGS="-O3 -fp-model precise -g -traceback -r8 -i4 -qopenmp -convert big_endian -assume byterecl"
