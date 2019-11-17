@@ -33,8 +33,8 @@ gmake -f Makefile.noah realclean
 gmake -f Makefile.noah
 gmake -f Makefile.noah install
 
-gmake -f Makefile.noahmp realclean
-gmake -f Makefile.noahmp
-gmake -f Makefile.noahmp install
+#gmake -f Makefile.noahmp realclean
+#gmake -f Makefile.noahmp
+#gmake -f Makefile.noahmp install
 
 exit

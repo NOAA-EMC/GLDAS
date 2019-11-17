@@ -28,10 +28,10 @@ make clean
 make
 make install
 
-cd ../noahmp
+#cd ../noahmp
 
-make clean
-make
-make install
+#make clean
+#make
+#make install
 
 exit
