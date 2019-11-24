@@ -35,3 +35,4 @@ echo "LIS%t%EMO        = $mm2  "      >> $LISCARD
 echo "LIS%t%EYR        = $yyyy2"      >> $LISCARD
 cat $PARM_LM/lis.crd.T${grid}.tmp.2   >> $LISCARD
 
+exit 0

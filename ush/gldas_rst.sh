@@ -2,7 +2,7 @@
 
 ##############################################################
 # This script generate noah.rst from nemsio file 
-# (sfc.gaussian.nemsioproduced from gdas2gldas
+# (sfc.gaussian.nemsio produced from gdas2gldas
 # Usage:     gldas_rst.sh
 # History:   2019.05  Jesse Meng   original script
 #            2019.10  Youlong Xia  modified script
@@ -32,5 +32,6 @@ startmsg
 ${EXECgldas}/gldas_${model}_rst >> $pgmout 2>>errfile
 export err=$?; err_chk
 
-cp sfc.gaussian.nemsio sfc.gaussian.nemsio.$BDATE
-rm -f sfc.gaussian.nemsio
+mv sfc.gaussian.nemsio sfc.gaussian.nemsio.$RUNSTARTDATE
+
+exit
