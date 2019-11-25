@@ -14,6 +14,11 @@
  type(esmf_field),  public              :: latitude_target_grid
  type(esmf_field),  public              :: longitude_target_grid
 
+ character(len=20), public              :: model 
+ character(len=200), public             :: mosaic_file_input_grid, orog_dir_input_grid
+ character(len=200), public             :: sfc_files_input_grid(6), data_dir_input_grid
+ character(len=200), public             :: orog_files_input_grid(6)
+
  public :: define_input_grid
  public :: define_target_grid
 
@@ -25,17 +30,15 @@
 
  integer, intent(in)  :: npets
 
- character(len=20)  :: model 
- character(len=200) :: mosaic_file_input_grid, orog_dir_input_grid
- character(len=200) :: sfc_files_input_grid(6), data_dir_input_grid
- character(len=200) :: orog_files_input_grid(6)
+ character(len=200)   :: mosaic_file
 
  integer :: error, extra, num_tiles_input_grid, tile
 
  integer, allocatable         :: decomptile(:,:)
 
  namelist /config/ data_dir_input_grid, sfc_files_input_grid, &
-                   orog_dir_input_grid, orog_files_input_grid, model
+                   orog_dir_input_grid, orog_files_input_grid, model, &
+                   mosaic_file_input_grid, i_target, j_target
 
 !-----------------------------------------------------------------------
 ! Create ESMF grid object for the model grid.
@@ -57,10 +60,10 @@
  if (error /= 0) call error_handler("READING SETUP NAMELIST.", error)
  close (41)
 
- mosaic_file_input_grid=trim(orog_dir_input_grid) // "/C768_mosaic.nc"
+ mosaic_file=trim(orog_dir_input_grid) // "/" // trim(mosaic_file_input_grid)
 
  print*,"- CALL GridCreateMosaic FOR INPUT GRID"
- input_grid = ESMF_GridCreateMosaic(filename=trim(mosaic_file_input_grid), &
+ input_grid = ESMF_GridCreateMosaic(filename=trim(mosaic_file), &
                                   regDecompPTile=decomptile, &
                                   staggerLocList=(/ESMF_STAGGERLOC_CENTER, ESMF_STAGGERLOC_CORNER, &
                                                    ESMF_STAGGERLOC_EDGE1, ESMF_STAGGERLOC_EDGE2/), &
@@ -89,11 +92,10 @@
 
  type(esmf_polekind_flag)         :: polekindflag(2)
 
- i_target = 3072
- j_target = 1536
-
  ip1_target = i_target + 1
  jp1_target = j_target + 1
+
+ print*,"- TARGET GAUSSIAN GRID DIMENSIONS: ", i_target, j_target
 
  polekindflag(1:2) = ESMF_POLEKIND_MONOPOLE
 
@@ -237,11 +239,6 @@
 
  deallocate(latitude,longitude)
 
-
  end subroutine define_target_grid
- 
-
-
-
 
  end module model_grid

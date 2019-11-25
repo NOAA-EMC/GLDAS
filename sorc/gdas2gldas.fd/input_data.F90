@@ -8,11 +8,6 @@
 
  private
 
- character(len=200) :: data_dir_input_grid = "NULL"
- character(len=200) :: sfc_files_input_grid(6) = "NULL"
- character(len=200) :: orog_dir_input_grid = "NULL"
- character(len=200) :: orog_files_input_grid(6) = "NULL"
-
  integer, public :: i_input, j_input
  integer, parameter, public :: lsoil_input = 4
  integer, parameter, public :: lsnow_input = 3
@@ -103,20 +98,9 @@
 
  implicit none
 
- character(len=20) :: model
  integer, intent(in) :: localpet
 
  integer :: rc
-
- namelist /config/ data_dir_input_grid, sfc_files_input_grid, &
-                   orog_dir_input_grid, orog_files_input_grid, &
-                   model
-
- open(41, file="./fort.41", iostat=rc)
- if (rc /= 0) call error_handler("OPENING SETUP NAMELIST.", rc)
- read(41, nml=config, iostat=rc)
- if (rc /= 0) call error_handler("READING SETUP NAMELIST.", rc)
- close (41)
 
  if (trim(model) == 'noah') then
    noahmp=.false.
@@ -636,6 +620,7 @@
  subroutine read_input_sfc_restart_file(localpet)
 
  use netcdf
+ use model_grid
 
  implicit none
 
@@ -1559,6 +1544,7 @@
                                       SFCDATA, SFCDATA_3D)
 
  use netcdf 
+ use model_grid
 
  IMPLICIT NONE
 
