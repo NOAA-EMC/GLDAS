@@ -1,6 +1,7 @@
  module setup
 
  character(len=200) :: orog_dir_gdas_grid
+ character(len=100) :: mosaic_file_gdas_grid
 
  contains
 
@@ -11,7 +12,7 @@
 
  integer :: error 
 
- namelist /config/ orog_dir_gdas_grid
+ namelist /config/ orog_dir_gdas_grid, mosaic_file_gdas_grid
 
  open(42, file="./fort.42", iostat=error)
  if (error /= 0) call error_handler("OPENING SETUP NAMELIST.", error)

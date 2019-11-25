@@ -28,7 +28,7 @@ write_data.o:  interp.o model_grid.o write_data.F90
 	$(FCOMP) $(FFLAGS) $(ESMF_F90COMPILEPATHS) -c write_data.F90
 
 model_grid.o:  setup.o model_grid.F90
-	$(FCOMP) $(FFLAGS) $(ESMF_F90COMPILEPATHS) -c model_grid.F90
+	$(FCOMP) $(FFLAGS) -I$(NEMSIO_INC) $(ESMF_F90COMPILEPATHS) -c model_grid.F90
 
 utils.o:  utils.f90
 	$(FCOMP) $(FFLAGS) $(ESMF_F90COMPILEPATHS) -c utils.f90

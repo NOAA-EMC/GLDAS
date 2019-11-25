@@ -24,24 +24,73 @@
 
  subroutine define_gdas_grid(npets)
 
+ use netcdf
+
  implicit none
 
  integer, intent(in)  :: npets
 
- character(len=300) :: mosaic_file_gdas_grid
+ character(len=300) :: mosaic_file, grid_file1
+ character(len=255), allocatable :: grid_files(:)
 
- integer :: error, extra, num_tiles_gdas_grid, tile
+ integer :: error, extra, num_tiles_gdas_grid, tile, ncid
+ integer :: dimid, varid
 
  integer, allocatable         :: decomptile(:,:)
 
 !-----------------------------------------------------------------------
-! Create ESMF grid object for the model grid.
+! Open mosaic file.  Read number of tiles and the names of the
+! grid files.
 !-----------------------------------------------------------------------
 
- i_gdas = 768
- j_gdas = 768
+ mosaic_file=trim(orog_dir_gdas_grid) // "/" // trim(mosaic_file_gdas_grid)
 
- num_tiles_gdas_grid = 6
+ print*,'open ',trim(mosaic_file)
+ error = nf90_open(trim(mosaic_file), nf90_nowrite, ncid)
+ call netcdf_err(error, 'opening mosaic file')
+
+ error = nf90_inq_dimid(ncid, 'ntiles', dimid)
+ call netcdf_err(error, 'getting tile id')
+
+ error = nf90_inquire_dimension(ncid, dimid, len=num_tiles_gdas_grid)
+ call netcdf_err(error, 'getting tile id')
+
+ allocate(grid_files(num_tiles_gdas_grid))
+
+ error = nf90_inq_varid(ncid, 'gridfiles', varid)
+ call netcdf_err(error, 'getting gridfiles id')
+ 
+ error = nf90_get_var(ncid, varid, grid_files)
+ call netcdf_err(error, 'reading gridfiles')
+
+ error = nf90_close(ncid)
+
+!-----------------------------------------------------------------------
+! Read first grid file and get dimesion of tiles.
+!-----------------------------------------------------------------------
+
+ grid_file1 = trim(orog_dir_gdas_grid) // "/" // trim(grid_files(1))
+
+ print*,'open ',trim(grid_file1)
+ error = nf90_open(trim(grid_file1), nf90_nowrite, ncid)
+ call netcdf_err(error, 'opening grid file')
+
+ error = nf90_inq_dimid(ncid, 'nx', dimid)
+ call netcdf_err(error, 'getting nx id')
+
+ error = nf90_inquire_dimension(ncid, dimid, len=i_gdas)
+ call netcdf_err(error, 'reading nx')
+
+ error = nf90_close(ncid)
+
+ i_gdas = i_gdas / 2
+ j_gdas = i_gdas
+
+ print*,"- GDAS TILES HAVE DIMESION OF ", i_gdas, j_gdas
+
+!-----------------------------------------------------------------------
+! Create ESMF grid object for the model grid.
+!-----------------------------------------------------------------------
 
  extra = npets / num_tiles_gdas_grid
 
@@ -51,10 +100,8 @@
    decomptile(:,tile)=(/1,extra/)
  enddo
 
- mosaic_file_gdas_grid=trim(orog_dir_gdas_grid) // "/C768_mosaic.nc"
-
  print*,"- CALL GridCreateMosaic FOR GDAS GRID"
- gdas_grid = ESMF_GridCreateMosaic(filename=trim(mosaic_file_gdas_grid), &
+ gdas_grid = ESMF_GridCreateMosaic(filename=trim(mosaic_file), &
                                   regDecompPTile=decomptile, &
                                   staggerLocList=(/ESMF_STAGGERLOC_CENTER, ESMF_STAGGERLOC_CORNER, &
                                                    ESMF_STAGGERLOC_EDGE1, ESMF_STAGGERLOC_EDGE2/), &
@@ -63,16 +110,22 @@
  if(ESMF_logFoundError(rcToCheck=error,msg=ESMF_LOGERR_PASSTHRU,line=__line__,file=__file__)) &
     call error_handler("IN GridCreateMosaic", error)
 
+
  end subroutine define_gdas_grid
 
  subroutine define_gldas_grid(npets)
+
+ use nemsio_module
 
  implicit none
 
  integer, intent(in) :: npets
 
+ character(len=50) :: nems_file
+
  integer :: i, j, rc, clb(2), cub(2)
  integer :: ip1_gldas, jp1_gldas
+ integer(nemsio_intkind) :: iret
 
  real(esmf_kind_r8), allocatable  :: latitude(:,:)
  real(esmf_kind_r8), allocatable  :: longitude(:,:)
@@ -81,10 +134,33 @@
  real(esmf_kind_r8), pointer      :: lat_src_ptr(:,:)
  real(esmf_kind_r8), pointer      :: lon_src_ptr(:,:)
 
+ type(nemsio_gfile)               :: gfile
  type(esmf_polekind_flag)         :: polekindflag(2)
 
- i_gldas = 3072
- j_gldas = 1536
+!-----------------------------------------------------------------------
+! Get grid dimensios from gldas nemsio file.
+!-----------------------------------------------------------------------
+
+ print*,"- READ GLDAS FILE TO GET GRID DIMENSIONS"
+
+ nems_file="./gldas.nemsio"
+
+ call nemsio_open(gfile, nems_file, "read", iret=iret)
+ if (iret /= 0) call error_handler("opening gldas nems file")
+
+ call nemsio_getfilehead(gfile, iret=iret, dimx=i_gldas)
+ if (iret /= 0) call error_handler("reading dimx")
+
+ call nemsio_getfilehead(gfile, iret=iret, dimy=j_gldas)
+ if (iret /= 0) call error_handler("reading dimy")
+
+ call nemsio_close(gfile)
+
+ print*,"- DIMENSIONS OF GLDAS DATA: ", i_gldas, j_gldas
+
+!-----------------------------------------------------------------------
+! Create esmf grid object for gldas grid.
+!-----------------------------------------------------------------------
 
  ip1_gldas = i_gldas + 1
  jp1_gldas = j_gldas + 1
