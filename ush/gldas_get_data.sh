@@ -19,15 +19,25 @@ fpath=$RUNDIR
 gpath=$RUNDIR/force
 
 # get gdas 6-tile restart files for running gldas
-cycint=${assim_freq:-6}
-symd=`echo $bdate |cut -c 1-8`
-scyc=`echo $bdate |cut -c 9-10`
-mkdir -p $gpath/gdas.$symd
-cp ${COMINgdas}/gdas.$symd/$scyc/RESTART/$symd.${scyc}0000.sfcanl_data.tile*.nc $gpath/gdas.$symd
-if [ $? -ne 0 ]; then
- echo "gdas.$symd/$scyc 6-tile restart files are missing"
- exit 99
-fi
+#cycint=${assim_freq:-6}
+#symd=`echo $bdate |cut -c 1-8`
+#scyc=`echo $bdate |cut -c 9-10`
+#mkdir -p $gpath/gdas.$symd
+#cp ${COMINgdas}/gdas.$symd/$scyc/RESTART/$symd.${scyc}0000.sfcanl_data.tile*.nc $gpath/gdas.$symd
+#if [ $? -ne 0 ]; then
+# echo "gdas.$symd/$scyc 6-tile restart files are missing"
+# exit 99
+#fi
+
+# get gdas 6-tile restart files for updating soilm and soilt
+#eymd=`echo $edate |cut -c 1-8`
+#ecyc=`echo $edate |cut -c 9-10`
+#mkdir -p $gpath/gdas.$eymd
+#cp ${COMINgdas}/gdas.$eymd/$ecyc/RESTART/$eymd.${ecyc}0000.sfcanl_data.tile*.nc $gpath/gdas.$eymd
+#if [ $? -ne 0 ]; then
+# echo "gdas.$eymd/$ecyc 6-tile restart files are missing"
+# exit 99
+#fi
 
 
 # get gdas flux files to force gldas.
@@ -90,6 +100,4 @@ done
 done
 #-------------------------------
 
-
-
-exit
+exit 

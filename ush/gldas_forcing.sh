@@ -25,7 +25,7 @@ export xpath=${RUNDIR}/force
 #-------------------------------
 #--- extract variables of each timestep and create forcing files
 sdate=$bdate
-while [ $sdate -le $edate ]; do
+while [ $sdate -lt $edate ]; do
 #-------------------------------
 
 sdat0=`sh $FINDDATE $sdate d-1`
@@ -46,7 +46,7 @@ if [ ! -s $cpc ]; then
 fi
 cp $cpc $xpath/cpc.$sdate/.
 
-sflux=$fpath/gdas.${sdate}/gdas1.t12z.sfluxgrbf06
+sflux=$fpath/gdas.${sdat0}/gdas1.t12z.sfluxgrbf06
 prate=gdas.${sdat0}12
 $WGRIB -s $sflux | grep "PRATE:sfc" | $WGRIB -i $sflux -grib -o $prate
 
@@ -94,4 +94,4 @@ sdate=`sh $FINDDATE $sdate d+1`
 done
 #-------------------------------
 
-exit 0
+exit $err
