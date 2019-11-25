@@ -35,8 +35,8 @@
  print*,'- NPETS IS  ',npets
  print*,'- LOCAL PET ',localpet
 
- call define_target_grid(npets)
  call define_input_grid(npets)
+ call define_target_grid(npets)
 
  call read_input_data(localpet)
 
