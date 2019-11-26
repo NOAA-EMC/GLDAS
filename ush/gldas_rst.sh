@@ -32,6 +32,6 @@ startmsg
 ${EXECgldas}/gldas_${model}_rst >> $pgmout 2>>errfile
 export err=$?; err_chk
 
-mv sfc.gaussian.nemsio sfc.gaussian.nemsio.$RUNSTARTDATE
+mv sfc.gaussian.nemsio sfc.gaussian.nemsio.$gldas_symd
 
 exit

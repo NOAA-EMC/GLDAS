@@ -1,6 +1,4 @@
 #!/bin/ksh
-set -x
- 
 ###########################################################################
 # this script gets cpc daily precipitation and using gdas hourly precipitation
 # to disaggregate daily value into hourly value
@@ -12,7 +10,12 @@ set -x
 bdate=$1
 edate=$2
 
-cd $RUNDIR ||exit 
+# Set environment
+export VERBOSE=${VERBOSE:-"YES"}
+if [ $VERBOSE = "YES" ]; then
+   echo $(date) EXECUTING $0 $* >&2
+   set -x
+fi
 
 # HOMEgldas - gldas directory
 # EXECgldas - gldas exec directory
@@ -21,6 +24,7 @@ cd $RUNDIR ||exit
 export LISDIR=$HOMEgldas
 export fpath=${RUNDIR}/force
 export xpath=${RUNDIR}/force
+export ERRSCRIPT=${ERRSCRIPT:-'eval [[ $err = 0 ]]'}
 
 #-------------------------------
 #--- extract variables of each timestep and create forcing files
@@ -42,7 +46,7 @@ cpc=$pathp1/$cpc_precip
 if [ ! -s $cpc ]; then cpc=$pathp3/$cpc_precip ; fi
 if [ ! -s $cpc ]; then 
  echo "$cpc does not exist"
- exit 99
+ exit 2
 fi
 cp $cpc $xpath/cpc.$sdate/.
 
@@ -79,8 +83,10 @@ $WGRIB -d -bin grib.06 -o fort.14
 
 ln -fs $xpath/cpc.$sdate/$cpc_precip fort.15
 
-$EXECgldas/gldas_forcing 
-export err=$?; err_chk
+$EXECgldas/gldas_forcing     1>&1 2>&2
+
+export err=$?
+$ERRSCRIPT || exit 3
 
 cp fort.21 $xpath/cpc.$sdat0/precip.gldas.${sdat0}12
 cp fort.22 $xpath/cpc.$sdat0/precip.gldas.${sdat0}18
