@@ -37,12 +37,12 @@
    allocate (dum3d(0,0,0))
  endif
 
- gdas_files(1) = "./gldas2gdas_out/sfc_data.tile1.nc"
- gdas_files(2) = "./gldas2gdas_out/sfc_data.tile2.nc"
- gdas_files(3) = "./gldas2gdas_out/sfc_data.tile3.nc"
- gdas_files(4) = "./gldas2gdas_out/sfc_data.tile4.nc"
- gdas_files(5) = "./gldas2gdas_out/sfc_data.tile5.nc"
- gdas_files(6) = "./gldas2gdas_out/sfc_data.tile6.nc"
+ gdas_files(1) = "./sfc_data.tile1.nc"
+ gdas_files(2) = "./sfc_data.tile2.nc"
+ gdas_files(3) = "./sfc_data.tile3.nc"
+ gdas_files(4) = "./sfc_data.tile4.nc"
+ gdas_files(5) = "./sfc_data.tile5.nc"
+ gdas_files(6) = "./sfc_data.tile6.nc"
 
  do tile = 1, 6
 
