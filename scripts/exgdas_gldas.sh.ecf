@@ -44,7 +44,16 @@ export gldas_ecyc=`echo $gldas_cdate |cut -c 9-10`
 export gldas_sdate=`$NDATE -$gldas_spinup_hours $CDATE`
 export gldas_symd=`echo $gldas_sdate |cut -c 1-8`                 
 export gldas_scyc=`echo $gldas_sdate |cut -c 9-10`                 
-echo "GLDAS runs from $gldas_sdate to $gldas_cdate"
+
+export iau_cdate=$CDATE
+if [ "$DOIAU" = "YES" ]; then
+ IAUFHRS=${IAUFHRS:-6}
+ IAUHALH=$((IAUFHRS/2))
+ export iau_cdate=`$NDATE -$IAUHALH $CDATE`
+fi
+export iau_eymd=`echo $iau_cdate |cut -c 1-8`
+export iau_ecyc=`echo $iau_cdate |cut -c 9-10`
+echo "GLDAS runs from $gldas_sdate to $iau_cdate"
 
 export CASE=${CASE:-C768}
 export res=$(echo $CASE |cut -c2-5)
@@ -109,7 +118,7 @@ while [ $ymd -le $ymdend ]; do
 done
 
 # create configure file
-${USHgldas}/gldas_liscrd.sh $gldas_symd $gldas_eymd ${JCAP}
+${USHgldas}/gldas_liscrd.sh $gldas_sdate $iau_cdate ${JCAP}
 export err=$?
 $ERRSCRIPT || exit 4
 
@@ -178,7 +187,7 @@ rm -f fort.41 fort.241 fort.42
 cat >> fort.241 << EOF
  &config
    data_dir_input_grid="$input2"
-   sfc_files_input_grid="${gldas_eymd}.${gldas_ecyc}0000.sfcanl_data.tile1.nc","${gldas_eymd}.${gldas_ecyc}0000.sfcanl_data.tile2.nc","${gldas_eymd}.${gldas_ecyc}0000.sfcanl_data.tile3.nc","${gldas_eymd}.${gldas_ecyc}0000.sfcanl_data.tile4.nc","${gldas_eymd}.${gldas_ecyc}0000.sfcanl_data.tile5.nc","${gldas_eymd}.${gldas_ecyc}0000.sfcanl_data.tile6.nc"
+   sfc_files_input_grid="${iau_eymd}.${iau_ecyc}0000.sfcanl_data.tile1.nc","${iau_eymd}.${iau_ecyc}0000.sfcanl_data.tile2.nc","${iau_eymd}.${iau_ecyc}0000.sfcanl_data.tile3.nc","${iau_eymd}.${iau_ecyc}0000.sfcanl_data.tile4.nc","${iau_eymd}.${iau_ecyc}0000.sfcanl_data.tile5.nc","${iau_eymd}.${iau_ecyc}0000.sfcanl_data.tile6.nc"
    mosaic_file_input_grid="${CASE}_mosaic.nc"
    orog_dir_input_grid="$topodir"
    orog_files_input_grid="${CASE}_oro_data.tile1.nc","${CASE}_oro_data.tile2.nc","${CASE}_oro_data.tile3.nc","${CASE}_oro_data.tile4.nc","${CASE}_oro_data.tile5.nc","${CASE}_oro_data.tile6.nc"
@@ -200,7 +209,7 @@ $ERRSCRIPT || exit 8
 # 5c) use gldas_post to replace soil moisture and temperature
 
 yyyy=`echo $gldas_eymd | cut -c1-4`
-gbin=$RUNDIR/EXP901/NOAH/$yyyy/$gldas_eymd/LIS.E901.${gldas_eymd}00.NOAHgbin
+gbin=$RUNDIR/EXP901/NOAH/$yyyy/$iau_eymd/LIS.E901.${iau_eymd}${iau_ecyc}.NOAHgbin
 sfcanl=sfc.gaussian.nemsio
 rm -rf fort.11 fort.12
 ln -fs $gbin   fort.11
@@ -225,13 +234,14 @@ EOF
 
 # copy/link gdas netcdf tiles
 k=1; while [ $k -le 6 ]; do
- ln -fs $input2/${gldas_eymd}.${gldas_ecyc}0000.sfcanl_data.tile${k}.nc  ./sfc_data.tile${k}.nc
+ cp $input2/${iau_eymd}.${iau_ecyc}0000.sfcanl_data.tile${k}.nc  ./sfc_data.tile${k}.nc
  k=$((k+1))
 done
 
 # copy soil type
 ln -fs ${FIXgldas}/stype_gfs_T${JCAP}.bfsa  stype_gfs_T${JCAP}.bfsa
 
+mkdir ./gldas2gdas_out
 export OMP_NUM_THREADS=1
 $APRUN_GAUSSIAN $EXECgldas/gldas2gdas      1>&1 2>&2
 export err=$?
@@ -244,6 +254,12 @@ if [ $OFFLINE_GLDAS = "YES" ]; then
  ${USHgldas}/gldas_archive.sh $gldas_symd $gldas_eymd 
  export err=$?
  $ERRSCRIPT || exit 11
+else
+ k=1; while [ $k -le 6 ]; do
+  mv $input2/${iau_eymd}.${iau_ecyc}0000.sfcanl_data.tile${k}.nc  $input2/${iau_eymd}.${iau_ecyc}0000.sfcanl_data.tile${k}.nc_bfgldas
+  cp ./gldas2gdas_out/sfc_data.tile${k}.nc  $input2/${iau_eymd}.${iau_ecyc}0000.sfcanl_data.tile${k}.nc  
+  k=$((k+1))
+ done
 fi
 
 
