@@ -1,4 +1,6 @@
 #/bin/sh
+set -x
+
 if [ $# -lt 2 ]; then
 echo "usage: $0 gldas.gbin gdas.sfcanl"
  err_exit 99
@@ -27,4 +29,6 @@ cp  fort.22 ${sfcanl}.gldas
 rm -f fort.11 fort.12 fort.22
 
 echo ${sfcanl}.gldas
+
+exit
 

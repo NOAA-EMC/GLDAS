@@ -1,7 +1,0 @@
- &config
-   data_dir_input_grid="/indirect/"
-   sfc_files_input_grid="date.cyc0000.sfcanl_data.tile1.nc","date.cyc0000.sfcanl_data.tile2.nc","date.cyc0000.sfcanl_data.tile3.nc","date.cyc0000.sfcanl_data.tile4.nc","date.cyc0000.sfcanl_data.tile5.nc","date.cyc0000.sfcanl_data.tile6.nc"
-   orog_dir_input_grid="/orogdir/"
-   orog_files_input_grid="C768_oro_data.tile1.nc","C768_oro_data.tile2.nc","C768_oro_data.tile3.nc","C768_oro_data.tile4.nc","C768_oro_data.tile5.nc","C768_oro_data.tile6.nc"
-   model="noahmp"
- /

@@ -1,6 +1,4 @@
 #!/bin/ksh
-set -x
-
 #########################################################
 # This script generate gldas forcing from gdas prod sflux
 # script history:
@@ -9,8 +7,16 @@ set -x
 # 20191123 Fanglin Yang - restructured for global-workflow
 #########################################################
 
+export VERBOSE=${VERBOSE:-"YES"}
+if [ $VERBOSE = "YES" ]; then
+   echo $(date) EXECUTING $0 $* >&2
+   set -x
+fi
+
+
 bdate=$1
 edate=$2
+
 
 ### COMINgdas = prod gdas sflux grib2
 ### RUNDIR = gldas forcing in grib2 format
