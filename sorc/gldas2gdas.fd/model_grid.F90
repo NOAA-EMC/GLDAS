@@ -34,7 +34,7 @@
  character(len=255), allocatable :: grid_files(:)
 
  integer :: error, extra, num_tiles_gdas_grid, tile, ncid
- integer :: dimid, varid
+ integer :: dimid, varid, ii
 
  integer, allocatable         :: decomptile(:,:)
 
@@ -69,7 +69,9 @@
 ! Read first grid file and get dimesion of tiles.
 !-----------------------------------------------------------------------
 
- grid_file1 = trim(orog_dir_gdas_grid) // "/" // trim(grid_files(1))
+ ii = index(grid_files(1), ".nc")  ! strip off garbage characters
+
+ grid_file1 = trim(orog_dir_gdas_grid) // "/" // grid_files(1)(1:ii+2)
 
  print*,'open ',trim(grid_file1)
  error = nf90_open(trim(grid_file1), nf90_nowrite, ncid)
