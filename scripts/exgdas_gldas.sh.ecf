@@ -61,12 +61,15 @@ export JCAP=$((2*res-2))
 export nlat=$((2*res))
 export nlon=$((4*res))
 
+if [ $RUN_ENVIR = "nco" ]; then
 ### Coupled GFS/GDAS/GLDAS
 export FIXgldas=$HOMEgfs/fix
 export topodir=$HOMEgfs/fix/fix_fv3_gmted2010/$CASE/
+else
 ### Developer
 export FIXgldas=/gpfs/dell2/emc/retros/noscrub/Jesse.Meng/gldas.clone.20191202/fix
 export topodir=/gpfs/dell2/emc/modeling/noscrub/emc.glopara/git/fv3gfs/fix/fix_fv3_gmted2010/$CASE/
+fi
 
 DATA=${DATA:-$pwd/gldastmp$$}    
 mkdata=NO
