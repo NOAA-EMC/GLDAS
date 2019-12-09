@@ -61,6 +61,7 @@ subroutine noah_main()
 !  integer, parameter :: c1=140213 !BON OF T382
 !  integer, parameter :: c1=134768 !ARM OF T382
 !  integer, parameter :: c1=180666
+!  integer, parameter :: c1=1000000
 
   integer::kk
   INTEGER, PARAMETER:: NSOLD=4   ! Maximum number of soil layers
@@ -145,6 +146,7 @@ subroutine noah_main()
   REAL SFCTMP         ! Surface temperature (K)
   REAL SHDFAC         ! 12-month green vegetation fraction
   REAL SHDMIN         ! Fixed minimum green veg fraction
+  REAL SHDMAX         ! Fixed maximum green veg fraction
 
 !      REAL MLAI(13)       ! Monthly leaf area index values
 
@@ -299,8 +301,10 @@ subroutine noah_main()
 
 !      SHDFAC = NOAH(T)%VEGIP
 
-!    Minimum greenness fraction
-      SHDMIN=0.0
+!    Minimum and Maximum greenness fraction
+!      SHDMIN=0.0
+      shdmin=noah(t)%vegmp1
+      shdmax=noah(t)%vegmp2
 
 !    If ground surface is bare:
 !      IF (noah(t)%VEGT .EQ. 11) SHDFAC = 0.0
@@ -704,8 +708,8 @@ subroutine noah_main()
       WRITE(*,*)  LWDN,SOLDN,SOLNET,SFCPRS,PRCP,SFCTMP,Q2,SFCSPD
       WRITE(*,*) 'TH2,Q2SAT,DQSDT2'
       WRITE(*,*)  TH2,Q2SAT,DQSDT2
-      WRITE(*,*) 'SLOPE,SHDFAC,SHDMIN,PTU,ALB,SNOALB'
-      WRITE(*,*)  SLOPE,SHDFAC,SHDMIN,PTU,ALB,SNOALB
+      WRITE(*,*) 'SLOPE,SHDFAC,SHDMIN,SHDMAX,PTU,ALB,SNOALB'
+      WRITE(*,*)  SLOPE,SHDFAC,SHDMIN,SHDMAX,PTU,ALB,SNOALB
       WRITE(*,*) 'RSMIN,RGL,HS,SNUP,Z0,XLAI,NROOT'
       WRITE(*,*)  RSMIN,RGL,HS,SNUP,Z0,XLAI,NROOT
       WRITE(*,*) 'PSISAT,BEXP,DKSAT,SMCMAX,QUARTZ,DWSAT'
@@ -743,7 +747,7 @@ subroutine noah_main()
        FFROZP,ICE,DT,Z,NSOIL,SLDPTH,&
        LWDN,SOLDN,SOLNET,SFCPRS,PRCP,SFCTMP,Q2,SFCSPD, &
        TH2,Q2SAT,DQSDT2,&
-       SLOPE,SHDFAC,SHDMIN,PTU,ALB,SNOALB, &
+       SLOPE,SHDFAC,SHDMIN,SHDMAX,PTU,ALB,SNOALB, &
        RSMIN,RGL,HS,SNUP,Z0,XLAI,NROOT,&
        PSISAT,BEXP,DKSAT,SMCMAX,QUARTZ,DWSAT, &
        SMCWLT,SMCREF,SMCDRY,F1,KDT,FRZX,FRZFACT,TBOT, &
@@ -837,8 +841,8 @@ subroutine noah_main()
       WRITE(*,*)  LWDN,SOLDN,SOLNET,SFCPRS,PRCP,SFCTMP,Q2,SFCSPD
       WRITE(*,*) 'TH2,Q2SAT,DQSDT2'
       WRITE(*,*)  TH2,Q2SAT,DQSDT2
-      WRITE(*,*) 'SLOPE,SHDFAC,SHDMIN,PTU,ALB,SNOALB'
-      WRITE(*,*)  SLOPE,SHDFAC,SHDMIN,PTU,ALB,SNOALB
+      WRITE(*,*) 'SLOPE,SHDFAC,SHDMIN,SHDMAX,PTU,ALB,SNOALB'
+      WRITE(*,*)  SLOPE,SHDFAC,SHDMIN,SHDMAX,PTU,ALB,SNOALB
       WRITE(*,*) 'RSMIN,RGL,HS,SNUP,Z0,XLAI,NROOT'
       WRITE(*,*)  RSMIN,RGL,HS,SNUP,Z0,XLAI,NROOT
       WRITE(*,*) 'PSISAT,BEXP,DKSAT,SMCMAX,QUARTZ,DWSAT'

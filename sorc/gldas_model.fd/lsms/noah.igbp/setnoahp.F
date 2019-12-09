@@ -178,11 +178,38 @@ subroutine setnoahp
   call absoft_release_cache()
   
   print*, 'MSG: setnoahp -- Read mxsnalb',' (',iam,')'
-  print*, 'MSG: setnoahp -- reading z0 files',' (',iam,')'
+
+!-----------------------------------------------------------------------
+! The Noah SLOPE field is opened and read in here:
+!-----------------------------------------------------------------------
+!  print *, 'MSG: setnoahp -- Opening GLDAS SLOPE File ', &
+!       trim(noahdrv%NOAH_SLPFILE), ' (',iam,')'
+!  OPEN(UNIT=12,FILE=noahdrv%NOAH_SLPFILE, &
+!       FORM="UNFORMATTED")
+!
+!  READ(12) TMPALB
+!  tmpalb=0.
+!  READ(12) TMPALB
+!  tmpalb=0.
+!  READ(12) TMPALB
+!  CLOSE(12)
+!
+!  do i=1,lis%d%nch
+!     if(tmpalb(tile(i)%col, tile(i)%row-tnroffset).ne.-9999.00) then
+!        noah(i)%slope = tmpalb(tile(i)%col, tile(i)%row-tnroffset)
+!     endif
+!  enddo
+!
+!  call absoft_release_cache()
+!
+!  print*, 'MSG: setnoahp -- Read slope',' (',iam,')'
+!
 !-----------------------------------------------------------------------
 ! The SURFACE ROUGHNESS Z0 field is opened and read in here:
 ! Jesse 20060412
 !-----------------------------------------------------------------------
+  print*, 'MSG: setnoahp -- reading z0 files',' (',iam,')'
+
 !#if ( defined OPENDAP )
 !  allocate(tmpalb(parm_nc,1+nroffset:parm_nr+nroffset))
 !#else

@@ -1,8 +1,8 @@
 !---- - - - -- - -- - -- - -- - - -- - --  -- - -- - -- - - -- - - - -- - --
-! This program creats T1534 GLDAS noahrst from GFS sfcanl.nemsio
+! This program creats GLDAS noahrst from GFS sfcanl.nemsio
 !
 ! input
-!  fort.11 lmask_gfs_T1534.bfsa
+!  fort.11 lmask_gfs_T${JCAP}.bfsa
 !  fort.12 gfs.t00z.sfcanl.nemsio
 !
 ! output
@@ -36,31 +36,32 @@
   character*3 var3(3)
   integer idx3(3)
 
-  integer, parameter :: mx = 3072
-  integer, parameter :: my = 1536
+  integer mx
+  integer my
   real mxmy
-  real sdata(mx,my)
-  real lmasknoah(mx,my)
-  real lmaskgfs(mx,my)
-  real vtype(mx,my)
-  real tmpsfc(mx,my)
-  real cmc(mx,my)
-  real sneqv(mx,my)
-  real snowh(mx,my)
-  real smc(mx,my,4)
-  real stc(mx,my,4)
-  real slc(mx,my,4)
-  real ch(mx,my)
+  real, allocatable :: sdata(:,:)
+  real, allocatable :: lmasknoah(:,:)
+  real, allocatable :: lmaskgfs(:,:)
+  real, allocatable :: vtype(:,:)
+  real, allocatable :: tmpsfc(:,:)
+  real, allocatable :: cmc(:,:)
+  real, allocatable :: sneqv(:,:)
+  real, allocatable :: snowh(:,:)
+  real, allocatable :: smc(:,:,:)
+  real, allocatable :: stc(:,:,:)
+  real, allocatable :: slc(:,:,:)
+  real, allocatable :: ch(:,:)
+
   real, allocatable  :: head1(:)
 
   integer vclass  
   integer nch
   real, allocatable  :: noah(:)
 
-  real undef(mx,my)
+!  real undef(mx,my)
 
 !  undef = 9.99E+20
-  undef = -999.
+!  undef = -999.
 
   vclass = 1
   ch = 0.0001
@@ -68,21 +69,21 @@
 !***  read noah lmask
 !---------------------------------------------------------------------------
   
-  open(11,file='fort.11',form='unformatted',status='unknown')
+!  open(11,file='fort.11',form='unformatted',status='unknown')
 
-  read(11) lmasknoah 
-  read(11) lmasknoah
-  read(11) lmasknoah
+!  read(11) lmasknoah 
+!  read(11) lmasknoah
+!  read(11) lmasknoah
   
-  close(11)
+!  close(11)
 
-  nch = 0
-  do j = 1, my
-  do i = 1, mx
-     if ( lmasknoah(i,j) == 1.0 ) nch = nch + 1
-  enddo
-  enddo
-  allocate(noah(nch))
+!  nch = 0
+!  do j = 1, my
+!  do i = 1, mx
+!     if ( lmasknoah(i,j) == 1.0 ) nch = nch + 1
+!  enddo
+!  enddo
+!  allocate(noah(nch))
 
 !---------------------------------------------------------------------------
 !
@@ -118,6 +119,12 @@
 !*** read sfnanl.nemsio
 !---------------------------------------------------------------------------
 !
+  mx=im
+  my=jm
+  allocate(sdata(mx,my),lmasknoah(mx,my),lmaskgfs(mx,my),vtype(mx,my),tmpsfc(mx,my))
+  allocate(cmc(mx,my),sneqv(mx,my),snowh(mx,my),ch(mx,my))
+  allocate(smc(mx,my,4),stc(mx,my,4),slc(mx,my,4))
+
   open(12,file='fort.12',form='unformatted',access='stream',status='unknown')
 
   allocate(head1(tlmeta/4))
@@ -134,7 +141,7 @@
           read(12)  mxmy
           read(12)  sdata
           read(12)  mxmy
-          call yrev(sdata,tmpsfc)
+          call yrev(mx,my,sdata,tmpsfc)
           n=n+1
      elseif(trim(varname)=='cnwatsfc') then
        icmc=n
@@ -142,7 +149,7 @@
           read(12)  mxmy
           read(12)  sdata
           read(12)  mxmy
-          call yrev(sdata,cmc)
+          call yrev(mx,my,sdata,cmc)
           cmc=cmc*0.001
           n=n+1
      elseif(trim(varname)=='weasdsfc') then
@@ -151,7 +158,7 @@
           read(12)  mxmy
           read(12)  sdata
           read(12)  mxmy
-          call yrev(sdata,sneqv)
+          call yrev(mx,my,sdata,sneqv)
           sneqv=sneqv*0.001
           n=n+1
      elseif(trim(varname)=='snodsfc') then
@@ -160,7 +167,7 @@
           read(12)  mxmy
           read(12)  sdata
           read(12)  mxmy
-          call yrev(sdata,snowh)
+          call yrev(mx,my,sdata,snowh)
           snowh=snowh*0.001
           n=n+1
        elseif(trim(varname)=='soilw0_10cmdown') then
@@ -169,7 +176,7 @@
           read(12)  mxmy
           read(12)  sdata
           read(12)  mxmy
-          call yrev(sdata,smc(:,:,1))
+          call yrev(mx,my,sdata,smc(:,:,1))
           n=n+1
      elseif(trim(varname)=='soilw10_40cmdown') then
        ismc=n
@@ -177,7 +184,7 @@
           read(12)  mxmy
           read(12)  sdata
           read(12)  mxmy
-          call yrev(sdata,smc(:,:,2))
+          call yrev(mx,my,sdata,smc(:,:,2))
           n=n+1
        elseif(trim(varname)=='soilw40_100cmdown') then
        ismc=n
@@ -185,7 +192,7 @@
           read(12)  mxmy
           read(12)  sdata
           read(12)  mxmy
-          call yrev(sdata,smc(:,:,3))
+          call yrev(mx,my,sdata,smc(:,:,3))
           n=n+1
      elseif(trim(varname)=='soilw100_200cmdown') then
        ismc=n
@@ -193,7 +200,7 @@
           read(12)  mxmy
           read(12)  sdata
           read(12)  mxmy
-          call yrev(sdata,smc(:,:,4))
+          call yrev(mx,my,sdata,smc(:,:,4))
           n=n+1
       elseif(trim(varname)=='soill0_10cmdown') then
        islc=n
@@ -201,7 +208,7 @@
           read(12)  mxmy
           read(12)  sdata
           read(12)  mxmy
-          call yrev(sdata,slc(:,:,1))
+          call yrev(mx,my,sdata,slc(:,:,1))
           n=n+1
      elseif(trim(varname)=='soill10_40cmdown') then
        islc=n
@@ -209,7 +216,7 @@
           read(12)  mxmy
           read(12)  sdata
           read(12)  mxmy
-          call yrev(sdata,slc(:,:,2))
+          call yrev(mx,my,sdata,slc(:,:,2))
           n=n+1
       elseif(trim(varname)=='soill40_100cmdown') then
        islc=n
@@ -217,7 +224,7 @@
           read(12)  mxmy
           read(12)  sdata
           read(12)  mxmy
-          call yrev(sdata,slc(:,:,3))
+          call yrev(mx,my,sdata,slc(:,:,3))
           n=n+1
      elseif(trim(varname)=='soill100_200cmdown') then
        islc=n
@@ -225,7 +232,7 @@
           read(12)  mxmy
           read(12)  sdata
           read(12)  mxmy
-          call yrev(sdata,slc(:,:,4))
+          call yrev(mx,my,sdata,slc(:,:,4))
           n=n+1
       elseif(trim(varname)=='tmp0_10cmdown') then
        istc=n
@@ -233,7 +240,7 @@
           read(12)  mxmy
           read(12)  sdata
           read(12)  mxmy
-          call yrev(sdata,stc(:,:,1))
+          call yrev(mx,my,sdata,stc(:,:,1))
           n=n+1
       elseif(trim(varname)=='tmp10_40cmdown') then
        istc=n
@@ -241,7 +248,7 @@
           read(12)  mxmy
           read(12)  sdata
           read(12)  mxmy
-          call yrev(sdata,stc(:,:,2))
+          call yrev(mx,my,sdata,stc(:,:,2))
           n=n+1
       elseif(trim(varname)=='tmp40_100cmdown') then
        istc=n
@@ -249,7 +256,7 @@
           read(12)  mxmy
           read(12)  sdata
           read(12)  mxmy
-          call yrev(sdata,stc(:,:,3))
+          call yrev(mx,my,sdata,stc(:,:,3))
           n=n+1
       elseif(trim(varname)=='tmp100_200cmdown') then
        istc=n
@@ -257,21 +264,21 @@
           read(12)  mxmy
           read(12)  sdata
           read(12)  mxmy
-          call yrev(sdata,stc(:,:,4))
+          call yrev(mx,my,sdata,stc(:,:,4))
           n=n+1
       elseif(trim(varname)=='landsfc') then
           print*,n,trim(varname)
           read(12)  mxmy
           read(12)  sdata
           read(12)  mxmy
-          call yrev(sdata,lmaskgfs)
+          call yrev(mx,my,sdata,lmaskgfs)
           n=n+1
      elseif(trim(varname)=='vtypesfc') then
           print*,n,trim(varname)
           read(12)  mxmy
           read(12)  sdata
           read(12)  mxmy
-          call yrev(sdata,vtype)
+          call yrev(mx,my,sdata,vtype)
           n=n+1
      else
         !  print*,n,trim(varname)
@@ -288,8 +295,33 @@
 !*** assign noah values to gldas land points and write to noah.rst
 !---------------------------------------------------------------------------
 
+  open(11,file='fort.11',form='unformatted',status='unknown')
+
+  read(11) lmasknoah
+  read(11) lmasknoah
+  read(11) lmasknoah
+
+  close(11)
+
+  lmasknoah=lmaskgfs
+
+   do j = 1, my
+   do i = 1, mx
+      if ( lmasknoah(i,j) > 1.0 ) lmasknoah(i,j) = 0.
+   enddo
+   enddo
+
+   nch = 0
+   do j = 1, my
+   do i = 1, mx
+      if ( lmasknoah(i,j) == 1.0 ) nch = nch + 1
+   enddo
+   enddo
+   allocate(noah(nch))
+
    open(60,file="noah.rst",form='unformatted')
    write(60) vclass, mx, my, nch
+   write(*,*) vclass, mx, my, nch
 
    call grid2tile(tmpsfc,lmasknoah,mx,my,noah,nch)
     write(60) noah
@@ -333,6 +365,10 @@
 !****** clean up
 !---------------------------------------------------------------------------
   deallocate(recname,reclevtyp,reclev,lat,slat,dx,head1,noah)
+  deallocate(sdata,lmasknoah,lmaskgfs,vtype,tmpsfc)
+  deallocate(cmc,sneqv,snowh,ch)
+  deallocate(smc,stc,slc)
+
 !---------------------------------------------------------------------------
 !
 ! - - - - -- - -- - -- - -- - - -- - --  -- - -- - -- - - -- - - - -- - --
@@ -365,10 +401,10 @@
 
 !---------------------------------------------------------------------------
 
-  subroutine yrev(b,p)
+  subroutine yrev(mx,my,b,p)
 
-  integer, parameter :: mx = 3072
-  integer, parameter :: my = 1536
+  integer :: mx 
+  integer :: my 
 
   real b(mx,my)
   real p(mx,my)
@@ -399,7 +435,8 @@
       k = 0
       do j = 1, my
       do i = 1, mx
-         if( lmask(i,j).gt.0. ) then
+!         if( lmask(i,j).gt.0. ) then
+         if( lmask(i,j) == 1.0 ) then
            k = k + 1
            tile(k) = grid(i,j)
            if(tile(k) .lt. 0.) tile(k)=tile(k-1)

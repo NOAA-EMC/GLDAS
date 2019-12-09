@@ -38,7 +38,7 @@ while [ $cdate -lt $edate ]; do
   [[ ! -d $fpath/gdas.${ymd} ]] && mkdir -p $fpath/gdas.${ymd}
   [[ ! -d $gpath/gdas.${ymd} ]] && mkdir -p $gpath/gdas.${ymd} 
 
-f=0
+f=1
 while [ $f -le $cycint ]; do
   rflux=${COMINgdas}/gdas.$ymd/$cyc/gdas.t${cyc}z.sfluxgrbf00$f.grib2
   fflux=$fpath/gdas.$ymd/gdas.t${cyc}z.sfluxgrbf0$f.grib2

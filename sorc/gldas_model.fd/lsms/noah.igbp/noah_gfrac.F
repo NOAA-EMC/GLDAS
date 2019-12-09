@@ -54,6 +54,48 @@ subroutine noah_gfrac
 
 !=== End Variable Definition =============================================
 !BOC
+!------------------------------------------------------------------------
+! current gfrac is now from forcing 
+! not interpolate from monthly data
+! use noah(i)%vegmp1 and noah(i)%vegmp2 as value holder for shdmin and shdmax
+! noah(i)%vegmp1 = shdmin
+! noah(i)%vegmp2 = shdmax
+! jesse 20191125 
+!------------------------------------------------------------------------
+  print*, 'msg: noah_gfrac -- retrieving shdmin file ',&
+          trim(noahdrv%noah_mgfile)//'shdmin.bfsa',&
+          ' (',iam,')'
+  OPEN(UNIT=12,FILE=trim(noahdrv%noah_mgfile)//'shdmin.bfsa', &
+       FORM="UNFORMATTED")
+  READ(12) value1
+  READ(12) value1
+  READ(12) value1
+  CLOSE(12)
+  do i=1,lis%d%nch
+     if(value1(tile(i)%col, tile(i)%row-tnroffset).ne.-9999.00) then
+        noah(i)%vegmp1 = value1(tile(i)%col, tile(i)%row-tnroffset)
+     endif
+  enddo
+  call absoft_release_cache()
+
+  print*, 'msg: noah_gfrac -- retrieving shdmax file ',&
+          trim(noahdrv%noah_mgfile)//'shdmax.bfsa',&
+          ' (',iam,')'
+  OPEN(UNIT=12,FILE=trim(noahdrv%noah_mgfile)//'shdmax.bfsa', &
+       FORM="UNFORMATTED")
+  READ(12) value2
+  READ(12) value2
+  READ(12) value2
+  CLOSE(12)
+  do i=1,lis%d%nch
+     if(value2(tile(i)%col, tile(i)%row-tnroffset).ne.-9999.00) then
+        noah(i)%vegmp2 = value2(tile(i)%col, tile(i)%row-tnroffset)
+     endif
+  enddo
+  call absoft_release_cache()
+
+  return
+!------------------------------------------------------------------------
   noahdrv%noah_gflag = 0
   zeroi=0
   numi=15
