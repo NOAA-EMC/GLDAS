@@ -54,6 +54,7 @@ subroutine noah_main()
   use lisdrv_module, only : lis, grid
   use noah_varder      ! NOAH tile variables
   use tile_spmdMod
+  use machine ,   only : kind_phys
 !EOP
   implicit none
   integer, parameter :: c1=0    !NO PRINT
@@ -61,6 +62,7 @@ subroutine noah_main()
 !  integer, parameter :: c1=140213 !BON OF T382
 !  integer, parameter :: c1=134768 !ARM OF T382
 !  integer, parameter :: c1=180666
+!  integer, parameter :: c1=1000000
 
   integer::kk
   INTEGER, PARAMETER:: NSOLD=4   ! Maximum number of soil layers
@@ -75,154 +77,164 @@ subroutine noah_main()
   INTEGER IJ          ! Elements of array by number of soil layers
   INTEGER T           ! Current tile NOAH model is called on, can be removed
   INTEGER SLOPETYP    ! Class of surface slope (integer index)
-  REAL SLOPE          ! Slope Estimate of linear reservoir coefficient  
+  REAL(KIND=KIND_PHYS):: SLOPE          ! Slope Estimate of linear reservoir coefficient  
   
-  REAL BETA           ! Ratio of actual/potential EVAP (dimensionless) 
-  REAL DRIP           ! Excess canopy moisture (m)
-  REAL EC             ! Canopy evaporation (m s-1)
-  REAL EDIR           ! Direct soil evaporation (m s-1)
-  REAL ET(NSOLD)      ! Plant transp. from each root/soil layer(m s-1)
-  REAL ETT            ! Accum plant transpiration (m s-1)
-  REAL ESNOW          ! Sublimation from snowpack (kg m-2 s-1) (or dep.)
-  REAL F              ! Net flux (TOT downward radiation)
-  REAL FXEXP          ! Bare soil evaporation exponent used in DEVAP
-  REAL FLX1           ! Precip-snow Surface  (W M-2)
-  REAL FLX2           ! Freezing rain latent heat flux (W M-2)
-  REAL FLX3           ! Phase-change heat flux from snowmelt (W M-2)
-  REAL DEW            ! Dewfall amount  (m s-1)
-  REAL RIB            ! Bulk Richardson Number
-  REAL RUNOFF1        ! Ground surface runoff (m/s)
-  REAL RUNOFF2        ! Underground runoff (m/s)
-  REAL RUNOFF3        ! Runoff within soil layers (m/s)
-  REAL SIGMA          ! Stefan-Boltzmann constant (5.672E-8 W m-2 T-4)
-  REAL Q1             ! Effective mixing ratio at grnd sfc (kg kg-1)
-  REAL AET            ! Actual evapotranspirative energy (J m-2 s-1)
-  REAL ALB            ! Quarterly Snow-free albedo (fraction)
-  REAL ALBEDO         ! Total Sfc. albedo fraction (incl. snow-max alb)
-  REAL CH             ! Sfc. exchange coef. for heat and moisture
-  REAL CM             ! Sfc. exhcange coef. for momentum
-  REAL CMC            ! initial canopy water content (m)
-  REAL CCOND          ! Canopy Conductance (m s-1) 
-  REAL DQSDT          ! Slope of sat. specific hum. curve for Penman
-  REAL CZIL           ! (Zilintinkevich coef)
-  REAL REFKDT         ! Scalar surface runoff parameter 
-  REAL REFDK          ! A reference value for KDT
-  REAL KDT            ! Based on REFKDT, DKSAT, and REFDK 
-  REAL FRZK           ! Ice content threshold in soil 
-  REAL FRZX           ! Adjust FRZK Parameter to actual soil type 
-  REAL FRZFACT        ! Used in ice content in soil 
-  REAL FFROZP         ! Flag used for precipitation type  (NEW)
-  REAL DQSDT2         ! Slope of sat. specific hum. curve for Penman
-  REAL DT             ! time step length (sec) of physical integration
-  REAL EMISS          ! Longwave "emission" = epsilon
-  REAL ESAT           ! Saturation vapor pressure for water (Pa)
-  REAL QSAT           ! Saturation Specific humidity (Kg/Kg)
-  REAL E              ! Saturation vapor pressure
+  REAL(KIND=KIND_PHYS):: BETA           ! Ratio of actual/potential EVAP (dimensionless) 
+  REAL(KIND=KIND_PHYS):: DRIP           ! Excess canopy moisture (m)
+  REAL(KIND=KIND_PHYS):: EC             ! Canopy evaporation (m s-1)
+  REAL(KIND=KIND_PHYS):: EDIR           ! Direct soil evaporation (m s-1)
+  REAL(KIND=KIND_PHYS):: ET(NSOLD)      ! Plant transp. from each root/soil layer(m s-1)
+  REAL(KIND=KIND_PHYS):: ETT            ! Accum plant transpiration (m s-1)
+  REAL(KIND=KIND_PHYS):: ESNOW          ! Sublimation from snowpack (kg m-2 s-1) (or dep.)
+  REAL(KIND=KIND_PHYS):: F              ! Net flux (TOT downward radiation)
+  REAL(KIND=KIND_PHYS):: FXEXP          ! Bare soil evaporation exponent used in DEVAP
+  REAL(KIND=KIND_PHYS):: FLX1           ! Precip-snow Surface  (W M-2)
+  REAL(KIND=KIND_PHYS):: FLX2           ! Freezing rain latent heat flux (W M-2)
+  REAL(KIND=KIND_PHYS):: FLX3           ! Phase-change heat flux from snowmelt (W M-2)
+  REAL(KIND=KIND_PHYS):: DEW            ! Dewfall amount  (m s-1)
+  REAL(KIND=KIND_PHYS):: RIB            ! Bulk Richardson Number
+  REAL(KIND=KIND_PHYS):: RUNOFF1        ! Ground surface runoff (m/s)
+  REAL(KIND=KIND_PHYS):: RUNOFF2        ! Underground runoff (m/s)
+  REAL(KIND=KIND_PHYS):: RUNOFF3        ! Runoff within soil layers (m/s)
+  REAL(KIND=KIND_PHYS):: SIGMA          ! Stefan-Boltzmann constant (5.672E-8 W m-2 T-4)
+  REAL(KIND=KIND_PHYS):: Q1             ! Effective mixing ratio at grnd sfc (kg kg-1)
+  REAL(KIND=KIND_PHYS):: AET            ! Actual evapotranspirative energy (J m-2 s-1)
+  REAL(KIND=KIND_PHYS):: ALB            ! Quarterly Snow-free albedo (fraction)
+  REAL(KIND=KIND_PHYS):: ALBEDO         ! Total Sfc. albedo fraction (incl. snow-max alb)
+  REAL(KIND=KIND_PHYS):: CH             ! Sfc. exchange coef. for heat and moisture
+  REAL(KIND=KIND_PHYS):: CM             ! Sfc. exhcange coef. for momentum
+  REAL(KIND=KIND_PHYS):: CMC            ! initial canopy water content (m)
+  REAL(KIND=KIND_PHYS):: CCOND          ! Canopy Conductance (m s-1) 
+  REAL(KIND=KIND_PHYS):: DQSDT          ! Slope of sat. specific hum. curve for Penman
+  REAL(KIND=KIND_PHYS):: CZIL           ! (Zilintinkevich coef)
+  REAL(KIND=KIND_PHYS):: REFKDT         ! Scalar surface runoff parameter 
+  REAL(KIND=KIND_PHYS):: REFDK          ! A reference value for KDT
+  REAL(KIND=KIND_PHYS):: KDT            ! Based on REFKDT, DKSAT, and REFDK 
+  REAL(KIND=KIND_PHYS):: FRZK           ! Ice content threshold in soil 
+  REAL(KIND=KIND_PHYS):: FRZX           ! Adjust FRZK Parameter to actual soil type 
+  REAL(KIND=KIND_PHYS):: FRZFACT        ! Used in ice content in soil 
+  REAL(KIND=KIND_PHYS):: FFROZP         ! Flag used for precipitation type  (NEW)
+  REAL(KIND=KIND_PHYS):: DQSDT2         ! Slope of sat. specific hum. curve for Penman
+  REAL(KIND=KIND_PHYS):: DT             ! time step length (sec) of physical integration
+  REAL(KIND=KIND_PHYS):: EMISS          ! Longwave "emission" = epsilon
+  REAL(KIND=KIND_PHYS):: ESAT           ! Saturation vapor pressure for water (Pa)
+  REAL(KIND=KIND_PHYS):: QSAT           ! Saturation Specific humidity (Kg/Kg)
+  REAL(KIND=KIND_PHYS):: E              ! Saturation vapor pressure
   
-  REAL ETA            ! Actual latent heat flux (W m-2) (NEG: up from sfc)
-  REAL EVP            ! Total Evaporation (kg/m2s) (=EC+ETT+EDIR)
-  REAL ETP            ! Final Potential Evapotransp. (W m-2)
-  REAL FUP            ! Upward ground LW radiation (W m-2)
-  REAL SHTFLX         ! Sensible heat flux (W m-2)
-  REAL SOLDN          ! Solar downward radiation (W m-2; positive,
+  REAL(KIND=KIND_PHYS):: ETA            ! Actual latent heat flux (W m-2) (NEG: up from sfc)
+  REAL(KIND=KIND_PHYS):: EVP            ! Total Evaporation (kg/m2s) (=EC+ETT+EDIR)
+  REAL(KIND=KIND_PHYS):: ETP            ! Final Potential Evapotransp. (W m-2)
+  REAL(KIND=KIND_PHYS):: FUP            ! Upward ground LW radiation (W m-2)
+  REAL(KIND=KIND_PHYS):: SHTFLX         ! Sensible heat flux (W m-2)
+  REAL(KIND=KIND_PHYS):: SOLDN          ! Solar downward radiation (W m-2; positive,
                       !   not net shortwave)
-  REAL SOLUP          !  (NEW) SOLDN*ALBEDO - OUTPUT to SFLX
-  REAL SOLNET         !  (NEW) SOLDN*(1.0-ALBEDO) - INPUT to SFLX
-  REAL LWDN           ! Downward Longwave radiation (W/m2)
-  REAL PRCP           ! Precipitation rate conversion (kg m-2 s-1)
-  REAL CPCP           ! Convective Precipitation (kg m-2 s-1)
-  REAL ASNOW          ! The snowfall rate (kg m-2 s-1)
-  REAL PTU            ! Phota Thermal Unit (dep. on air temp and rad)
+  REAL(KIND=KIND_PHYS):: SOLUP          !  (NEW) SOLDN*ALBEDO - OUTPUT to SFLX
+  REAL(KIND=KIND_PHYS):: SOLNET         !  (NEW) SOLDN*(1.0-ALBEDO) - INPUT to SFLX
+  REAL(KIND=KIND_PHYS):: LWDN           ! Downward Longwave radiation (W/m2)
+  REAL(KIND=KIND_PHYS):: PRCP           ! Precipitation rate conversion (kg m-2 s-1)
+  REAL(KIND=KIND_PHYS):: CPCP           ! Convective Precipitation (kg m-2 s-1)
+  REAL(KIND=KIND_PHYS):: ASNOW          ! The snowfall rate (kg m-2 s-1)
+  REAL(KIND=KIND_PHYS):: PTU            ! Phota Thermal Unit (dep. on air temp and rad)
   
-  REAL Q2             ! Mixing ratio at 1st middle level above skin
-  REAL Q2SAT          ! Sat. Mix. ratio at 1st middle level above skin
-  REAL RES            ! Energy Balance equation residual (W m-2)
-  REAL RNET           ! net radiation (W/m2)
-  REAL SFCSPD         ! Wind speed, sqrt(u*u+v*v)
-  REAL UWIND          ! U-Wind component (m s-1)
-  REAL VWIND          ! V-Wind component (m s-1)
-  REAL SFCPRS         ! Surface pressure (Pascals)
-  REAL SFCTMP         ! Surface temperature (K)
-  REAL SHDFAC         ! 12-month green vegetation fraction
-  REAL SHDMIN         ! Fixed minimum green veg fraction
+  REAL(KIND=KIND_PHYS):: Q2             ! Mixing ratio at 1st middle level above skin
+  REAL(KIND=KIND_PHYS):: Q2SAT          ! Sat. Mix. ratio at 1st middle level above skin
+  REAL(KIND=KIND_PHYS):: RES            ! Energy Balance equation residual (W m-2)
+  REAL(KIND=KIND_PHYS):: RNET           ! net radiation (W/m2)
+  REAL(KIND=KIND_PHYS):: SFCSPD         ! Wind speed, sqrt(u*u+v*v)
+  REAL(KIND=KIND_PHYS):: UWIND          ! U-Wind component (m s-1)
+  REAL(KIND=KIND_PHYS):: VWIND          ! V-Wind component (m s-1)
+  REAL(KIND=KIND_PHYS):: SFCPRS         ! Surface pressure (Pascals)
+  REAL(KIND=KIND_PHYS):: SFCTMP         ! Surface temperature (K)
+  REAL(KIND=KIND_PHYS):: SHDFAC         ! 12-month green vegetation fraction
+  REAL(KIND=KIND_PHYS):: SHDMIN         ! Fixed minimum green veg fraction
+  REAL(KIND=KIND_PHYS):: SHDMAX         ! Fixed maximum green veg fraction
 
-!      REAL MLAI(13)       ! Monthly leaf area index values
+!      REAL(KIND=KIND_PHYS):: MLAI(13)       ! Monthly leaf area index values
 
-  REAL SMC(NSOLD)     ! Initial vol. soil moisture of each layer
-  REAL SNOMLT         ! Snow melt (m) (water equivalent)
-  REAL SNOALB         ! Maximum albedo expected over deep snow
-  REAL MSTAVRZ        ! Avail root zone soil moisture (unitless fraction)
-  REAL MSTAVTOT       ! Total Column Soil Moisture Availability (%)
-  REAL SOILM          ! Total soil column water content (m->kg/m2)
-  REAL SOILRZ         ! Root zone soil column water content (kg/m2)
-  REAL SOIL1M         ! Top 1-m soil column water content (kg/m2)
-  REAL STC(NSOLD)     ! Initial soil temperature (K) of each soil layer
-  REAL GFLX           ! Soil heat flux (W m-2)
-!      REAL T1             ! Initial skin temperature (K) 
-  REAL T14            ! Ground sfc. temp. to the 4th power (K^+4)
-  REAL T1V            ! Virtual temperature at ground (sub 1)
-  REAL T2V            ! Virtual temp. at 1st mid. lev. above grnd (2)
-! LW    REAL TAK            ! Air temperature in K
-  REAL TBOT           ! Annually-fixed, soil-temp condition at ZBOT
-  REAL TH2            ! Potential temperature (K) at hgt z above grnd
-  REAL TH2V           ! Virtual potential temperature (K) at z
-  REAL Z              ! Height (meters) above ground in atmos. forcing
-  REAL Z0             ! Roughness length parameter
+  REAL(KIND=KIND_PHYS):: SMC(NSOLD)     ! Initial vol. soil moisture of each layer
+  REAL(KIND=KIND_PHYS):: SNOMLT         ! Snow melt (m) (water equivalent)
+  REAL(KIND=KIND_PHYS):: SNOALB         ! Maximum albedo expected over deep snow
+  REAL(KIND=KIND_PHYS):: MSTAVRZ        ! Avail root zone soil moisture (unitless fraction)
+  REAL(KIND=KIND_PHYS):: MSTAVTOT       ! Total Column Soil Moisture Availability (%)
+  REAL(KIND=KIND_PHYS):: SOILM          ! Total soil column water content (m->kg/m2)
+  REAL(KIND=KIND_PHYS):: SOILRZ         ! Root zone soil column water content (kg/m2)
+  REAL(KIND=KIND_PHYS):: SOIL1M         ! Top 1-m soil column water content (kg/m2)
+  REAL(KIND=KIND_PHYS):: STC(NSOLD)     ! Initial soil temperature (K) of each soil layer
+  REAL(KIND=KIND_PHYS):: GFLX           ! Soil heat flux (W m-2)
+!      REAL(KIND=KIND_PHYS):: T1             ! Initial skin temperature (K) 
+  REAL(KIND=KIND_PHYS):: T14            ! Ground sfc. temp. to the 4th power (K^+4)
+  REAL(KIND=KIND_PHYS):: T1V            ! Virtual temperature at ground (sub 1)
+  REAL(KIND=KIND_PHYS):: T2V            ! Virtual temp. at 1st mid. lev. above grnd (2)
+! LW    REAL(KIND=KIND_PHYS):: TAK            ! Air temperature in K
+  REAL(KIND=KIND_PHYS):: TBOT           ! Annually-fixed, soil-temp condition at ZBOT
+  REAL(KIND=KIND_PHYS):: TH2            ! Potential temperature (K) at hgt z above grnd
+  REAL(KIND=KIND_PHYS):: TH2V           ! Virtual potential temperature (K) at z
+  REAL(KIND=KIND_PHYS):: Z              ! Height (meters) above ground in atmos. forcing
+  REAL(KIND=KIND_PHYS):: Z0             ! Roughness length parameter
   
-  REAL PCPDAY         ! Daily accumulation of precipitation (mm)
-  REAL PCPSUM         ! Daily accumulation of precipitation (mm)
-  REAL ETADAY         ! Daily accumulation of actual evapotranp. (mm)
-  REAL ETSUM          ! Daily accumulation of actual evapotranp. (mm)
-  REAL RUNOFFSUM      ! Accum. daily values in mm for runoff (mm)
-  REAL RUNOFFDAY      ! Accum. daily values in mm for runoff
-  REAL SMCNW          ! SLDPTH(ij)*1000.*SMC(ij) + SMCNW
+  REAL(KIND=KIND_PHYS):: PCPDAY         ! Daily accumulation of precipitation (mm)
+  REAL(KIND=KIND_PHYS):: PCPSUM         ! Daily accumulation of precipitation (mm)
+  REAL(KIND=KIND_PHYS):: ETADAY         ! Daily accumulation of actual evapotranp. (mm)
+  REAL(KIND=KIND_PHYS):: ETSUM          ! Daily accumulation of actual evapotranp. (mm)
+  REAL(KIND=KIND_PHYS):: RUNOFFSUM      ! Accum. daily values in mm for runoff (mm)
+  REAL(KIND=KIND_PHYS):: RUNOFFDAY      ! Accum. daily values in mm for runoff
+  REAL(KIND=KIND_PHYS):: SMCNW          ! SLDPTH(ij)*1000.*SMC(ij) + SMCNW
   
-  REAL SH2O(NSOLD)    ! Initial vol. liq. soil moisture of each layer
-  REAL SLDPTH(4)      ! Thickness values for NSOIL layers (meters)
-  REAL SNOWH          ! Snow depth (meters)
-  REAL SNEQV          ! Snow water-equivalent (m) above snowdepth
-  REAL SNCOVR         ! FRACTIONAL SNOW COVER (UNITLESS FRACTION, 0-1)
-  REAL SNDENS         ! Snow Density  (NEW)
+  REAL(KIND=KIND_PHYS):: SH2O(NSOLD)    ! Initial vol. liq. soil moisture of each layer
+  REAL(KIND=KIND_PHYS):: SLDPTH(4)      ! Thickness values for NSOIL layers (meters)
+  REAL(KIND=KIND_PHYS):: SNOWH          ! Snow depth (meters)
+  REAL(KIND=KIND_PHYS):: SNEQV          ! Snow water-equivalent (m) above snowdepth
+  REAL(KIND=KIND_PHYS):: SNCOVR         ! FRACTIONAL SNOW COVER (UNITLESS FRACTION, 0-1)
+  REAL(KIND=KIND_PHYS):: SNDENS         ! Snow Density  (NEW)
  
-  REAL RSMIN          ! MINIMUM CANOPY RESISTANCE (S M-1)
-  REAL RGL            ! FROM SOLAR RAD TERM OF CANOPY RESISTANCE FUNCTION
-  REAL HS             ! USED IN VAPOR PRESS. DEF. TERM OF CAN. RES. FUNCTION
-  REAL SNUP           ! THRESHOLD SNOW DEPTH (IN WATER EQUIVALENT M) THAT
+  REAL(KIND=KIND_PHYS):: RSMIN          ! MINIMUM CANOPY RESISTANCE (S M-1)
+  REAL(KIND=KIND_PHYS):: RGL            ! FROM SOLAR RAD TERM OF CANOPY RESISTANCE FUNCTION
+  REAL(KIND=KIND_PHYS):: HS             ! USED IN VAPOR PRESS. DEF. TERM OF CAN. RES. FUNCTION
+  REAL(KIND=KIND_PHYS):: SNUP           ! THRESHOLD SNOW DEPTH (IN WATER EQUIVALENT M) THAT
   !  IMPLIES 100% SNOW COVER
-  REAL XLAI           ! LEAF AREA INDEX (DIMENSIONLESS)
-  REAL RC             ! CANOPY RESISTANCE (S M-1)
-  REAL PC             ! PLANT COEFFICIENT (UNITLESS FRACTION, 0-1) WHERE
+  REAL(KIND=KIND_PHYS):: XLAI           ! LEAF AREA INDEX (DIMENSIONLESS)
+  REAL(KIND=KIND_PHYS):: RC             ! CANOPY RESISTANCE (S M-1)
+  REAL(KIND=KIND_PHYS):: PC             ! PLANT COEFFICIENT (UNITLESS FRACTION, 0-1) WHERE
   !   PC*ETP = ACTUAL TRANSP
-  REAL RCS            ! INCOMING SOLAR RC FACTOR (DIMENSIONLESS)
-  REAL RCT            ! AIR TEMPERATURE RC FACTOR (DIMENSIONLESS)
-  REAL RCQ            ! ATMOS VAPOR PRESSURE DEFICIT RC FACTOR (DIMENSIONLESS)
-  REAL RCSOIL         ! SOIL MOISTURE RC FACTOR (DIMENSIONLESS)
+  REAL(KIND=KIND_PHYS):: RCS            ! INCOMING SOLAR RC FACTOR (DIMENSIONLESS)
+  REAL(KIND=KIND_PHYS):: RCT            ! AIR TEMPERATURE RC FACTOR (DIMENSIONLESS)
+  REAL(KIND=KIND_PHYS):: RCQ            ! ATMOS VAPOR PRESSURE DEFICIT RC FACTOR (DIMENSIONLESS)
+  REAL(KIND=KIND_PHYS):: RCSOIL         ! SOIL MOISTURE RC FACTOR (DIMENSIONLESS)
   
-  REAL SMCMAX         ! MAX SOIL MOISTURE CONTENT (POROSITY)
-  REAL SMCREF         ! REFERENCE SOIL MOISTURE (ONSET OF SOIL MOISTURE
+  REAL(KIND=KIND_PHYS):: SMCMAX         ! MAX SOIL MOISTURE CONTENT (POROSITY)
+  REAL(KIND=KIND_PHYS):: SMCREF         ! REFERENCE SOIL MOISTURE (ONSET OF SOIL MOISTURE
   !  STRESS IN TRANSPIRATION) - Volumetric
-  REAL SMCREF1
-  REAL SMCWLT         ! WILTING Point (VOLUMETRIC)
-  REAL SMCWLT1
-  REAL SMCDRY         ! DRY SOIL MOIST THRESHOLD - DIRECT EVAP 
+  REAL(KIND=KIND_PHYS):: SMCREF1
+  REAL(KIND=KIND_PHYS):: SMCWLT         ! WILTING Point (VOLUMETRIC)
+  REAL(KIND=KIND_PHYS):: SMCWLT1
+  REAL(KIND=KIND_PHYS):: SMCDRY         ! DRY SOIL MOIST THRESHOLD - DIRECT EVAP 
   !  FRM TOP LAYER ENDS (VOLUMETRIC)
-  REAL PSISAT         ! SATURATED SOIL POTENTIAL
-  REAL DKSAT          ! SATURATED SOIL HYDRAULIC CONDUCTIVITY
-  REAL BEXP           ! THE 'B' PARAMETER
-  REAL DWSAT          ! SATURATED SOIL DIFFUSIVITY
-  REAL F1             ! USED TO COMPUTE SOIL DIFFUSIVITY/CONDUCTIVITY
-  REAL QUARTZ         ! SOIL QUARTZ CONTENT
-  REAL SMLOW          ! Soil moisture wilt and reference parameter
-  REAL SMHIGH         ! Soil moisture wilt and reference parameter
-  REAL, PARAMETER:: R = 287.04
-  REAL, PARAMETER:: CP = 1004.5
+  REAL(KIND=KIND_PHYS):: PSISAT         ! SATURATED SOIL POTENTIAL
+  REAL(KIND=KIND_PHYS):: DKSAT          ! SATURATED SOIL HYDRAULIC CONDUCTIVITY
+  REAL(KIND=KIND_PHYS):: BEXP           ! THE 'B' PARAMETER
+  REAL(KIND=KIND_PHYS):: DWSAT          ! SATURATED SOIL DIFFUSIVITY
+  REAL(KIND=KIND_PHYS):: F1             ! USED TO COMPUTE SOIL DIFFUSIVITY/CONDUCTIVITY
+  REAL(KIND=KIND_PHYS):: QUARTZ         ! SOIL QUARTZ CONTENT
+  REAL(KIND=KIND_PHYS):: SMLOW          ! Soil moisture wilt and reference parameter
+  REAL(KIND=KIND_PHYS):: SMHIGH         ! Soil moisture wilt and reference parameter
+  REAL(KIND=KIND_PHYS), PARAMETER:: R = 287.04
+  REAL(KIND=KIND_PHYS), PARAMETER:: CP = 1004.5
   
-  REAL, PARAMETER:: T0 = 273.15       ! Freezing point in Kelvin (273.15 K)
-  REAL, PARAMETER:: LVH2O = 2.501000E+6 ! Latent heat for evapo for water  
+  REAL(KIND=KIND_PHYS), PARAMETER:: T0 = 273.15       ! Freezing point in Kelvin (273.15 K)
+  REAL(KIND=KIND_PHYS), PARAMETER:: LVH2O = 2.501000E+6 ! Latent heat for evapo for water  
   
-  REAL, PARAMETER:: EPS = 0.622 ! Water/(dry air) molec mass ratio (epsilon)
+  REAL(KIND=KIND_PHYS), PARAMETER:: EPS = 0.622 ! Water/(dry air) molec mass ratio (epsilon)
   integer :: II
-  real :: soilmtc
+  real(kind=kind_phys) :: soilmtc
+
+! added for v2.7gfs
+      integer couple
+      real(kind=kind_phys):: sfcems
+      integer ivegsrc
+      real(kind=kind_phys):: bexpp
+      real(kind=kind_phys):: soilw
+      real(kind=kind_phys):: xlaip
+      logical lheatstrg
 !BOC
  if(masterproc) then
  print*,"J---NOAH_MAIN (",iam,")"
@@ -299,8 +311,10 @@ subroutine noah_main()
 
 !      SHDFAC = NOAH(T)%VEGIP
 
-!    Minimum greenness fraction
-      SHDMIN=0.0
+!    Minimum and Maximum greenness fraction
+!      SHDMIN=0.0
+      shdmin=noah(t)%vegmp1
+      shdmax=noah(t)%vegmp2
 
 !    If ground surface is bare:
 !      IF (noah(t)%VEGT .EQ. 11) SHDFAC = 0.0
@@ -370,7 +384,7 @@ subroutine noah_main()
       SMHIGH = 6.0
 
       DWSAT  = BEXP * DKSAT * (PSISAT/SMCMAX)
-      F1     = ALOG10(PSISAT) + BEXP*ALOG10(SMCMAX) + 2.0
+      F1     = LOG10(PSISAT) + BEXP*LOG10(SMCMAX) + 2.0
       SMCREF1 = SMCMAX*(5.79E-9/DKSAT)**(1.0/(2.0*BEXP+3.0))
       SMCREF = SMCREF1 + (SMCMAX-SMCREF1) / SMHIGH
       SMCWLT1 = SMCMAX * (200.0/PSISAT)**(-1.0/BEXP)
@@ -452,7 +466,7 @@ subroutine noah_main()
 
       SFCTMP = noah(t)%FORCING(1)
       Q2     = noah(t)%FORCING(2)
-      SOLDN  = noah(t)%FORCING(3) * 0.97
+      SOLDN  = noah(t)%FORCING(3)
       LWDN   = noah(t)%FORCING(4)
       UWIND  = (noah(t)%FORCING(5))*(noah(t)%FORCING(5))
       VWIND  = (noah(t)%FORCING(6))*(noah(t)%FORCING(6))
@@ -638,7 +652,8 @@ subroutine noah_main()
      ALB = MIN(ALB, 0.95)
      ALBEDO = ALB
      SNCOVR = 0.
-     SOLNET = 0.
+!    SOLNET = 0.
+     SOLNET = SOLDN*(1.0-ALBEDO)
 
 ! ---------------------------------------------------------------------|
 ! QC FOR SNOW PROPERTIES. JESSE 20050106
@@ -704,8 +719,8 @@ subroutine noah_main()
       WRITE(*,*)  LWDN,SOLDN,SOLNET,SFCPRS,PRCP,SFCTMP,Q2,SFCSPD
       WRITE(*,*) 'TH2,Q2SAT,DQSDT2'
       WRITE(*,*)  TH2,Q2SAT,DQSDT2
-      WRITE(*,*) 'SLOPE,SHDFAC,SHDMIN,PTU,ALB,SNOALB'
-      WRITE(*,*)  SLOPE,SHDFAC,SHDMIN,PTU,ALB,SNOALB
+      WRITE(*,*) 'SLOPE,SHDFAC,SHDMIN,SHDMAX,PTU,ALB,SNOALB'
+      WRITE(*,*)  SLOPE,SHDFAC,SHDMIN,SHDMAX,PTU,ALB,SNOALB
       WRITE(*,*) 'RSMIN,RGL,HS,SNUP,Z0,XLAI,NROOT'
       WRITE(*,*)  RSMIN,RGL,HS,SNUP,Z0,XLAI,NROOT
       WRITE(*,*) 'PSISAT,BEXP,DKSAT,SMCMAX,QUARTZ,DWSAT'
@@ -739,30 +754,65 @@ subroutine noah_main()
 
  IF ( noah(t)%VEGT .NE. 15.) THEN !IGBP SNOW AND ICE
 ! IF ( noah(t)%VEGT .NE. 13.) THEN !SIB GLACIAL
-      CALL SFLX (T,int(NOAH(T)%VEGT),&
-       FFROZP,ICE,DT,Z,NSOIL,SLDPTH,&
-       LWDN,SOLDN,SOLNET,SFCPRS,PRCP,SFCTMP,Q2,SFCSPD, &
-       TH2,Q2SAT,DQSDT2,&
-       SLOPE,SHDFAC,SHDMIN,PTU,ALB,SNOALB, &
-       RSMIN,RGL,HS,SNUP,Z0,XLAI,NROOT,&
-       PSISAT,BEXP,DKSAT,SMCMAX,QUARTZ,DWSAT, &
-       SMCWLT,SMCREF,SMCDRY,F1,KDT,FRZX,FRZFACT,TBOT, &
-       NOAH(T)%CMC,NOAH(T)%T1,NOAH(T)%STC,NOAH(T)%SMC,NOAH(T)%SH2O, &
-       NOAH(T)%SNOWH,NOAH(T)%SNEQV,ALBEDO,NOAH(T)%CH,NOAH(T)%CM,&
-       EVP,ETA,SHTFLX, &
-       EC,EDIR,ET,ETT,ESNOW,DRIP,DEW, &
-       BETA,ETP,GFLX, &
-       FLX1,FLX2,FLX3,&
-       SNOMLT,SNCOVR,&
-       RUNOFF1,RUNOFF2,RUNOFF3, &
-       RC,PC,RCS,RCT,RCQ,RCSOIL, &
-       MSTAVRZ,MSTAVTOT,SOILM)
+!     CALL SFLX (T,int(NOAH(T)%VEGT),&
+!      FFROZP,ICE,DT,Z,NSOIL,SLDPTH,&
+!      LWDN,SOLDN,SOLNET,SFCPRS,PRCP,SFCTMP,Q2,SFCSPD, &
+!      TH2,Q2SAT,DQSDT2,&
+!      SLOPE,SHDFAC,SHDMIN,SHDMAX,PTU,ALB,SNOALB, &
+!      RSMIN,RGL,HS,SNUP,Z0,XLAI,NROOT,&
+!      PSISAT,BEXP,DKSAT,SMCMAX,QUARTZ,DWSAT, &
+!      SMCWLT,SMCREF,SMCDRY,F1,KDT,FRZX,FRZFACT,TBOT, &
+!      NOAH(T)%CMC,NOAH(T)%T1,NOAH(T)%STC,NOAH(T)%SMC,NOAH(T)%SH2O, &
+!      NOAH(T)%SNOWH,NOAH(T)%SNEQV,ALBEDO,NOAH(T)%CH,NOAH(T)%CM,&
+!      EVP,ETA,SHTFLX, &
+!      EC,EDIR,ET,ETT,ESNOW,DRIP,DEW, &
+!      BETA,ETP,GFLX, &
+!      FLX1,FLX2,FLX3,&
+!      SNOMLT,SNCOVR,&
+!      RUNOFF1,RUNOFF2,RUNOFF3, &
+!      RC,PC,RCS,RCT,RCQ,RCSOIL, &
+!      MSTAVRZ,MSTAVTOT,SOILM)
+
+!*** Noah 2.7GFS
+       couple = 0
+       sfcems=1.
+       ivegsrc=1
+       bexpp=0
+       xlaip=0
+       lheatstrg=.false.
+       slopetyp=1
+      call sflx (nsoil, couple, ice, ffrozp, dt, z, sldpth,&
+        soldn, solnet, lwdn, sfcems, sfcprs, sfctmp,&
+        sfcspd, prcp, q2, q2sat, dqsdt2, th2, ivegsrc,&
+        INT(noah(t)%vegt),soiltyp, slopetyp, shdmin, alb, snoalb,&
+        bexpp, xlaip,&
+        lheatstrg,shdmax,&
+        tbot, noah(t)%cmc, noah(t)%t1, noah(t)%stc, noah(t)%smc,&
+        noah(t)%sh2o, noah(t)%sneqv, noah(t)%ch, noah(t)%cm, z0,&
+        nroot, shdfac, noah(t)%snowh, albedo, eta, shtflx, ec,&
+        edir, et, ett, esnow, drip, dew, beta, etp, gflx,&
+        flx1, flx2, flx3, runoff1, runoff2, runoff3,&
+        snomlt, sncovr, rc, pc, rsmin, xlai, rcs, rct, rcq,&
+        rcsoil,soilw,soilm, smcwlt, smcdry, smcref,smcmax)
  ELSE 
        NOAH(T)%SMC  = 1.0
-       NOAH(T)%SH2O = 1.0
+       NOAH(T)%SH2O = 0.0
        NOAH(T)%SNEQV = 0.1
        NOAH(T)%SNOWH = 1.0
  ENDIF
+!      write(71,*)nsoil, couple, ice, ffrozp, dt, z, sldpth
+!      write(72,*)soldn, solnet, lwdn, sfcems, sfcprs, sfctmp
+!      write(73,*)sfcspd, prcp, q2, q2sat, dqsdt2, th2, ivegsrc
+!      write(74,*)INT(noah(t)%vegt),soiltyp, slopetyp, shdmin, alb, snoalb
+!      write(75,*)bexpp, xlaip,lheatstrg,shdmax
+!      write(76,*)tbot, noah(t)%cmc, noah(t)%t1, noah(t)%stc, noah(t)%smc
+!      write(77,*)noah(t)%sh2o, noah(t)%sneqv, noah(t)%ch, noah(t)%cm, z0
+!      write(78,*)nroot, shdfac, noah(t)%snowh, albedo, eta, shtflx, ec
+!      write(79,*)edir, et, ett, esnow, drip, dew, beta, etp, gflx
+!      write(80,*)flx1, flx2, flx3, runoff1, runoff2, runoff3
+!      write(81,*)snomlt, sncovr, rc, pc, rsmin, xlai, rcs, rct, rcq
+!      write(82,*)rcsoil,soilw,soilm, smcwlt, smcdry, smcref,smcmax
+!      stop
 
 !*** Noah 2.6
 
@@ -815,14 +865,14 @@ subroutine noah_main()
 !                                 IGBP VTYPE=2 (TROPICAL FOREST)
 !JESSE 20080201, 20130801
 
-      IF( NOAH(T)%VEGT .EQ. 2. ) THEN
+!     IF( NOAH(T)%VEGT .EQ. 2. ) THEN
 !      IF( NOAH(T)%VEGT .EQ. 1. ) THEN
-          IF( NOAH(T)%SMC(4) .LT. 0.27 ) THEN
-              NOAH(T)%SH2O(4) = NOAH(T)%SH2O(4) / NOAH(T)%SMC(4) * 0.27
-              RUNOFF2 = RUNOFF2 - (0.27-NOAH(T)%SMC(4)) * SLDPTH(4) / DT
-              NOAH(T)%SMC(4) = 0.27
-          ENDIF
-      ENDIF   
+!         IF( NOAH(T)%SMC(4) .LT. 0.27 ) THEN
+!             NOAH(T)%SH2O(4) = NOAH(T)%SH2O(4) / NOAH(T)%SMC(4) * 0.27
+!             RUNOFF2 = RUNOFF2 - (0.27-NOAH(T)%SMC(4)) * SLDPTH(4) / DT
+!             NOAH(T)%SMC(4) = 0.27
+!         ENDIF
+!     ENDIF   
 
   IF(T==C1) THEN
       WRITE(*,*) iam, 'J---NOAH_MAIN AFTER SFLX ---------------'
@@ -837,8 +887,8 @@ subroutine noah_main()
       WRITE(*,*)  LWDN,SOLDN,SOLNET,SFCPRS,PRCP,SFCTMP,Q2,SFCSPD
       WRITE(*,*) 'TH2,Q2SAT,DQSDT2'
       WRITE(*,*)  TH2,Q2SAT,DQSDT2
-      WRITE(*,*) 'SLOPE,SHDFAC,SHDMIN,PTU,ALB,SNOALB'
-      WRITE(*,*)  SLOPE,SHDFAC,SHDMIN,PTU,ALB,SNOALB
+      WRITE(*,*) 'SLOPE,SHDFAC,SHDMIN,SHDMAX,PTU,ALB,SNOALB'
+      WRITE(*,*)  SLOPE,SHDFAC,SHDMIN,SHDMAX,PTU,ALB,SNOALB
       WRITE(*,*) 'RSMIN,RGL,HS,SNUP,Z0,XLAI,NROOT'
       WRITE(*,*)  RSMIN,RGL,HS,SNUP,Z0,XLAI,NROOT
       WRITE(*,*) 'PSISAT,BEXP,DKSAT,SMCMAX,QUARTZ,DWSAT'
@@ -964,6 +1014,7 @@ subroutine noah_main()
 
       FUNCTION DQS (T)
 
+      use machine ,   only : kind_phys
       IMPLICIT NONE
 
 !
@@ -974,24 +1025,23 @@ subroutine noah_main()
 !            FORMULAS AND CONSTANTS FROM ROGERS AND YAU, 1989.
 !                         ADDED BY PABLO J. GRUNMANN, 6/30/97.
 !
+      REAL(KIND=KIND_PHYS):: DESDT
+      REAL(KIND=KIND_PHYS):: DQS
+!    REAL(KIND=KIND_PHYS):: ESD
+      REAL(KIND=KIND_PHYS):: LW
+      REAL(KIND=KIND_PHYS):: T
+      REAL(KIND=KIND_PHYS):: ES
 
-      REAL DESDT
-      REAL DQS
-!    REAL ESD
-      REAL LW
-      REAL T
-      REAL ES
-
-!      REAL, PARAMETER:: CP = 1005.
-!      REAL, PARAMETER:: CV = 718.
-!      REAL, PARAMETER:: CVV = 1410.
-      REAL, PARAMETER:: CPV = 1870.
-      REAL, PARAMETER:: RV = 461.5
-      REAL, PARAMETER:: CW = 4187.
-      REAL, PARAMETER:: EPS = 0.622
-      REAL, PARAMETER:: ESO = 611.2
-      REAL, PARAMETER:: TO = 273.15
-      REAL, PARAMETER:: LVH2O = 2.501000E+6
+!      REAL(KIND=KIND_PHYS), PARAMETER:: CP = 1005.
+!      REAL(KIND=KIND_PHYS), PARAMETER:: CV = 718.
+!      REAL(KIND=KIND_PHYS), PARAMETER:: CVV = 1410.
+      REAL(KIND=KIND_PHYS), PARAMETER:: CPV = 1870.
+      REAL(KIND=KIND_PHYS), PARAMETER:: RV = 461.5
+      REAL(KIND=KIND_PHYS), PARAMETER:: CW = 4187.
+      REAL(KIND=KIND_PHYS), PARAMETER:: EPS = 0.622
+      REAL(KIND=KIND_PHYS), PARAMETER:: ESO = 611.2
+      REAL(KIND=KIND_PHYS), PARAMETER:: TO = 273.15
+      REAL(KIND=KIND_PHYS), PARAMETER:: LVH2O = 2.501000E+6
 
 
 !     ABOUT THE PARAMETERS:
@@ -1033,6 +1083,7 @@ subroutine noah_main()
 
       FUNCTION DQSDT ( SFCTMP, SFCPRS )
 
+  use machine ,   only : kind_phys
       IMPLICIT NONE
 
 !
@@ -1044,10 +1095,10 @@ subroutine noah_main()
 !                                  (MODIFIED BY PABLO GRUNMANN, 7/9/97).
 !
 
-      REAL SFCTMP
-      REAL SFCPRS
-      REAL DQS
-      REAL DQSDT
+      REAL(KIND=KIND_PHYS):: SFCTMP
+      REAL(KIND=KIND_PHYS):: SFCPRS
+      REAL(KIND=KIND_PHYS):: DQS
+      REAL(KIND=KIND_PHYS):: DQSDT
 
       IF ((SFCTMP .GE. 173.0) .AND. (SFCTMP  .LE.  373.0)) THEN
 
@@ -1071,6 +1122,7 @@ subroutine noah_main()
 
       FUNCTION E(T)
 
+  use machine ,   only : kind_phys
       IMPLICIT NONE
 
 !
@@ -1079,20 +1131,20 @@ subroutine noah_main()
 !                         ADDED BY PABLO J. GRUNMANN, 7/9/97.
 !
 
-      REAL LW
-      REAL T
-      REAL E
+      REAL(KIND=KIND_PHYS):: LW
+      REAL(KIND=KIND_PHYS):: T
+      REAL(KIND=KIND_PHYS):: E
 
-!      REAL, PARAMETER:: EPS = 0.622 
-!      REAL, PARAMETER:: CP = 1005.
-!      REAL, PARAMETER:: CV = 718.
-!      REAL, PARAMETER:: CVV = 1410.
-      REAL, PARAMETER:: CPV = 1870.
-      REAL, PARAMETER:: RV = 461.5
-      REAL, PARAMETER:: CW = 4187.
-      REAL, PARAMETER:: ESO = 611.2
-      REAL, PARAMETER:: TO = 273.15
-      REAL, PARAMETER:: LVH2O = 2.501000E+6
+!      REAL(KIND=KIND_PHYS), PARAMETER:: EPS = 0.622 
+!      REAL(KIND=KIND_PHYS), PARAMETER:: CP = 1005.
+!      REAL(KIND=KIND_PHYS), PARAMETER:: CV = 718.
+!      REAL(KIND=KIND_PHYS), PARAMETER:: CVV = 1410.
+      REAL(KIND=KIND_PHYS), PARAMETER:: CPV = 1870.
+      REAL(KIND=KIND_PHYS), PARAMETER:: RV = 461.5
+      REAL(KIND=KIND_PHYS), PARAMETER:: CW = 4187.
+      REAL(KIND=KIND_PHYS), PARAMETER:: ESO = 611.2
+      REAL(KIND=KIND_PHYS), PARAMETER:: TO = 273.15
+      REAL(KIND=KIND_PHYS), PARAMETER:: LVH2O = 2.501000E+6
 
 !   ABOUT THE PARAMETERS:
 !
