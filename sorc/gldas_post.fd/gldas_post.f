@@ -37,68 +37,30 @@
   character*3 var3(3)
   integer idx3(3)
 
-  integer, parameter :: mx = 3072
-  integer, parameter :: my = 1536
+  integer mx
+  integer my
   real mxmy
-  real sdata(mx,my)
-  real land(mx,my)
-  real vtype(mx,my)
-  real tmpsfc(mx,my)
-  real sneqv(mx,my)
-  real snowh(mx,my)
-  real smc(mx,my,4)
-  real stc(mx,my,4)
-  real slc(mx,my,4)
-  real cmc(mx,my)
+  real, allocatable :: sdata(:,:)
+  real, allocatable :: land(:,:)
+  real, allocatable :: lmaskgfs(:,:)
+  real, allocatable :: vtype(:,:)
+  real, allocatable :: tmpsfc(:,:)
+  real, allocatable :: cmc(:,:)
+  real, allocatable :: sneqv(:,:)
+  real, allocatable :: snowh(:,:)
+  real, allocatable :: smc(:,:,:)
+  real, allocatable :: stc(:,:,:)
+  real, allocatable :: slc(:,:,:)
+  real, allocatable :: ch(:,:)
+
   real, allocatable  :: head1(:)
   
   real smcmax
-  real undef(mx,my)
+  real,allocatable :: undef(:,:)
 
   smcmax = 0.468
 !  undef = 9.99E+20
-  undef = -9999.
-!--------------------------------------------------------------------------
-!***  read gldas.gbin
-!---------------------------------------------------------------------------
-  
-  open(11,file='fort.11',form='unformatted',status='unknown')
-
-  read(11) sdata 
-  call yrev(sdata,tmpsfc)
-  read(11) sdata 
-  call yrev(sdata,sneqv)
-  read(11) sdata
-  call yrev(sdata,smc(:,:,1))
-  read(11) sdata
-  call yrev(sdata,smc(:,:,2))
-  read(11) sdata
-  call yrev(sdata,smc(:,:,3))
-  read(11) sdata
-  call yrev(sdata,smc(:,:,4))
-  read(11) sdata
-  call yrev(sdata,stc(:,:,1))
-  read(11) sdata
-  call yrev(sdata,stc(:,:,2))
-  read(11) sdata
-  call yrev(sdata,stc(:,:,3))
-  read(11) sdata
-  call yrev(sdata,stc(:,:,4))
-  read(11) sdata 
-  call yrev(sdata,snowh)
-  snowh = snowh * 1000.
-  read(11) sdata
-  call yrev(sdata,slc(:,:,1))
-  read(11) sdata
-  call yrev(sdata,slc(:,:,2))
-  read(11) sdata
-  call yrev(sdata,slc(:,:,3))
-  read(11) sdata
-  call yrev(sdata,slc(:,:,4))
-  read(11) sdata
-  call yrev(sdata,cmc)
-
-  close(11)
+!  undef = -9999.
 
 !---------------------------------------------------------------------------
 !
@@ -123,6 +85,7 @@
    fieldsize=im*jm
    allocate(recname(nrec),reclevtyp(nrec),reclev(nrec))
    allocate(lat(fieldsize),slat(jm),dx(fieldsize))
+   allocate(sdata(im,jm),land(im,jm),vtype(im,jm))
    call nemsio_getfilehead(gfile,iret=iret,recname=recname,          &
        reclevtyp=reclevtyp,reclev=reclev)
 !
@@ -158,6 +121,56 @@
    end do
   close(12)
   deallocate(head1)
+
+!--------------------------------------------------------------------------
+!***  read gldas.gbin
+!---------------------------------------------------------------------------
+
+  mx=im
+  my=jm
+  allocate(lmaskgfs(mx,my),tmpsfc(mx,my))
+  allocate(cmc(mx,my),sneqv(mx,my),snowh(mx,my),ch(mx,my),undef(mx,my))
+  allocate(smc(mx,my,4),stc(mx,my,4),slc(mx,my,4))
+  undef=-9999.
+
+  open(11,file='fort.11',form='unformatted',status='unknown')
+
+  read(11) sdata
+  call yrev(mx,my,sdata,tmpsfc)
+  read(11) sdata
+  call yrev(mx,my,sdata,sneqv)
+  sneqv = sneqv * 1000.
+  read(11) sdata
+  call yrev(mx,my,sdata,smc(:,:,1))
+  read(11) sdata
+  call yrev(mx,my,sdata,smc(:,:,2))
+  read(11) sdata
+  call yrev(mx,my,sdata,smc(:,:,3))
+  read(11) sdata
+  call yrev(mx,my,sdata,smc(:,:,4))
+  read(11) sdata
+  call yrev(mx,my,sdata,stc(:,:,1))
+  read(11) sdata
+  call yrev(mx,my,sdata,stc(:,:,2))
+  read(11) sdata
+  call yrev(mx,my,sdata,stc(:,:,3))
+  read(11) sdata
+  call yrev(mx,my,sdata,stc(:,:,4))
+  read(11) sdata
+  call yrev(mx,my,sdata,snowh)
+  snowh = snowh * 1000.
+  read(11) sdata
+  call yrev(mx,my,sdata,slc(:,:,1))
+  read(11) sdata
+  call yrev(mx,my,sdata,slc(:,:,2))
+  read(11) sdata
+  call yrev(mx,my,sdata,slc(:,:,3))
+  read(11) sdata
+  call yrev(mx,my,sdata,slc(:,:,4))
+  read(11) sdata
+  call yrev(mx,my,sdata,cmc)
+
+  close(11)
 
   do k=1,4
   do j=1,my
@@ -373,6 +386,9 @@
 !****** clean up
 !---------------------------------------------------------------------------
   deallocate(recname,reclevtyp,reclev,lat,slat,dx,head1)
+  deallocate(sdata,land,lmaskgfs,vtype,tmpsfc)
+  deallocate(cmc,sneqv,snowh,ch,undef)
+  deallocate(smc,stc,slc)
 !---------------------------------------------------------------------------
 !
 ! - - - - -- - -- - -- - -- - - -- - --  -- - -- - -- - - -- - - - -- - --
@@ -405,10 +421,12 @@
 
 !---------------------------------------------------------------------------
 
-  subroutine yrev(b,p)
+  subroutine yrev(mx,my,b,p)
 
-  integer, parameter :: mx = 3072
-  integer, parameter :: my = 1536
+!  integer, parameter :: mx = 3072
+!  integer, parameter :: my = 1536
+  integer :: mx
+  integer :: my
 
   real b(mx,my)
   real p(mx,my)

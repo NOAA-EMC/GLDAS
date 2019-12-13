@@ -148,7 +148,7 @@ subroutine noah_gribout(ld,ftn)
  !  call drv_writevar_grib(ftn,noah%rainf,kpds,lismask,interval,today,yesterday)
    call drv_writevar_grib(ftn,noah%rainf+noah%snowf,kpds,lismask,interval,today,yesterday)
 
- !  call readkpds(69,kpds)   
+   call readkpds(69,kpds)   
  !  noah%evap = noah%evap/float(KPDS(17))
  !  call drv_writevar_grib(ftn,noah%evap*3600.*interval,kpds,lismask,interval,today,yesterday)
 
