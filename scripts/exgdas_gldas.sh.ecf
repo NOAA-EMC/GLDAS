@@ -61,7 +61,9 @@ export res=$(echo $CASE |cut -c2-5)
 export JCAP=$((2*res-2))               
 export nlat=$((2*res))
 export nlon=$((4*res))
-export topodir=$HOMEgfs/fix/fix_fv3_gmted2010/$CASE/
+
+export FIXgldas=${FIXgldas:-$HOMEgfs/fix}
+export topodir=${topodir:-$HOMEgfs/fix/fix_fv3_gmted2010/$CASE/}
 
 DATA=${DATA:-$pwd/gldastmp$$}    
 mkdata=NO
@@ -79,13 +81,12 @@ mkdir -p $GDAS
 
 input1=$COMINgdas/gdas.$gldas_symd/$gldas_scyc/RESTART
 input2=$COMINgdas/gdas.$gldas_eymd/$gldas_ecyc/RESTART
-[[ -d $RUNDIR ]]       && rm -f $RUNDIR/FIX
-[[ -f $RUNDIR/LIS ]]   && rm -f $RUNDIR/LIS
-[[ -d $RUNDIR/input ]] && rm -f $RUNDIR/input
+[[ -d $RUNDIR ]]       && rm -fr $RUNDIR/FIX
+[[ -f $RUNDIR/LIS ]]   && rm -fr $RUNDIR/LIS
+[[ -d $RUNDIR/input ]] && rm -fr $RUNDIR/input
 mkdir -p $RUNDIR/input
 ln -fs $GDAS $RUNDIR/input/GDAS
-
-ln -fs $FIXgldas $RUNDIR/FIX
+ln -fs $FIXgldas/FIX_T${JCAP} $RUNDIR/FIX
 ln -fs $EXECgldas/gldas_${model} $RUNDIR/LIS
 
 
@@ -105,12 +106,29 @@ export err=$?
 $ERRSCRIPT || exit 3
 
 # spatially disaggregated
+
+if [ $JCAP == 1534 ]; then 
+ gds='255 4 3072 1536 89909 0 128 -89909 -117 117 768 0 0 0 0 0 0 0 0 0 255 0 0 0 0 0'
+fi
+if [ $JCAP ==  766 ]; then
+ gds='255 4 1536  768 89821 0 128 -89821 -234 234 384 0 0 0 0 0 0 0 0 0 255 0 0 0 0 0'
+fi
+if [ $JCAP ==  382 ]; then
+ gds='255 4  768  384 89641 0 128 -89641 -469 469 192 0 0 0 0 0 0 0 0 0 255 0 0 0 0 0'
+fi
+if [ $JCAP ==  190 ]; then
+ gds='255 4  384  192 89284 0 128 -89284 -938 938  96 0 0 0 0 0 0 0 0 0 255 0 0 0 0 0'
+fi
+echo $JCAP
+echo $gds
+ymdpre=`sh $FINDDATE $gldas_symd d-1` 
 ymdend=`sh $FINDDATE $gldas_eymd d-1`
-ymd=$gldas_symd
+ymd=$ymdpre
 while [ $ymd -le $ymdend ]; do
-  gds='255 4 3072 1536 89909 0 128 -89909 -117 117 768 0 0 0 0 0 0 0 0 0 255 0 0 0 0 0'
-  $COPYGB -i3 -g"$gds" -x $GDAS/cpc.$ymd/precip.gldas.${ymd}00 $RUNDIR/cmap.gdas.${ymd}00
-  $COPYGB -i3 -g"$gds" -x $GDAS/cpc.$ymd/precip.gldas.${ymd}06 $RUNDIR/cmap.gdas.${ymd}06
+  if [ $ymd -ne $ymdpre ]; then
+    $COPYGB -i3 -g"$gds" -x $GDAS/cpc.$ymd/precip.gldas.${ymd}00 $RUNDIR/cmap.gdas.${ymd}00
+    $COPYGB -i3 -g"$gds" -x $GDAS/cpc.$ymd/precip.gldas.${ymd}06 $RUNDIR/cmap.gdas.${ymd}06
+  fi
   if [ $ymd -ne $ymdend ]; then 
     $COPYGB -i3 -g"$gds" -x $GDAS/cpc.$ymd/precip.gldas.${ymd}12 $RUNDIR/cmap.gdas.${ymd}12
     $COPYGB -i3 -g"$gds" -x $GDAS/cpc.$ymd/precip.gldas.${ymd}18 $RUNDIR/cmap.gdas.${ymd}18
@@ -157,7 +175,7 @@ $ERRSCRIPT || exit 5
 # 3c)gldas_noah_rst/gldas_noahmp_rst to generate noah.rst 
 
 sfcanl=sfc.gaussian.nemsio
-ln -fs ${FIXgldas}/lmask_gfs_T${JCAP}.bfsa fort.11
+ln -fs FIX/lmask_gfs_T${JCAP}.bfsa fort.11
 ln -fs $sfcanl fort.12
 
 ${EXECgldas}/gldas_${model}_rst     1>&1 2>&2
@@ -240,7 +258,7 @@ k=1; while [ $k -le 6 ]; do
 done
 
 # copy soil type
-ln -fs ${FIXgldas}/stype_gfs_T${JCAP}.bfsa  stype_gfs_T${JCAP}.bfsa
+ln -fs FIX/stype_gfs_T${JCAP}.bfsa  stype_gfs_T${JCAP}.bfsa
 
 export OMP_NUM_THREADS=1
 $APRUN_GAUSSIAN $EXECgldas/gldas2gdas      1>&1 2>&2
