@@ -29,7 +29,7 @@ export ERRSCRIPT=${ERRSCRIPT:-'eval [[ $err = 0 ]]'}
 #-------------------------------
 #--- extract variables of each timestep and create forcing files
 sdate=$bdate
-while [ $sdate -lt $edate ]; do
+while [ $sdate -le $edate ]; do
 #-------------------------------
 
 sdat0=`sh $FINDDATE $sdate d-1`
