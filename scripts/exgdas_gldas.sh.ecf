@@ -45,6 +45,8 @@ export gldas_ecyc=`echo $gldas_cdate |cut -c 9-10`
 export gldas_sdate=`$NDATE -$gldas_spinup_hours $CDATE`
 export gldas_symd=`echo $gldas_sdate |cut -c 1-8`                 
 export gldas_scyc=`echo $gldas_sdate |cut -c 9-10`                 
+export cpc_symd=$gldas_symd
+export cpc_eymd=`sh $FINDDATE $gldas_eymd d-2`
 
 export iau_cdate=$CDATE
 if [ "$DOIAU" = "YES" ]; then
@@ -101,7 +103,7 @@ $ERRSCRIPT || exit 2
 #---------------------------------------------------------------
 ### 2) Get CPC daily precip and temporally disaggreated 
 #---------------------------------------------------------------
-${USHgldas}/gldas_forcing.sh $gldas_symd $gldas_eymd
+${USHgldas}/gldas_forcing.sh $cpc_symd $cpc_eymd
 export err=$?
 $ERRSCRIPT || exit 3
 
@@ -121,8 +123,8 @@ if [ $JCAP ==  190 ]; then
 fi
 echo $JCAP
 echo $gds
-ymdpre=`sh $FINDDATE $gldas_symd d-1` 
-ymdend=`sh $FINDDATE $gldas_eymd d-1`
+ymdpre=`sh $FINDDATE $cpc_symd d-1` 
+ymdend=$cpc_eymd
 ymd=$ymdpre
 while [ $ymd -le $ymdend ]; do
   if [ $ymd -ne $ymdpre ]; then

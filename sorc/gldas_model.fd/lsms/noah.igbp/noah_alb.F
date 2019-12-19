@@ -55,6 +55,7 @@ subroutine noah_alb
 
 !=== End Variable Definition =============================================
 !BOC
+  return
   noahdrv%noah_aflag = 0
   zeroi=0
   numi=15
