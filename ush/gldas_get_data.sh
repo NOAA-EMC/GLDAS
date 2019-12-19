@@ -53,6 +53,7 @@ while [ $f -le $cycint ]; do
   $WGRIB2 $rflux | grep "SPFH:1"    | grep $fcsty | $WGRIB2 -i $rflux -append -grib $fflux
   $WGRIB2 $rflux | grep "DSWRF:s"   | grep $fcsty | $WGRIB2 -i $rflux -append -grib $fflux
   $WGRIB2 $rflux | grep "DLWRF:s"   | grep $fcsty | $WGRIB2 -i $rflux -append -grib $fflux
+  $WGRIB2 $rflux | grep "USWRF:s"   | grep $fcsty | $WGRIB2 -i $rflux -append -grib $fflux
   $WGRIB2 $rflux | grep "UGRD:1"    | grep $fcsty | $WGRIB2 -i $rflux -append -grib $fflux
   $WGRIB2 $rflux | grep "VGRD:1"    | grep $fcsty | $WGRIB2 -i $rflux -append -grib $fflux
   $WGRIB2 $rflux | grep "PRES:s"    | grep $fcsty | $WGRIB2 -i $rflux -append -grib $fflux
