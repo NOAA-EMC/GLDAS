@@ -1,7 +1,7 @@
 #!/bin/sh
 
-#BSUB -o /gpfs/dell2/ptmp/Youlong.Xia/gdas_gldas.o%J
-#BSUB -e /gpfs/dell2/ptmp/Youlong.Xia/gdas_gldas.o%J
+#BSUB -o /gpfs/dell2/ptmp/Jesse.Meng/gdas_gldas.o%J
+#BSUB -e /gpfs/dell2/ptmp/Jesse.Meng/gdas_gldas.o%J
 #BSUB -P NLDAS-T2O
 #BSUB -J jgdas_gldas_12
 #BSUB -W 01:00
@@ -27,7 +27,11 @@ export npe_gldas=112
 export APRUN_GAUSSIAN="$launcher $npe_gaussian"
 export APRUN_GLDAS="$launcher $npe_gldas"
 
-export CDATE=${CDATE:-2019110700}
+export CDATE=${CDATE:-2019121900}
+export CASE=C768
+export CASE=${CASE:-C768}
+export res=$(echo $CASE |cut -c2-5)
+export JCAP=$((2*res-2))
 
 #############################################################
 export KMP_AFFINITY=disabled
@@ -68,6 +72,7 @@ module list
 # set envir=prod or para to test with data in prod or para
 # export envir=prod
  export envir=para
+# export envir=test
 
 export RUN=${RUN:-gdas}
 
@@ -99,9 +104,9 @@ else
   export HOMEgldas=$workdir/GLDAS
   export COMROOT=$workdir/com
   export DCOMROOT=$workdir/dcom
-  export COMINgdas=$COMROOT
+  export COMINgdas=$COMROOT/gfs/para/T$JCAP
   export DCOMIN=$DCOMROOT
-  export COMIN=$workdir/comin
+  export COMIN=$COMROOT/gfs/para/T$JCAP/${RUN}.${PDY}
   export COMOUT=$workdir/comout
 fi
 
