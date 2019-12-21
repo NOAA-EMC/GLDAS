@@ -654,7 +654,7 @@
         t1v  = t1  * (1.0 + 0.61 * q2)
         th2v = th2 * (1.0 + 0.61 * q2)
 
-!       call sfcdif
+!       call sfcdif2
 !  ---  inputs:                                                         !
 !          ( zlvl, z0, t1v, th2v, sfcspd, czil,shdmax,                  !
 !  ---  input/outputs:                                                  !
