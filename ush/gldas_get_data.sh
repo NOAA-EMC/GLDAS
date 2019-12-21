@@ -62,20 +62,14 @@ while [ $f -le $cycint ]; do
   $WGRIB2 $rflux | grep "TMP:surface"      | grep $fcsty | $WGRIB2 -i $rflux -append -grib $fflux
   $WGRIB2 $rflux | grep "WEASD:surface"    | grep $fcsty | $WGRIB2 -i $rflux -append -grib $fflux
   $WGRIB2 $rflux | grep "SNOD:surface"     | grep $fcsty | $WGRIB2 -i $rflux -append -grib $fflux
-  $WGRIB2 $rflux | grep "SOILW:0-0"        | grep $fcsty | $WGRIB2 -i $rflux -append -grib $fflux
-  $WGRIB2 $rflux | grep "SOILW:0.1"        | grep $fcsty | $WGRIB2 -i $rflux -append -grib $fflux
-  $WGRIB2 $rflux | grep "SOILW:0.4"        | grep $fcsty | $WGRIB2 -i $rflux -append -grib $fflux
-  $WGRIB2 $rflux | grep "SOILW:1-2"        | grep $fcsty | $WGRIB2 -i $rflux -append -grib $fflux
+# $WGRIB2 $rflux | grep "SOILW:0-0"        | grep $fcsty | $WGRIB2 -i $rflux -append -grib $fflux
+# $WGRIB2 $rflux | grep "SOILW:0.1"        | grep $fcsty | $WGRIB2 -i $rflux -append -grib $fflux
+# $WGRIB2 $rflux | grep "SOILW:0.4"        | grep $fcsty | $WGRIB2 -i $rflux -append -grib $fflux
+# $WGRIB2 $rflux | grep "SOILW:1-2"        | grep $fcsty | $WGRIB2 -i $rflux -append -grib $fflux
 
-  if [ $f -lt 1 ]; then
-    $WGRIB2 $rflux | grep "DSWRF:surface:anl"    | $WGRIB2 -i $rflux -append -grib $fflux
-    $WGRIB2 $rflux | grep "DLWRF:surface:anl"    | $WGRIB2 -i $rflux -append -grib $fflux
-    $WGRIB2 $rflux | grep "USWRF:surface:anl"    | $WGRIB2 -i $rflux -append -grib $fflux
-  else
-    $WGRIB2 $rflux | grep "DSWRF:surface:$f hour fcst"  | $WGRIB2 -i $rflux -append -grib $fflux
-    $WGRIB2 $rflux | grep "DLWRF:surface:$f hour fcst"  | $WGRIB2 -i $rflux -append -grib $fflux
-    $WGRIB2 $rflux | grep "USWRF:surface:$f hour fcst"  | $WGRIB2 -i $rflux -append -grib $fflux
-  fi
+  $WGRIB2 $rflux | grep "DSWRF:surface:$f hour fcst"  | $WGRIB2 -i $rflux -append -grib $fflux
+  $WGRIB2 $rflux | grep "DLWRF:surface:$f hour fcst"  | $WGRIB2 -i $rflux -append -grib $fflux
+  $WGRIB2 $rflux | grep "USWRF:surface:$f hour fcst"  | $WGRIB2 -i $rflux -append -grib $fflux
 
   #gds='255 4 3072 1536 89909 0 128 -89909 -117 117 768 0 0 0 0 0 0 0 0 0 255 0 0 0 0 0'
   #$COPYGB -g"$gds" -x $fflux flux1534
