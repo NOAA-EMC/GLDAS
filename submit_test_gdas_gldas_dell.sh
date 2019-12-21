@@ -61,6 +61,7 @@ module load prod_envir/1.0.2
 module load prod_util/1.1.0
 module load grib_util/1.1.0
 module load NetCDF/4.5.0
+module load CFP/2.0.1
 ###########################################
 # Now set up environment
 ###########################################
