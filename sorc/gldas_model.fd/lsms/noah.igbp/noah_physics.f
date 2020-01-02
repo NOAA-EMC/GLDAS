@@ -654,14 +654,14 @@
         t1v  = t1  * (1.0 + 0.61 * q2)
         th2v = th2 * (1.0 + 0.61 * q2)
 
-!       call sfcdif
+!       call sfcdif2
 !  ---  inputs:                                                         !
 !          ( zlvl, z0, t1v, th2v, sfcspd, czil,shdmax,                  !
 !  ---  input/outputs:                                                  !
 !            cm, ch )                                                   !
-      CALL GFSDIF(SFCPRS,SFCSPD,SFCTMP,Q2,T1,Z0,
-     &    ZLVL,IVEGSRC,VEGTYP,SHDFAC,SHDMAX,
-     &    SNOWH,CM,CH)
+!     CALL GFSDIF(SFCPRS,SFCSPD,SFCTMP,Q2,T1,Z0,
+!    &    ZLVL,IVEGSRC,VEGTYP,SHDFAC,SHDMAX,
+!    &    SNOWH,CM,CH)
 
 !     swnet = net solar radiation into the ground (w/m2; dn-up) from input
 !     fdown  = net solar + downward lw flux at sfc (w/m2)

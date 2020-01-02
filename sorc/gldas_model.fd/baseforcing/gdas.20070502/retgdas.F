@@ -60,6 +60,7 @@ subroutine retgdas( order, ld, gindex, name, ferror,try )
   real              :: f(gdasdrv%ncold*gdasdrv%nrold)
  !real, allocatable :: varfield(:,:)
   real              :: varfield(ld%d%lnc,ld%d%lnr)
+  real              :: dswrf(ld%d%lnc,ld%d%lnr)
   real              :: elev(ld%d%lnc,ld%d%lnr)
   real :: ism
   integer :: count
@@ -115,10 +116,16 @@ subroutine retgdas( order, ld, gindex, name, ferror,try )
 !J     pds7 = (/002,002,000,000,010,010,000,000,000,000,010,2760,010,2760,000/) !htlev2
 !J     nforce = gdasdrv%nmif
 !J  else
-     pds5 = (/ 011,051,204,205,033,034,001,059,087,084,007,083,208,011,065,066 /) !parameter
-     pds6 = (/ 109,109,001,001,109,109,001,001,001,001,109,001,001,001,001,001 /) !level
-     pds7 = (/ 001,001,000,000,001,001,000,000,000,000,001,000,000,000,000,000 /) !height
-     pds16= (/ 010,010,010,010,010,010,010,003,010,003,010,010,010,010,010,010 /) !3-ave; 10-fcst
+!     pds5 = (/ 011,051,204,205,033,034,001,059,087,084,007,083,208,011,065,066 /) !parameter
+!     pds6 = (/ 109,109,001,001,109,109,001,001,001,001,109,001,001,001,001,001 /) !level
+!     pds7 = (/ 001,001,000,000,001,001,000,000,000,000,001,000,000,000,000,000 /) !height
+!     pds16= (/ 010,010,010,010,010,010,010,003,010,003,010,010,010,010,010,010 /) !3-ave; 10-fcst
+!Jesse Meng 20191217 albedo=uswrf/dswrf
+     pds5 = (/ 011,051,204,205,033,034,001,059,087,211,007,083,208,011,065,066/) !parameter
+     pds6 = (/ 109,109,001,001,109,109,001,001,001,001,109,001,001,001,001,001/) !level
+     pds7 = (/ 001,001,000,000,001,001,000,000,000,000,001,000,000,000,000,000/) !height
+     pds16= (/ 010,010,010,010,010,010,010,003,010,010,010,010,010,010,010,010/) !3-ave; 10-fcst
+
      nforce = gdasdrv%nmif
 !J  endif
 
@@ -255,6 +262,16 @@ subroutine retgdas( order, ld, gindex, name, ferror,try )
      do r = ld%d%lnr, 1, -1
         do c = 1, ld%d%lnc
            varfield(c,r) = g(c+count)
+           if(iv==3) then
+              dswrf(c,r)=varfield(c,r)
+           endif
+           if(iv==10) then !albedo=uswrfsfc/dswrfsfc*100.
+              if(dswrf(c,r)<=0.) then
+                 varfield(c,r)=0.
+              else 
+                 varfield(c,r)=(varfield(c,r)/dswrf(c,r))*100.
+              endif
+           endif
            if(iv==11) then !covert hgt to hgt above sfc 
               varfield(c,r)=varfield(c,r)-elev(c,r)
            endif

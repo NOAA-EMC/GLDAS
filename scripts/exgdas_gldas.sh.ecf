@@ -107,23 +107,26 @@ $ERRSCRIPT || exit 3
 
 # spatially disaggregated
 
-if [ $JCAP == 1534 ]; then 
- gds='255 4 3072 1536 89909 0 128 -89909 -117 117 768 0 0 0 0 0 0 0 0 0 255 0 0 0 0 0'
+if   [ $JCAP -eq 1534 ]; then 
+  gds='255 4 3072 1536 89909 0 128 -89909 -117 117 768 0 0 0 0 0 0 0 0 0 255 0 0 0 0 0'
+elif [ $JCAP -eq  766 ]; then
+  gds='255 4 1536  768 89821 0 128 -89821 -234 234 384 0 0 0 0 0 0 0 0 0 255 0 0 0 0 0'
+elif [ $JCAP -eq  382 ]; then
+  gds='255 4  768  384 89641 0 128 -89641 -469 469 192 0 0 0 0 0 0 0 0 0 255 0 0 0 0 0'
+elif [ $JCAP -eq  190 ]; then
+  gds='255 4  384  192 89284 0 128 -89284 -938 938  96 0 0 0 0 0 0 0 0 0 255 0 0 0 0 0'
+else
+ echo "JCAP=$JCAP no supportted, exit"
+ export err=4
+ $ERRSCRIPT || exit 4
 fi
-if [ $JCAP ==  766 ]; then
- gds='255 4 1536  768 89821 0 128 -89821 -234 234 384 0 0 0 0 0 0 0 0 0 255 0 0 0 0 0'
-fi
-if [ $JCAP ==  382 ]; then
- gds='255 4  768  384 89641 0 128 -89641 -469 469 192 0 0 0 0 0 0 0 0 0 255 0 0 0 0 0'
-fi
-if [ $JCAP ==  190 ]; then
- gds='255 4  384  192 89284 0 128 -89284 -938 938  96 0 0 0 0 0 0 0 0 0 255 0 0 0 0 0'
-fi
+
 echo $JCAP
 echo $gds
 ymdpre=`sh $FINDDATE $gldas_symd d-1` 
 ymdend=`sh $FINDDATE $gldas_eymd d-1`
 ymd=$ymdpre
+
 while [ $ymd -le $ymdend ]; do
   if [ $ymd -ne $ymdpre ]; then
     $COPYGB -i3 -g"$gds" -x $GDAS/cpc.$ymd/precip.gldas.${ymd}00 $RUNDIR/cmap.gdas.${ymd}00
