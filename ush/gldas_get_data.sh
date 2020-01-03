@@ -15,9 +15,8 @@ fi
 
 bdate=$1
 edate=$2
-USHgldas=$3
 
-if [ $MACHINE = "WCOSS_DELL_P3" ]; then
+if [ $machine = "WCOSS_DELL_P3" ] || [ $machine = "WCOSS_C" ]; then
   touch ./cfile
 fi
 
@@ -52,7 +51,7 @@ while [ $f -le $cycint ]; do
   fcsty=anl
   if [ $f -ge 1 ]; then fcsty=fcst; fi
 
-  if [ $MACHINE = "WCOSS_DELL_P3" ]; then
+  if [ $machine = "WCOSS_DELL_P3" ] || [ $machine = "WCOSS_C" ]; then
     echo "${USHgldas}/gldas_process_data.sh $rflux $fcsty $fflux $gflux $f" >> ./cfile
   else
     ${USHgldas}/gldas_process_data.sh $rflux $fcsty $fflux $gflux $f
@@ -66,7 +65,7 @@ done
 done
 #-------------------------------
 
-if [ $MACHINE = "WCOSS_DELL_P3" ]; then
+if [ $machine = "WCOSS_DELL_P3" ] || [ $machine = "WCOSS_C" ]; then
   $APRUN_GLDAS_DATA_PROC ./cfile
 fi
 
