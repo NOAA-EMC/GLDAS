@@ -93,7 +93,7 @@ ln -fs $EXECgldas/gldas_${model} $RUNDIR/LIS
 #---------------------------------------------------------------
 ### 1) Get gdas 6-tile netcdf restart file and gdas forcing data
 #---------------------------------------------------------------
-${USHgldas}/gldas_get_data.sh $gldas_sdate $gldas_cdate
+${USHgldas}/gldas_get_data.sh $gldas_sdate $gldas_cdate $USHgldas
 export err=$?
 $ERRSCRIPT || exit 2
 
