@@ -17,7 +17,9 @@ bdate=$1
 edate=$2
 USHgldas=$3
 
-touch ./cfile
+if [ $MACHINE = "WCOSS_DELL_P3" ]; then
+  touch ./cfile
+fi
 
 ### COMINgdas = prod gdas sflux grib2
 ### RUNDIR = gldas forcing in grib2 format
@@ -50,8 +52,11 @@ while [ $f -le $cycint ]; do
   fcsty=anl
   if [ $f -ge 1 ]; then fcsty=fcst; fi
 
-##  echo "${USHgldas}/gldas_process_data.sh $rflux $fcsty $fflux $gflux $f" >> ./cfile
-  ${USHgldas}/gldas_process_data.sh $rflux $fcsty $fflux $gflux $f
+  if [ $MACHINE = "WCOSS_DELL_P3" ]; then
+    echo "${USHgldas}/gldas_process_data.sh $rflux $fcsty $fflux $gflux $f" >> ./cfile
+  else
+    ${USHgldas}/gldas_process_data.sh $rflux $fcsty $fflux $gflux $f
+  fi
 
   f=$((f+1))
 done
@@ -61,6 +66,8 @@ done
 done
 #-------------------------------
 
-##mpirun cfp ./cfile
+if [ $MACHINE = "WCOSS_DELL_P3" ]; then
+  $APRUN_GLDAS_DATA_PROC ./cfile
+fi
 
 exit 
