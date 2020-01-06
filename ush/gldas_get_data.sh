@@ -16,7 +16,8 @@ fi
 bdate=$1
 edate=$2
 
-if [ $machine = "WCOSS_DELL_P3" ] || [ $machine = "WCOSS_C" ]; then
+if [ $machine = "WCOSS_DELL_P3" ] || [ $machine = "WCOSS_C" ] || \
+   [ $machine = "HERA" ]; then
   touch ./cfile
 fi
 
@@ -31,6 +32,8 @@ cycint=${assim_freq:-6}
 # CPC precipitation is from 12z to 12z. One more day of gdas data is 
 # needed to disaggregate daily CPC precipitation values to hourly values
 cdate=`$NDATE -24 $bdate`
+
+iter=0
 
 #-------------------------------
 while [ $cdate -lt $edate ]; do
@@ -53,10 +56,13 @@ while [ $f -le $cycint ]; do
 
   if [ $machine = "WCOSS_DELL_P3" ] || [ $machine = "WCOSS_C" ]; then
     echo "${USHgldas}/gldas_process_data.sh $rflux $fcsty $fflux $gflux $f" >> ./cfile
+  elif [ $machine = "HERA" ]; then
+    echo "$iter ${USHgldas}/gldas_process_data.sh $rflux $fcsty $fflux $gflux $f" >> ./cfile
   else
     ${USHgldas}/gldas_process_data.sh $rflux $fcsty $fflux $gflux $f
   fi
 
+  iter=$((iter+1))
   f=$((f+1))
 done
 
@@ -65,7 +71,8 @@ done
 done
 #-------------------------------
 
-if [ $machine = "WCOSS_DELL_P3" ] || [ $machine = "WCOSS_C" ]; then
+if [ $machine = "WCOSS_DELL_P3" ] || [ $machine = "WCOSS_C" ] || \
+   [ $machine = "HERA" ]; then
   $APRUN_GLDAS_DATA_PROC ./cfile
 fi
 
