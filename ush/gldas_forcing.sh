@@ -29,6 +29,7 @@ export ERRSCRIPT=${ERRSCRIPT:-'eval [[ $err = 0 ]]'}
 #-------------------------------
 #--- extract variables of each timestep and create forcing files
 sdate=$bdate
+edate=`sh $FINDDATE $edate d-1`
 while [ $sdate -lt $edate ]; do
 #-------------------------------
 
@@ -48,8 +49,9 @@ cpc=$pathp1/$cpc_precip
 if [ ! -s $cpc ]; then cpc=$pathp2/$cpc_precip ; fi
 if [ ! -s $cpc ]; then cpc=$pathp3/$cpc_precip ; fi
 if [ ! -s $cpc ]; then 
- echo "$cpc does not exist"
- exit 2
+ echo "GLDAS MISSING $cpc"
+ echo "GLDAS WILL NOT RUN."
+ exit 3
 fi
 cp $cpc $xpath/cpc.$sdate/.
 

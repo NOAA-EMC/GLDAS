@@ -28,7 +28,7 @@ cycint=${assim_freq:-6}
 # get gdas flux files to force gldas.
 # CPC precipitation is from 12z to 12z. One more day of gdas data is 
 # needed to disaggregate daily CPC precipitation values to hourly values
-cdate=`$NDATE -24 $bdate`
+cdate=`$NDATE -12 $bdate`
 
 #-------------------------------
 while [ $cdate -lt $edate ]; do
@@ -43,6 +43,11 @@ while [ $f -le $cycint ]; do
   rflux=${COMINgdas}/gdas.$ymd/$cyc/gdas.t${cyc}z.sfluxgrbf00$f.grib2
   fflux=$fpath/gdas.$ymd/gdas.t${cyc}z.sfluxgrbf0$f.grib2
   gflux=$gpath/gdas.$ymd/gdas1.t${cyc}z.sfluxgrbf0$f
+  if [ ! -s $rflux ];then
+     echo "GLDAS MISSING $rflux"
+     echo "GLDAS WILL NOT RUN."
+     exit 2
+  fi
   rm -f $fflux $gflux
   touch $fflux $gflux
 
