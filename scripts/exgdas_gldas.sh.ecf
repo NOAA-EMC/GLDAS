@@ -48,8 +48,8 @@ export gldas_scyc=`echo $gldas_sdate |cut -c 9-10`
 
 export iau_cdate=$CDATE
 if [ "$DOIAU" = "YES" ]; then
- IAUFHRS=${IAUFHRS:-6}
- IAUHALH=$((IAUFHRS/2))
+ IAU_OFFSET=${IAU_OFFSET:-0}
+ IAUHALH=$((IAU_OFFSET/2))
  export iau_cdate=`$NDATE -$IAUHALH $CDATE`
 fi
 export iau_eymd=`echo $iau_cdate |cut -c 1-8`
@@ -124,7 +124,7 @@ fi
 echo $JCAP
 echo $gds
 ymdpre=`sh $FINDDATE $gldas_symd d-1` 
-ymdend=`sh $FINDDATE $gldas_eymd d-1`
+ymdend=`sh $FINDDATE $gldas_eymd d-2`
 ymd=$ymdpre
 
 while [ $ymd -le $ymdend ]; do
@@ -230,7 +230,7 @@ $ERRSCRIPT || exit 8
 
 # 5c) use gldas_post to replace soil moisture and temperature
 
-yyyy=`echo $gldas_eymd | cut -c1-4`
+yyyy=`echo $iau_eymd | cut -c1-4`
 gbin=$RUNDIR/EXP901/NOAH/$yyyy/$iau_eymd/LIS.E901.${iau_eymd}${iau_ecyc}.NOAHgbin
 sfcanl=sfc.gaussian.nemsio
 rm -rf fort.11 fort.12
