@@ -98,7 +98,6 @@ ${USHgldas}/gldas_get_data.sh $gldas_sdate $gldas_cdate
 export err=$?
 $ERRSCRIPT || exit 2
 
-
 #---------------------------------------------------------------
 ### 2) Get CPC daily precip and temporally disaggreated 
 #---------------------------------------------------------------
@@ -134,13 +133,11 @@ if [ $machine = "WCOSS_DELL_P3" ] ; then
   touch ./cfile
 fi
 
-iter=0
 while [ $ymd -le $ymdend ]; do
   if [ $ymd -ne $ymdpre ]; then
     if [ $machine = "WCOSS_DELL_P3" ] ; then
       echo "$COPYGB -i3 '-g"$gds"' -x $GDAS/cpc.$ymd/precip.gldas.${ymd}00 $RUNDIR/cmap.gdas.${ymd}00" >> ./cfile
       echo "$COPYGB -i3 '-g"$gds"' -x $GDAS/cpc.$ymd/precip.gldas.${ymd}06 $RUNDIR/cmap.gdas.${ymd}06" >> ./cfile
-      iter=$((iter+2))
     else
       $COPYGB -i3 -g"$gds" -x $GDAS/cpc.$ymd/precip.gldas.${ymd}00 $RUNDIR/cmap.gdas.${ymd}00
       $COPYGB -i3 -g"$gds" -x $GDAS/cpc.$ymd/precip.gldas.${ymd}06 $RUNDIR/cmap.gdas.${ymd}06
@@ -150,7 +147,6 @@ while [ $ymd -le $ymdend ]; do
     if [ $machine = "WCOSS_DELL_P3" ] ; then
       echo "$COPYGB -i3 '-g"$gds"' -x $GDAS/cpc.$ymd/precip.gldas.${ymd}12 $RUNDIR/cmap.gdas.${ymd}12" >> ./cfile
       echo "$COPYGB -i3 '-g"$gds"' -x $GDAS/cpc.$ymd/precip.gldas.${ymd}18 $RUNDIR/cmap.gdas.${ymd}18" >> ./cfile
-      iter=$((iter+2))
     else
       $COPYGB -i3 -g"$gds" -x $GDAS/cpc.$ymd/precip.gldas.${ymd}12 $RUNDIR/cmap.gdas.${ymd}12
       $COPYGB -i3 -g"$gds" -x $GDAS/cpc.$ymd/precip.gldas.${ymd}18 $RUNDIR/cmap.gdas.${ymd}18
@@ -160,8 +156,7 @@ while [ $ymd -le $ymdend ]; do
 done
 
 if [ $machine = "WCOSS_DELL_P3" ] ; then
-  APRUN_GLDAS_COPYGB=${APRUN_GLDAS_COPYGB:-"${launcher} ${iter} cfp"}
-  $APRUN_GLDAS_COPYGB ./cfile
+  $APRUN_GLDAS_DATA_PROC ./cfile
 fi
 
 # create configure file
