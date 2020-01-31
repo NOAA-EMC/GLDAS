@@ -81,10 +81,12 @@ CFLAGS       = -DIRIX64 -c -O
 #FFLAGS1       = -c -O0 -g -traceback -check all -fpe0 -ftrapuv -CB -convert big_endian
 ## Fanglin Yang
 ##FFLAGS       = -fp-model strict -free -c -O0 -convert big_endian
+
 ## Dell standard flags
-FFLAGS       = -fp-model precise -ftz -fast-transcendentals -no-prec-div -no-prec-sqrt -align array64byte -free -c -O0 -convert big_endian
-FFLAGS1       = -fp-model precise -ftz -fast-transcendentals -no-prec-div -no-prec-sqrt -align array64byte -c -O0 -convert big_endian
+FFLAGS       = -fp-model precise -ftz -fast-transcendentals -no-prec-div -no-prec-sqrt -align array64byte -free -c -O3 -convert big_endian
+FFLAGS1       = -fp-model precise -ftz -fast-transcendentals -no-prec-div -no-prec-sqrt -align array64byte -c -O3 -convert big_endian
 LDFLAGS      = ${BACIO_LIB4} ${IP_LIB4} ${W3EMC_LIB4} ${W3NCO_LIB4} ${SP_LIB4} -qopenmp
+
 ifeq ($(SPMD),TRUE)
 #  FFLAGS  -= -mp
 #  #  FFLAGS  += -macro_expand
