@@ -22,6 +22,11 @@ if [ $cyc -ne $gldas_cyc ]; then
     echo "GLDAS only runs for $gldas_cyc cycle; Skip GLDAS step for cycle $cyc"
     exit 0   
 fi
+if [ $CDATE -le $(NDATE +$gldas_spinup_hours $SDATE) ]; then
+    echo "GLDAS needs fluxes as forcing from cycles in previous $gldas_spinup_hours hours"
+    echo "starting from $SDATE. This gldas cycle is skipped" 
+    exit 0   
+fi
 
 ##########################################
 # Source machine runtime environment
@@ -98,7 +103,7 @@ msg="HAS BEGUN on `hostname`"
 postmsg "$jlogfile" "$msg"
 $LOGSCRIPT
 
-$HOMEgldas/scripts/exgdas_gldas.sh.ecf
+${GLDASSH:-$HOMEgldas/scripts/exgdas_gldas.sh.ecf}
 status=$?
 [[ $status -ne 0 ]] && exit $status
 
