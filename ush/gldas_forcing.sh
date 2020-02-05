@@ -71,10 +71,20 @@ sflux=$fpath/gdas.${sdate}/gdas1.t06z.sfluxgrbf06
 prate=gdas.${sdate}06
 $WGRIB -s $sflux | grep "PRATE:sfc" | $WGRIB -i $sflux -grib -o $prate
 
-$COPYGB -i3 -g"255 0 2881 1441 90000 0 128 -90000 360000 125 125" -x gdas.${sdat0}12 grib.12
-$COPYGB -i3 -g"255 0 2881 1441 90000 0 128 -90000 360000 125 125" -x gdas.${sdat0}18 grib.18
-$COPYGB -i3 -g"255 0 2881 1441 90000 0 128 -90000 360000 125 125" -x gdas.${sdate}00  grib.00
-$COPYGB -i3 -g"255 0 2881 1441 90000 0 128 -90000 360000 125 125" -x gdas.${sdate}06  grib.06
+if [ $machine = "WCOSS_DELL_P3" ] ; then
+  rm -f ./cfile
+  touch ./cfile
+  echo "$COPYGB -i3 '-g255 0 2881 1441 90000 0 128 -90000 360000 125 125' -x gdas.${sdat0}12 grib.12" >> ./cfile
+  echo "$COPYGB -i3 '-g255 0 2881 1441 90000 0 128 -90000 360000 125 125' -x gdas.${sdat0}18 grib.18" >> ./cfile
+  echo "$COPYGB -i3 '-g255 0 2881 1441 90000 0 128 -90000 360000 125 125' -x gdas.${sdate}00 grib.00" >> ./cfile
+  echo "$COPYGB -i3 '-g255 0 2881 1441 90000 0 128 -90000 360000 125 125' -x gdas.${sdate}06 grib.06" >> ./cfile
+  $APRUN_GLDAS_DATA_PROC ./cfile
+else
+  $COPYGB -i3 '-g255 0 2881 1441 90000 0 128 -90000 360000 125 125' -x gdas.${sdat0}12 grib.12
+  $COPYGB -i3 '-g255 0 2881 1441 90000 0 128 -90000 360000 125 125' -x gdas.${sdat0}18 grib.18
+  $COPYGB -i3 '-g255 0 2881 1441 90000 0 128 -90000 360000 125 125' -x gdas.${sdate}00 grib.00
+  $COPYGB -i3 '-g255 0 2881 1441 90000 0 128 -90000 360000 125 125' -x gdas.${sdate}06 grib.06
+fi
 
 rm -f fort.10
 touch fort.10
