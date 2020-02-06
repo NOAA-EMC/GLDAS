@@ -11,9 +11,14 @@ module load nemsio/2.2.3
 module load bacio/2.0.2
 module load sp/2.0.2
 
-export NCEPLIBS=/scratch1/NCEPDEV/global/gwv/l819/lib
-module use -a $NCEPLIBS/modulefiles
-module load esmflocal/8_0_48b.netcdf47
+#export NCEPLIBS=/scratch1/NCEPDEV/global/gwv/l819/lib
+#module use -a $NCEPLIBS/modulefiles
+#module load esmflocal/8_0_48b.netcdf47
+
+module use /scratch2/NCEPDEV/nwprod/NCEPLIBS/modulefiles
+module load hdf5_parallel/1.10.6
+module load netcdf_parallel/4.7.4
+module load esmf/8.0.0_ParallelNetCDF
 
 export FCOMP=mpiifort
 export FFLAGS="-O3 -fp-model precise -g -traceback -r8 -i4 -qopenmp -convert big_endian -assume byterecl"
