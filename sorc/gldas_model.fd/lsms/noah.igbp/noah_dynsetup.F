@@ -29,8 +29,8 @@ subroutine noah_dynsetup()
   endif
   if(masterproc) then 
 #endif
-     call noah_gfrac()
-     call noah_alb()  
+!    call noah_gfrac()
+!    call noah_alb()  
 #if ( ! defined OPENDAP )
   endif
   call MPI_BCAST(noahdrv%noah_gflag,1,MPI_INTEGER,0, &
