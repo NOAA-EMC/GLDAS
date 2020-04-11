@@ -28,8 +28,7 @@ export WGRIB2=${WGRIB2:-$utilexec/wgrib2}
 export COPYGB=${COPYGB:-$utilexec/copygb}
 export NDATE=${NDATE:-/gpfs/dell1/nco/ops/nwprod/prod_util.v1.1.0/exec/ips/ndate}
 export DCOMIN=${DCOMIN:-${DCOMROOT:-"/gpfs/dell1/nco/ops/dcom"}}
-export DMPDIR=${DMPDIR:-${DMPDIR:-"/gpfs/dell3/emc/global/dump"}}
-export CPCGAUGE=${CPCGAUGE:-/gpfs/dell2/emc/modeling/noscrub/emc.glopara/stat/cpcUniGauge}
+export CPCGAUGE=${CPCGAUGE:-/gpfs/dell3/emc/global/dump}
 export COMINgdas=${COMINgdas:-$ROTDIR}
 export OFFLINE_GLDAS=${OFFLINE_GLDAS:-"NO"}
 export ERRSCRIPT=${ERRSCRIPT:-'eval [[ $err = 0 ]]'}

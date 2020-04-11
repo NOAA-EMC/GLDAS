@@ -40,14 +40,12 @@ sdat0=`sh $FINDDATE $sdate d-1`
 cd $xpath
 rm -f fort.* grib.*
 
-pathp1=$DCOMIN/prod/$sdate/wgrbbul/cpc_rcdas
-pathp2=$DMPDIR/gdas.$sdate/00
+pathp1=$CPCGAUGE/gdas.$sdate/00
+pathp2=$DCOMIN/prod/$sdate/wgrbbul/cpc_rcdas
 yyyy=`echo $sdate |cut -c 1-4`
-pathp3=$CPCGAUGE/$yyyy
 cpc_precip="PRCP_CU_GAUGE_V1.0GLB_0.125deg.lnx.$sdate.RT"
 cpc=$pathp1/$cpc_precip
 if [ ! -s $cpc ]; then cpc=$pathp2/$cpc_precip ; fi
-if [ ! -s $cpc ]; then cpc=$pathp3/$cpc_precip ; fi
 if [ ! -s $cpc ]; then 
  echo "GLDAS MISSING $cpc"
  echo "GLDAS WILL NOT RUN."
