@@ -109,6 +109,9 @@ elif [[ -d /lustre && -d /ncrc ]] ; then
     fi
     target=gaea
     module purge
+elif [[ "$(hostname)" =~ "Orion" ]]; then
+    target="orion"
+    module purge
 else
     echo WARNING: UNKNOWN PLATFORM 1>&2
 fi
