@@ -37,6 +37,15 @@ elif [[ -d /scratch1 ]] ; then
     target=hera
     module purge
     MOD_PATH=/scratch2/NCEPDEV/nwprod/NCEPLIBS/modulefiles
+elif [[ -d /work ]] ; then
+    # We are on Orion 
+    if ( ! eval module help > /dev/null 2>&1 ) ; then
+        echo load the module command 1>&2
+        source /apps/lmod/lmod/init/$__ms_shell
+    fi
+    target=orion
+    module purge
+    MOD_PATH=/apps/contrib/NCEPLIBS/orion/modulefiles
 elif [[ -d /gpfs/hps && -e /etc/SuSE-release ]] ; then
     # We are on NOAA Luna or Surge
     if ( ! eval module help > /dev/null 2>&1 ) ; then
@@ -108,9 +117,6 @@ elif [[ -d /lustre && -d /ncrc ]] ; then
         source /etc/profile
     fi
     target=gaea
-    module purge
-elif [[ "$(hostname)" =~ "Orion" ]]; then
-    target="orion"
     module purge
 else
     echo WARNING: UNKNOWN PLATFORM 1>&2
