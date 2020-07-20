@@ -69,6 +69,7 @@ export pgmerr=errfile
 ##############################################
 export CDATE=${CDATE:-${PDY}${cyc}}
 export CDUMP=${CDUMP:-${RUN:-"gdas"}}
+export COMPONENT=${COMPONENT:-atmos}
 if [ $RUN_ENVIR = "nco" ]; then
     export ROTDIR=${COMROOT:?}/$NET/$envir
 fi
@@ -83,14 +84,14 @@ export FIXgldas=${FIXgldas:-$HOMEgldas/fix/fix_gldas}
 export PARMgldas=${PARMgldas:-$HOMEgldas/parm/gldas}
 export EXECgldas=${EXECgldas:-$HOMEgldas/exec}
 export USHgldas=${USHgldas:-$HOMEgldas/ush}
-export PARA_CONFIG=$HOMEgfs/parm/config/config.gldas}
+export PARA_CONFIG=$HOMEgfs/parm/config/config.gldas
 
 if [ $RUN_ENVIR = "nco" ]; then
-    export COMIN=${COMIN:-$ROTDIR/$RUN.$PDY/$cyc}
-    export COMOUT=${COMOUT:-$ROTDIR/$RUN.$PDY/$cyc}
+    export COMIN=${COMIN:-$ROTDIR/$RUN.$PDY/$cyc/$COMPONENT}
+    export COMOUT=${COMOUT:-$ROTDIR/$RUN.$PDY/$cyc/$COMPONENT}
 else
-    export COMIN="$ROTDIR/$CDUMP.$PDY/$cyc"
-    export COMOUT="$ROTDIR/$CDUMP.$PDY/$cyc"
+    export COMIN="$ROTDIR/$CDUMP.$PDY/$cyc/$COMPONENT"
+    export COMOUT="$ROTDIR/$CDUMP.$PDY/$cyc/$COMPONENT"
 fi
 [[ ! -d $COMOUT ]] && mkdir -m 775 -p $COMOUT
 
