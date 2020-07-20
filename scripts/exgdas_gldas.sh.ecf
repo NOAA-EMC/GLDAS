@@ -37,6 +37,7 @@ export ERRSCRIPT=${ERRSCRIPT:-'eval [[ $err = 0 ]]'}
 #################################
 # Set up the running environment
 #################################
+export COMPONENT=${COMPONENT:-atmos}
 export assim_freq=${assim_freq:-6}
 export gldas_spinup_hours=${gldas_spinup_hours:-72}
 export gldas_cdate=$CDATE
@@ -79,8 +80,8 @@ export RUNDIR=$DATA
 GDAS=${RUNDIR}/force
 mkdir -p $GDAS
 
-input1=$COMINgdas/gdas.$gldas_symd/$gldas_scyc/RESTART
-input2=$COMINgdas/gdas.$gldas_eymd/$gldas_ecyc/RESTART
+input1=$COMINgdas/gdas.$gldas_symd/$gldas_scyc/$COMPONENT/RESTART
+input2=$COMINgdas/gdas.$gldas_eymd/$gldas_ecyc/$COMPONENT/RESTART
 [[ -d $RUNDIR ]]       && rm -fr $RUNDIR/FIX
 [[ -f $RUNDIR/LIS ]]   && rm -fr $RUNDIR/LIS
 [[ -d $RUNDIR/input ]] && rm -fr $RUNDIR/input
