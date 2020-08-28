@@ -106,7 +106,7 @@ msg="HAS BEGUN on `hostname`"
 postmsg "$jlogfile" "$msg"
 $LOGSCRIPT
 
-${GLDASSH:-$HOMEgldas/scripts/exgdas_gldas.sh.ecf}
+${GLDASSH:-$HOMEgldas/scripts/exgdas_gldas.sh}
 status=$?
 [[ $status -ne 0 ]] && exit $status
 
