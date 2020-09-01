@@ -282,7 +282,7 @@ subroutine get_curr_date(lt, yr, mon, day, tod, offset)
    
 ! Arguments
    type(listime) :: lt
-   integer, intent(out) ::&
+   integer, intent(out),target ::&
       yr,    &! year
       mon,   &! month
       day,   &! day of month
@@ -311,7 +311,7 @@ subroutine get_prev_date(yr, mon, day, tod)
    implicit none
    
 ! Arguments
-   integer, intent(out) ::&
+   integer, intent(out),target ::&
       yr,    &! year
       mon,   &! month
       day,   &! day of month
@@ -336,7 +336,7 @@ subroutine get_start_date(yr, mon, day, tod)
    implicit none
    
 ! Arguments
-   integer, intent(out) ::&
+   integer, intent(out),target ::&
       yr,    &! year
       mon,   &! month
       day,   &! day of month
@@ -361,7 +361,7 @@ subroutine get_ref_date(yr, mon, day, tod)
    implicit none
    
 ! Arguments
-   integer, intent(out) ::&
+   integer, intent(out),target ::&
       yr,    &! year
       mon,   &! month
       day,   &! day of month
@@ -388,7 +388,7 @@ subroutine get_curr_time(days, seconds)
    implicit none
    
 ! Arguments
-   integer, intent(out) ::&
+   integer, intent(out),target ::&
       days,   &! number of whole days in time interval
       seconds  ! remaining seconds in time interval
 

@@ -149,9 +149,9 @@ CONTAINS
 
 ! ------------------- arguments -----------------------------------
     integer, intent(in ) :: nfact                ! multiplicative factor for patches
-    integer, intent(out) :: numtot               ! total number of elements (to send or recv)
-    integer, intent(out) :: numperproc(0:npes-1) ! per-PE number of items to receive
-    integer, intent(out) :: displs(0:npes-1)     ! per-PE displacements
+    integer, intent(out),target :: numtot               ! total number of elements (to send or recv)
+    integer, intent(out),target :: numperproc(0:npes-1) ! per-PE number of items to receive
+    integer, intent(out),target :: displs(0:npes-1)     ! per-PE displacements
 !------------------------------------------------------------------
 
 ! ---------------------- local variables --------------------------
@@ -184,9 +184,9 @@ CONTAINS
     implicit none
 ! ------------------- arguments -----------------------------------
     integer, intent(in ) :: nfact                ! multiplicative factor for patches
-    integer, intent(out) :: numtot               ! total number of elements (to send or recv)
-    integer, intent(out) :: numperproc(0:npes-1) ! per-PE number of items to receive
-    integer, intent(out) :: displs(0:npes-1)     ! per-PE displacements
+    integer, intent(out),target :: numtot               ! total number of elements (to send or recv)
+    integer, intent(out),target :: numperproc(0:npes-1) ! per-PE number of items to receive
+    integer, intent(out),target :: displs(0:npes-1)     ! per-PE displacements
 !------------------------------------------------------------------
 
 ! ---------------------- local variables --------------------------
