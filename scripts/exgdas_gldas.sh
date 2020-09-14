@@ -88,7 +88,7 @@ input2=$COMINgdas/gdas.$gldas_eymd/$gldas_ecyc/$COMPONENT/RESTART
 mkdir -p $RUNDIR/input
 ln -fs $GDAS $RUNDIR/input/GDAS
 ln -fs $FIXgldas/FIX_T${JCAP} $RUNDIR/FIX
-ln -fs $EXECgldas/gldas_${model} $RUNDIR/LIS
+ln -fs $EXECgldas/gldas_model $RUNDIR/LIS
 
 
 #---------------------------------------------------------------
@@ -191,18 +191,21 @@ cp fort.141 fort.41
 # 3b) Use gdas2gldas to generate nemsio file 
 
 export OMP_NUM_THREADS=1
+export pgm=gdas2gldas
+. prep_step
 $APRUN_GAUSSIAN ${EXECgldas}/gdas2gldas      1>&1 2>&2
 export err=$?
 $ERRSCRIPT || exit 5
 
 
-# 3c)gldas_noah_rst/gldas_noahmp_rst to generate noah.rst 
+# 3c)gldas_rst to generate noah.rst 
 
 sfcanl=sfc.gaussian.nemsio
 ln -fs FIX/lmask_gfs_T${JCAP}.bfsa fort.11
 ln -fs $sfcanl fort.12
-
-${EXECgldas}/gldas_${model}_rst     1>&1 2>&2
+export pgm=gldas_rst
+. prep_step
+${EXECgldas}/gldas_rst     1>&1 2>&2
 export err=$?
 $ERRSCRIPT || exit 6
 
@@ -212,7 +215,8 @@ mv $sfcanl ${sfcanl}.$gldas_symd
 #---------------------------------------------------------------
 ### 4) run noah/noahmp model
 #---------------------------------------------------------------
-
+export pgm=LIS
+. prep_step
 $APRUN_GLDAS ./LIS      1>&1 2>&2
 export err=$?
 $ERRSCRIPT || exit 7
@@ -244,6 +248,8 @@ cp fort.241 fort.41
 # 5b) use gdas2gldas to produce nemsio file
 
 export OMP_NUM_THREADS=1
+export pgm=gdas2gldas
+. prep_step
 $APRUN_GAUSSIAN ${EXECgldas}/gdas2gldas     1>&1 2>&2
 export err=$?
 $ERRSCRIPT || exit 8
@@ -258,6 +264,8 @@ rm -rf fort.11 fort.12
 ln -fs $gbin   fort.11
 ln -fs $sfcanl fort.12
 
+export pgm=gldas_post
+. prep_step
 ${EXECgldas}/gldas_post      1>&1 2>&2
 export err=$?
 $ERRSCRIPT || exit 9
@@ -285,6 +293,8 @@ done
 ln -fs FIX/stype_gfs_T${JCAP}.bfsa  stype_gfs_T${JCAP}.bfsa
 
 export OMP_NUM_THREADS=1
+export pgm=gldas2gdas
+. prep_step
 $APRUN_GAUSSIAN $EXECgldas/gldas2gdas      1>&1 2>&2
 export err=$?
 $ERRSCRIPT || exit 10
