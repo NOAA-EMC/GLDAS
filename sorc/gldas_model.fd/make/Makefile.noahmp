@@ -10,7 +10,7 @@ endif
 
 # Check for name of executable
 ifeq ($(EXENAME),$(null))
-EXENAME := ../gldas_noahmp
+EXENAME := ../gldas_model
 endif
 
 # Check if SPMD is defined in "misc.h"

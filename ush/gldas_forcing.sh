@@ -47,8 +47,7 @@ cpc_precip="PRCP_CU_GAUGE_V1.0GLB_0.125deg.lnx.$sdate.RT"
 cpc=$pathp1/$cpc_precip
 if [ ! -s $cpc ]; then cpc=$pathp2/$cpc_precip ; fi
 if [ ! -s $cpc ]; then 
- echo "GLDAS MISSING $cpc"
- echo "GLDAS WILL NOT RUN."
+ echo "WARNING: GLDAS MISSING $cpc, WILL NOT RUN."
  exit 3
 fi
 cp $cpc $xpath/cpc.$sdate/.
@@ -88,6 +87,9 @@ rm -f fort.10
 touch fort.10
 echo ${sdat0} >> fort.10
 echo ${sdate}  >> fort.10
+
+export pgm=gldas_forcing
+. prep_step
 
 $WGRIB -d -bin grib.12 -o fort.11
 $WGRIB -d -bin grib.18 -o fort.12

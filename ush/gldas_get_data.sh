@@ -50,8 +50,7 @@ while [ $f -le $cycint ]; do
   fflux=$fpath/gdas.$ymd/gdas.t${cyc}z.sfluxgrbf0$f.grib2
   gflux=$gpath/gdas.$ymd/gdas1.t${cyc}z.sfluxgrbf0$f
   if [ ! -s $rflux ];then
-     echo "GLDAS MISSING $rflux"
-     echo "GLDAS WILL NOT RUN."
+     echo "WARNING: GLDAS MISSING $rflux, WILL NOT RUN."
      exit 2
   fi
   rm -f $fflux $gflux
