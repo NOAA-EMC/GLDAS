@@ -30,5 +30,5 @@ rm -f fort.11 fort.12 fort.22
 
 echo ${sfcanl}.gldas
 
-exit
+exit $?
 

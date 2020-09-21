@@ -20,7 +20,7 @@ fi
 #################################
 # Set up UTILITIES
 #################################
-export FINDDATE=${FINDDATE:-$HOMEgldas/util/ush/finddate.sh}
+export FINDDATE=${FINDDATE:-/gpfs/dell1/nco/ops/nwprod/prod_util.v1.1.4/util/ush/finddate.sh}
 export utilexec=${utilexec:-/gpfs/dell1/nco/ops/nwprod/grib_util.v1.1.0/exec}
 export CNVGRIB=${CNVGRIB:-$utilexec/cnvgrib}
 export WGRIB=${WGRIB:-$utilexec/wgrib}
