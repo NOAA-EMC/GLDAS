@@ -81,4 +81,4 @@ if [ $machine = "WCOSS_DELL_P3" ] || [ $machine = "WCOSS_C" ] || \
   $APRUN_GLDAS_DATA_PROC ./cfile
 fi
 
-exit 
+exit $?

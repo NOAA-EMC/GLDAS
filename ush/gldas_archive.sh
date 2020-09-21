@@ -29,7 +29,7 @@ set -ux
 
 if [ $# -lt 1 ]; then
 echo "usage: ksh $0 sdate [edate]"
-exit
+exit $?
 fi
 
 sdate=$1
