@@ -4,20 +4,20 @@
 
 module load PrgEnv-intel/5.2.56
 module rm intel
-module load intel/16.3.210
+module rm NetCDF-intel-sandybridge/4.2
+module load intel/18.1.163
 module load cray-mpich/7.2.0
 module load craype-haswell
-module load cray-netcdf/4.3.3.1
-module load cray-hdf5/1.8.14
-module load gcc/4.9.2
+module load gcc/5.3.0
 
-module load w3nco-intel/2.0.6
-module load nemsio-intel/2.2.3
-module load bacio-intel/2.0.2
-module load sp-intel/2.0.2
+module load NetCDF-intel-sandybridge/4.7.4
+module load HDF5-parallel-intel-sandybridge/1.10.6
+module load ESMF-intel-sandybridge/8.0.1
 
-module use /gpfs/hps3/emc/nems/noscrub/emc.nemspara/soft/modulefiles
-module load esmf/8.0.0
+module load w3nco-intel/2.2.0
+module load nemsio-intel/2.2.4
+module load bacio-intel/2.0.3
+module load sp-intel/2.0.3
 
 export FCOMP=ftn
 export FFLAGS="-O3 -fp-model precise -g -traceback -r8 -i4 -qopenmp -convert big_endian -assume byterecl"

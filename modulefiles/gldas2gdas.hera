@@ -15,10 +15,10 @@ module load sp/2.0.2
 #module use -a $NCEPLIBS/modulefiles
 #module load esmflocal/8_0_48b.netcdf47
 
-module use /scratch2/NCEPDEV/nwprod/NCEPLIBS/modulefiles
-module load hdf5_parallel/1.10.6
-module load netcdf_parallel/4.7.4
-module load esmf/8.0.0_ParallelNetCDF
+module use /scratch1/NCEPDEV/nems/emc.nemspara/soft/modulefiles/
+module load netcdf_parallel/4.7.4.release
+module load hdf5_parallel/1.10.6.release
+module load esmf/8.0.1_ParallelNetCDF.release
 
 export FCOMP=mpiifort
 export FFLAGS="-O3 -fp-model precise -g -traceback -r8 -i4 -qopenmp -convert big_endian -assume byterecl"
