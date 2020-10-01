@@ -5,10 +5,10 @@
 module load ips/18.0.1.163
 module load impi/18.0.1
 
-module load w3nco/2.0.6
-module load w3emc/2.3.0
-module load bacio/2.0.2
-module load nemsio/2.2.3
+module load w3nco/2.2.0
+module load w3emc/2.4.0
+module load bacio/2.0.3
+module load nemsio/2.2.4
 
 export FC=ifort
 export FOPTS='-O -FR -I$(NEMSIO_INC) -convert big_endian'
