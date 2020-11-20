@@ -46,6 +46,7 @@ yyyy=`echo $sdate |cut -c 1-4`
 cpc_precip="PRCP_CU_GAUGE_V1.0GLB_0.125deg.lnx.$sdate.RT"
 cpc=$pathp1/$cpc_precip
 if [ ! -s $cpc ]; then cpc=$pathp2/$cpc_precip ; fi
+if [ $RUN_ENVIR = "nco" ]; then cpc=$pathp2/$cpc_precip ; fi
 if [ ! -s $cpc ]; then 
  echo "WARNING: GLDAS MISSING $cpc, WILL NOT RUN."
  exit 3
