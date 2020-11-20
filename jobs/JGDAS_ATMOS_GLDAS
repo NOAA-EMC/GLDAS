@@ -95,6 +95,9 @@ else
 fi
 [[ ! -d $COMOUT ]] && mkdir -m 775 -p $COMOUT
 
+export COMINgdas=${COMINgdas:-$ROTDIR}
+export DCOMIN=${DCOMIN:-${DCOMROOT:-"/gpfs/dell1/nco/ops/dcom"}}
+
 export model=${model:-noah}
 export MODEL=${MODEL:-`echo $model |tr '[a-z]' '[A-Z]'`}
 
