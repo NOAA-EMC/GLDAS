@@ -2,12 +2,14 @@
 ## Build module for orion
 #############################################################
 
-module load intel/2020
+module use /apps/contrib/NCEP/libs/hpc-stack/modulefiles/stack
+module load hpc/1.1.0
+module load hpc-intel/2018.4
+module load hpc-impi/2018.4
 
-module use -a $MOD_PATH
-module load w3nco/2.1.0
-module load bacio/2.2.0
-module load nemsio/2.3.0
+module load w3nco/2.4.1
+module load bacio/2.4.1
+module load nemsio/2.5.2
 
 export FC=ifort
 export FOPTS='-O -FR -I$(NEMSIO_INC) -convert big_endian'
