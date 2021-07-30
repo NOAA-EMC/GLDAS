@@ -87,6 +87,11 @@ FFLAGS       = -fp-model precise -ftz -fast-transcendentals -no-prec-div -no-pre
 FFLAGS1       = -fp-model precise -ftz -fast-transcendentals -no-prec-div -no-prec-sqrt -align array64byte -c -O3 -convert big_endian
 LDFLAGS      = ${BACIO_LIB4} ${IP_LIB4} ${W3EMC_LIB4} ${W3NCO_LIB4} ${SP_LIB4} -qopenmp
 
+ifeq ($(target),s4)
+  FFLAGS       += -march=ivybridge
+  FFLAGS1      += -march=ivybridge
+  CFLAGS       += -march=ivybridge
+endif
 ifeq ($(SPMD),TRUE)
 #  FFLAGS  -= -mp
 #  #  FFLAGS  += -macro_expand

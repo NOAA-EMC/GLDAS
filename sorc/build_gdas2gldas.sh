@@ -27,6 +27,7 @@ fi
 #
 cd gdas2gldas.fd
 
+echo making...
 make clean
 make
 make install

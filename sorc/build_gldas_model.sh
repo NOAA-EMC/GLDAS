@@ -7,7 +7,7 @@ cwd=`pwd`
 USE_PREINST_LIBS=${USE_PREINST_LIBS:-"true"}
 if [ $USE_PREINST_LIBS = true ]; then
   export MOD_PATH
-  source ../modulefiles/gldas_model.$target             > /dev/null 2>&1
+  source ../modulefiles/gldas_model.$target
 else
   export MOD_PATH=${cwd}/lib/modulefiles
   if [ $target = wcoss_cray ]; then
