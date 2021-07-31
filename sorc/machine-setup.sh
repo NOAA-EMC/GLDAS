@@ -16,41 +16,38 @@ else
     __ms_shell=sh
 fi
 
-target=""
+target="NULL"
 USERNAME=`echo $LOGNAME | awk '{ print tolower($0)'}`
 
 if [[ -d /lfs3 ]] ; then
     # We are on NOAA Jet
     if ( ! eval module help > /dev/null 2>&1 ) ; then
-	echo load the module command 1>&2
-        source /apps/lmod/lmod/init/$__ms_shell
+      echo load the module command 1>&2
+      source /apps/lmod/lmod/init/$__ms_shell
     fi
     target=jet
     module purge
-    module use /mnt/lfs3/projects/hfv3gfs/nwprod/lib/modulefiles
 elif [[ -d /scratch1 ]] ; then
     # We are on NOAA Hera
     if ( ! eval module help > /dev/null 2>&1 ) ; then
-	echo load the module command 1>&2
-        source /apps/lmod/lmod/init/$__ms_shell
+      echo load the module command 1>&2
+      source /apps/lmod/lmod/init/$__ms_shell
     fi
     target=hera
     module purge
-    MOD_PATH=/scratch2/NCEPDEV/nwprod/NCEPLIBS/modulefiles
 elif [[ -d /work ]] ; then
-    # We are on Orion 
+    # We are on Orion
     if ( ! eval module help > /dev/null 2>&1 ) ; then
-        echo load the module command 1>&2
-        source /apps/lmod/lmod/init/$__ms_shell
+      echo load the module command 1>&2
+      source /apps/lmod/lmod/init/$__ms_shell
     fi
     target=orion
     module purge
-    MOD_PATH=/apps/contrib/NCEPLIBS/orion/modulefiles
 elif [[ -d /gpfs/hps && -e /etc/SuSE-release ]] ; then
     # We are on NOAA Luna or Surge
     if ( ! eval module help > /dev/null 2>&1 ) ; then
-	echo load the module command 1>&2
-	source /opt/modules/default/init/$__ms_shell
+      echo load the module command 1>&2
+      source /opt/modules/default/init/$__ms_shell
     fi
     target=wcoss_cray
 
@@ -83,38 +80,38 @@ elif [[ -d /gpfs/hps && -e /etc/SuSE-release ]] ; then
 elif [[ -L /usrx && "$( readlink /usrx 2> /dev/null )" =~ dell ]] ; then
     # We are on NOAA Venus or Mars
     if ( ! eval module help > /dev/null 2>&1 ) ; then
-	echo load the module command 1>&2
-	source /usrx/local/prod/lmod/lmod/init/$__ms_shell
+      echo load the module command 1>&2
+      source /usrx/local/prod/lmod/lmod/init/$__ms_shell
     fi
     target=wcoss_dell_p3
-    module purge 
+    module purge
 
 elif [[ -d /dcom && -d /hwrf ]] ; then
     # We are on NOAA Tide or Gyre
     if ( ! eval module help > /dev/null 2>&1 ) ; then
-	echo load the module command 1>&2
-        source /usrx/local/Modules/default/init/$__ms_shell
+      echo load the module command 1>&2
+      source /usrx/local/Modules/default/init/$__ms_shell
     fi
     target=wcoss
     module purge
 elif [[ -d /glade ]] ; then
     # We are on NCAR Yellowstone
     if ( ! eval module help > /dev/null 2>&1 ) ; then
-	echo load the module command 1>&2
-        . /usr/share/Modules/init/$__ms_shell
+      echo load the module command 1>&2
+      . /usr/share/Modules/init/$__ms_shell
     fi
     target=yellowstone
     module purge
 elif [[ -d /lustre && -d /ncrc ]] ; then
-    # We are on GAEA. 
+    # We are on GAEA.
     if ( ! eval module help > /dev/null 2>&1 ) ; then
-        # We cannot simply load the module command.  The GAEA
-        # /etc/profile modifies a number of module-related variables
-        # before loading the module command.  Without those variables,
-        # the module command fails.  Hence we actually have to source
-        # /etc/profile here.
-	echo load the module command 1>&2
-        source /etc/profile
+      # We cannot simply load the module command.  The GAEA
+      # /etc/profile modifies a number of module-related variables
+      # before loading the module command.  Without those variables,
+      # the module command fails.  Hence we actually have to source
+      # /etc/profile here.
+      echo load the module command 1>&2
+      source /etc/profile
     fi
     target=gaea
     module purge

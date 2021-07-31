@@ -1,0 +1,6 @@
+*.[aox]
+build/
+install/
+
+*.sw[a-p]
+~
