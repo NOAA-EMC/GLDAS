@@ -1,0 +1,4 @@
+[submodule "CMakeModules"]
+	path = sorc/CMakeModules
+	url = https://github.com/NOAA-EMC/CMakeModules
+	branch = v1.2.0
