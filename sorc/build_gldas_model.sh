@@ -1,20 +1,15 @@
-#! /usr/bin/env bash
+#!/bin/bash
 set -eux
 
 source ./machine-setup.sh > /dev/null 2>&1
-cwd=`pwd`
 
-USE_PREINST_LIBS=${USE_PREINST_LIBS:-"true"}
-if [ $USE_PREINST_LIBS = true ]; then
-  export MOD_PATH
-  source ../modulefiles/gldas_model.$target             > /dev/null 2>&1
-else
-  export MOD_PATH=${cwd}/lib/modulefiles
-  if [ $target = wcoss_cray ]; then
-    source ../modulefiles/gldas_model.${target}_userlib > /dev/null 2>&1
-  else
-    source ../modulefiles/gldas_model.$target           > /dev/null 2>&1
-  fi
+if [[ "$target" != "NULL" ]]; then
+  moduledir=`dirname $(readlink -f ../modulefiles)`
+  set +x
+  module use ${moduledir}
+  module load gldas.${target}
+  module list
+  set -x
 fi
 
 # Check final exec folder exists

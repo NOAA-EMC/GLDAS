@@ -1,6 +1,10 @@
-*.[aox]
+*.[adox]
+*.mod
+
 build/
 install/
+exec/
+log*/
 
 *.sw[a-p]
 ~

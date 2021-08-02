@@ -19,3 +19,5 @@ mkdir -p build && cd build
 cmake -DCMAKE_INSTALL_PREFIX=${INSTALL_PREFIX:-"../"} ${CMAKE_OPTS:-} ..
 make -j ${BUILD_JOBS:-4} VERBOSE=${BUILD_VERBOSE:-}
 make install
+
+exit 0
