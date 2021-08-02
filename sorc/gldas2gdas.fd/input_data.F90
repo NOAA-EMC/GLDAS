@@ -7,11 +7,11 @@
 
  implicit none
 
- type(esmf_field), public        :: soil_type_input_grid 
- type(esmf_field), public        :: lsmask_input_grid 
- type(esmf_field), public        :: soil_temp_input_grid 
- type(esmf_field), public        :: soilm_tot_input_grid 
- type(esmf_field), public        :: soilm_liq_input_grid 
+ type(esmf_field), public        :: soil_type_input_grid
+ type(esmf_field), public        :: lsmask_input_grid
+ type(esmf_field), public        :: soil_temp_input_grid
+ type(esmf_field), public        :: soilm_tot_input_grid
+ type(esmf_field), public        :: soilm_liq_input_grid
 
  contains
 
@@ -29,14 +29,14 @@
  soil_type_input_grid = ESMF_FieldCreate(gldas_grid, &
                                    typekind=ESMF_TYPEKIND_R8, &
                                    staggerloc=ESMF_STAGGERLOC_CENTER,rc=rc)
- if(ESMF_logFoundError(rcToCheck=rc,msg=ESMF_LOGERR_PASSTHRU,line=__line__,file=__file__)) &
+ if(ESMF_logFoundError(rcToCheck=rc,msg=ESMF_LOGERR_PASSTHRU,line=__LINE__,file=__FILE__)) &
     call error_handler("IN FieldCreate", rc)
 
  print*,"- CALL FieldCreate FOR INPUT gldas mask."
  lsmask_input_grid = ESMF_FieldCreate(gldas_grid, &
                                    typekind=ESMF_TYPEKIND_I4, &
                                    staggerloc=ESMF_STAGGERLOC_CENTER,rc=rc)
- if(ESMF_logFoundError(rcToCheck=rc,msg=ESMF_LOGERR_PASSTHRU,line=__line__,file=__file__)) &
+ if(ESMF_logFoundError(rcToCheck=rc,msg=ESMF_LOGERR_PASSTHRU,line=__LINE__,file=__FILE__)) &
     call error_handler("IN FieldCreate", rc)
 
  print*,"- CALL FieldCreate FOR input LIQUID SOIL MOISTURE."
@@ -45,7 +45,7 @@
                                    staggerloc=ESMF_STAGGERLOC_CENTER, &
                                    ungriddedLBound=(/1/), &
                                    ungriddedUBound=(/lsoil/), rc=rc)
- if(ESMF_logFoundError(rcToCheck=rc,msg=ESMF_LOGERR_PASSTHRU,line=__line__,file=__file__)) &
+ if(ESMF_logFoundError(rcToCheck=rc,msg=ESMF_LOGERR_PASSTHRU,line=__LINE__,file=__FILE__)) &
     call error_handler("IN FieldCreate", rc)
 
  print*,"- CALL FieldCreate FOR input total SOIL MOISTURE."
@@ -54,7 +54,7 @@
                                    staggerloc=ESMF_STAGGERLOC_CENTER, &
                                    ungriddedLBound=(/1/), &
                                    ungriddedUBound=(/lsoil/), rc=rc)
- if(ESMF_logFoundError(rcToCheck=rc,msg=ESMF_LOGERR_PASSTHRU,line=__line__,file=__file__)) &
+ if(ESMF_logFoundError(rcToCheck=rc,msg=ESMF_LOGERR_PASSTHRU,line=__LINE__,file=__FILE__)) &
     call error_handler("IN FieldCreate", rc)
 
  print*,"- CALL FieldCreate FOR input total SOIL temp."
@@ -63,7 +63,7 @@
                                    staggerloc=ESMF_STAGGERLOC_CENTER, &
                                    ungriddedLBound=(/1/), &
                                    ungriddedUBound=(/lsoil/), rc=rc)
- if(ESMF_logFoundError(rcToCheck=rc,msg=ESMF_LOGERR_PASSTHRU,line=__line__,file=__file__)) &
+ if(ESMF_logFoundError(rcToCheck=rc,msg=ESMF_LOGERR_PASSTHRU,line=__LINE__,file=__FILE__)) &
     call error_handler("IN FieldCreate", rc)
 
  call read_gldas_data(localpet)
@@ -92,7 +92,7 @@
  real(nemsio_realkind), allocatable :: soilt(:,:), dummy1d(:)
  real(nemsio_realkind), allocatable :: weasd(:,:), soil_temp(:,:,:)
  real(nemsio_realkind), allocatable :: soilm_tot(:,:,:), soilm_liq(:,:,:)
- 
+
  type(nemsio_gfile)                    :: gfile
 
  if (localpet == 0) then
@@ -215,35 +215,35 @@
 
  print*,"- CALL FieldScatter FOR input soil type."
  call ESMF_FieldScatter(soil_type_input_grid, dummy, rootpet=0, rc=rc)
- if(ESMF_logFoundError(rcToCheck=rc,msg=ESMF_LOGERR_PASSTHRU,line=__line__,file=__file__)) &
+ if(ESMF_logFoundError(rcToCheck=rc,msg=ESMF_LOGERR_PASSTHRU,line=__LINE__,file=__FILE__)) &
     call error_handler("IN FieldScatter", rc)
 
  print*,"- CALL FieldScatter FOR input mask."
  call ESMF_FieldScatter(lsmask_input_grid, mask, rootpet=0, rc=rc)
- if(ESMF_logFoundError(rcToCheck=rc,msg=ESMF_LOGERR_PASSTHRU,line=__line__,file=__file__)) &
+ if(ESMF_logFoundError(rcToCheck=rc,msg=ESMF_LOGERR_PASSTHRU,line=__LINE__,file=__FILE__)) &
     call error_handler("IN FieldScatter", rc)
 
  dummy3d = soil_temp
 
  print*,"- CALL FieldScatter FOR input soil temp."
  call ESMF_FieldScatter(soil_temp_input_grid, dummy3d, rootpet=0, rc=rc)
- if(ESMF_logFoundError(rcToCheck=rc,msg=ESMF_LOGERR_PASSTHRU,line=__line__,file=__file__)) &
+ if(ESMF_logFoundError(rcToCheck=rc,msg=ESMF_LOGERR_PASSTHRU,line=__LINE__,file=__FILE__)) &
     call error_handler("IN FieldScatter", rc)
- 
+
  dummy3d = soilm_tot
 
  print*,"- CALL FieldScatter FOR input smc."
  call ESMF_FieldScatter(soilm_tot_input_grid, dummy3d, rootpet=0, rc=rc)
- if(ESMF_logFoundError(rcToCheck=rc,msg=ESMF_LOGERR_PASSTHRU,line=__line__,file=__file__)) &
+ if(ESMF_logFoundError(rcToCheck=rc,msg=ESMF_LOGERR_PASSTHRU,line=__LINE__,file=__FILE__)) &
     call error_handler("IN FieldScatter", rc)
- 
+
  dummy3d = soilm_liq
 
  print*,"- CALL FieldScatter FOR input slc."
  call ESMF_FieldScatter(soilm_liq_input_grid, dummy3d, rootpet=0, rc=rc)
- if(ESMF_logFoundError(rcToCheck=rc,msg=ESMF_LOGERR_PASSTHRU,line=__line__,file=__file__)) &
+ if(ESMF_logFoundError(rcToCheck=rc,msg=ESMF_LOGERR_PASSTHRU,line=__LINE__,file=__FILE__)) &
     call error_handler("IN FieldScatter", rc)
- 
+
  deallocate (weasd, dummy, mask, soilt, dummy3d, soil_temp, soilm_liq, soilm_tot, dummy1d)
 
  end subroutine read_gldas_data

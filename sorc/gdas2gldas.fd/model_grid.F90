@@ -69,7 +69,7 @@
                                                    ESMF_STAGGERLOC_EDGE1, ESMF_STAGGERLOC_EDGE2/), &
                                   indexflag=ESMF_INDEX_GLOBAL, &
                                   tileFilePath=trim(orog_dir_input_grid), rc=error)
- if(ESMF_logFoundError(rcToCheck=error,msg=ESMF_LOGERR_PASSTHRU,line=__line__,file=__file__)) &
+ if(ESMF_logFoundError(rcToCheck=error,msg=ESMF_LOGERR_PASSTHRU,line=__LINE__,file=__FILE__)) &
     call error_handler("IN GridCreateMosaic", error)
 
  end subroutine define_input_grid
@@ -108,7 +108,7 @@
                                     coordSys=ESMF_COORDSYS_SPH_DEG, &
                                     regDecomp=(/1,npets/),  &
                                     indexflag=ESMF_INDEX_GLOBAL, rc=rc)
- if(ESMF_logFoundError(rcToCheck=rc,msg=ESMF_LOGERR_PASSTHRU,line=__line__,file=__file__)) &
+ if(ESMF_logFoundError(rcToCheck=rc,msg=ESMF_LOGERR_PASSTHRU,line=__LINE__,file=__FILE__)) &
    call error_handler("IN GridCreate1PeriDim", rc)
 
  print*,"- CALL FieldCreate FOR TARGET GRID LATITUDE."
@@ -116,7 +116,7 @@
                                    typekind=ESMF_TYPEKIND_R8, &
                                    staggerloc=ESMF_STAGGERLOC_CENTER, &
                                    name="target_grid_latitude", rc=rc)
- if(ESMF_logFoundError(rcToCheck=rc,msg=ESMF_LOGERR_PASSTHRU,line=__line__,file=__file__)) &
+ if(ESMF_logFoundError(rcToCheck=rc,msg=ESMF_LOGERR_PASSTHRU,line=__LINE__,file=__FILE__)) &
    call error_handler("IN FieldCreate", rc)
 
  print*,"- CALL FieldCreate FOR TARGET GRID LONGITUDE."
@@ -124,7 +124,7 @@
                                    typekind=ESMF_TYPEKIND_R8, &
                                    staggerloc=ESMF_STAGGERLOC_CENTER, &
                                    name="target_grid_longitude", rc=rc)
- if(ESMF_logFoundError(rcToCheck=rc,msg=ESMF_LOGERR_PASSTHRU,line=__line__,file=__file__)) &
+ if(ESMF_logFoundError(rcToCheck=rc,msg=ESMF_LOGERR_PASSTHRU,line=__LINE__,file=__FILE__)) &
    call error_handler("IN FieldCreate", rc)
 
  allocate(longitude(i_target,j_target))
@@ -148,18 +148,18 @@
 
  print*,"- CALL FieldScatter FOR TARGET GRID LONGITUDE."
  call ESMF_FieldScatter(longitude_target_grid, longitude, rootpet=0, rc=rc)
- if(ESMF_logFoundError(rcToCheck=rc,msg=ESMF_LOGERR_PASSTHRU,line=__line__,file=__file__)) &
+ if(ESMF_logFoundError(rcToCheck=rc,msg=ESMF_LOGERR_PASSTHRU,line=__LINE__,file=__FILE__)) &
     call error_handler("IN FieldScatter", rc)
 
  print*,"- CALL FieldScatter FOR TARGET GRID LATITUDE."
  call ESMF_FieldScatter(latitude_target_grid, latitude, rootpet=0, rc=rc)
- if(ESMF_logFoundError(rcToCheck=rc,msg=ESMF_LOGERR_PASSTHRU,line=__line__,file=__file__)) &
+ if(ESMF_logFoundError(rcToCheck=rc,msg=ESMF_LOGERR_PASSTHRU,line=__LINE__,file=__FILE__)) &
     call error_handler("IN FieldScatter", rc)
 
  print*,"- CALL GridAddCoord FOR TARGET GRID."
  call ESMF_GridAddCoord(target_grid, &
                         staggerloc=ESMF_STAGGERLOC_CENTER, rc=rc)
- if(ESMF_logFoundError(rcToCheck=rc,msg=ESMF_LOGERR_PASSTHRU,line=__line__,file=__file__)) &
+ if(ESMF_logFoundError(rcToCheck=rc,msg=ESMF_LOGERR_PASSTHRU,line=__LINE__,file=__FILE__)) &
     call error_handler("IN GridAddCoord", rc)
 
  print*,"- CALL GridGetCoord FOR TARGET GRID X-COORD."
@@ -168,7 +168,7 @@
                         staggerLoc=ESMF_STAGGERLOC_CENTER, &
                         coordDim=1, &
                         farrayPtr=lon_src_ptr, rc=rc)
- if(ESMF_logFoundError(rcToCheck=rc,msg=ESMF_LOGERR_PASSTHRU,line=__line__,file=__file__)) &
+ if(ESMF_logFoundError(rcToCheck=rc,msg=ESMF_LOGERR_PASSTHRU,line=__LINE__,file=__FILE__)) &
     call error_handler("IN GridGetCoord", rc)
 
  print*,"- CALL GridGetCoord FOR TARGET GRID Y-COORD."
@@ -179,7 +179,7 @@
                         computationalLBound=clb, &
                         computationalUBound=cub, &
                         farrayPtr=lat_src_ptr, rc=rc)
- if(ESMF_logFoundError(rcToCheck=rc,msg=ESMF_LOGERR_PASSTHRU,line=__line__,file=__file__)) &
+ if(ESMF_logFoundError(rcToCheck=rc,msg=ESMF_LOGERR_PASSTHRU,line=__LINE__,file=__FILE__)) &
     call error_handler("IN GridGetCoord", rc)
 
  do j = clb(2), cub(2)
@@ -196,7 +196,7 @@
  print*,"- CALL GridAddCoord FOR TARGET GRID."
  call ESMF_GridAddCoord(target_grid, &
                         staggerloc=ESMF_STAGGERLOC_CORNER, rc=rc)
- if(ESMF_logFoundError(rcToCheck=rc,msg=ESMF_LOGERR_PASSTHRU,line=__line__,file=__file__)) &
+ if(ESMF_logFoundError(rcToCheck=rc,msg=ESMF_LOGERR_PASSTHRU,line=__LINE__,file=__FILE__)) &
     call error_handler("IN GridAddCoord", rc)
 
  print*,"- CALL GridGetCoord FOR TARGET GRID X-COORD."
@@ -205,7 +205,7 @@
                         staggerLoc=ESMF_STAGGERLOC_CORNER, &
                         coordDim=1, &
                         farrayPtr=lon_src_ptr, rc=rc)
- if(ESMF_logFoundError(rcToCheck=rc,msg=ESMF_LOGERR_PASSTHRU,line=__line__,file=__file__)) &
+ if(ESMF_logFoundError(rcToCheck=rc,msg=ESMF_LOGERR_PASSTHRU,line=__LINE__,file=__FILE__)) &
     call error_handler("IN GridGetCoord", rc)
 
  print*,"- CALL GridGetCoord FOR TARGET GRID Y-COORD."
@@ -216,7 +216,7 @@
                         computationalLBound=clb, &
                         computationalUBound=cub, &
                         farrayPtr=lat_src_ptr, rc=rc)
- if(ESMF_logFoundError(rcToCheck=rc,msg=ESMF_LOGERR_PASSTHRU,line=__line__,file=__file__)) &
+ if(ESMF_logFoundError(rcToCheck=rc,msg=ESMF_LOGERR_PASSTHRU,line=__LINE__,file=__FILE__)) &
     call error_handler("IN GridGetCoord", rc)
 
  do j = clb(2), cub(2)

@@ -1,0 +1,16 @@
+#%Module#####################################################
+## Build module for linux host with hpc-stack
+#############################################################
+
+# Replace the following line to your installation of hpc-stack OR
+# paste it in the terminal
+#module use $HOME/opt/modules/modulefiles/stack
+
+module load hpc
+module load hpc-gnu
+module load hpc-openmpi
+
+module load gldas.common
+
+setenv CC mpicc
+setenv FC mpifort

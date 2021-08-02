@@ -1,2 +1,2 @@
 add_subdirectory(noah)
-add_subdirectory(noah_mp)
+add_subdirectory(noahmp)

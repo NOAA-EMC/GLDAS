@@ -40,7 +40,7 @@
  soil_type_from_input_grid = ESMF_FieldCreate(gdas_grid, &
                                      typekind=ESMF_TYPEKIND_R8, &
                                      staggerloc=ESMF_STAGGERLOC_CENTER,rc=rc)
- if(ESMF_logFoundError(rcToCheck=rc,msg=ESMF_LOGERR_PASSTHRU,line=__line__,file=__file__)) &
+ if(ESMF_logFoundError(rcToCheck=rc,msg=ESMF_LOGERR_PASSTHRU,line=__LINE__,file=__FILE__)) &
     call error_handler("IN FieldCreate", rc)
 
  print*,"- CALL FieldCreate FOR target gdas smc."
@@ -49,7 +49,7 @@
                                      staggerloc=ESMF_STAGGERLOC_CENTER, &
                                      ungriddedLBound=(/1/), &
                                      ungriddedUBound=(/lsoil/),rc=rc)
- if(ESMF_logFoundError(rcToCheck=rc,msg=ESMF_LOGERR_PASSTHRU,line=__line__,file=__file__)) &
+ if(ESMF_logFoundError(rcToCheck=rc,msg=ESMF_LOGERR_PASSTHRU,line=__LINE__,file=__FILE__)) &
     call error_handler("IN FieldCreate", rc)
 
  print*,"- CALL FieldCreate FOR target gdas slc."
@@ -58,7 +58,7 @@
                                      staggerloc=ESMF_STAGGERLOC_CENTER, &
                                      ungriddedLBound=(/1/), &
                                      ungriddedUBound=(/lsoil/),rc=rc)
- if(ESMF_logFoundError(rcToCheck=rc,msg=ESMF_LOGERR_PASSTHRU,line=__line__,file=__file__)) &
+ if(ESMF_logFoundError(rcToCheck=rc,msg=ESMF_LOGERR_PASSTHRU,line=__LINE__,file=__FILE__)) &
     call error_handler("IN FieldCreate", rc)
 
  print*,"- CALL FieldCreate FOR target gdas stc."
@@ -67,7 +67,7 @@
                                      staggerloc=ESMF_STAGGERLOC_CENTER, &
                                      ungriddedLBound=(/1/), &
                                      ungriddedUBound=(/lsoil/),rc=rc)
- if(ESMF_logFoundError(rcToCheck=rc,msg=ESMF_LOGERR_PASSTHRU,line=__line__,file=__file__)) &
+ if(ESMF_logFoundError(rcToCheck=rc,msg=ESMF_LOGERR_PASSTHRU,line=__LINE__,file=__FILE__)) &
     call error_handler("IN FieldCreate", rc)
 
 !----------------------------------------------------------------------------
@@ -78,7 +78,7 @@
  call ESMF_GridAddItem(gdas_grid, &
                        itemflag=ESMF_GRIDITEM_MASK, &
                        staggerloc=ESMF_STAGGERLOC_CENTER, rc=rc)
- if(ESMF_logFoundError(rcToCheck=rc,msg=ESMF_LOGERR_PASSTHRU,line=__line__,file=__file__)) &
+ if(ESMF_logFoundError(rcToCheck=rc,msg=ESMF_LOGERR_PASSTHRU,line=__LINE__,file=__FILE__)) &
     call error_handler("IN GridAddItem", rc)
 
  print*,"- CALL GridGetItem FOR TARGET GRID."
@@ -86,21 +86,21 @@
  call ESMF_GridGetItem(gdas_grid, &
                        itemflag=ESMF_GRIDITEM_MASK, &
                        farrayPtr=mask_target_ptr, rc=rc)
- if(ESMF_logFoundError(rcToCheck=rc,msg=ESMF_LOGERR_PASSTHRU,line=__line__,file=__file__)) &
+ if(ESMF_logFoundError(rcToCheck=rc,msg=ESMF_LOGERR_PASSTHRU,line=__LINE__,file=__FILE__)) &
     call error_handler("IN GridGetItem", rc)
 
  call ESMF_FieldGet(lsmask_target_grid, farrayPtr=lsmask_target_ptr, rc=rc)
- if(ESMF_logFoundError(rcToCheck=rc,msg=ESMF_LOGERR_PASSTHRU,line=__line__,file=__file__)) &
+ if(ESMF_logFoundError(rcToCheck=rc,msg=ESMF_LOGERR_PASSTHRU,line=__LINE__,file=__FILE__)) &
     call error_handler("IN GridGetItem", rc)
 
-!mask_target_ptr = 1  
+!mask_target_ptr = 1
  mask_target_ptr = lsmask_target_ptr
 
  print*,"- CALL GridAddItem FOR INPUT GRID."
  call ESMF_GridAddItem(gldas_grid, &
                        itemflag=ESMF_GRIDITEM_MASK, &
                        staggerloc=ESMF_STAGGERLOC_CENTER, rc=rc)
- if(ESMF_logFoundError(rcToCheck=rc,msg=ESMF_LOGERR_PASSTHRU,line=__line__,file=__file__)) &
+ if(ESMF_logFoundError(rcToCheck=rc,msg=ESMF_LOGERR_PASSTHRU,line=__LINE__,file=__FILE__)) &
     call error_handler("IN GridAddItem", rc)
 
  print*,"- CALL GridGetItem FOR INPUT GRID."
@@ -108,11 +108,11 @@
  call ESMF_GridGetItem(gldas_grid, &
                        itemflag=ESMF_GRIDITEM_MASK, &
                        farrayPtr=mask_input_ptr, rc=rc)
- if(ESMF_logFoundError(rcToCheck=rc,msg=ESMF_LOGERR_PASSTHRU,line=__line__,file=__file__)) &
+ if(ESMF_logFoundError(rcToCheck=rc,msg=ESMF_LOGERR_PASSTHRU,line=__LINE__,file=__FILE__)) &
     call error_handler("IN GridGetItem", rc)
 
  call ESMF_FieldGet(lsmask_input_grid, farrayPtr=lsmask_input_ptr, rc=rc)
- if(ESMF_logFoundError(rcToCheck=rc,msg=ESMF_LOGERR_PASSTHRU,line=__line__,file=__file__)) &
+ if(ESMF_logFoundError(rcToCheck=rc,msg=ESMF_LOGERR_PASSTHRU,line=__LINE__,file=__FILE__)) &
     call error_handler("IN GridGetItem", rc)
 
 !mask_input_ptr = 1
@@ -132,7 +132,7 @@
                             routehandle=regrid_land, &
                             regridmethod=method, &
                             unmappedDstList=unmapped_ptr, rc=rc)
- if(ESMF_logFoundError(rcToCheck=rc,msg=ESMF_LOGERR_PASSTHRU,line=__line__,file=__file__)) &
+ if(ESMF_logFoundError(rcToCheck=rc,msg=ESMF_LOGERR_PASSTHRU,line=__LINE__,file=__FILE__)) &
     call error_handler("IN FieldRegridStore", rc)
 
  print*,"- CALL Field_Regrid for soil type."
@@ -140,7 +140,7 @@
                        soil_type_from_input_grid, &
                        routehandle=regrid_land, &
                        termorderflag=ESMF_TERMORDER_SRCSEQ, rc=rc)
- if(ESMF_logFoundError(rcToCheck=rc,msg=ESMF_LOGERR_PASSTHRU,line=__line__,file=__file__)) &
+ if(ESMF_logFoundError(rcToCheck=rc,msg=ESMF_LOGERR_PASSTHRU,line=__LINE__,file=__FILE__)) &
     call error_handler("IN FieldRegrid", rc)
 
  print*,"- CALL Field_Regrid for soil temp."
@@ -148,7 +148,7 @@
                        soil_temp_target_grid, &
                        routehandle=regrid_land, &
                        termorderflag=ESMF_TERMORDER_SRCSEQ, rc=rc)
- if(ESMF_logFoundError(rcToCheck=rc,msg=ESMF_LOGERR_PASSTHRU,line=__line__,file=__file__)) &
+ if(ESMF_logFoundError(rcToCheck=rc,msg=ESMF_LOGERR_PASSTHRU,line=__LINE__,file=__FILE__)) &
     call error_handler("IN FieldRegrid", rc)
 
  print*,"- CALL Field_Regrid for slc."
@@ -156,7 +156,7 @@
                        soilm_liq_target_grid, &
                        routehandle=regrid_land, &
                        termorderflag=ESMF_TERMORDER_SRCSEQ, rc=rc)
- if(ESMF_logFoundError(rcToCheck=rc,msg=ESMF_LOGERR_PASSTHRU,line=__line__,file=__file__)) &
+ if(ESMF_logFoundError(rcToCheck=rc,msg=ESMF_LOGERR_PASSTHRU,line=__LINE__,file=__FILE__)) &
     call error_handler("IN FieldRegrid", rc)
 
  print*,"- CALL Field_Regrid for smc."
@@ -164,7 +164,7 @@
                        soilm_tot_target_grid, &
                        routehandle=regrid_land, &
                        termorderflag=ESMF_TERMORDER_SRCSEQ, rc=rc)
- if(ESMF_logFoundError(rcToCheck=rc,msg=ESMF_LOGERR_PASSTHRU,line=__line__,file=__file__)) &
+ if(ESMF_logFoundError(rcToCheck=rc,msg=ESMF_LOGERR_PASSTHRU,line=__LINE__,file=__FILE__)) &
     call error_handler("IN FieldRegrid", rc)
 
 ! rescale soil moisture
@@ -179,7 +179,7 @@
 
  subroutine set_gdas_mask(localpet)
 
- use netcdf 
+ use netcdf
 
  implicit none
 
@@ -200,21 +200,21 @@
  veg_greenness_target_grid = ESMF_FieldCreate(gdas_grid, &
                                      typekind=ESMF_TYPEKIND_R8, &
                                      staggerloc=ESMF_STAGGERLOC_CENTER,rc=rc)
- if(ESMF_logFoundError(rcToCheck=rc,msg=ESMF_LOGERR_PASSTHRU,line=__line__,file=__file__)) &
+ if(ESMF_logFoundError(rcToCheck=rc,msg=ESMF_LOGERR_PASSTHRU,line=__LINE__,file=__FILE__)) &
     call error_handler("IN FieldCreate", rc)
 
  print*,"- CALL FieldCreate FOR target landmask."
  lsmask_target_grid = ESMF_FieldCreate(gdas_grid, &
                                      typekind=ESMF_TYPEKIND_I4, &
                                      staggerloc=ESMF_STAGGERLOC_CENTER,rc=rc)
- if(ESMF_logFoundError(rcToCheck=rc,msg=ESMF_LOGERR_PASSTHRU,line=__line__,file=__file__)) &
+ if(ESMF_logFoundError(rcToCheck=rc,msg=ESMF_LOGERR_PASSTHRU,line=__LINE__,file=__FILE__)) &
     call error_handler("IN FieldCreate", rc)
 
  print*,"- CALL FieldCreate FOR target soil type."
  soil_type_target_grid = ESMF_FieldCreate(gdas_grid, &
                                      typekind=ESMF_TYPEKIND_R8, &
                                      staggerloc=ESMF_STAGGERLOC_CENTER,rc=rc)
- if(ESMF_logFoundError(rcToCheck=rc,msg=ESMF_LOGERR_PASSTHRU,line=__line__,file=__file__)) &
+ if(ESMF_logFoundError(rcToCheck=rc,msg=ESMF_LOGERR_PASSTHRU,line=__LINE__,file=__FILE__)) &
     call error_handler("IN FieldCreate", rc)
 
  if (localpet == 0) then
@@ -239,7 +239,7 @@
  gdas_files(4) = "./sfc_data.tile4.nc"
  gdas_files(5) = "./sfc_data.tile5.nc"
  gdas_files(6) = "./sfc_data.tile6.nc"
- 
+
  do tile = 1, 6
 
    if(localpet == 0) then
@@ -303,20 +303,20 @@
 
    print*,"- CALL FieldScatter FOR gdas mask."
    call ESMF_FieldScatter(lsmask_target_grid, final_mask_one_tile, rootpet=0, tile=tile, rc=rc)
-   if(ESMF_logFoundError(rcToCheck=rc,msg=ESMF_LOGERR_PASSTHRU,line=__line__,file=__file__)) &
+   if(ESMF_logFoundError(rcToCheck=rc,msg=ESMF_LOGERR_PASSTHRU,line=__LINE__,file=__FILE__)) &
     call error_handler("IN FieldScatter", rc)
-   
+
    print*,"- CALL FieldScatter FOR gdas soil type."
    call ESMF_FieldScatter(soil_type_target_grid, soilt_one_tile, rootpet=0, tile=tile, rc=rc)
-   if(ESMF_logFoundError(rcToCheck=rc,msg=ESMF_LOGERR_PASSTHRU,line=__line__,file=__file__)) &
+   if(ESMF_logFoundError(rcToCheck=rc,msg=ESMF_LOGERR_PASSTHRU,line=__LINE__,file=__FILE__)) &
     call error_handler("IN FieldScatter", rc)
 
    print*,"- CALL FieldScatter FOR gdas green."
    call ESMF_FieldScatter(veg_greenness_target_grid, green_one_tile, rootpet=0, tile=tile, rc=rc)
-   if(ESMF_logFoundError(rcToCheck=rc,msg=ESMF_LOGERR_PASSTHRU,line=__line__,file=__file__)) &
+   if(ESMF_logFoundError(rcToCheck=rc,msg=ESMF_LOGERR_PASSTHRU,line=__LINE__,file=__FILE__)) &
     call error_handler("IN FieldScatter", rc)
 
- enddo  ! tile 
+ enddo  ! tile
 
  deallocate (soilt_one_tile, mask_one_tile, snow_one_tile, soilm_one_tile, final_mask_one_tile, green_one_tile)
 
@@ -410,7 +410,7 @@
                     computationalLBound=clb, &
                     computationalUBound=cub, &
                     farrayPtr=soilm_liq_ptr, rc=rc)
- if(ESMF_logFoundError(rcToCheck=rc,msg=ESMF_LOGERR_PASSTHRU,line=__line__,file=__file__)) &
+ if(ESMF_logFoundError(rcToCheck=rc,msg=ESMF_LOGERR_PASSTHRU,line=__LINE__,file=__FILE__)) &
     call error_handler("IN FieldGet", rc)
 
  print*,"- CALL FieldGet FOR TOTAL SOIL MOISTURE."
@@ -418,7 +418,7 @@
                     computationalLBound=clb, &
                     computationalUBound=cub, &
                     farrayPtr=soilm_tot_ptr, rc=rc)
- if(ESMF_logFoundError(rcToCheck=rc,msg=ESMF_LOGERR_PASSTHRU,line=__line__,file=__file__)) &
+ if(ESMF_logFoundError(rcToCheck=rc,msg=ESMF_LOGERR_PASSTHRU,line=__LINE__,file=__FILE__)) &
     call error_handler("IN FieldGet", rc)
 
 ! this is the mask of points processed by this code - i.e., not including snow
@@ -427,25 +427,25 @@
  print*,"- CALL FieldGet FOR LAND MASK."
  call ESMF_FieldGet(lsmask_target_grid, &
                     farrayPtr=landmask_ptr, rc=rc)
- if(ESMF_logFoundError(rcToCheck=rc,msg=ESMF_LOGERR_PASSTHRU,line=__line__,file=__file__)) &
+ if(ESMF_logFoundError(rcToCheck=rc,msg=ESMF_LOGERR_PASSTHRU,line=__LINE__,file=__FILE__)) &
     call error_handler("IN FieldGet", rc)
 
  print*,"- CALL FieldGet FOR VEGETATION GREENNESS."
  call ESMF_FieldGet(veg_greenness_target_grid, &
                     farrayPtr=veg_greenness_ptr, rc=rc)
- if(ESMF_logFoundError(rcToCheck=rc,msg=ESMF_LOGERR_PASSTHRU,line=__line__,file=__file__)) &
+ if(ESMF_logFoundError(rcToCheck=rc,msg=ESMF_LOGERR_PASSTHRU,line=__LINE__,file=__FILE__)) &
     call error_handler("IN FieldGet", rc)
 
  print*,"- CALL FieldGet FOR TARGET GRID SOIL TYPE."
  call ESMF_FieldGet(soil_type_target_grid, &
                     farrayPtr=soil_type_target_ptr, rc=rc)
- if(ESMF_logFoundError(rcToCheck=rc,msg=ESMF_LOGERR_PASSTHRU,line=__line__,file=__file__)) &
+ if(ESMF_logFoundError(rcToCheck=rc,msg=ESMF_LOGERR_PASSTHRU,line=__LINE__,file=__FILE__)) &
     call error_handler("IN FieldGet", rc)
 
  print*,"- CALL FieldGet FOR SOIL TYPE FROM INPUT GRID."
  call ESMF_FieldGet(soil_type_from_input_grid, &
                     farrayPtr=soil_type_input_ptr, rc=rc)
- if(ESMF_logFoundError(rcToCheck=rc,msg=ESMF_LOGERR_PASSTHRU,line=__line__,file=__file__)) &
+ if(ESMF_logFoundError(rcToCheck=rc,msg=ESMF_LOGERR_PASSTHRU,line=__LINE__,file=__FILE__)) &
     call error_handler("IN FieldGet", rc)
 
  do j = clb(2), cub(2)
@@ -458,7 +458,7 @@
      if (landmask_ptr(i,j) == 1) then
 
         do k = 1, 4
-          percent_frozen(k) = soilm_liq_ptr(i,j,k) / soilm_tot_ptr(i,j,k) 
+          percent_frozen(k) = soilm_liq_ptr(i,j,k) / soilm_tot_ptr(i,j,k)
         enddo
 
         soilt_target = nint(soil_type_target_ptr(i,j))
@@ -532,7 +532,7 @@
 ! Range check all layers.
 !---------------------------------------------------------------------------------------------
 
- 
+
         soilm_tot_ptr(i,j,1)=min(soilm_tot_ptr(i,j,1),maxsmc(soilt_target))
         soilm_tot_ptr(i,j,1)=max(drysmc(soilt_target),soilm_tot_ptr(i,j,1))
 
@@ -543,7 +543,7 @@
           soilm_tot_ptr(i,j,k)=max(wltsmc(soilt_target),soilm_tot_ptr(i,j,k))
           soilm_liq_ptr(i,j,k) =  percent_frozen(k) * soilm_tot_ptr(i,j,k)
         enddo
-  
+
      endif ! is this a land point?
 
    enddo

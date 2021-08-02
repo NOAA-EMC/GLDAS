@@ -55,7 +55,7 @@
    print*,"- CALL FieldGather FOR gdas interp mask TILE: ", tile
    call ESMF_FieldGather(lsmask_target_grid, mask_one_tile,  &
                          rootPet=0, tile=tile, rc=error)
-   if(ESMF_logFoundError(rcToCheck=error,msg=ESMF_LOGERR_PASSTHRU,line=__line__,file=__file__)) &
+   if(ESMF_logFoundError(rcToCheck=error,msg=ESMF_LOGERR_PASSTHRU,line=__LINE__,file=__FILE__)) &
      call error_handler("IN FieldGather", error)
 
 ! output interpolated soil type - only for diagnostic purposes.
@@ -64,7 +64,7 @@
    print*,"- CALL FieldGather FOR TILE: ", tile
    call ESMF_FieldGather(soil_type_from_input_grid, data_one_tile,  &
                          rootPet=0, tile=tile, rc=error)
-   if(ESMF_logFoundError(rcToCheck=error,msg=ESMF_LOGERR_PASSTHRU,line=__line__,file=__file__)) &
+   if(ESMF_logFoundError(rcToCheck=error,msg=ESMF_LOGERR_PASSTHRU,line=__LINE__,file=__FILE__)) &
      call error_handler("IN FieldGather", error)
 
    if (localpet == 0) then
@@ -93,7 +93,7 @@
    print*,"- CALL FieldGather FOR TILE: ", tile
    call ESMF_FieldGather(soilm_tot_target_grid, data_one_tile3d,  &
                          rootPet=0, tile=tile, rc=error)
-   if(ESMF_logFoundError(rcToCheck=error,msg=ESMF_LOGERR_PASSTHRU,line=__line__,file=__file__)) &
+   if(ESMF_logFoundError(rcToCheck=error,msg=ESMF_LOGERR_PASSTHRU,line=__LINE__,file=__FILE__)) &
      call error_handler("IN FieldGather", error)
 
    if (localpet == 0) then
@@ -117,11 +117,11 @@
      error = nf90_put_var(ncid, id_var, dum3d)
      call netcdf_err(error, 'writing smc')
    endif
-     
+
    print*,"- CALL FieldGather FOR TILE: ", tile
    call ESMF_FieldGather(soilm_liq_target_grid, data_one_tile3d,  &
                          rootPet=0, tile=tile, rc=error)
-   if(ESMF_logFoundError(rcToCheck=error,msg=ESMF_LOGERR_PASSTHRU,line=__line__,file=__file__)) &
+   if(ESMF_logFoundError(rcToCheck=error,msg=ESMF_LOGERR_PASSTHRU,line=__LINE__,file=__FILE__)) &
      call error_handler("IN FieldGather", error)
 
    if (localpet == 0) then
@@ -150,7 +150,7 @@
    print*,"- CALL FieldGather FOR TILE: ", tile
    call ESMF_FieldGather(soil_temp_target_grid, data_one_tile3d,  &
                          rootPet=0, tile=tile, rc=error)
-   if(ESMF_logFoundError(rcToCheck=error,msg=ESMF_LOGERR_PASSTHRU,line=__line__,file=__file__)) &
+   if(ESMF_logFoundError(rcToCheck=error,msg=ESMF_LOGERR_PASSTHRU,line=__LINE__,file=__FILE__)) &
      call error_handler("IN FieldGather", error)
 
    if (localpet == 0) then
