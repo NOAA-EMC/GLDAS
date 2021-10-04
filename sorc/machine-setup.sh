@@ -27,7 +27,6 @@ if [[ -d /lfs3 ]] ; then
     fi
     target=jet
     module purge
-    module use /mnt/lfs3/projects/hfv3gfs/nwprod/lib/modulefiles
 elif [[ -d /scratch1 ]] ; then
     # We are on NOAA Hera
     if ( ! eval module help > /dev/null 2>&1 ) ; then
@@ -127,6 +126,10 @@ elif [[ -d /lustre && -d /ncrc ]] ; then
         source /etc/profile
     fi
     target=gaea
+    module purge
+elif [[ -d /data/prod ]] ; then
+    # We are on SSEC S4
+    target=s4
     module purge
 else
     echo WARNING: UNKNOWN PLATFORM 1>&2
