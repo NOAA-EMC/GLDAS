@@ -86,6 +86,16 @@ elif [[ -L /usrx && "$( readlink /usrx 2> /dev/null )" =~ dell ]] ; then
     target=wcoss_dell_p3
     module purge
 
+elif [[ -d /lfs/h2 ]] ; then
+    # We are on NOAA Cactus or Dogwood
+    if ( ! eval module help > /dev/null 2>&1 ) ; then
+        echo load the module command 1>&2
+        source /usr/share/lmod/lmod/init/$__ms_shell
+    fi
+    target=wcoss2
+    module purge
+    module load envvar/1.0
+
 elif [[ -d /dcom && -d /hwrf ]] ; then
     # We are on NOAA Tide or Gyre
     if ( ! eval module help > /dev/null 2>&1 ) ; then
@@ -114,6 +124,10 @@ elif [[ -d /lustre && -d /ncrc ]] ; then
       source /etc/profile
     fi
     target=gaea
+    module purge
+elif [[ -d /data/prod ]] ; then
+    # We are on SSEC S4
+    target=s4
     module purge
 else
     echo WARNING: UNKNOWN PLATFORM 1>&2
