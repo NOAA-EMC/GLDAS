@@ -7,13 +7,19 @@ cwd=`pwd`
 USE_PREINST_LIBS=${USE_PREINST_LIBS:-"true"}
 if [ $USE_PREINST_LIBS = true ]; then
   export MOD_PATH
-  source ../modulefiles/gldas2gdas.$target             > /dev/null 2>&1
+  module purge
+  module use ../modulefiles
+  module load gldas2gdas.$target             > /dev/null 2>&1
 else
   export MOD_PATH=${cwd}/lib/modulefiles
   if [ $target = wcoss_cray ]; then
-    source ../modulefiles/gldas2gdas.${target}_userlib > /dev/null 2>&1
+    module purge
+    module use ../modulefiles
+    module load gldas2gdas.${target}_userlib > /dev/null 2>&1
   else
-    source ../modulefiles/gldas2gdas.$target           > /dev/null 2>&1
+    module purge
+    module use ../modulefiles
+    module load gldas2gdas.$target           > /dev/null 2>&1
   fi
 fi
 
@@ -26,6 +32,9 @@ fi
 # --- Chgres part
 #
 cd gldas2gdas.fd
+
+export FCOMP=ftn
+export FFLAGS="-O3 -fp-model precise -g -traceback -r8 -i4 -qopenmp -convert big_endian -assume byterecl"
 
 make clean
 make
