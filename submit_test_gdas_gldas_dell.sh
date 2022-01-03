@@ -26,6 +26,7 @@ export npe_gaussian=6
 export npe_gldas=112
 export APRUN_GAUSSIAN="$launcher $npe_gaussian"
 export APRUN_GLDAS="$launcher $npe_gldas"
+export USE_CFP="YES"
 
 export CDATE=${CDATE:-2019110700}
 
@@ -82,12 +83,13 @@ export jobid=${job}.${pid}
 ##############################################
 if [ $envir = "prod" ] ; then
 #  This setting is for testing with GDAS (production)
-  export HOMEgldas=/nwprod/gldas.${gldas_ver}
-  export COMIN=/gpfs/dell1/nco/ops/com/gfs/prod/${RUN}.${PDY}         ### NCO PROD
-  export COMROOT=/gpfs/dell1/nco/ops/com
-  export DCOMROOT=/gpfs/dell1/nco/ops/dcom
+  export HOMEgldas=/ops/prod/packages/gldas.${gldas_ver}
+  export COMIN=/lfs/h1/ops/prod/com/gfs/prod/${RUN}.${PDY}         ### NCO PROD
+  export COMROOT=/lfs/h1/ops/prod/com/gfs/prod
+  export DCOMROOT=/lfs/h1/ops/prod/dcom
 elif [ $envir = "para" ] ; then
 #  This setting is for testing with GDAS (production)
+# will be updated when we have para on wcoss2
   export HOMEgldas=/gpfs/dell2/emc/retros/noscrub/$LOGNAME/GLDAS
   export COMIN=/gpfs/dell1/nco/ops/com/gfs/prod/${RUN}.${PDY}         ### NCO PROD
   export COMROOT=/gpfs/dell1/nco/ops/com

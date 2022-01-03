@@ -11,7 +11,7 @@
 # HOMEgldas - software directory
 # COMDIR - output archive directory
 # RUNDIR - run directory
-# GDAS   - /gpfs/dell1/nco/ops/com/gfs/prod
+# GDAS   - /lfs/h1/ops/prod/com/gfs/prod
 #
 # gldas runs 72 hrs, from day1.00z to day4.00z
 # first 36 hr obs precip forcing

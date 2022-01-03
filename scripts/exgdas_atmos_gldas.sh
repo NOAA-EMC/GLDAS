@@ -20,15 +20,15 @@ fi
 #################################
 # Set up UTILITIES
 #################################
-export FINDDATE=${FINDDATE:-/gpfs/dell1/nco/ops/nwprod/prod_util.v1.1.4/ush/finddate.sh}
-export utilexec=${utilexec:-/gpfs/dell1/nco/ops/nwprod/grib_util.v1.1.0/exec}
+export FINDDATE=${FINDDATE:-/apps/ops/prod/nco/core/prod_util.v2.0.13/ush/finddate.sh}
+export utilexec=${utilexec:-/apps/ops/prod/libs/intel/19.1.3.304/grib_util/1.2.3/bin}
 export CNVGRIB=${CNVGRIB:-$utilexec/cnvgrib}
 export WGRIB=${WGRIB:-$utilexec/wgrib}
-export WGRIB2=${WGRIB2:-$utilexec/wgrib2}
+export WGRIB2=${WGRIB2:-/apps/ops/prod/libs/intel/19.1.3.304/wgrib2/2.0.7/bin/wgrib2}
 export COPYGB=${COPYGB:-$utilexec/copygb}
-export NDATE=${NDATE:-/gpfs/dell1/nco/ops/nwprod/prod_util.v1.1.0/exec/ips/ndate}
-export DCOMIN=${DCOMIN:-${DCOMROOT:-"/gpfs/dell1/nco/ops/dcom"}}
-export CPCGAUGE=${CPCGAUGE:-/gpfs/dell3/emc/global/dump}
+export NDATE=${NDATE:-/apps/ops/prod/nco/core/prod_util.v2.0.13/exec/ndate}
+export DCOMIN=${DCOMIN:-${DCOMROOT:-"/lfs/h1/ops/prod/dcom"}}
+export CPCGAUGE=${CPCGAUGE:-/lfs/h2/emc/global/noscrub/Kate.Friedman/dump}
 export COMINgdas=${COMINgdas:-$ROTDIR}
 export OFFLINE_GLDAS=${OFFLINE_GLDAS:-"NO"}
 export ERRSCRIPT=${ERRSCRIPT:-'eval [[ $err = 0 ]]'}
@@ -37,6 +37,7 @@ export ERRSCRIPT=${ERRSCRIPT:-'eval [[ $err = 0 ]]'}
 #################################
 # Set up the running environment
 #################################
+export USE_CFP=${USE_CFP:-"NO"}
 export COMPONENT=${COMPONENT:-atmos}
 export assim_freq=${assim_freq:-6}
 export gldas_spinup_hours=${gldas_spinup_hours:-72}
@@ -129,14 +130,14 @@ ymdpre=`sh $FINDDATE $gldas_symd d-1`
 ymdend=`sh $FINDDATE $gldas_eymd d-2`
 ymd=$ymdpre
 
-if [ $machine = "WCOSS_DELL_P3" ] ; then
+if [ $USE_CFP = "YES" ] ; then
   rm -f ./cfile
   touch ./cfile
 fi
 
 while [ $ymd -le $ymdend ]; do
   if [ $ymd -ne $ymdpre ]; then
-    if [ $machine = "WCOSS_DELL_P3" ] ; then
+    if [ $USE_CFP = "YES" ] ; then
       echo "$COPYGB -i3 '-g"$gds"' -x $GDAS/cpc.$ymd/precip.gldas.${ymd}00 $RUNDIR/cmap.gdas.${ymd}00" >> ./cfile
       echo "$COPYGB -i3 '-g"$gds"' -x $GDAS/cpc.$ymd/precip.gldas.${ymd}06 $RUNDIR/cmap.gdas.${ymd}06" >> ./cfile
     else
@@ -145,7 +146,7 @@ while [ $ymd -le $ymdend ]; do
     fi
   fi
   if [ $ymd -ne $ymdend ]; then 
-    if [ $machine = "WCOSS_DELL_P3" ] ; then
+    if [ $USE_CFP = "YES" ] ; then
       echo "$COPYGB -i3 '-g"$gds"' -x $GDAS/cpc.$ymd/precip.gldas.${ymd}12 $RUNDIR/cmap.gdas.${ymd}12" >> ./cfile
       echo "$COPYGB -i3 '-g"$gds"' -x $GDAS/cpc.$ymd/precip.gldas.${ymd}18 $RUNDIR/cmap.gdas.${ymd}18" >> ./cfile
     else
@@ -156,7 +157,7 @@ while [ $ymd -le $ymdend ]; do
   ymd=`sh $FINDDATE $ymd d+1`
 done
 
-if [ $machine = "WCOSS_DELL_P3" ] ; then
+if [ $USE_CFP = "YES" ] ; then
   $APRUN_GLDAS_DATA_PROC ./cfile
 fi
 
