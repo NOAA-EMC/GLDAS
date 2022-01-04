@@ -72,7 +72,7 @@ sflux=$fpath/gdas.${sdate}/gdas1.t06z.sfluxgrbf06
 prate=gdas.${sdate}06
 $WGRIB -s $sflux | grep "PRATE:sfc" | $WGRIB -i $sflux -grib -o $prate
 
-if [ $machine = "WCOSS_DELL_P3" ] ; then
+if [ $USE_CFP = "YES" ] ; then
   rm -f ./cfile
   touch ./cfile
   echo "$COPYGB -i3 '-g255 0 2881 1441 90000 0 128 -90000 360000 125 125' -x gdas.${sdat0}12 grib.12" >> ./cfile
