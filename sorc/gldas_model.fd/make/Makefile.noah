@@ -65,7 +65,7 @@ debug: $(OBJS)
 # ZEUS/GAEA/Eddy/Tide
 #----------------------------------------------------------------
 
-ifeq ($(target),wcoss_cray)
+ifeq ($(target),wcoss2)
   FC           = ftn
   CC           = cc
 else
