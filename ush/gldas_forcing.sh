@@ -41,7 +41,7 @@ cd $xpath
 rm -f fort.* grib.*
 
 pathp1=$CPCGAUGE/gdas.$sdate/00
-pathp2=$DCOMIN/prod/$sdate/wgrbbul/cpc_rcdas
+pathp2=$DCOMIN/$sdate/wgrbbul/cpc_rcdas
 yyyy=`echo $sdate |cut -c 1-4`
 cpc_precip="PRCP_CU_GAUGE_V1.0GLB_0.125deg.lnx.$sdate.RT"
 if [ $RUN_ENVIR = "emc" ] && [ $sdate -gt $bdate ]; then 
