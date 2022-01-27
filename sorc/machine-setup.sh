@@ -26,7 +26,7 @@ if [[ -d /lfs3 ]] ; then
         source /apps/lmod/lmod/init/$__ms_shell
     fi
     target=jet
-    module reset
+    module purge
 elif [[ -d /scratch1 ]] ; then
     # We are on NOAA Hera
     if ( ! eval module help > /dev/null 2>&1 ) ; then
@@ -34,7 +34,7 @@ elif [[ -d /scratch1 ]] ; then
         source /apps/lmod/lmod/init/$__ms_shell
     fi
     target=hera
-    module reset
+    module purge
     MOD_PATH=/scratch2/NCEPDEV/nwprod/NCEPLIBS/modulefiles
 elif [[ -d /work ]] ; then
     # We are on Orion 
@@ -43,7 +43,7 @@ elif [[ -d /work ]] ; then
         source /apps/lmod/lmod/init/$__ms_shell
     fi
     target=orion
-    module reset
+    module purge
     MOD_PATH=/apps/contrib/NCEPLIBS/orion/modulefiles
 elif [[ -d /gpfs/hps && -e /etc/SuSE-release ]] ; then
     # We are on NOAA Luna or Surge
@@ -86,7 +86,7 @@ elif [[ -L /usrx && "$( readlink /usrx 2> /dev/null )" =~ dell ]] ; then
 	source /usrx/local/prod/lmod/lmod/init/$__ms_shell
     fi
     target=wcoss_dell_p3
-    module reset 
+    module purge
 
 elif [[ -d /lfs/h2 ]] ; then
     # We are on NOAA Cactus or Dogwood
@@ -104,7 +104,7 @@ elif [[ -d /dcom && -d /hwrf ]] ; then
         source /usrx/local/Modules/default/init/$__ms_shell
     fi
     target=wcoss
-    module reset
+    module purge
 elif [[ -d /glade ]] ; then
     # We are on NCAR Yellowstone
     if ( ! eval module help > /dev/null 2>&1 ) ; then
@@ -112,7 +112,7 @@ elif [[ -d /glade ]] ; then
         . /usr/share/Modules/init/$__ms_shell
     fi
     target=yellowstone
-    module reset
+    module purge
 elif [[ -d /lustre && -d /ncrc ]] ; then
     # We are on GAEA. 
     if ( ! eval module help > /dev/null 2>&1 ) ; then
@@ -125,11 +125,11 @@ elif [[ -d /lustre && -d /ncrc ]] ; then
         source /etc/profile
     fi
     target=gaea
-    module reset
+    module purge
 elif [[ -d /data/prod ]] ; then
     # We are on SSEC S4
     target=s4
-    module reset
+    module purge
 else
     echo WARNING: UNKNOWN PLATFORM 1>&2
 fi
