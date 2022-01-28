@@ -44,7 +44,12 @@ elif [ $target = wcoss_cray ]; then
 else
    export FC=ifort
 fi
+
+if [ $target = s4 ]; then
+export FOPTS="-march=ivybridge -O0 -FR"
+else
 export FOPTS="-O0 -FR"
+fi
 
 make clean
 make

@@ -53,9 +53,9 @@ elif [[ -d /gpfs/hps && -e /etc/SuSE-release ]] ; then
     fi
     target=wcoss_cray
 
-    # Silence the "module reset" to avoid the expected error messages
+    # Silence the "module purge" to avoid the expected error messages
     # related to modules that load modules.
-    module reset > /dev/null 2>&1
+    module purge > /dev/null 2>&1
     module use /usrx/local/prod/modulefiles
     module use /gpfs/hps/nco/ops/nwprod/lib/modulefiles
     module use /gpfs/hps/nco/ops/nwprod/modulefiles
@@ -63,7 +63,7 @@ elif [[ -d /gpfs/hps && -e /etc/SuSE-release ]] ; then
     module use /opt/cray/craype/default/alt-modulefiles
     module use /opt/cray/ari/modulefiles
     module use /opt/modulefiles
-    module reset > /dev/null 2>&1
+    module purge > /dev/null 2>&1
 
     # Workaround until module issues are fixed:
     #unset _LMFILES_
@@ -87,6 +87,7 @@ elif [[ -L /usrx && "$( readlink /usrx 2> /dev/null )" =~ dell ]] ; then
     fi
     target=wcoss_dell_p3
     module purge
+
 
 elif [[ -d /lfs/h2 ]] ; then
     # We are on NOAA Cactus or Dogwood

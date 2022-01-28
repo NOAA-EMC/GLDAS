@@ -8,6 +8,3 @@ module load hpc-intel/2018.4
 
 module load w3nco/2.4.1
 module load bacio/2.4.1
-
-export FC=ifort
-export FOPTS="-O0 -FR"

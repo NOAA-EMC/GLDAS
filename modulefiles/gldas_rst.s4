@@ -12,6 +12,3 @@ module load w3nco/2.4.1
 module load w3emc/2.7.3
 module load bacio/2.4.1
 module load nemsio/2.5.2
-
-export FC=ifort
-export FOPTS='-march=ivybridge -O -FR -I$(NEMSIO_INC) -convert big_endian'

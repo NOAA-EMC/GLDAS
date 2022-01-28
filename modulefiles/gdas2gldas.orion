@@ -13,7 +13,4 @@ module load bacio/2.4.1
 module load sp/2.3.3
 
 module load netcdf/4.7.4
-module load esmf/8.1.1 
-
-export FCOMP=mpiifort
-export FFLAGS="-O3 -fp-model precise -g -traceback -r8 -i4 -qopenmp -convert big_endian -assume byterecl"
+module load esmf/8_2_0_beta_snapshot_14
