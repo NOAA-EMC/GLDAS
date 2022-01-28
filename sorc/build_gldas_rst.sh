@@ -41,7 +41,12 @@ elif [ $target = wcoss_cray ]; then
 else
    export FC=ifort
 fi
+
+if [ $target = s4 ]; then
+export FOPTS='-march=ivybridge -O -FR -I$(NEMSIO_INC) -convert big_endian'
+else
 export FOPTS='-O -FR -I$(NEMSIO_INC) -convert big_endian'
+fi
 
 make clean
 make

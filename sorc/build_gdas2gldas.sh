@@ -46,7 +46,12 @@ elif [ $target = wcoss_dell_p3 ]; then
 else
    export FCOMP=mpiifort
 fi
-export FFLAGS="-O3 -fp-model precise -g -traceback -r8 -i4 -qopenmp -convert big_endian -assume byterecl"
+
+if [ $target = s4 ]; then
+   export FFLAGS="-march=ivybridge -O3 -fp-model precise -g -traceback -r8 -i4 -qopenmp -convert big_endian -assume byterecl"
+else
+   export FFLAGS="-O3 -fp-model precise -g -traceback -r8 -i4 -qopenmp -convert big_endian -assume byterecl"
+fi
 
 make clean
 make
