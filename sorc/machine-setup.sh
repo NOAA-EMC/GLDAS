@@ -86,7 +86,8 @@ elif [[ -L /usrx && "$( readlink /usrx 2> /dev/null )" =~ dell ]] ; then
 	source /usrx/local/prod/lmod/lmod/init/$__ms_shell
     fi
     target=wcoss_dell_p3
-    module purge 
+    module purge
+
 
 elif [[ -d /lfs/h2 ]] ; then
     # We are on NOAA Cactus or Dogwood
