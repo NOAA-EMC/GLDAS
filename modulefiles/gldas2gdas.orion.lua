@@ -2,15 +2,15 @@ help([[
 Load environment to run GLDAS on Orion
 ]])
 
-prepend_path("MODULEPATH", "/apps/contrib/NCEP/libs/hpc-stack/modulefiles/stack")
+prepend_path("MODULEPATH", "/apps/contrib/NCEP/libs/hpc-stack-gfsv16/modulefiles/stack")
 
-hpc_ver=os.getenv("hpc_ver") or "1.1.0"
+hpc_ver=os.getenv("hpc_ver") or "1.2.0"
 load(pathJoin("hpc", hpc_ver))
 
-hpc_intel_ver=os.getenv("hpc_intel_ver") or "2018.4"
+hpc_intel_ver=os.getenv("hpc_intel_ver") or "2022.1.2"
 load(pathJoin("hpc-intel", hpc_intel_ver))
 
-impi_ver=os.getenv("impi_ver") or "2018.4"
+impi_ver=os.getenv("impi_ver") or "2022.1.2"
 load(pathJoin("hpc-impi", impi_ver))
 
 w3nco_ver=os.getenv("w3nco_ver") or "2.4.1"
@@ -24,7 +24,7 @@ load(pathJoin("sp", sp_ver))
 
 hdf5_ver=os.getenv("hdf5_ver") or "1.10.6"
 netcdf_ver=os.getenv("netcdf_ver") or "4.7.4"
-esmf_ver=os.getenv("esmf_ver") or "8_2_0"
+esmf_ver=os.getenv("esmf_ver") or "8_0_1"
 
 load(pathJoin("hdf5", hdf5_ver))
 load(pathJoin("netcdf", netcdf_ver))
