@@ -28,7 +28,7 @@ export WGRIB2=${WGRIB2:-/apps/ops/prod/libs/intel/19.1.3.304/wgrib2/2.0.7/bin/wg
 export COPYGB=${COPYGB:-$utilexec/copygb}
 export NDATE=${NDATE:-/apps/ops/prod/nco/core/prod_util.v2.0.13/exec/ndate}
 export DCOMIN=${DCOMIN:-${DCOMROOT:-"/lfs/h1/ops/prod/dcom"}}
-export CPCGAUGE=${CPCGAUGE:-/lfs/h2/emc/global/noscrub/Kate.Friedman/dump}
+export CPCGAUGE=${CPCGAUGE:-/lfs/h2/emc/global/noscrub/emc.global/dump}
 export COMINgdas=${COMINgdas:-$ROTDIR}
 export OFFLINE_GLDAS=${OFFLINE_GLDAS:-"NO"}
 export ERRSCRIPT=${ERRSCRIPT:-'eval [[ $err = 0 ]]'}
