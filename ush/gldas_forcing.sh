@@ -40,7 +40,8 @@ sdat0=`sh $FINDDATE $sdate d-1`
 cd $xpath
 rm -f fort.* grib.*
 
-pathp1=$CPCGAUGE/gdas.$sdate/00
+COMPONENT=${COMPONENT:-"atmos"}
+pathp1=$CPCGAUGE/gdas.$sdate/00/$COMPONENT
 pathp2=$DCOMIN/$sdate/wgrbbul/cpc_rcdas
 yyyy=`echo $sdate |cut -c 1-4`
 cpc_precip="PRCP_CU_GAUGE_V1.0GLB_0.125deg.lnx.$sdate.RT"
