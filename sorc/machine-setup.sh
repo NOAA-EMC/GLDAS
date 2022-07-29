@@ -93,8 +93,7 @@ elif [[ -d /lfs/h2 ]] ; then
         source /usr/share/lmod/lmod/init/$__ms_shell
     fi
     target=wcoss2
-    module purge
-    module load envvar/1.0
+    module reset
 
 elif [[ -d /dcom && -d /hwrf ]] ; then
     # We are on NOAA Tide or Gyre

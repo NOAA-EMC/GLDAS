@@ -70,9 +70,6 @@ export pgmerr=errfile
 export CDATE=${CDATE:-${PDY}${cyc}}
 export CDUMP=${CDUMP:-${RUN:-"gdas"}}
 export COMPONENT=${COMPONENT:-atmos}
-if [ $RUN_ENVIR = "nco" ]; then
-    export ROTDIR=${COMROOT:?}/$NET/$envir
-fi
 
 
 ##############################################
@@ -96,7 +93,7 @@ fi
 [[ ! -d $COMOUT ]] && mkdir -m 775 -p $COMOUT
 
 export COMINgdas=${COMINgdas:-$ROTDIR}
-export DCOMIN=${DCOMIN:-${DCOMROOT:-"/gpfs/dell1/nco/ops/dcom"}}
+export DCOMIN=${DCOMIN:-${DCOMROOT:-"/lfs/h1/ops/prod/dcom"}}
 
 export model=${model:-noah}
 export MODEL=${MODEL:-`echo $model |tr '[a-z]' '[A-Z]'`}
@@ -106,7 +103,6 @@ export MODEL=${MODEL:-`echo $model |tr '[a-z]' '[A-Z]'`}
 # Run relevant exglobal script
 env
 msg="HAS BEGUN on `hostname`"
-postmsg "$jlogfile" "$msg"
 $LOGSCRIPT
 
 ${GLDASSH:-$HOMEgldas/scripts/exgdas_atmos_gldas.sh}
@@ -125,7 +121,6 @@ if [ -e "$pgmout" ] ; then
 fi
 
 msg="ENDED NORMALLY."
-postmsg "$jlogfile" "$msg"
 
 ##########################################
 # Remove the Temporary working directory
